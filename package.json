@@ -1,0 +1,11 @@
+{
+  "name": "team-ktv-technology-and-digital",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node js/script.js"
+  },
+  "dependencies": {
+    "msedge-tts": "^2.0.9"
+  }
+}
