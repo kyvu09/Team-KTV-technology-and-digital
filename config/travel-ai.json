@@ -7,12 +7,15 @@
     "favicon": ""
   },
   "theme": {
-    "primary": "#19C6A3",
-    "secondary": "#4F8CFF",
-    "background": "#071B25",
-    "text": "#F4FBFA",
-    "muted": "#9BB4B8",
-    "accent": "#FFD166"
+    "primary": "#19A982",
+    "accent": "#F2A93B",
+    "background": "#FAF7EF",
+    "surface": "#EFE8D8",
+    "text": "#26352F",
+    "textMuted": "#718078",
+    "fontHeading": "Sora",
+    "fontBody": "Nunito",
+    "radius": "18px"
   },
   "hero": {
     "badge": "AI Travel Assistant",

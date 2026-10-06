@@ -8,11 +8,14 @@
   },
   "theme": {
     "primary": "#5B8CFF",
-    "secondary": "#9B6DFF",
-    "background": "#08152E",
-    "text": "#F6F8FF",
-    "muted": "#9CAAC5",
-    "accent": "#35D6B4"
+    "accent": "#9B6DFF",
+    "background": "#F4F7FF",
+    "surface": "#E8EEFF",
+    "text": "#18233A",
+    "textMuted": "#68758D",
+    "fontHeading": "Sora",
+    "fontBody": "Nunito",
+    "radius": "18px"
   },
   "hero": {
     "badge": "AI Education Platform",

@@ -8,11 +8,14 @@
   },
   "theme": {
     "primary": "#42B8FF",
-    "secondary": "#8B7CFF",
+    "accent": "#8B7CFF",
     "background": "#071226",
+    "surface": "#101D3A",
     "text": "#F5F7FF",
-    "muted": "#9AA9C4",
-    "accent": "#36D6C8"
+    "textMuted": "#9AA9C4",
+    "fontHeading": "Sora",
+    "fontBody": "Nunito",
+    "radius": "18px"
   },
   "hero": {
     "badge": "AI Text-to-Speech thế hệ mới",
