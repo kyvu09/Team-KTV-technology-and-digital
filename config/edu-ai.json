@@ -1,0 +1,37 @@
+{
+  "brand": {
+    "name": "EduMind",
+    "slogan": "Học thông minh hơn cùng AI",
+    "description": "Nền tảng học tập ứng dụng trí tuệ nhân tạo, giúp người học hiểu bài nhanh hơn, luyện tập hiệu quả hơn và xây dựng lộ trình phù hợp với mục tiêu cá nhân.",
+    "logo": "",
+    "favicon": ""
+  },
+  "theme": {
+    "primary": "#5B8CFF",
+    "secondary": "#9B6DFF",
+    "background": "#08152E",
+    "text": "#F6F8FF",
+    "muted": "#9CAAC5",
+    "accent": "#35D6B4"
+  },
+  "hero": {
+    "badge": "AI Education Platform",
+    "title": "Biến mỗi bài học thành",
+    "highlight": "một hành trình khám phá",
+    "description": "EduMind đồng hành cùng người học bằng những công cụ AI thông minh: giải thích kiến thức, tóm tắt tài liệu, tạo câu hỏi luyện tập và xây dựng lộ trình học tập phù hợp với từng mục tiêu.",
+    "primaryButton": {
+      "text": "Bắt đầu học ngay",
+      "link": "#experience"
+    },
+    "secondaryButton": {
+      "text": "Khám phá tính năng",
+      "link": "#features"
+    },
+    "visual": {
+      "title": "AI Learning Engine",
+      "version": "3.0",
+      "status": "Sẵn sàng hỗ trợ"
+    },
+    "trust": "Cá nhân hóa trải nghiệm học tập bằng AI"
+  }
+}
