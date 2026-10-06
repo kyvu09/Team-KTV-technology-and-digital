@@ -1,0 +1,40 @@
+{
+  "brand": {
+    "name": "ViVoice",
+    "slogan": "Biến văn bản thành giọng nói tự nhiên",
+    "description": "Nền tảng AI Text-to-Speech được phát triển để chuyển đổi văn bản thành giọng nói tiếng Việt rõ ràng, tự nhiên và giàu cảm xúc.",
+    "logo": "",
+    "favicon": ""
+  },
+  "theme": {
+    "primary": "#42B8FF",
+    "accent": "#8B7CFF",
+    "background": "#071226",
+    "surface": "#101D3A",
+    "text": "#F5F7FF",
+    "textMuted": "#9AA9C4",
+    "fontHeading": "Sora",
+    "fontBody": "Nunito",
+    "radius": "18px"
+  },
+  "hero": {
+    "badge": "AI Text-to-Speech thế hệ mới",
+    "title": "Biến mọi văn bản thành",
+    "highlight": "giọng nói tự nhiên",
+    "description": "ViVoice ứng dụng trí tuệ nhân tạo để chuyển đổi văn bản thành giọng nói tiếng Việt rõ ràng, tự nhiên và giàu cảm xúc. Từ video, podcast, bài giảng đến nội dung số, ViVoice giúp mọi câu chữ cất tiếng nói một cách chuyên nghiệp.",
+    "primaryButton": {
+      "text": "Nghe thử miễn phí",
+      "link": "#experience"
+    },
+    "secondaryButton": {
+      "text": "Khám phá công nghệ",
+      "link": "#features"
+    },
+    "visual": {
+      "title": "AI Voice Engine",
+      "version": "4.0",
+      "status": "Đang hoạt động"
+    },
+    "trust": "Được xây dựng dành riêng cho tiếng Việt"
+  }
+}
