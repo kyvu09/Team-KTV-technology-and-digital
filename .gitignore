@@ -1,3 +1,5 @@
 node_modules/
 output_edge.*
 config.json
+
+config.*

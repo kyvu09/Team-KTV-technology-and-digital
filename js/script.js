@@ -7,7 +7,7 @@ const { MsEdgeTTS, OUTPUT_FORMAT } = msedgeTts;
 async function main() {
     const tts = new MsEdgeTTS();
     const filePath = "./conCac.mp3";
-    const text = "";
+    const text = "Vũ Mạnh Kỳ đẹp trai top một quá đẳng cấp phải không các anh em";
     text = document.getElementById("cac")
     let v = text.valueOf;
 
