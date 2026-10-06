@@ -1,0 +1,40 @@
+{
+  "brand": {
+    "name": "VietGo AI",
+    "slogan": "Khám phá Việt Nam theo cách của riêng bạn",
+    "description": "Trợ lý du lịch ứng dụng AI, giúp du khách khám phá điểm đến, xây dựng lịch trình và tìm kiếm những trải nghiệm phù hợp với sở thích và ngân sách.",
+    "logo": "",
+    "favicon": ""
+  },
+  "theme": {
+    "primary": "#19A982",
+    "accent": "#F2A93B",
+    "background": "#FAF7EF",
+    "surface": "#EFE8D8",
+    "text": "#26352F",
+    "textMuted": "#718078",
+    "fontHeading": "Sora",
+    "fontBody": "Nunito",
+    "radius": "18px"
+  },
+  "hero": {
+    "badge": "AI Travel Assistant",
+    "title": "Biến mỗi chuyến đi thành",
+    "highlight": "một hành trình đáng nhớ",
+    "description": "VietGo AI giúp bạn lên kế hoạch du lịch thông minh dựa trên thời gian, ngân sách và sở thích cá nhân. Từ điểm đến, lịch trình đến ẩm thực địa phương, mọi trải nghiệm đều được gợi ý theo cách dành riêng cho bạn.",
+    "primaryButton": {
+      "text": "Lên lịch trình ngay",
+      "link": "#experience"
+    },
+    "secondaryButton": {
+      "text": "Khám phá điểm đến",
+      "link": "#destinations"
+    },
+    "visual": {
+      "title": "AI Travel Engine",
+      "version": "2.0",
+      "status": "Sẵn sàng khám phá"
+    },
+    "trust": "Cá nhân hóa hành trình với công nghệ AI"
+  }
+}
