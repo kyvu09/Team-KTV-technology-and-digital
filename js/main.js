@@ -2,9 +2,16 @@ import { loadConfig } from "./config-loader.js";
 import { applyTheme } from "./theme.js";
 import { renderSite } from "./render.js";
 
+function initPreloader(brandName) {
+  const preloaderEl = document.getElementById("site-preloader");
+  if (preloaderEl) {
+    preloaderEl.style.display = "none";
+  }
+}
+
 // Brand mặc định khi không có ?brand= trên URL
 const params = new URLSearchParams(window.location.search);
-const brandName = params.get("brand") || "vi-voidce";
+const brandName = params.get("brand") || "vi-voice";
 
 try {
   const config = await loadConfig(brandName);
