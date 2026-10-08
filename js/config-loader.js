@@ -10,7 +10,7 @@ export async function loadConfig(brandName) {
   return config;
 }
 
-//yêu cầu file json phải có các key nàys
+// Yêu cầu file json phải có các key này
 function validateConfig(config) {
   for (const key of ["brand", "theme"]) {
     if (!config[key]) {
