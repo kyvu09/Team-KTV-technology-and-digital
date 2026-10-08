@@ -1,7 +1,5 @@
 export function renderSite(config) {
 
-  // 1. Render Header
-  renderHeader(config);
 
   // 2. Lấy khu vực #app
   const app = document.getElementById("app");

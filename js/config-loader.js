@@ -12,7 +12,7 @@ export async function loadConfig(brandName) {
 
 //yêu cầu file json phải có các key nàys
 function validateConfig(config) {
-  for (const key of ["brand", "theme", "sections"]) {
+  for (const key of ["brand", "theme"]) {
     if (!config[key]) {
       throw new Error(`File config thiếu trường bắt buộc: "${key}"`);
     }
