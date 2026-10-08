@@ -15,3 +15,5 @@ package.json
 # Tạm thời không commit file audio sinh ra ngoài thư mục assets
 output_edge.*
 audio_temp.*
+
+quyTac/
