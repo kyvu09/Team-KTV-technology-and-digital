@@ -1,5 +1,17 @@
-node_modules/
-output_edge.*
-config.json
+# OS files
+.DS_Store
+Thumbs.db
+*.log
 
-config.*
+# Editor directories
+.vscode/
+.idea/
+
+# Chặn hoàn toàn Node.js
+node_modules/
+package-lock.json
+package.json
+
+# Tạm thời không commit file audio sinh ra ngoài thư mục assets
+output_edge.*
+audio_temp.*
