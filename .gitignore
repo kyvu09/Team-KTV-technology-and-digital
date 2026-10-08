@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream
-node_modules/
-output_edge.*
-config.json
-=======
 # OS files
 .DS_Store
 Thumbs.db
@@ -12,11 +7,11 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Chặn hoàn toàn Node.js (tránh bị phát hiện hoặc vô tình cài đặt lại)
+# Chặn hoàn toàn Node.js
 node_modules/
 package-lock.json
+package.json
 
-# Audio test outputs
-*.mp3
-*.wav
->>>>>>> Stashed changes
+# Tạm thời không commit file audio sinh ra ngoài thư mục assets
+output_edge.*
+audio_temp.*

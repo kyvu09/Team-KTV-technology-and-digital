@@ -95,7 +95,7 @@ export function renderExperience(config) {
     <section class="experience-section" id="experience">
       <div class="container">
         <h2 class="section-title">Trải nghiệm ${brandName} AI Studio</h2>
-        <p class="section-subtitle">Chuyển đổi văn bản thành giọng nói tiếng Việt tự nhiên, nghe thử trực tiếp hoặc tạo và tải về file audio.mp3.</p>
+        <p class="section-subtitle">Chuyển đổi văn bản thành giọng nói tiếng Việt tự nhiên và nghe thử trực tiếp trên trình duyệt.</p>
 
         <div class="studio-card">
           <div class="quick-prompts">
@@ -128,9 +128,6 @@ export function renderExperience(config) {
           <div class="studio-actions">
             <button id="btn-tts-speak" class="btn btn-primary">
               <span id="btn-speak-icon">▶</span> <span id="btn-speak-text">Nghe thử giọng nói</span>
-            </button>
-            <button id="btn-tts-export" class="btn btn-secondary">
-              📥 Tạo & Tải file audio.mp3
             </button>
           </div>
 
@@ -175,12 +172,11 @@ function initTTSInteractions() {
     const btnSpeak = document.getElementById("btn-tts-speak");
     const btnSpeakIcon = document.getElementById("btn-speak-icon");
     const btnSpeakText = document.getElementById("btn-speak-text");
-    const btnExport = document.getElementById("btn-tts-export");
     const statusEl = document.getElementById("tts-status");
     const canvas = document.getElementById("tts-visualizer");
     const chips = document.querySelectorAll(".prompt-chip");
 
-    if (!inputEl || !btnSpeak || !btnExport) return;
+    if (!inputEl || !btnSpeak) return;
 
     // Cập nhật nhãn tốc độ
     rateEl?.addEventListener("input", (e) => {
@@ -267,34 +263,6 @@ function initTTSInteractions() {
             if (statusEl) statusEl.textContent = "Không thể phát: " + (err.message || "Lỗi âm thanh");
           }
         });
-      }
-    });
-
-    // Sự kiện Tạo & Tải file audio.mp3
-    btnExport.addEventListener("click", async () => {
-      const text = inputEl.value.trim();
-      if (!text) {
-        if (statusEl) statusEl.textContent = "Vui lòng nhập văn bản cần tạo audio.";
-        return;
-      }
-
-      try {
-        btnExport.disabled = true;
-        btnExport.textContent = "⏳ Đang tạo file audio.mp3...";
-        if (statusEl) statusEl.textContent = "Đang tổng hợp dữ liệu âm thanh...";
-
-        const result = await tts.exportAudio(text, "audio.mp3");
-
-        if (statusEl) {
-          statusEl.textContent = "✓ Đã tạo thành công file audio.mp3 và bắt đầu tải xuống!";
-        }
-      } catch (err) {
-        if (statusEl) {
-          statusEl.textContent = "Lỗi khi tạo file audio: " + err.message;
-        }
-      } finally {
-        btnExport.disabled = false;
-        btnExport.textContent = "📥 Tạo & Tải file audio.mp3";
       }
     });
   }).catch((err) => {
