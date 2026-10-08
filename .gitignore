@@ -1,3 +1,22 @@
+<<<<<<< Updated upstream
 node_modules/
 output_edge.*
 config.json
+=======
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+
+# Editor directories
+.vscode/
+.idea/
+
+# Chặn hoàn toàn Node.js (tránh bị phát hiện hoặc vô tình cài đặt lại)
+node_modules/
+package-lock.json
+
+# Audio test outputs
+*.mp3
+*.wav
+>>>>>>> Stashed changes

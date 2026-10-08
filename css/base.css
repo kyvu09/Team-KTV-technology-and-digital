@@ -43,12 +43,30 @@ body {
 }
 
 
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-secondary:hover {
+  background: color-mix(in srgb, var(--surface) 80%, var(--primary));
+  transform: translateY(-2px);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
-  padding: 160px 0 80px;
+  padding: 120px 0 60px;
   overflow: hidden;
 }
 
@@ -61,12 +79,161 @@ body {
   align-items: center;
 }
 
-/* Responsive (nằm trong khối @media chung ở cuối file) */
+/* --- TTS STUDIO / EXPERIENCE SECTION --- */
+.experience-section {
+  padding: 80px 0 100px;
+  position: relative;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.studio-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.quick-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.prompt-chip {
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.prompt-chip:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.studio-textarea {
+  width: 100%;
+  padding: 16px;
+  border-radius: calc(var(--radius) / 1.5);
+  background: var(--background);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 120px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.studio-textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+.studio-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+  align-items: center;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.studio-select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.studio-range {
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.studio-visualizer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin: 16px 0;
+  background: color-mix(in srgb, var(--background) 50%, transparent);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.visualizer-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.studio-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.studio-status {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: var(--primary);
+  min-height: 24px;
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
   .hero-inner {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 40px;
+  }
+  .studio-card {
+    padding: 24px;
   }
 }
 
