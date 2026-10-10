@@ -1,7 +1,33 @@
-* {
+/* ==========================================================================
+   base.css — Cấu hình nền tảng: Reset, Biến toàn cục, Layout Header & Hero
+   Tham chiếu từ mã nguồn mẫu vivoice-mau (Chuẩn White Label & Clean Code)
+   ========================================================================== */
+
+/* 1. Thiết lập biến mặc định toàn cục (:root) làm dự phòng (fallback) */
+:root {
+  --primary: #38bdf8;
+  --accent: #a78bfa;
+  --background: #070c1e;
+  --surface: #0f1a36;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-body: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  --radius: 16px;
+  --max-width: 1520px;
+}
+
+/* 2. Reset chuẩn & tính toán kích thước hộp */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* 3. Cuộn trang mượt mà & bù trừ khoảng cách đỉnh cho thanh Header cố định */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px; /* Tránh tình trạng tiêu đề section bị che khuất dưới Header khi click menu */
 }
 
 body {
@@ -9,9 +35,21 @@ body {
   background-color: var(--background);
   color: var(--text);
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* 4. Khung chứa nội dung căn giữa toàn trang */
+.container {
+  width: 100%;
+  max-width: var(--max-width, 1200px);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 2.5vw, 36px);
+}
+
+/* 5. Cấu hình Nút bấm cơ bản (Buttons) */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -30,6 +68,16 @@ body {
   white-space: nowrap;
 }
 
+.btn-sm {
+  padding: 8px 20px;
+  font-size: 0.85rem;
+}
+
+.btn-lg {
+  padding: 18px 36px;
+  font-size: 1.1rem;
+}
+
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--accent));
   color: #070c1e;
@@ -42,7 +90,6 @@ body {
   box-shadow: 0 14px 35px color-mix(in srgb, var(--primary) 50%, transparent);
 }
 
-
 .btn-secondary {
   background: var(--surface);
   color: var(--text);
@@ -54,22 +101,95 @@ body {
   transform: translateY(-2px);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  width: 100%;
+.btn-ghost {
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
 }
 
+.btn-ghost:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   6. CẤU HÌNH CƠ BẢN (BASE): HEADER SECTION — Thanh điều hướng chính
+   ========================================================================== */
+/* Cố định Header trên đỉnh màn hình với mức ưu tiên hiển thị cao (z-index) */
+#site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Khung căn giữa nội dung bên trong Header (Logo - Menu - Cụm hành động) */
+.header-inner,
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--max-width, 1200px);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 2.5vw, 36px);
+}
+
+/* Khối hiển thị Logo / Tên thương hiệu */
+.brand,
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+/* Khối danh sách liên kết điều hướng (Menu) */
+.nav-menu,
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Cụm nút hành động bên phải Header (Nút âm thanh + Nút CTA) */
+.header-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   7. CẤU HÌNH CƠ BẢN (BASE): HERO SECTION — Khối mở đầu trang chủ
+   ========================================================================== */
+/* Khung chứa Hero: chiếm gần trọn màn hình đầu tiên, chừa khoảng trống phía trên cho Header */
 .hero {
   position: relative;
   min-height: 85vh;
   display: flex;
   align-items: center;
-  padding: 120px 0 60px;
+  padding: 140px 0 60px;
   overflow: hidden;
 }
 
+.hero-container {
+  width: 100%;
+  max-width: var(--max-width, 1200px);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 2.5vw, 36px);
+}
+
+/* Bố cục 2 cột dạng Grid: Cột trái (Nội dung) và Cột phải (Hình ảnh/Visual 3D Orb) */
 .hero-inner {
   position: relative;
   z-index: 1;
@@ -77,6 +197,30 @@ body {
   grid-template-columns: 1.15fr 0.85fr;
   gap: 50px;
   align-items: center;
+}
+
+/* Khối nội dung chữ bên trái */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cụm nút kêu gọi hành động Hero (CTA) */
+.hero-cta,
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Khối hình ảnh / sân khấu 3D bên phải */
+.hero-media,
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* --- TTS STUDIO / EXPERIENCE SECTION --- */
@@ -225,15 +369,39 @@ body {
   min-height: 24px;
 }
 
-/* Responsive */
+/* ==========================================================================
+   8. CẤU HÌNH RESPONSIVE CƠ BẢN (TABLET & MOBILE)
+   ========================================================================== */
 @media (max-width: 1024px) {
+  /* Chuyển Hero từ 2 cột sang 1 cột và căn giữa nội dung */
   .hero-inner {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 40px;
   }
+  .hero-cta,
+  .hero-actions {
+    justify-content: center;
+  }
   .studio-card {
     padding: 24px;
   }
 }
+
+@media (max-width: 768px) {
+  /* Điều chỉnh khoảng đệm Hero trên điện thoại */
+  .hero {
+    padding: 110px 0 40px;
+  }
+  /* Bố cục Header trên màn hình nhỏ */
+  .header-inner,
+  .navbar-container {
+    padding: 0 16px;
+  }
+  .nav-menu,
+  .navbar-menu {
+    gap: 12px;
+  }
+}
+
 
