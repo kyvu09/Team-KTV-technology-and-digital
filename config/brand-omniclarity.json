@@ -46,11 +46,7 @@
       "welcomeMessage": "Chào mừng bạn đến với OmniClarity - Tự động hóa tổng đài CSKH, phát âm chuẩn xác số liệu tài chính và y tế.",
       "welcomeAudio": "assets/audio/yTe.mp3",
       "title": "Tự động hóa tổng đài CSKH với phát âm chuẩn xác cho",
-      "rotatingWords": [
-        "y tế số",
-        "ngân hàng",
-        "tài chính"
-      ],
+      "rotatingWords": ["y tế số", "ngân hàng", "tài chính"],
       "subtitle": "OmniClarity là giải pháp AI Voice chuyên biệt cho tổng đài tự động hóa (Callbot/IVR). Phát âm chuẩn xác tuyệt đối các con số tài chính, số tài khoản, mã đơn thuốc, chỉ số xét nghiệm lâm sàng và thông báo giao dịch với giọng điệu ân cần, đáng tin cậy.",
       "playSample": "Kính chào quý khách! Tổng đài AI OmniClarity tự động thông báo kết quả xét nghiệm y tế và giao dịch tài chính chuẩn xác 100%.",
       "buttons": [

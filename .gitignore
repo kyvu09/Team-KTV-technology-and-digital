@@ -10,8 +10,8 @@ Thumbs.db
 # Chặn hoàn toàn Node.js
 node_modules/
 package-lock.json
-package.json
 
+<<<<<<< HEAD
 # Tạm thời không commit file audio sinh ra ngoài thư mục assets
 output_edge.*
 audio_temp.*
@@ -27,3 +27,9 @@ vivoice-mau/
 !assets/audio/*.mp3
 
 
+=======
+# Audio test outputs
+*.mp3
+*.wav
+>>>>>>> Stashed changes
+>>>>>>> 51fc4a4e0448346e2bf3aaa8d5a7e51c20f4d140

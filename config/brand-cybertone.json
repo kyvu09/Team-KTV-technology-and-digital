@@ -46,11 +46,7 @@
       "welcomeMessage": "Chào mừng bạn đến với CyberTone - Giọng thoại NPC thời gian thực cho Game và Vũ trụ ảo.",
       "welcomeAudio": "assets/audio/npcGame.mp3",
       "title": "Kiến tạo giọng thoại NPC thời gian thực cho",
-      "rotatingWords": [
-        "thế giới mở",
-        "game AAA",
-        "vũ trụ ảo"
-      ],
+      "rotatingWords": ["thế giới mở", "game AAA", "vũ trụ ảo"],
       "subtitle": "CyberTone mang đến engine tạo sinh giọng nói thời gian thực với độ trễ siêu thấp dưới 40ms. Hóa thân vào từng nhân vật NPC với cảm xúc biến thiên theo diễn biến cốt truyện game, không cần phòng thu âm sẵn.",
       "playSample": "Này lữ khách! Tôi là NPC thế hệ mới của CyberTone, phản hồi giọng thoại thời gian thực dưới 40 mili-giây.",
       "buttons": [
