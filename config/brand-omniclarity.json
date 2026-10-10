@@ -1,0 +1,360 @@
+{
+  "brand": {
+    "favicon": "",
+    "logo": "",
+    "name": "OmniClarity",
+    "slogan": "Tự động hóa tổng đài CSKH, phát âm chuẩn xác số liệu tài chính & y tế."
+  },
+  "effects": {
+    "smoothScroll": true,
+    "cursor": true,
+    "preloader": true,
+    "orb": true,
+    "ambientBackground": true,
+    "scrollProgress": true
+  },
+  "nav": [
+    {
+      "href": "#hero",
+      "label": "Trang chủ"
+    },
+    {
+      "href": "#features",
+      "label": "Tính năng"
+    },
+    {
+      "href": "#demo",
+      "label": "Trải nghiệm"
+    },
+    {
+      "href": "#about",
+      "label": "Về chúng tôi"
+    },
+    {
+      "href": "#faq",
+      "label": "Hỏi đáp"
+    },
+    {
+      "href": "#contact",
+      "label": "Liên hệ"
+    }
+  ],
+  "sections": [
+    {
+      "type": "hero",
+      "layout": "split-right",
+      "welcomeMessage": "Chào mừng bạn đến với OmniClarity - Tự động hóa tổng đài CSKH, phát âm chuẩn xác số liệu tài chính và y tế.",
+      "welcomeAudio": "assets/audio/yTe.mp3",
+      "title": "Tự động hóa tổng đài CSKH với phát âm chuẩn xác cho",
+      "rotatingWords": [
+        "y tế số",
+        "ngân hàng",
+        "tài chính"
+      ],
+      "subtitle": "OmniClarity là giải pháp AI Voice chuyên biệt cho tổng đài tự động hóa (Callbot/IVR). Phát âm chuẩn xác tuyệt đối các con số tài chính, số tài khoản, mã đơn thuốc, chỉ số xét nghiệm lâm sàng và thông báo giao dịch với giọng điệu ân cần, đáng tin cậy.",
+      "playSample": "Kính chào quý khách! Tổng đài AI OmniClarity tự động thông báo kết quả xét nghiệm y tế và giao dịch tài chính chuẩn xác 100%.",
+      "buttons": [
+        {
+          "href": "#demo",
+          "label": "Trải nghiệm tổng đài",
+          "style": "primary"
+        },
+        {
+          "href": "#features",
+          "label": "Giải pháp doanh nghiệp",
+          "style": "ghost"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "layout": "3d-stack",
+      "title": "Năng lực chuẩn hóa âm thanh chuyên ngành vượt bậc",
+      "subtitle": "Động cơ giọng nói AI chuyên biệt cho ngành Tài chính - Ngân hàng và Y tế - Bệnh viện, nơi độ chính xác của từng con số là yếu tố sống còn.",
+      "items": [
+        {
+          "icon": "fa-solid fa-calculator",
+          "badge": "Numeric Accuracy",
+          "title": "Phát âm chuẩn xác số liệu & đơn vị y tế",
+          "text": "Mô hình xử lý ngôn ngữ tự nhiên hiểu đúng ngữ cảnh số dư tài khoản, số thẻ, chỉ số sinh hóa (mg/dL, mmol/L, mmHg), liều lượng thuốc mà không bị nhầm lẫn.",
+          "image": "assets/images/about-processing.jpg"
+        },
+        {
+          "icon": "fa-solid fa-headset",
+          "badge": "100K+ Concurrent",
+          "title": "Tổng đài tự động 100.000+ cuộc gọi",
+          "text": "Hạ tầng đám mây phân tán sẵn sàng xử lý hàng trăm ngàn cuộc gọi tự động đồng thời (Callbot/IVR) với độ ổn định 99.99%, giảm 70% áp lực cho tổng đài viên.",
+          "image": "assets/images/about-quality.jpg"
+        },
+        {
+          "icon": "fa-solid fa-shield-halved",
+          "badge": "HIPAA & ISO 27001",
+          "title": "Bảo mật chuẩn y tế & ngân hàng",
+          "text": "Tuân thủ nghiêm ngặt các tiêu chuẩn an toàn thông tin HIPAA, PCI-DSS và ISO 27001. Mã hóa đầu cuối toàn bộ dữ liệu âm thanh cuộc gọi và hồ sơ bệnh án.",
+          "waveform": true,
+          "image": "assets/images/about-voices.jpg"
+        },
+        {
+          "icon": "fa-solid fa-heart-pulse",
+          "badge": "Empathetic Tone",
+          "title": "Giọng đọc ân cần, giàu sự đồng cảm",
+          "text": "Âm sắc trầm ấm, tự nhiên giúp bệnh nhân cảm thấy an tâm khi nhận thông báo kết quả khám bệnh hoặc khách hàng cảm thấy được phục vụ chu đáo.",
+          "image": "assets/images/about-users.jpg"
+        }
+      ]
+    },
+    {
+      "type": "demo",
+      "title": "Bàn điều khiển Tổng đài AI OmniClarity",
+      "subtitle": "Nhập nội dung thông báo tài chính hoặc y tế để trải nghiệm độ chuẩn xác phát âm của OmniClarity.",
+      "placeholder": "Nhập kịch bản tổng đài tài chính hoặc y tế (ví dụ: Thông báo số dư, kết quả xét nghiệm, lịch tái khám)...",
+      "defaultText": "Kính chào quý khách! Hệ thống OmniClarity xin thông báo kết quả xét nghiệm đường huyết của quý khách là 5.6 mmol/L, trạng thái hoàn toàn bình thường. Lịch hẹn tái khám tiếp theo là 9 giờ 30 ngày 25 tháng 10.",
+      "speakLabel": "Phát âm thanh tổng đài",
+      "stopLabel": "Dừng phát",
+      "unsupported": "Trình duyệt của bạn chưa hỗ trợ Web Speech API. Vui lòng sử dụng phiên bản mới của Google Chrome hoặc Microsoft Edge."
+    },
+    {
+      "type": "about",
+      "scrollStory": {
+        "enabled": true,
+        "behavior": "sticky-story",
+        "slides": [
+          {
+            "image": "assets/images/about-users.jpg",
+            "eyebrow": "01 / CHUẨN XÁC TUYỆT ĐỐI",
+            "title": "Độ chính xác phát âm đạt 99.98%",
+            "description": "Thuật toán khử nhiễu ngữ âm hiểu sâu cấu trúc từ viết tắt tài chính và y khoa, loại bỏ hoàn toàn các lỗi đọc sai số liệu nguy hiểm.",
+            "metric": {
+              "value": "99.98%",
+              "label": "Độ chính xác số liệu"
+            }
+          },
+          {
+            "image": "assets/images/about-processing.jpg",
+            "eyebrow": "02 / QUY MÔ CUỘC GỌI",
+            "title": "Hơn 10 triệu cuộc gọi tự động / tháng",
+            "description": "Kết nối mượt mà với các hệ thống SIP Trunking, tổng đài Cisco, Asterisk, Genesys và phần mềm bệnh viện HIS/LIS.",
+            "metric": {
+              "value": "10M+",
+              "label": "Cuộc gọi / tháng"
+            }
+          },
+          {
+            "image": "assets/images/about-quality.jpg",
+            "eyebrow": "03 / TỐI ƯU CHI PHÍ",
+            "title": "Tiết kiệm 70% chi phí vận hành CSKH",
+            "description": "Tự động hóa các cuộc gọi nhắc lịch khám, thông báo biến động số dư và xác thực OTP, giúp giải phóng nguồn lực nhân sự chuyên môn.",
+            "metric": {
+              "value": "70%",
+              "label": "Tiết kiệm chi phí"
+            }
+          }
+        ],
+        "animation": {
+          "imageScaleFrom": 1.08,
+          "imageScaleTo": 1,
+          "revealDistance": 28,
+          "transitionMs": 650
+        }
+      }
+    },
+    {
+      "type": "testimonials",
+      "title": "Được tin chọn bởi các Bệnh viện & Tổ chức Tài chính hàng đầu",
+      "subtitle": "Lắng nghe chia sẻ từ những người quản lý đang ứng dụng tổng đài tự động OmniClarity vào vận hành thực tế.",
+      "items": [
+        {
+          "name": "BS. Nguyễn Văn Hùng",
+          "role": "Phó Giám đốc Bệnh viện Đa khoa Quốc tế",
+          "avatar": "assets/images/avatar-huy.jpg",
+          "quote": "Trước đây nhân viên phải gọi hàng ngàn cuộc mỗi ngày để nhắc lịch tái khám. Từ khi có OmniClarity, hệ thống tự động gọi và đọc tên thuốc, chỉ số xét nghiệm chuẩn xác 100%, bệnh nhân rất hài lòng."
+        },
+        {
+          "name": "Bà Đặng Thanh Mai",
+          "role": "Trưởng phòng CSKH Ngân hàng TMCP",
+          "avatar": "assets/images/avatar-lan.jpg",
+          "quote": "Phát âm các con số dư tài khoản và mã OTP của OmniClarity vô cùng rõ ràng, chuẩn ngữ điệu và bảo mật. Khách hàng cảm thấy như đang nói chuyện với tổng đài viên cao cấp."
+        },
+        {
+          "name": "Lê Đình Trọng",
+          "role": "Giám đốc Vận hành FinTech Corp",
+          "avatar": "assets/images/avatar-tuan.jpg",
+          "quote": "Hệ thống tổng đài tự động hóa của chúng tôi xử lý hơn 500,000 cuộc gọi nhắc phí mỗi tháng mà không gặp sự cố gián đoạn nào. Tỷ lệ tiếp nhận và tương tác tăng vọt 45%."
+        },
+        {
+          "name": "BS. Phạm Thu Trang",
+          "role": "Trưởng khoa Khám bệnh Theo yêu cầu",
+          "avatar": "assets/images/avatar-thao.jpg",
+          "quote": "Giọng đọc của Callbot OmniClarity nhẹ nhàng, truyền cảm và ân cần. Nhiều bệnh nhân cao tuổi khen ngợi tổng đài hướng dẫn thủ tục rất dễ nghe và tỉ mỉ."
+        },
+        {
+          "name": "Vũ Hoàng Long",
+          "role": "Kiến trúc sư Giải pháp Tổng đài Viễn thông",
+          "avatar": "assets/images/avatar-long.jpg",
+          "quote": "Tích hợp OmniClarity vào hệ thống SIP Trunking hiện hữu của ngân hàng chỉ mất chưa đầy 3 ngày. Khả năng scale linh hoạt từ 100 lên 100,000 cuộc gọi tức thì."
+        },
+        {
+          "name": "Nguyễn Hoàng Nam",
+          "role": "Giám đốc Chuyển đổi số Y tế",
+          "avatar": "assets/images/avatar-kiet.jpg",
+          "quote": "Tính năng mã hóa bảo mật chuẩn HIPAA và bảo vệ dữ liệu hồ sơ bệnh án giúp chúng tôi hoàn toàn yên tâm khi triển khai trên diện rộng cho chuỗi phòng khám."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "layout": "3d-flip-cards",
+      "title": "Câu hỏi thường gặp về OmniClarity",
+      "subtitle": "Giải đáp thắc mắc về năng lực phát âm số liệu y tế, tài chính, bảo mật cuộc gọi và tích hợp tổng đài.",
+      "config3D": {
+        "perspective": 1200,
+        "flipAxis": "Y",
+        "enterFrom": "top",
+        "durationMs": 850,
+        "staggerMs": 150,
+        "gap": 24,
+        "cardMinHeight": 390,
+        "frontBg": "rgba(10, 25, 47, 0.85)",
+        "backBg": "rgba(14, 40, 68, 0.95)"
+      },
+      "items": [
+        {
+          "id": "faq-1",
+          "badge": "01",
+          "category": "Độ chính xác Ngữ âm",
+          "icon": "fa-solid fa-spell-check",
+          "question": "OmniClarity xử lý các từ viết tắt chuyên ngành y tế và tài chính như thế nào?",
+          "answer": "Hệ thống tích hợp bộ từ điển ngữ âm chuyên sâu cho ngành y và ngân hàng. Các từ viết tắt như 'mg/dL', 'HbA1c', 'VND', 'USD', 'STK', 'HĐND' đều được tự động mở rộng và phát âm hoàn chỉnh, tự nhiên theo đúng ngữ cảnh câu.",
+          "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
+          "backAction": "Quay lại câu hỏi"
+        },
+        {
+          "id": "faq-2",
+          "badge": "02",
+          "category": "Tích hợp Tổng đài",
+          "icon": "fa-solid fa-network-wired",
+          "question": "Hệ thống có tương thích với các phần mềm quản lý bệnh viện (HIS) và ngân hàng (Core Banking) không?",
+          "answer": "Có. OmniClarity cung cấp REST API và WebSocket streaming hai chiều, dễ dàng kết nối với hệ thống HIS/LIS bệnh viện, CRM Salesforce, HubSpot và hệ thống Core Banking qua cổng API an toàn.",
+          "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
+          "backAction": "Quay lại câu hỏi"
+        },
+        {
+          "id": "faq-3",
+          "badge": "03",
+          "category": "Bảo mật & Quyền riêng tư",
+          "icon": "fa-solid fa-lock",
+          "question": "Dữ liệu bệnh án và số dư tài khoản có được lưu giữ trên máy chủ không?",
+          "answer": "Không. Dữ liệu nhạy cảm chỉ được xử lý tạm thời trong bộ nhớ RAM trong suốt quá trình phát âm cuộc gọi và lập tức bị xóa ngay sau khi kết thúc. Hệ thống tuân thủ nghiêm ngặt tiêu chuẩn bảo mật dữ liệu y tế HIPAA và chuẩn thanh toán PCI-DSS.",
+          "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
+          "backAction": "Quay lại câu hỏi"
+        },
+        {
+          "id": "faq-4",
+          "badge": "04",
+          "category": "Tương tác Hai chiều",
+          "icon": "fa-solid fa-comments",
+          "question": "Khách hàng có thể trả lời lại tổng đài bằng giọng nói không?",
+          "answer": "Có. OmniClarity có thể kết hợp với module Speech-to-Text (STT) nhận diện giọng nói tiếng Việt để tạo thành Callbot đối thoại hai chiều, cho phép khách hàng xác nhận lịch khám hoặc bấm phím phản hồi theo hướng dẫn.",
+          "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
+          "backAction": "Quay lại câu hỏi"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "title": "Tư vấn Giải pháp Tổng đài AI Doanh nghiệp",
+      "channels": [
+        {
+          "label": "Email Tư vấn",
+          "value": "solutions@omniclarity.vn"
+        },
+        {
+          "label": "Hotline Doanh nghiệp",
+          "value": "1800 6868 (Miễn cước 24/7)"
+        },
+        {
+          "label": "Trụ sở",
+          "value": "Tòa nhà Tài chính - Y tế, Quận 1, TP.HCM & Ba Đình, Hà Nội"
+        }
+      ],
+      "formTitle": "Đăng ký Nhận Tư vấn Chuyển đổi số Tổng đài",
+      "formName": "Tên Bệnh viện / Tổ chức Tài chính",
+      "formEmail": "Email đại diện",
+      "formMessage": "Mô tả nhu cầu tự động hóa cuộc gọi và số lượng cuộc gọi dự kiến/tháng...",
+      "formButton": "Gửi yêu cầu giải pháp",
+      "formSuccess": "Cảm ơn bạn! Chuyên gia giải pháp tổng đài OmniClarity sẽ liên hệ lại trong vòng 1 giờ làm việc."
+    }
+  ],
+  "theme": {
+    "primary": "#0ea5e9",
+    "accent": "#10b981",
+    "background": "#040d1a",
+    "surface": "#0a192f",
+    "text": "#f8fafc",
+    "textMuted": "#94a3b8",
+    "fontHeading": "Space Grotesk",
+    "fontBody": "Be Vietnam Pro",
+    "radius": "16px"
+  },
+  "footer": {
+    "tagline": "OmniClarity — Tự động hóa tổng đài CSKH, phát âm chuẩn xác số liệu tài chính & y tế.",
+    "columns": [
+      {
+        "title": "Sản phẩm",
+        "links": [
+          {
+            "href": "#demo",
+            "label": "Trải nghiệm Tổng đài"
+          },
+          {
+            "href": "#features",
+            "label": "Năng lực chuẩn xác"
+          },
+          {
+            "href": "#faq",
+            "label": "Câu hỏi thường gặp"
+          }
+        ]
+      },
+      {
+        "title": "Giải pháp",
+        "links": [
+          {
+            "href": "#",
+            "label": "Tổng đài Bệnh viện"
+          },
+          {
+            "href": "#",
+            "label": "Callbot Ngân hàng"
+          },
+          {
+            "href": "#",
+            "label": "Tài liệu API Callbot"
+          },
+          {
+            "href": "#",
+            "label": "Chứng chỉ HIPAA & ISO"
+          }
+        ]
+      },
+      {
+        "title": "Pháp lý",
+        "links": [
+          {
+            "href": "#contact",
+            "label": "Liên hệ trực tiếp"
+          },
+          {
+            "href": "#",
+            "label": "Chính sách bảo mật y tế"
+          },
+          {
+            "href": "#",
+            "label": "Thỏa thuận dịch vụ SLA"
+          }
+        ]
+      }
+    ],
+    "copyright": "© OmniClarity. Chuẩn hóa âm thanh số liệu y tế và tài chính. White Label Specification."
+  }
+}
