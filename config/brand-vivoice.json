@@ -319,44 +319,10 @@
           {
             "href": "#faq",
             "label": "Câu hỏi thường gặp"
-          }
-        ]
-      },
-      {
-        "title": "Tài nguyên",
-        "links": [
-          {
-            "href": "#",
-            "label": "Tài liệu API"
           },
-          {
-            "href": "#",
-            "label": "Thư viện giọng mẫu"
-          },
-          {
-            "href": "#",
-            "label": "Hướng dẫn sử dụng"
-          },
-          {
-            "href": "#",
-            "label": "Cộng đồng Discord"
-          }
-        ]
-      },
-      {
-        "title": "Pháp lý",
-        "links": [
           {
             "href": "#contact",
             "label": "Liên hệ hỗ trợ"
-          },
-          {
-            "href": "#",
-            "label": "Điều khoản dịch vụ"
-          },
-          {
-            "href": "#",
-            "label": "Chính sách bảo mật"
           }
         ]
       }
