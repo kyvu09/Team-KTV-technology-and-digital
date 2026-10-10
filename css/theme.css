@@ -42,6 +42,39 @@
   margin-bottom: 14px;
 }
 
+/* Tiêu đề mục và tiêu đề phụ chuẩn toàn trang */
+.section-header {
+  margin-bottom: 56px;
+  position: relative;
+  z-index: 2;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 680px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Huy hiệu công nghệ (Badge) dạng viên thuốc viền phát sáng */
 .badge,
 .hero-badge {
@@ -743,5 +776,585 @@
   .orb-ring-outer {
     width: 300px;
     height: 300px;
+  }
+}
+
+/* ==========================================================================
+   5. FEATURES SECTION — CẤU HÌNH TÍNH NĂNG (BENTO GRID & 3D STACK CARDS)
+   Tham chiếu chuẩn từ mã nguồn vivoice-mau
+   Bao gồm:
+   - 5.1. Bento Grid: Thẻ Bento kính mờ, Spotlight phát sáng con trỏ, Card có ảnh nền
+   - 5.2. 3D Stack Cards: Xếp chồng thẻ 3D theo chiều sâu Z, mở rộng khi hover/chạm
+   - 5.3. Responsive: Điều chỉnh hiển thị tương thích trên Tablet & Mobile
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   5.1. BENTO GRID (Khi cấu hình section có layout: "bento")
+   -------------------------------------------------------------------------- */
+
+/* Lưới Bento chia 3 cột hiện đại */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+
+/* Thẻ Bento phong cách kính mờ (Glassmorphism) */
+.bento-card {
+  position: relative;
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: 24px;
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 340px;
+  overflow: hidden;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hiệu ứng nổi và viền phát sáng khi hover vào thẻ Bento */
+.bento-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 25px color-mix(in srgb, var(--primary) 45%, transparent),
+    0 0 50px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 20px 50px -15px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+}
+
+/* Thẻ chiếm chiều rộng 2 cột (thường là thẻ đầu và thẻ thứ 4) */
+.bento-span-2 {
+  grid-column: span 2;
+}
+
+/* Hiệu ứng hào quang tròn (Spotlight) rọi sáng theo tọa độ chuột */
+.card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+      color-mix(in srgb, var(--primary) 12%, transparent),
+      transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Khối biểu tượng và nhãn phía trên thẻ */
+.card-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Khung viền chứa biểu tượng tính năng */
+.feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+/* Viên thuốc nhãn nổi bật trên góc thẻ */
+.card-pill {
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  color: var(--accent);
+}
+
+/* Nội dung chữ của thẻ Bento */
+.card-body {
+  position: relative;
+  z-index: 2;
+}
+
+.card-body h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.card-body p {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+/* Khối xem trước tương tác (vạch sóng âm nhỏ) */
+.card-interactive-preview {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  position: relative;
+  z-index: 2;
+}
+
+.mini-waveform {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+}
+
+.mini-waveform span {
+  width: 4px;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  border-radius: 2px;
+  animation: mini-wave 1.4s infinite ease-in-out;
+}
+
+.mini-waveform span:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+.mini-waveform span:nth-child(2) { height: 22px; animation-delay: 0.3s; }
+.mini-waveform span:nth-child(3) { height: 14px; animation-delay: 0.5s; }
+.mini-waveform span:nth-child(4) { height: 20px; animation-delay: 0.2s; }
+.mini-waveform span:nth-child(5) { height: 10px; animation-delay: 0.4s; }
+.mini-waveform span:nth-child(6) { height: 18px; animation-delay: 0.6s; }
+
+@keyframes mini-wave {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+/* Biến thể thẻ Bento có hình ảnh bìa (Ảnh nền full, rê chuột hiện overlay và chữ mượt mà) */
+.bento-card.has-image {
+  min-height: 340px;
+  padding: 34px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.bento-card.has-image .card-visual-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  aspect-ratio: auto;
+  z-index: 1;
+  box-shadow: none;
+  background: transparent;
+}
+
+.bento-card.has-image .card-visual-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+
+.bento-card.has-image:hover .card-visual-img {
+  transform: scale(1.06);
+  filter: brightness(0.8);
+}
+
+.bento-card.has-image .card-visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+      rgba(7, 12, 30, 0.45) 0%,
+      rgba(7, 12, 30, 0.15) 30%,
+      rgba(7, 12, 30, 0.8) 70%,
+      rgba(7, 12, 30, 0.96) 100%);
+  opacity: 0;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.bento-card.has-image:hover .card-visual-overlay {
+  opacity: 1;
+}
+
+.bento-card.has-image .card-header-icon {
+  position: relative;
+  z-index: 3;
+  margin-bottom: 0;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card.has-image:hover .card-header-icon {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bento-card.has-image .card-header-icon .feature-icon {
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+}
+
+.bento-card.has-image .card-body {
+  position: relative;
+  z-index: 3;
+  margin-top: auto;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.bento-card.has-image:hover .card-body {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.bento-card.has-image .card-body h3 {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.bento-card.has-image .card-body p {
+  color: color-mix(in srgb, var(--text) 90%, transparent);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
+
+/* --------------------------------------------------------------------------
+   5.2. 3D STACK CARDS FEATURES (Layout: "3d-stack")
+   Xếp chồng 3D với chiều sâu không gian Z-space, bung mở khi rê chuột hoặc chạm
+   -------------------------------------------------------------------------- */
+
+.features-section--stack {
+  position: relative;
+  overflow: visible;
+}
+
+/* Vùng chứa các thẻ xếp chồng 3D */
+.feature-stack-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 56px;
+  min-height: 460px;
+}
+
+/* Danh sách 3D với góc nhìn phối cảnh Perspective */
+.feature-stack-3d {
+  position: relative;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: min(720px, 100%);
+  transform-style: preserve-3d;
+  perspective: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: gap 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+/* Bung mở khoảng cách giữa các thẻ khi rê chuột hoặc click */
+.feature-stack-3d:hover,
+.feature-stack-3d.is-unfolded {
+  gap: 20px;
+}
+
+/* Từng thẻ trong chồng thẻ 3D */
+.feature-stack-item {
+  position: relative;
+  list-style: none;
+  width: 100%;
+  min-height: 100px;
+  padding: 16px 22px;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border-radius: 18px;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 500ms ease,
+    filter 500ms ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  transition-delay: calc(var(--i, 0) * 50ms);
+  cursor: pointer;
+  will-change: transform, opacity, filter;
+}
+
+/* Thứ tự chiều sâu Z mặc định tạo cảm giác xếp tầng 3D */
+.feature-stack-item:nth-child(1) {
+  transform: translateZ(-75px) translateY(20px);
+  opacity: 0.6;
+  filter: blur(4px);
+}
+
+.feature-stack-item:nth-child(2) {
+  opacity: 0.8;
+  filter: blur(2px);
+}
+
+.feature-stack-item:nth-child(3) {
+  transform: translateZ(65px) translateY(-30px);
+}
+
+.feature-stack-item:nth-child(4) {
+  transform: translateZ(125px) translateY(-68px);
+  filter: blur(1px);
+}
+
+/* Trạng thái khi rê chuột vào cả danh sách: Tất cả đưa về mặt phẳng chính diện sắc nét */
+.feature-stack-3d:hover .feature-stack-item,
+.feature-stack-3d.is-unfolded .feature-stack-item {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateZ(0) translateY(0);
+}
+
+/* Trạng thái khi rê chuột trúng vào từng thẻ riêng biệt: Phóng to và nổi bật viền */
+.feature-stack-3d:hover .feature-stack-item:hover,
+.feature-stack-3d.is-unfolded .feature-stack-item:hover {
+  transform: translateZ(35px) scale(1.02);
+  border-color: color-mix(in srgb, var(--primary) 90%, white);
+  box-shadow: 0 0 35px color-mix(in srgb, var(--primary) 35%, transparent),
+    0 0 70px color-mix(in srgb, var(--accent) 20%, transparent),
+    0 22px 50px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* Khung ảnh/biểu tượng bên trái thẻ */
+.feature-stack-media {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.feature-stack-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.feature-stack-icon-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  backdrop-filter: blur(8px);
+  border: 1px solid color-mix(in srgb, var(--primary) 45%, transparent);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Phần nội dung mô tả tính năng */
+.feature-stack-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.feature-stack-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.feature-stack-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text, #ffffff);
+  margin: 0;
+}
+
+.feature-stack-badge {
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  color: var(--accent);
+}
+
+.feature-stack-desc {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--text) 72%, transparent);
+  margin: 0;
+}
+
+/* Cụm vạch sóng âm chuyển động */
+.feature-stack-waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  flex-shrink: 0;
+}
+
+.feature-stack-waveform span {
+  width: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  animation: stack-wave 1.2s ease-in-out infinite alternate;
+}
+
+.feature-stack-waveform span:nth-child(1) { height: 35%; animation-delay: 0.1s; }
+.feature-stack-waveform span:nth-child(2) { height: 80%; animation-delay: 0.3s; }
+.feature-stack-waveform span:nth-child(3) { height: 50%; animation-delay: 0.15s; }
+.feature-stack-waveform span:nth-child(4) { height: 95%; animation-delay: 0.4s; }
+.feature-stack-waveform span:nth-child(5) { height: 40%; animation-delay: 0.2s; }
+
+@keyframes stack-wave {
+  0% { transform: scaleY(0.4); }
+  100% { transform: scaleY(1); }
+}
+
+/* Mũi tên điều hướng bên phải */
+.feature-stack-arrow {
+  color: color-mix(in srgb, var(--text) 35%, transparent);
+  font-size: 0.9rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.feature-stack-item:hover .feature-stack-arrow {
+  transform: translateX(4px);
+  color: var(--primary);
+}
+
+/* Dòng gợi ý tương tác phía dưới */
+.feature-stack-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-size: 0.85rem;
+  color: color-mix(in srgb, var(--text) 55%, transparent);
+}
+
+.feature-stack-hint i {
+  color: var(--accent);
+  animation: pulse-hint 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-hint {
+  0% { transform: translateY(0); opacity: 0.6; }
+  100% { transform: translateY(-3px); opacity: 1; }
+}
+
+
+/* --------------------------------------------------------------------------
+   5.3. RESPONSIVE THEME CHO PHẦN TÍNH NĂNG (FEATURES)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-span-2 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-card.has-image .card-visual-overlay {
+    opacity: 1;
+  }
+  .bento-card.has-image .card-header-icon,
+  .bento-card.has-image .card-body {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .feature-stack-3d {
+    perspective: 400px;
+  }
+  .feature-stack-item {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+  .feature-stack-media {
+    width: 60px;
+    height: 60px;
+  }
+  .feature-stack-title {
+    font-size: 1.05rem;
+  }
+  .feature-stack-desc {
+    font-size: 0.85rem;
+  }
+  .feature-stack-waveform {
+    display: none;
+  }
+}
+
+/* Tối ưu hóa khi người dùng bật chế độ giảm hiệu ứng chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .feature-stack-3d {
+    perspective: none;
+    transform-style: flat;
+    gap: 16px;
+  }
+  .feature-stack-item,
+  .feature-stack-item:nth-child(1),
+  .feature-stack-item:nth-child(2),
+  .feature-stack-item:nth-child(3),
+  .feature-stack-item:nth-child(4) {
+    transform: none;
+    opacity: 1;
+    filter: none;
+    transition: none;
   }
 }
