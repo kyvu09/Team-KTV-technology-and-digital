@@ -1,9 +1,3 @@
-/**
- * Module xử lý Text-to-Speech (TTS) thuần Vanilla JavaScript
- * - Phát giọng nói trực tiếp qua Web Speech API (nhận diện giọng tiếng Việt)
- * - 100% Native Web API, không thư viện ngoài, không framework, không Node.js
- */
-
 export class TTSController {
   constructor() {
     this.synth = window.speechSynthesis;
@@ -30,13 +24,24 @@ export class TTSController {
         v.lang.toLowerCase().includes("vi") ||
         v.name.toLowerCase().includes("vietnam") ||
         v.name.toLowerCase().includes("namminh") ||
-        v.name.toLowerCase().includes("hoaimy")
+        v.name.toLowerCase().includes("hoaimy"),
     );
   }
 
-  speak(text, { voiceGender = "nam", rate = 1.0, pitch = 1.0, onStart, onEnd, onError } = {}) {
+  speak(
+    text,
+    {
+      voiceGender = "nam",
+      rate = 1.0,
+      pitch = 1.0,
+      onStart,
+      onEnd,
+      onError,
+    } = {},
+  ) {
     if (!this.synth) {
-      if (onError) onError(new Error("Trình duyệt không hỗ trợ Web Speech API"));
+      if (onError)
+        onError(new Error("Trình duyệt không hỗ trợ Web Speech API"));
       return;
     }
 
@@ -52,7 +57,7 @@ export class TTSController {
           viVoices.find(
             (v) =>
               v.name.toLowerCase().includes("nam") ||
-              v.name.toLowerCase().includes("male")
+              v.name.toLowerCase().includes("male"),
           ) || viVoices[0];
       } else {
         selectedVoice =
@@ -60,7 +65,7 @@ export class TTSController {
             (v) =>
               v.name.toLowerCase().includes("hoaimy") ||
               v.name.toLowerCase().includes("nu") ||
-              v.name.toLowerCase().includes("female")
+              v.name.toLowerCase().includes("female"),
           ) || viVoices[0];
       }
       utterance.voice = selectedVoice;

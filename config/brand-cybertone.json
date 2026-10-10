@@ -46,11 +46,7 @@
       "welcomeMessage": "Chào mừng bạn đến với CyberTone - Giọng thoại NPC thời gian thực cho Game và Vũ trụ ảo.",
       "welcomeAudio": "assets/audio/npcGame.mp3",
       "title": "Kiến tạo giọng thoại NPC thời gian thực cho",
-      "rotatingWords": [
-        "thế giới mở",
-        "game AAA",
-        "vũ trụ ảo"
-      ],
+      "rotatingWords": ["thế giới mở", "game AAA", "vũ trụ ảo"],
       "subtitle": "CyberTone mang đến engine tạo sinh giọng nói thời gian thực với độ trễ siêu thấp dưới 40ms. Hóa thân vào từng nhân vật NPC với cảm xúc biến thiên theo diễn biến cốt truyện game, không cần phòng thu âm sẵn.",
       "playSample": "Này lữ khách! Tôi là NPC thế hệ mới của CyberTone, phản hồi giọng thoại thời gian thực dưới 40 mili-giây.",
       "buttons": [
@@ -77,22 +73,14 @@
           "badge": "Latency < 40ms",
           "title": "Độ trễ siêu thấp dưới 40ms",
           "text": "Kiến trúc luồng xử lý Neural Stream tối ưu đưa độ trễ phản hồi âm thanh xuống dưới 40 mili-giây, giúp lời thoại của NPC ăn khớp hoàn hảo với diễn biến trận đấu và môi trường ảo.",
-<<<<<<< HEAD
-          "image": "assets/images/about-processing.jpg"
-=======
           "image": "assets/images/imgcyberTone/feature-latency.jpg"
->>>>>>> origin/hoangvu
         },
         {
           "icon": "fa-solid fa-masks-theater",
           "badge": "Dynamic Emotions",
           "title": "Biến thiên cảm xúc theo diễn biến Game",
           "text": "Mô hình AI tự động điều chỉnh sắc thái giọng từ hoảng loạn, phẫn nộ đến hào sảng dựa trên lượng máu (HP), tình huống giao tranh và bối cảnh xung quanh của nhân vật.",
-<<<<<<< HEAD
-          "image": "assets/images/about-quality.jpg"
-=======
           "image": "assets/images/imgcyberTone/feature-dynamic-emotions.jpg"
->>>>>>> origin/hoangvu
         },
         {
           "icon": "fa-solid fa-gamepad",
@@ -100,22 +88,14 @@
           "title": "Tích hợp sẵn Unity, Unreal & WebGL",
           "text": "Bộ SDK hoàn chỉnh hỗ trợ C#, C++, Blueprints với âm thanh không gian Spatial 3D Audio, dễ dàng nhúng vào bất kỳ engine game nào chỉ trong vài giờ làm việc.",
           "waveform": true,
-<<<<<<< HEAD
-          "image": "assets/images/about-voices.jpg"
-=======
           "image": "assets/images/imgcyberTone/feature-engineSDK.jpg"
->>>>>>> origin/hoangvu
         },
         {
           "icon": "fa-solid fa-users-viewfinder",
           "badge": "Custom Persona",
           "title": "Hàng ngàn giọng NPC độc bản",
           "text": "Tùy biến không giới hạn độ tuổi, giới tính, hiệu ứng kim khí Cyborg hay giọng sinh vật thần thoại mà không cần thuê hàng trăm diễn viên lồng tiếng riêng lẻ.",
-<<<<<<< HEAD
-          "image": "assets/images/about-users.jpg"
-=======
           "image": "assets/images/imgcyberTone/feature-custom-persona.jpg"
->>>>>>> origin/hoangvu
         }
       ]
     },
@@ -136,11 +116,7 @@
         "behavior": "sticky-story",
         "slides": [
           {
-<<<<<<< HEAD
-            "image": "assets/images/about-users.jpg",
-=======
             "image": "assets/images/imgcyberTone/about-latency.jpg",
->>>>>>> origin/hoangvu
             "eyebrow": "01 / ĐỘ TRỄ KỶ LỤC",
             "title": "Tốc độ phản hồi cực hạn < 40ms",
             "description": "Tốc độ xử lý âm thanh nhanh hơn cả một khung hình game 60fps, mang đến trải nghiệm đối thoại liền mạch chuẩn eSports.",
@@ -150,11 +126,7 @@
             }
           },
           {
-<<<<<<< HEAD
-            "image": "assets/images/about-processing.jpg",
-=======
             "image": "assets/images/imgcyberTone/about-community.jpg",
->>>>>>> origin/hoangvu
             "eyebrow": "02 / HỆ SINH THÁI",
             "title": "Đồng hành cùng 500+ Game Studio",
             "description": "Là giải pháp âm thanh thế hệ mới cho các tựa game MMORPG, game thế giới mở AAA và không gian thực tế ảo VR/AR.",
@@ -164,11 +136,7 @@
             }
           },
           {
-<<<<<<< HEAD
-            "image": "assets/images/about-quality.jpg",
-=======
             "image": "assets/images/imgcyberTone/about-FBS.jpg",
->>>>>>> origin/hoangvu
             "eyebrow": "03 / TỐI ƯU PHẦN CỨNG",
             "title": "Không sụt giảm FPS của thiết bị",
             "description": "Thuật toán giải mã âm thanh siêu nhẹ tối ưu trên cả PC, Console và Smartphone mà không gây nghẽn CPU/GPU.",
