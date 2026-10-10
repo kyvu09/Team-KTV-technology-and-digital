@@ -540,7 +540,129 @@ body {
 
 
 /* ==========================================================================
-   10. CẤU HÌNH RESPONSIVE CƠ BẢN (TABLET & MOBILE)
+   10. CẤU HÌNH CƠ BẢN (BASE): FOOTER SECTION — Chân trang sang trọng
+   Tham chiếu mã nguồn code-mau — Watermark Brand khổng lồ & Lưới liên kết đa cột
+   ========================================================================== */
+
+/* Khung chân trang tổng thể */
+#site-footer {
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0 40px;
+}
+
+/* Dòng chữ Watermark tên thương hiệu chìm khổng lồ */
+.footer-huge-wordmark {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Khung chứa nội dung chính chân trang */
+.footer-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+/* Cột thông tin thương hiệu (Logo, Slogan, Mạng xã hội) */
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.footer-tagline {
+  margin: 16px 0 24px;
+  max-width: 320px;
+}
+
+/* Cụm liên kết mạng xã hội */
+.footer-socials {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-socials a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* Lưới các cột liên kết điều hướng chân trang */
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* Từng cột liên kết */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-col-title {
+  margin-bottom: 20px;
+}
+
+.footer-col-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-col-links a {
+  text-decoration: none;
+}
+
+/* Thanh chân trang dưới cùng (Bản quyền & Lên đầu trang) */
+.footer-bottom-bar {
+  position: relative;
+  z-index: 1;
+  padding-top: 30px;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.copyright {
+  margin: 0;
+}
+
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+
+/* ==========================================================================
+   11. CẤU HÌNH RESPONSIVE CƠ BẢN (TABLET & MOBILE)
    ========================================================================== */
 @media (max-width: 1024px) {
   /* Chuyển Hero từ 2 cột sang 1 cột và căn giữa nội dung */
@@ -564,6 +686,12 @@ body {
   .about-inner {
     grid-template-columns: 1fr;
     gap: 48px;
+  }
+  /* Chân trang chuyển thành 1 cột trên Tablet */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
   }
 }
 
@@ -599,10 +727,29 @@ body {
     grid-template-columns: 1fr;
     gap: 14px;
   }
+  /* Lưới liên kết chân trang chia thành 2 cột */
+  .footer-links-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  /* Thanh đáy chân trang xếp dọc căn giữa */
+  .footer-bottom-inner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Lưới liên kết chân trang xếp thành 1 cột trên màn hình siêu nhỏ */
+  .footer-links-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 /* ==========================================================================
-   11. NÚT CHUYỂN ĐỔI GIAO DIỆN (WHITE LABEL SWITCHER - GÓC DƯỚI TRÁI)
+   12. NÚT CHUYỂN ĐỔI GIAO DIỆN (WHITE LABEL SWITCHER - GÓC DƯỚI TRÁI)
    ========================================================================== */
 .white-label-switcher {
   position: fixed;

@@ -2150,3 +2150,236 @@
   }
 }
 
+/* ==========================================================================
+   9. FOOTER SECTION — CHÂN TRANG THƯƠNG HIỆU & WATERMARK CHÌM KHỔNG LỒ
+   Tham chiếu mã nguồn code-mau — Phong cách "Âm thanh hữu hình"
+   Hiệu ứng: Chữ viền Watermark Outline khổng lồ, Nút mạng xã hội kính mờ phát sáng
+   ========================================================================== */
+
+/* Khung chân trang tổng thể với nền chuyển tiếp mờ sâu */
+#site-footer {
+  position: relative;
+  background: color-mix(in srgb, var(--surface) 40%, var(--background));
+  border-top: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  padding: 100px 0 40px;
+  overflow: hidden;
+}
+
+/* Dòng chữ tên thương hiệu khổng lồ dạng viền chìm phía sau nền chân trang */
+.footer-huge-wordmark {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-heading);
+  font-size: clamp(6rem, 18vw, 16rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--text) 5%, transparent);
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Khung chứa nội dung chính chân trang */
+.footer-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+/* Khối thông tin thương hiệu bên trái */
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+/* Dòng khẩu hiệu / slogan ngắn gọn dưới logo */
+.footer-tagline {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 16px 0 24px;
+  max-width: 320px;
+}
+
+/* Dãy nút liên kết mạng xã hội (Facebook, Youtube, TikTok, GitHub) */
+.footer-socials {
+  display: flex;
+  gap: 12px;
+}
+
+/* Nút mạng xã hội dạng hình tròn phủ hiệu ứng kính mờ */
+.footer-socials a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+/* Hiệu ứng khi rê chuột vào nút mạng xã hội: Phát sáng và nâng nhẹ */
+.footer-socials a:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+/* Lưới hiển thị các nhóm liên kết chân trang */
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* Tiêu đề nhóm liên kết */
+.footer-col-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+/* Danh sách các đường dẫn điều hướng */
+.footer-col-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Từng liên kết trong nhóm */
+.footer-col-links a {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+/* Hiệu ứng khi hover vào liên kết: Đổi sang màu thương hiệu và nhích nhẹ */
+.footer-col-links a:hover {
+  color: var(--primary);
+  transform: translateX(3px);
+}
+
+/* Dải thanh thông tin bản quyền và nút cuộn lên đầu trang ở đáy */
+.footer-bottom-bar {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
+  padding-top: 30px;
+}
+
+/* Bố cục căn chỉnh 2 đầu của thanh bản quyền */
+.footer-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Dòng chữ bản quyền */
+.copyright {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Nút quay về đầu trang nhanh (Back to Top) */
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Hiệu ứng hover nút cuộn lên đầu trang */
+.back-to-top:hover {
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.back-to-top i {
+  transition: transform 0.25s ease;
+}
+
+.back-to-top:hover i {
+  transform: translateY(-2px);
+}
+
+
+/* ==========================================================================
+   10. RESPONSIVE THEME CHO FOOTER (TABLET & MOBILE)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  /* Chuyển bố cục chân trang sang 1 cột trên Tablet */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Thu hẹp khoảng đệm chân trang trên điện thoại */
+  #site-footer {
+    padding: 70px 0 30px;
+  }
+
+  /* Lưới liên kết chân trang chia làm 2 cột */
+  .footer-links-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* Thanh đáy xếp dọc căn giữa */
+  .footer-bottom-inner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Lưới liên kết chân trang xếp thành 1 cột trên màn hình rất nhỏ */
+  .footer-links-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Điều chỉnh cỡ chữ Watermark chìm tránh tràn mép */
+  .footer-huge-wordmark {
+    font-size: clamp(3.5rem, 14vw, 7rem);
+    bottom: 120px;
+  }
+}
+
+
