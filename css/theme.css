@@ -1360,13 +1360,12 @@
 }
 
 /* ==========================================================================
-   6. STUDIO CONSOLE (DEMO SECTION) — TRẢI NGHIỆM TƯƠNG TÁC ÂM THANH & CÔNG NGHỆ
-   Tham chiếu chuẩn từ mã nguồn vivoice-mau
-   Giao diện bảng điều khiển studio phát âm thanh, tùy chỉnh giọng đọc,
-   hiệu ứng kính mờ glassmorphism và sóng âm sống động.
+   6. STUDIO CONSOLE (DEMO SECTION) — BÀN ĐIỀU KHIỂN & BỘ GIẢ LẬP TRẢI NGHIỆM
+   Tham chiếu mã nguồn vivoice-mau — Phong cách "Âm thanh hữu hình"
+   Hiệu ứng: Mặt kính mờ Glassmorphism, Viền phát sáng ánh cực quang, Sóng âm Canvas
    ========================================================================== */
 
-/* Khung vỏ ngoài Studio Console hiệu ứng kính mờ (Glassmorphism) */
+/* Khung chứa bảng điều khiển âm thanh trung tâm (Console Box) */
 .studio-console {
   background: color-mix(in srgb, var(--surface) 80%, transparent);
   backdrop-filter: blur(24px);
@@ -1378,15 +1377,16 @@
   margin: 40px auto 0;
   box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Hiệu ứng viền sáng bừng khi rê chuột vào Console */
+/* Hiệu ứng khi rê chuột vào bàn điều khiển: Viền phát sáng màu thương hiệu */
 .studio-console:hover {
   border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+  box-shadow: 0 35px 90px -20px color-mix(in srgb, var(--primary) 15%, rgba(0, 0, 0, 0.5));
 }
 
-/* Thanh công cụ đỉnh Console (Top Bar) */
+/* Thanh điều hướng giả lập cửa sổ ứng dụng (Top Bar) */
 .console-topbar {
   display: flex;
   align-items: center;
@@ -1396,7 +1396,7 @@
   border-bottom: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
 }
 
-/* Cụm chấm nút điều khiển cửa sổ kiểu macOS */
+/* 3 nút chấm điều khiển cửa sổ kiểu macOS (Đỏ - Vàng - Xanh) */
 .console-window-dots {
   display: flex;
   gap: 8px;
@@ -1406,6 +1406,11 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.console-window-dots:hover .dot {
+  transform: scale(1.1);
 }
 
 .dot.red {
@@ -1420,7 +1425,7 @@
   background: #10b981;
 }
 
-/* Tiêu đề thanh công cụ Console */
+/* Tiêu đề thanh công cụ của Console */
 .console-title {
   display: flex;
   align-items: center;
@@ -1428,9 +1433,11 @@
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--text-muted);
+  font-family: var(--font-heading);
+  letter-spacing: 0.04em;
 }
 
-/* Huy hiệu trạng thái phát trực tiếp (Live Status Badge) */
+/* Huy hiệu chỉ báo trạng thái hoạt động trực tiếp (Live Badge) */
 .console-live-badge {
   display: inline-flex;
   align-items: center;
@@ -1446,15 +1453,16 @@
   transition: all 0.3s ease;
 }
 
+/* Chấm đèn tín hiệu */
 .console-live-badge .live-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: #64748b;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Trạng thái hoạt động (Active): chấm xanh phát sáng hào quang */
+/* Trạng thái hoạt động (Active): Đèn xanh lá nhấp nháy phát sáng */
 .console-live-badge.active {
   color: #10b981;
   border-color: rgba(16, 185, 129, 0.3);
@@ -1465,7 +1473,7 @@
   box-shadow: 0 0 8px #10b981;
 }
 
-/* Dải hiển thị sóng âm trực quan (Visualizer Bar) */
+/* Dải sóng âm trực quan (Visualizer Bar) */
 .console-visualizer-bar {
   background: color-mix(in srgb, var(--background) 80%, transparent);
   padding: 12px 24px;
@@ -1478,7 +1486,7 @@
   display: block;
 }
 
-/* Dải chip chọn câu mẫu nhanh (Preset Chips) */
+/* Khu vực gắn thẻ chọn nhanh câu thoại mẫu (Preset Chips) */
 .preset-chips {
   display: flex;
   align-items: center;
@@ -1493,6 +1501,7 @@
   color: var(--text-muted);
 }
 
+/* Các nút viên thuốc chọn câu thoại nhanh */
 .chip-btn {
   padding: 6px 16px;
   border-radius: 100px;
@@ -1510,9 +1519,10 @@
   background: color-mix(in srgb, var(--primary) 15%, transparent);
   border-color: var(--primary);
   color: var(--primary);
+  transform: translateY(-1px);
 }
 
-/* Khu vực soạn thảo văn bản (Editor) */
+/* Khung soạn thảo văn bản mô phỏng phòng thu */
 .console-editor {
   padding: 16px 24px;
 }
@@ -1533,13 +1543,13 @@
   transition: border-color 0.25s, box-shadow 0.25s;
 }
 
-/* Trạng thái focus phát sáng viền textarea */
+/* Hiệu ứng khi bấm vào ô nhập văn bản (Focus) */
 .console-editor textarea:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
 }
 
-/* Chân khung soạn thảo */
+/* Chân khung soạn thảo: Hiển thị số lượng ký tự và nút xóa nhanh */
 .editor-footer {
   display: flex;
   align-items: center;
@@ -1556,17 +1566,17 @@
 .clear-btn {
   color: var(--text-muted);
   font-size: 0.85rem;
-  transition: color 0.2s;
   background: none;
   border: none;
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .clear-btn:hover {
   color: #ef4444;
 }
 
-/* Cụm tùy chỉnh thông số (Controls) */
+/* Khu vực điều khiển các nút tham số giọng nói (Console Controls) */
 .console-controls {
   padding: 14px 24px 28px;
   display: flex;
@@ -1604,9 +1614,11 @@
 .speed-badge {
   color: var(--primary);
   font-size: 0.85rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
 
-/* Dropdown chọn giọng nói / cấu hình tuỳ biến */
+/* Hộp chọn kiểu giọng thả xuống (Select Dropdown) */
 .select-wrapper {
   position: relative;
 }
@@ -1622,6 +1634,12 @@
   font-size: 0.92rem;
   appearance: none;
   cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.select-wrapper select:focus {
+  border-color: var(--primary);
 }
 
 .select-arrow {
@@ -1634,7 +1652,7 @@
   color: var(--text-muted);
 }
 
-/* Thanh trượt Range slider công nghệ */
+/* Thanh trượt điều chỉnh tốc độ đọc (Range Slider) */
 .demo-field input[type="range"] {
   width: 100%;
   height: 6px;
@@ -1645,7 +1663,7 @@
   cursor: pointer;
 }
 
-/* Cụm nút hành động phát âm thanh */
+/* Khu vực nút hành động (Phát giọng nói & Dừng phát) */
 .console-actions {
   display: flex;
   align-items: center;
@@ -1659,14 +1677,23 @@
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Trạng thái nút khi đang phát âm thanh */
+/* Trạng thái khi âm thanh đang phát: Nút đổi màu đỏ cảnh báo kèm hiệu ứng phát sáng */
 #demo-speak.is-speaking {
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   border-color: #ef4444;
   box-shadow: 0 0 24px rgba(239, 68, 68, 0.45);
 }
 
-/* Ghi chú chân khu vực Demo */
+/* Khung màn hình kết quả dòng lệnh giả lập (Console Output / Terminal) */
+.console-output {
+  margin-top: 10px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Dòng ghi chú thông tin kỹ thuật dưới đáy bàn điều khiển */
 .demo-note {
   padding: 12px 24px;
   background: color-mix(in srgb, var(--background) 50%, transparent);
@@ -1680,26 +1707,23 @@
 
 
 /* ==========================================================================
-   7. ABOUT SECTION — CÂU CHUYỆN THƯƠNG HIỆU & 3D STICKY SCROLL STORY
-   Tham chiếu chuẩn từ mã nguồn vivoice-mau
+   7. ABOUT SECTION — CÂU CHUYỆN THƯƠNG HIỆU & SỨ MỆNH
+   Tham chiếu mã nguồn vivoice-mau
    Hỗ trợ 2 chế độ:
-   - 7.1. 3D Sticky Scroll Story (Cuộn dính đa tầng tương tác chuẩn cuộc thi)
-   - 7.2. Standard Fallback Grid (Lưới hình ảnh + Thống kê số liệu động)
-   - 7.3. Responsive: Tối ưu hiển thị đa thiết bị & Tùy chọn giảm chuyển động
+     7.1. Chế độ 1: 3D Sticky Scroll Story (Cuộn đa tầng kể chuyện thương hiệu)
+     7.2. Chế độ 2: Static Fallback Grid (Lưới hình ảnh kèm thẻ số liệu thống kê)
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   7.1. 3D STICKY SCROLL STORY (CUỘN ĐA TẦNG DÍNH MÀN HÌNH)
+   7.1. CHẾ ĐỘ 1: 3D STICKY SCROLL STORY (CUỘN ĐA TẦNG KỂ CHUYỆN)
    -------------------------------------------------------------------------- */
-
-/* Khung bao toàn bộ section Scroll Story */
 .about-story {
   position: relative;
   color: var(--text, #f1f5f9);
   background: var(--background, #070c1e);
 }
 
-/* Khối giới thiệu mở đầu trước khi bước vào dải cuộn sticky */
+/* Khối giới thiệu tiêu đề đầu phần kể chuyện */
 .about-story__intro {
   width: min(1480px, calc(100% - 48px));
   margin: 0 auto;
@@ -1718,14 +1742,17 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  font-family: var(--font-heading);
 }
 
 .about-story__intro h2 {
   max-width: 760px;
   margin: 16px 0 0;
+  font-family: var(--font-heading);
   font-size: clamp(2.2rem, 5vw, 4.8rem);
   line-height: 1.02;
   letter-spacing: -0.055em;
+  color: var(--text);
 }
 
 .about-story__copy p {
@@ -1735,19 +1762,19 @@
   line-height: 1.8;
 }
 
-/* Trục hành trình cuộn (Track) */
+/* Đường ray cuộn (Track) giữ nhịp cuộn trang */
 .about-story__track {
   position: relative;
 }
 
-/* Bước cuộn ảo để tạo chiều cao kích hoạt sự kiện dính */
+/* Từng bước cuộn để kích hoạt chuyển slide */
 .about-story__step {
   height: 82vh;
   min-height: 540px;
   pointer-events: none;
 }
 
-/* Sân khấu dính cố định chiếm trọn chiều cao màn hình (Sticky Stage) */
+/* Sân khấu chính cố định ở đỉnh màn hình khi người dùng cuộn qua (Sticky Stage) */
 .about-story__stage {
   position: sticky;
   top: 0;
@@ -1758,27 +1785,25 @@
   background: #080b14;
 }
 
-/* Ngăn chứa các tầng slide hình ảnh & nội dung */
 .about-story__slides,
 .about-story__slide {
   position: absolute;
   inset: 0;
 }
 
-/* Trạng thái mặc định ẩn của từng slide */
+/* Mỗi trang trình chiếu (Slide): Mặc định ẩn, chuyển đổi mượt khi kích hoạt */
 .about-story__slide {
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--story-duration, 650ms) ease, visibility var(--story-duration, 650ms) ease;
 }
 
-/* Slide đang hoạt động: Hiện rõ và kích hoạt hiệu ứng */
 .about-story__slide.is-active {
   opacity: 1;
   visibility: visible;
 }
 
-/* Hình ảnh nền của slide với hiệu ứng zoom thu phóng điện ảnh */
+/* Hình ảnh nền của từng Slide: Hiệu ứng phóng to nhẹ (Cinematic Zoom) */
 .about-story__image {
   position: absolute;
   inset: 0;
@@ -1793,7 +1818,7 @@
   transform: scale(var(--image-scale-to, 1));
 }
 
-/* Lớp phủ chuyển mờ đa hướng giúp nổi bật văn bản phía trên hình ảnh */
+/* Lớp bóng đổ đa lớp giúp đọc rõ văn bản trên nền ảnh */
 .about-story__shade {
   position: absolute;
   inset: 0;
@@ -1802,7 +1827,7 @@
     linear-gradient(0deg, rgba(3, 7, 18, 0.78), transparent 65%);
 }
 
-/* Hộp nội dung chữ của từng slide */
+/* Khối nội dung văn bản nổi trên Slide */
 .about-story__content {
   position: absolute;
   z-index: 1;
@@ -1823,10 +1848,12 @@
 .about-story__content h3 {
   max-width: 850px;
   margin: 16px 0;
+  font-family: var(--font-heading);
   font-size: clamp(2.5rem, 7vw, 6.8rem);
   line-height: 0.96;
   letter-spacing: -0.06em;
   text-wrap: balance;
+  color: #ffffff;
 }
 
 .about-story__description {
@@ -1837,7 +1864,7 @@
   line-height: 1.75;
 }
 
-/* Cụm chỉ số ấn tượng của slide */
+/* Khối chỉ số đo lường nổi bật của từng slide */
 .about-story__metric {
   display: inline-flex;
   flex-direction: column;
@@ -1848,9 +1875,11 @@
 }
 
 .about-story__metric-value {
+  font-family: var(--font-heading);
   font-size: clamp(1.5rem, 3vw, 2.3rem);
   font-weight: 750;
   letter-spacing: -0.04em;
+  color: var(--text, #ffffff);
 }
 
 .about-story__metric-label {
@@ -1858,7 +1887,7 @@
   font-size: 0.88rem;
 }
 
-/* Thanh phân đoạn tiến trình cuộn ở đáy sân khấu */
+/* Thanh tiến trình phân đoạn ở đáy màn hình */
 .about-story__progress {
   position: absolute;
   z-index: 3;
@@ -1874,6 +1903,7 @@
   flex: 1;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.28);
+  border-radius: 2px;
 }
 
 .about-story__progress-item span {
@@ -1895,10 +1925,8 @@
 
 
 /* --------------------------------------------------------------------------
-   7.2. STANDARD FALLBACK GRID (LƯỚI HÌNH ẢNH + SỐ LIỆU ĐỘNG TIÊU CHUẨN)
+   7.2. CHẾ ĐỘ 2: STATIC FALLBACK GRID (LƯỚI HÌNH ẢNH & THỐNG KÊ ĐỘNG)
    -------------------------------------------------------------------------- */
-
-/* Bố cục 2 cột cho About dạng Fallback Grid */
 .about-inner {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -1906,7 +1934,7 @@
   align-items: center;
 }
 
-/* Khung chứa ảnh câu chuyện thương hiệu */
+/* Khung bọc ảnh đại diện thương hiệu */
 .about-image-wrapper {
   position: relative;
   border-radius: 28px;
@@ -1920,21 +1948,15 @@
   aspect-ratio: 3/4;
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
 }
 
+/* Hiệu ứng phóng to nhẹ hình ảnh khi rê chuột vào */
 .about-image-wrapper:hover .about-img {
   transform: scale(1.04);
 }
 
-/* Hiệu ứng hào quang nền sau ảnh */
-.about-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--primary) 15%, transparent), transparent 70%);
-}
-
-/* Huy hiệu nổi bật gắn trên ảnh (Floating Badge) */
+/* Thẻ huy hiệu nổi lơ lửng trên góc dưới ảnh (Floating Badge) */
 .about-floating-badge {
   position: absolute;
   bottom: 24px;
@@ -1978,7 +2000,7 @@
   color: var(--text-muted);
 }
 
-/* Đoạn văn bản mô tả câu chuyện thương hiệu */
+/* Cụm văn bản mô tả giới thiệu */
 .about-paragraphs {
   margin: 24px 0 40px;
 }
@@ -1990,7 +2012,7 @@
   margin-bottom: 18px;
 }
 
-/* Lưới hiển thị các thẻ số liệu thống kê */
+/* Lưới hiển thị các thẻ số liệu thống kê (Stats Grid) */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1999,11 +2021,18 @@
   border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
 }
 
+/* Thẻ thống kê số liệu */
 .stat-card {
   padding: 20px;
   border-radius: 16px;
   background: color-mix(in srgb, var(--surface) 50%, transparent);
   border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
 .stat-number {
@@ -2022,13 +2051,12 @@
 }
 
 
-/* --------------------------------------------------------------------------
-   7.3. RESPONSIVE THEME CHO DEMO & ABOUT SECTION
-   -------------------------------------------------------------------------- */
+/* ==========================================================================
+   8. RESPONSIVE THEME CHO DEMO VÀ ABOUT (TABLET & MOBILE)
+   ========================================================================== */
+
 @media (max-width: 1024px) {
-  .studio-console {
-    margin-top: 32px;
-  }
+  /* Bố cục lưới About trên màn hình Tablet */
   .about-inner {
     grid-template-columns: 1fr;
     gap: 48px;
@@ -2036,35 +2064,45 @@
 }
 
 @media (max-width: 768px) {
+  /* Tối ưu hóa Studio Console trên Mobile */
+  .studio-console {
+    margin-top: 28px;
+    border-radius: 18px;
+  }
   .console-topbar {
-    padding: 12px 16px;
+    padding: 12px 18px;
   }
   .console-editor {
+    padding: 14px 18px;
+  }
+  .console-editor textarea {
+    font-size: 0.95rem;
     padding: 14px 16px;
+    min-height: 120px;
   }
   .console-controls {
-    padding: 12px 16px 20px;
+    padding: 12px 18px 24px;
     gap: 16px;
   }
-  .control-group {
-    min-width: 100%;
+  /* Thẻ huy hiệu trên ảnh thu nhỏ padding */
+  .about-floating-badge {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    padding: 12px 16px;
   }
-  .console-actions {
-    flex-direction: column;
-    width: 100%;
+  .badge-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
   }
-  #demo-speak {
-    width: 100%;
-  }
-  .preset-chips {
-    padding: 12px 16px 6px;
-  }
-  .stats-grid {
-    grid-template-columns: 1fr;
+  .badge-text strong {
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 720px) {
+  /* Tối ưu hóa chế độ Scroll Story trên Mobile */
   .about-story__intro {
     grid-template-columns: 1fr;
     gap: 22px;
@@ -2096,13 +2134,19 @@
   }
 }
 
-/* Giảm chuyển động theo thiết lập trợ năng của người dùng */
+/* Tối ưu hóa khi người dùng kích hoạt giảm hiệu ứng chuyển động */
 @media (prefers-reduced-motion: reduce) {
   .about-story__slide,
   .about-story__image,
   .about-story__content,
   .about-story__progress-item span {
     transition-duration: 1ms !important;
+  }
+  .about-img {
+    transition: none;
+  }
+  .stat-card {
+    transition: none;
   }
 }
 
