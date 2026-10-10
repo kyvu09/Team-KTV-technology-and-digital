@@ -1358,3 +1358,751 @@
     transition: none;
   }
 }
+
+/* ==========================================================================
+   6. STUDIO CONSOLE (DEMO SECTION) — TRẢI NGHIỆM TƯƠNG TÁC ÂM THANH & CÔNG NGHỆ
+   Tham chiếu chuẩn từ mã nguồn vivoice-mau
+   Giao diện bảng điều khiển studio phát âm thanh, tùy chỉnh giọng đọc,
+   hiệu ứng kính mờ glassmorphism và sóng âm sống động.
+   ========================================================================== */
+
+/* Khung vỏ ngoài Studio Console hiệu ứng kính mờ (Glassmorphism) */
+.studio-console {
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border-radius: 24px;
+  max-width: 960px;
+  width: 100%;
+  margin: 40px auto 0;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+}
+
+/* Hiệu ứng viền sáng bừng khi rê chuột vào Console */
+.studio-console:hover {
+  border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+}
+
+/* Thanh công cụ đỉnh Console (Top Bar) */
+.console-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: color-mix(in srgb, var(--surface) 95%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+/* Cụm chấm nút điều khiển cửa sổ kiểu macOS */
+.console-window-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.console-window-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot.red {
+  background: #ef4444;
+}
+
+.dot.yellow {
+  background: #f59e0b;
+}
+
+.dot.green {
+  background: #10b981;
+}
+
+/* Tiêu đề thanh công cụ Console */
+.console-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* Huy hiệu trạng thái phát trực tiếp (Live Status Badge) */
+.console-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.console-live-badge .live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #64748b;
+  transition: all 0.3s ease;
+}
+
+/* Trạng thái hoạt động (Active): chấm xanh phát sáng hào quang */
+.console-live-badge.active {
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.console-live-badge.active .live-dot {
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+/* Dải hiển thị sóng âm trực quan (Visualizer Bar) */
+.console-visualizer-bar {
+  background: color-mix(in srgb, var(--background) 80%, transparent);
+  padding: 12px 24px;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
+}
+
+.demo-canvas {
+  width: 100%;
+  height: 50px;
+  display: block;
+}
+
+/* Dải chip chọn câu mẫu nhanh (Preset Chips) */
+.preset-chips {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 24px 8px;
+  flex-wrap: wrap;
+}
+
+.chips-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.chip-btn {
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.chip-btn:hover,
+.chip-btn.active {
+  background: color-mix(in srgb, var(--primary) 15%, transparent);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Khu vực soạn thảo văn bản (Editor) */
+.console-editor {
+  padding: 16px 24px;
+}
+
+.console-editor textarea {
+  width: 100%;
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border-radius: 16px;
+  padding: 18px 20px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 150px;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+/* Trạng thái focus phát sáng viền textarea */
+.console-editor textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+/* Chân khung soạn thảo */
+.editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 0 4px;
+}
+
+.char-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.clear-btn {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  color: #ef4444;
+}
+
+/* Cụm tùy chỉnh thông số (Controls) */
+.console-controls {
+  padding: 14px 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  flex: 1;
+  min-width: 260px;
+  max-width: 480px;
+}
+
+.demo-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.field-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.speed-badge {
+  color: var(--primary);
+  font-size: 0.85rem;
+}
+
+/* Dropdown chọn giọng nói / cấu hình tuỳ biến */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper select {
+  width: 100%;
+  padding: 12px 36px 12px 16px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.92rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Thanh trượt Range slider công nghệ */
+.demo-field input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  accent-color: var(--primary);
+  background: color-mix(in srgb, var(--text) 15%, transparent);
+  outline: none;
+  cursor: pointer;
+}
+
+/* Cụm nút hành động phát âm thanh */
+.console-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+#demo-speak {
+  min-width: 180px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Trạng thái nút khi đang phát âm thanh */
+#demo-speak.is-speaking {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border-color: #ef4444;
+  box-shadow: 0 0 24px rgba(239, 68, 68, 0.45);
+}
+
+/* Ghi chú chân khu vực Demo */
+.demo-note {
+  padding: 12px 24px;
+  background: color-mix(in srgb, var(--background) 50%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* ==========================================================================
+   7. ABOUT SECTION — CÂU CHUYỆN THƯƠNG HIỆU & 3D STICKY SCROLL STORY
+   Tham chiếu chuẩn từ mã nguồn vivoice-mau
+   Hỗ trợ 2 chế độ:
+   - 7.1. 3D Sticky Scroll Story (Cuộn dính đa tầng tương tác chuẩn cuộc thi)
+   - 7.2. Standard Fallback Grid (Lưới hình ảnh + Thống kê số liệu động)
+   - 7.3. Responsive: Tối ưu hiển thị đa thiết bị & Tùy chọn giảm chuyển động
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   7.1. 3D STICKY SCROLL STORY (CUỘN ĐA TẦNG DÍNH MÀN HÌNH)
+   -------------------------------------------------------------------------- */
+
+/* Khung bao toàn bộ section Scroll Story */
+.about-story {
+  position: relative;
+  color: var(--text, #f1f5f9);
+  background: var(--background, #070c1e);
+}
+
+/* Khối giới thiệu mở đầu trước khi bước vào dải cuộn sticky */
+.about-story__intro {
+  width: min(1480px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 140px) 0 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+  gap: clamp(28px, 6vw, 88px);
+  align-items: end;
+}
+
+.about-story__eyebrow,
+.about-story__slide-eyebrow {
+  display: inline-block;
+  color: var(--accent, #a78bfa);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.about-story__intro h2 {
+  max-width: 760px;
+  margin: 16px 0 0;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+
+.about-story__copy p {
+  margin: 0 0 14px;
+  color: var(--text-muted, #94a3b8);
+  font-size: clamp(0.98rem, 1.2vw, 1.1rem);
+  line-height: 1.8;
+}
+
+/* Trục hành trình cuộn (Track) */
+.about-story__track {
+  position: relative;
+}
+
+/* Bước cuộn ảo để tạo chiều cao kích hoạt sự kiện dính */
+.about-story__step {
+  height: 82vh;
+  min-height: 540px;
+  pointer-events: none;
+}
+
+/* Sân khấu dính cố định chiếm trọn chiều cao màn hình (Sticky Stage) */
+.about-story__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 540px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #080b14;
+}
+
+/* Ngăn chứa các tầng slide hình ảnh & nội dung */
+.about-story__slides,
+.about-story__slide {
+  position: absolute;
+  inset: 0;
+}
+
+/* Trạng thái mặc định ẩn của từng slide */
+.about-story__slide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--story-duration, 650ms) ease, visibility var(--story-duration, 650ms) ease;
+}
+
+/* Slide đang hoạt động: Hiện rõ và kích hoạt hiệu ứng */
+.about-story__slide.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hình ảnh nền của slide với hiệu ứng zoom thu phóng điện ảnh */
+.about-story__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(var(--image-scale-from, 1.08));
+  transition: transform 1100ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.about-story__slide.is-active .about-story__image {
+  transform: scale(var(--image-scale-to, 1));
+}
+
+/* Lớp phủ chuyển mờ đa hướng giúp nổi bật văn bản phía trên hình ảnh */
+.about-story__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(3, 7, 18, 0.76), rgba(3, 7, 18, 0.15) 75%),
+    linear-gradient(0deg, rgba(3, 7, 18, 0.78), transparent 65%);
+}
+
+/* Hộp nội dung chữ của từng slide */
+.about-story__content {
+  position: absolute;
+  z-index: 1;
+  left: clamp(20px, 4.5vw, 64px);
+  right: 24px;
+  bottom: clamp(72px, 13vh, 150px);
+  max-width: 850px;
+  opacity: 0;
+  transform: translateY(var(--reveal-distance, 28px));
+  transition: opacity 600ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.about-story__slide.is-active .about-story__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-story__content h3 {
+  max-width: 850px;
+  margin: 16px 0;
+  font-size: clamp(2.5rem, 7vw, 6.8rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.about-story__description {
+  max-width: 570px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.75;
+}
+
+/* Cụm chỉ số ấn tượng của slide */
+.about-story__metric {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 26px;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent, #a78bfa);
+}
+
+.about-story__metric-value {
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+  font-weight: 750;
+  letter-spacing: -0.04em;
+}
+
+.about-story__metric-label {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.88rem;
+}
+
+/* Thanh phân đoạn tiến trình cuộn ở đáy sân khấu */
+.about-story__progress {
+  position: absolute;
+  z-index: 3;
+  left: clamp(20px, 4.5vw, 64px);
+  right: clamp(20px, 4.5vw, 64px);
+  bottom: 28px;
+  display: flex;
+  gap: 8px;
+}
+
+.about-story__progress-item {
+  height: 3px;
+  flex: 1;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.about-story__progress-item span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--accent, #a78bfa);
+  transition: width 250ms ease;
+}
+
+.about-story__progress-item.is-active span {
+  width: 100%;
+}
+
+.about-story__end {
+  height: 12vh;
+  min-height: 60px;
+}
+
+
+/* --------------------------------------------------------------------------
+   7.2. STANDARD FALLBACK GRID (LƯỚI HÌNH ẢNH + SỐ LIỆU ĐỘNG TIÊU CHUẨN)
+   -------------------------------------------------------------------------- */
+
+/* Bố cục 2 cột cho About dạng Fallback Grid */
+.about-inner {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 70px;
+  align-items: center;
+}
+
+/* Khung chứa ảnh câu chuyện thương hiệu */
+.about-image-wrapper {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.5);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+}
+
+.about-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-image-wrapper:hover .about-img {
+  transform: scale(1.04);
+}
+
+/* Hiệu ứng hào quang nền sau ảnh */
+.about-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--primary) 15%, transparent), transparent 70%);
+}
+
+/* Huy hiệu nổi bật gắn trên ảnh (Floating Badge) */
+.about-floating-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.badge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #070c1e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.badge-text strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.badge-text span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Đoạn văn bản mô tả câu chuyện thương hiệu */
+.about-paragraphs {
+  margin: 24px 0 40px;
+}
+
+.about-p {
+  color: var(--text-muted);
+  font-size: 1.12rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+/* Lưới hiển thị các thẻ số liệu thống kê */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding-top: 30px;
+  border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.stat-card {
+  padding: 20px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface) 50%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.stat-number {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+
+/* --------------------------------------------------------------------------
+   7.3. RESPONSIVE THEME CHO DEMO & ABOUT SECTION
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .studio-console {
+    margin-top: 32px;
+  }
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .console-topbar {
+    padding: 12px 16px;
+  }
+  .console-editor {
+    padding: 14px 16px;
+  }
+  .console-controls {
+    padding: 12px 16px 20px;
+    gap: 16px;
+  }
+  .control-group {
+    min-width: 100%;
+  }
+  .console-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  #demo-speak {
+    width: 100%;
+  }
+  .preset-chips {
+    padding: 12px 16px 6px;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .about-story__intro {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    width: min(100% - 36px, 600px);
+    padding: 76px 0 32px;
+  }
+  .about-story__step {
+    height: 76vh;
+    min-height: 500px;
+  }
+  .about-story__stage {
+    min-height: 500px;
+  }
+  .about-story__content {
+    left: 22px;
+    right: 22px;
+    bottom: 76px;
+  }
+  .about-story__content h3 {
+    font-size: clamp(2.4rem, 12vw, 4rem);
+  }
+  .about-story__shade {
+    background: linear-gradient(0deg, rgba(3, 7, 18, 0.9), rgba(3, 7, 18, 0.12) 90%);
+  }
+  .about-story__progress {
+    left: 22px;
+    right: 22px;
+    bottom: 24px;
+  }
+}
+
+/* Giảm chuyển động theo thiết lập trợ năng của người dùng */
+@media (prefers-reduced-motion: reduce) {
+  .about-story__slide,
+  .about-story__image,
+  .about-story__content,
+  .about-story__progress-item span {
+    transition-duration: 1ms !important;
+  }
+}
+
