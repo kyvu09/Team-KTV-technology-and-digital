@@ -3,7 +3,8 @@ import { renderHero, initHeroInteractions } from "./sections/Hero.js";
 import { initVoiceOrb } from "./effects/voice-orb.js";
 import { renderFeatures, initFeaturesInteractions } from "./sections/Features.js";
 import { renderFooter } from "./sections/Footer.js";
-import { initChatbot } from "../js/components/chatbox.js";
+import { initChatbot } from "./components/Chatbot.js";
+
 // Bảng từ điển giúp chuyển đổi từ tên loại trong JSON sang Hàm tạo HTML tương ứng
 const RENDERERS = {
   "hero": renderHero,
