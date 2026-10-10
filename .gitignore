@@ -31,5 +31,5 @@ vivoice-mau/
 # Audio test outputs
 *.mp3
 *.wav
->>>>>>> Stashed changes
->>>>>>> 51fc4a4e0448346e2bf3aaa8d5a7e51c20f4d140
+
+.env
