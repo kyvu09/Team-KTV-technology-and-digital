@@ -25,4 +25,13 @@ vivoice-mau/
 # Cho phép Git theo dõi audio của dự án
 !assets/audio/*.mp3
 
+<<<<<<< HEAD
 code-mau/
+=======
+
+=======
+# Audio test outputs
+*.mp3
+*.wav
+
+>>>>>>> origin/thai
