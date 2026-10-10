@@ -7,6 +7,10 @@ import {
 } from "./sections/Features.js";
 import { renderDemo, initDemoInteractions } from "./sections/Demo.js";
 import { renderAbout, initAboutScroll } from "./sections/About.js";
+import {
+  renderTestimonials,
+  initTestimonialsInteractions,
+} from "./sections/Testimonials.js";
 
 // Bảng từ điển giúp chuyển đổi từ tên loại trong JSON sang Hàm tạo HTML tương ứng
 const RENDERERS = {
@@ -14,6 +18,7 @@ const RENDERERS = {
   features: renderFeatures,
   demo: renderDemo,
   about: renderAbout,
+  testimonials: renderTestimonials,
 };
 
 // Bảng từ điển giúp gọi Hàm kích hoạt nút bấm tương ứng
@@ -22,6 +27,7 @@ const INTERACTION_HANDLERS = {
   features: initFeaturesInteractions,
   demo: initDemoInteractions,
   about: initAboutScroll,
+  testimonials: initTestimonialsInteractions,
 };
 
 export function renderSite(config) {
