@@ -11,6 +11,7 @@ import {
   renderTestimonials,
   initTestimonialsInteractions,
 } from "./sections/Testimonials.js";
+import { renderFaq, initFaqInteractions } from "./sections/Faq.js";
 
 // Bảng từ điển giúp chuyển đổi từ tên loại trong JSON sang Hàm tạo HTML tương ứng
 const RENDERERS = {
@@ -19,6 +20,7 @@ const RENDERERS = {
   demo: renderDemo,
   about: renderAbout,
   testimonials: renderTestimonials,
+  faq: renderFaq,
 };
 
 // Bảng từ điển giúp gọi Hàm kích hoạt nút bấm tương ứng
@@ -28,6 +30,7 @@ const INTERACTION_HANDLERS = {
   demo: initDemoInteractions,
   about: initAboutScroll,
   testimonials: initTestimonialsInteractions,
+  faq: initFaqInteractions,
 };
 
 export function renderSite(config) {
