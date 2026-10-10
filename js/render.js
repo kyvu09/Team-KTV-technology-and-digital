@@ -1,18 +1,27 @@
 import { renderHeader } from "./sections/Header.js";
 import { renderHero, initHeroInteractions } from "./sections/Hero.js";
 import { initVoiceOrb } from "./effects/voice-orb.js";
-import { renderFeatures, initFeaturesInteractions } from "./sections/Features.js";
+import {
+  renderFeatures,
+  initFeaturesInteractions,
+} from "./sections/Features.js";
+import { renderDemo, initDemoInteractions } from "./sections/Demo.js";
+import { renderAbout, initAboutScroll } from "./sections/About.js";
 
 // Bảng từ điển giúp chuyển đổi từ tên loại trong JSON sang Hàm tạo HTML tương ứng
 const RENDERERS = {
-  "hero": renderHero,
-  "features": renderFeatures,
+  hero: renderHero,
+  features: renderFeatures,
+  demo: renderDemo,
+  about: renderAbout,
 };
 
 // Bảng từ điển giúp gọi Hàm kích hoạt nút bấm tương ứng
 const INTERACTION_HANDLERS = {
-  "hero": initHeroInteractions,
-  "features": initFeaturesInteractions,
+  hero: initHeroInteractions,
+  features: initFeaturesInteractions,
+  demo: initDemoInteractions,
+  about: initAboutScroll,
 };
 
 export function renderSite(config) {
@@ -42,7 +51,9 @@ export function renderSite(config) {
       fullHTML += rendererFunction(sectionData);
     } else {
       // Chưa triển khai các section này (Features, About, FAQ...) -> tạm bỏ qua để không lỗi
-      console.log(`[White Label] Section "${type}" chưa được triển khai, tạm thời bỏ qua.`);
+      console.log(
+        `[White Label] Section "${type}" chưa được triển khai, tạm thời bỏ qua.`,
+      );
     }
   }
 
