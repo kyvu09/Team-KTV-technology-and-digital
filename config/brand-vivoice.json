@@ -1,370 +1,366 @@
-  {
-    "brand": {
-      "favicon": "",
-      "logo": "",
-      "name": "ViVoice",
-      "slogan": "Giọng nói AI cho tiếng Việt"
+{
+  "brand": {
+    "favicon": "",
+    "logo": "",
+    "name": "ViVoice",
+    "slogan": "Giọng nói AI cho tiếng Việt"
+  },
+  "effects": {
+    "smoothScroll": true,
+    "cursor": true,
+    "preloader": true,
+    "orb": true,
+    "ambientBackground": true,
+    "scrollProgress": true
+  },
+  "nav": [
+    {
+      "href": "#hero",
+      "label": "Trang chủ"
     },
-    "effects": {
-      "smoothScroll": true,
-      "cursor": true,
-      "preloader": true,
-      "orb": true,
-      "ambientBackground": true,
-      "scrollProgress": true
+    {
+      "href": "#features",
+      "label": "Tính năng"
     },
-    "nav": [
-      {
-        "href": "#hero",
-        "label": "Trang chủ"
-      },
-      {
-        "href": "#features",
-        "label": "Tính năng"
-      },
-      {
-        "href": "#demo",
-        "label": "Trải nghiệm"
-      },
-      {
-        "href": "#about",
-        "label": "Về chúng tôi"
-      },
-      {
-        "href": "#faq",
-        "label": "Hỏi đáp"
-      },
-      {
-        "href": "#contact",
-        "label": "Liên hệ"
-      }
-    ],
-    "sections": [
-      {
-        "type": "hero",
-        "layout": "split-right",
-        "welcomeMessage": "Chào mừng bạn đến với ViVoice",
-        "welcomeAudio": "assets/audio/welcome-vivoice.mp3",
-        "title": "Biến mọi văn bản thành giọng đọc tự nhiên cho",
-        "rotatingWords": [
-          "podcast",
-          "video ngắn",
-          "sách nói"
+    {
+      "href": "#demo",
+      "label": "Trải nghiệm"
+    },
+    {
+      "href": "#about",
+      "label": "Về chúng tôi"
+    },
+    {
+      "href": "#faq",
+      "label": "Hỏi đáp"
+    },
+    {
+      "href": "#contact",
+      "label": "Liên hệ"
+    }
+  ],
+  "sections": [
+    {
+      "type": "hero",
+      "layout": "split-right",
+      "welcomeMessage": "Chào mừng bạn đến với ViVoice",
+      "welcomeAudio": "assets/audio/welcome-vivoice.mp3",
+      "title": "Biến mọi văn bản thành giọng đọc tự nhiên cho",
+      "rotatingWords": ["podcast", "video ngắn", "sách nói"],
+      "subtitle": "ViVoice sử dụng mạng nơ-ron tạo sinh tái hiện ngữ điệu tiếng Việt ba miền chính xác đến từng thanh dấu, hơi thở và cảm xúc. Không cần phòng thu, không cần micro.",
+      "playSample": "Xin chào! Tôi là trợ lý giọng nói AI ViVoice, được phát triển chuyên biệt cho ngữ điệu và ngữ nghĩa tiếng Việt.",
+      "buttons": [
+        {
+          "href": "#demo",
+          "label": "Nghe thử miễn phí",
+          "style": "primary"
+        },
+        {
+          "href": "#features",
+          "label": "Khám phá công nghệ",
+          "style": "ghost"
+        }
+      ]
+    },
+    {
+      "type": "features",
+      "layout": "3d-stack",
+      "title": "Kiểm soát toàn diện trải nghiệm giọng nói AI",
+      "subtitle": "Động cơ tạo sinh giọng nói AI chuyên sâu cho tiếng Việt, tối ưu độ tự nhiên và khả năng mở rộng quy mô lớn.",
+      "items": [
+        {
+          "icon": "fa-solid fa-microphone-lines",
+          "badge": "Neural Voice",
+          "title": "Giọng nói tự nhiên, giàu sắc thái",
+          "text": "Tái tạo nhịp điệu, trọng âm và cao độ linh hoạt, giúp từng câu thoại có độ truyền cảm và hơi thở tự nhiên như giọng người bản xứ.",
+          "image": "assets/images/imgvivoice/feature-neural-voice.jpg"
+        },
+        {
+          "icon": "fa-solid fa-earth-asia",
+          "badge": "20+ Voices",
+          "title": "Hệ giọng Bắc – Trung – Nam",
+          "text": "Kho chất giọng đa sắc thái ba miền, tối ưu chuyên biệt cho thuyết minh, sách nói, video ngắn, giáo dục và truyền thông.",
+          "image": "assets/images/imgvivoice/feature-regional-voice.jpg"
+        },
+        {
+          "icon": "fa-solid fa-sliders",
+          "badge": "Voice Control",
+          "title": "Tinh chỉnh giọng đọc theo ý muốn",
+          "text": "Làm chủ tốc độ, nhịp đọc và cao độ chính xác tới từng từ để khớp hoàn hảo với khung hình video hoặc thời lượng phát thanh.",
+          "waveform": true,
+          "image": "assets/images/imgvivoice/feature-voice-control.jpg"
+        },
+        {
+          "icon": "fa-solid fa-code",
+          "badge": "Developer API",
+          "title": "API tốc độ cao sẵn sàng tích hợp",
+          "text": "Độ trễ thấp dưới 200ms, SDK hoàn chỉnh và tài liệu mẫu tiếng Việt giúp kết nối năng lực tổng hợp giọng nói vào mọi ứng dụng.",
+          "image": "assets/images/imgvivoice/feature-api-engine.jpg"
+        }
+      ]
+    },
+    {
+      "type": "demo",
+      "title": "Nhập văn bản. Cảm nhận giọng nói.",
+      "subtitle": "Trải nghiệm trực tiếp khả năng chuyển đổi văn bản tiếng Việt thành giọng nói với tốc độ nhanh và ngữ điệu tự nhiên.",
+      "placeholder": "Nhập hoặc dán nội dung tiếng Việt của bạn vào đây...",
+      "defaultText": "Chào mừng bạn đến với ViVoice. Từ thuyết minh video, podcast đến trợ lý giọng nói và tổng đài tự động, mọi nội dung đều có thể trở nên sống động bằng một giọng đọc tự nhiên.",
+      "speakLabel": "Phát giọng nói",
+      "stopLabel": "Dừng phát",
+      "unsupported": "Trình duyệt của bạn chưa hỗ trợ Web Speech API. Vui lòng sử dụng phiên bản mới của Google Chrome hoặc Microsoft Edge."
+    },
+    {
+      "type": "about",
+      "scrollStory": {
+        "enabled": true,
+        "behavior": "sticky-story",
+        "slides": [
+          {
+            "image": "assets/images/imgvivoice/about-users.jpg",
+            "eyebrow": "01 / CỘNG ĐỒNG",
+            "title": "Hơn 50.000 người dùng",
+            "description": "Đồng hành cùng nhà sáng tạo, giáo viên và doanh nghiệp trên hành trình tạo nội dung bằng giọng nói AI.",
+            "metric": {
+              "value": "50.000+",
+              "label": "Người dùng"
+            }
+          },
+          {
+            "image": "assets/images/imgvivoice/about-processing.jpg",
+            "eyebrow": "02 / HIỆU SUẤT",
+            "title": "Xử lý hàng triệu phút âm thanh",
+            "description": "Tối ưu quy trình chuyển văn bản thành giọng nói, giúp tiết kiệm thời gian sản xuất nội dung.",
+            "metric": {
+              "value": "2.8M",
+              "label": "Phút xử lý / tháng"
+            }
+          },
+          {
+            "image": "assets/images/imgvivoice/about-quality.jpg",
+            "eyebrow": "03 / CHẤT LƯỢNG",
+            "title": "Trải nghiệm được tin chọn",
+            "description": "Tập trung vào độ rõ ràng, nhịp điệu và ngữ điệu tự nhiên của tiếng Việt.",
+            "metric": {
+              "value": "4.9/5",
+              "label": "Mức độ hài lòng"
+            }
+          },
+          {
+            "image": "assets/images/imgvivoice/about-voices.jpg",
+            "eyebrow": "04 / GIỌNG ĐỌC",
+            "title": "Nhiều lựa chọn giọng Việt",
+            "description": "Linh hoạt lựa chọn giọng đọc phù hợp với video, podcast, sách nói và nội dung giáo dục.",
+            "metric": {
+              "value": "20+",
+              "label": "Giọng đọc"
+            }
+          }
         ],
-        "subtitle": "ViVoice sử dụng mạng nơ-ron tạo sinh tái hiện ngữ điệu tiếng Việt ba miền chính xác đến từng thanh dấu, hơi thở và cảm xúc. Không cần phòng thu, không cần micro.",
-        "playSample": "Xin chào! Tôi là trợ lý giọng nói AI ViVoice, được phát triển chuyên biệt cho ngữ điệu và ngữ nghĩa tiếng Việt.",
-        "buttons": [
+        "animation": {
+          "imageScaleFrom": 1.08,
+          "imageScaleTo": 1,
+          "revealDistance": 28,
+          "transitionMs": 650
+        }
+      }
+    },
+    {
+      "type": "testimonials",
+      "title": "Khi công nghệ trở thành một phần của quy trình sáng tạo",
+      "subtitle": "Lắng nghe những trải nghiệm thực tế từ các nhà sáng tạo và chuyên gia đang ứng dụng giọng nói AI vào công việc hàng ngày.",
+      "items": [
+        {
+          "name": "Minh Tuấn",
+          "role": "Nhà sáng tạo Podcast",
+          "avatar": "assets/images/avatar-tuan.jpg",
+          "quote": "Trước đây, mỗi tập podcast dài đều đòi hỏi rất nhiều thời gian cho việc thu âm và hậu kỳ. Với ViVoice, tôi có thể tập trung hoàn thiện nội dung và rút ngắn đáng kể thời gian sản xuất."
+        },
+        {
+          "name": "Hoàng Lan",
+          "role": "Giảng viên Ngôn ngữ học",
+          "avatar": "assets/images/avatar-lan.jpg",
+          "quote": "Điểm tôi đánh giá cao là khả năng xử lý ngắt nghỉ và ngữ điệu tiếng Việt. ViVoice đặc biệt hữu ích khi xây dựng học liệu số cần sự rõ ràng nhưng vẫn tự nhiên."
+        },
+        {
+          "name": "Thanh Thảo",
+          "role": "Nhà sản xuất nội dung Du lịch",
+          "avatar": "assets/images/avatar-thao.jpg",
+          "quote": "ViVoice giúp tôi chuẩn hóa phần thuyết minh mà không phải phụ thuộc vào lịch thu âm. Quy trình sản xuất video trở nên nhanh hơn và nhất quán hơn rất nhiều."
+        },
+        {
+          "name": "Trần Quang Huy",
+          "role": "Giảng viên Đại học & E-Learning",
+          "avatar": "assets/images/avatar-huy.jpg",
+          "quote": "Tôi ứng dụng ViVoice để số hóa toàn bộ giáo trình điện tử. Sinh viên phản hồi giọng đọc vô cùng truyền cảm, mạch lạc và tự nhiên, giúp các bạn tập trung học tập hơn."
+        },
+        {
+          "name": "Phạm Tuấn Kiệt",
+          "role": "Giám đốc Sáng tạo Agency",
+          "avatar": "assets/images/avatar-kiet.jpg",
+          "quote": "Tốc độ sản xuất video quảng cáo và TVC tăng gấp 5 lần nhờ tính năng tạo giọng đọc tức thì. Khách hàng của chúng tôi hoàn toàn hài lòng với chất lượng âm thanh chuẩn phòng thu."
+        },
+        {
+          "name": "Ngô Đức Long",
+          "role": "YouTuber Công nghệ & Gaming",
+          "avatar": "assets/images/avatar-long.jpg",
+          "quote": "Trước đây tôi mất hàng giờ chỉ để thu lại giọng mỗi khi phát âm vấp hoặc sửa kịch bản. Giờ chỉ cần nhập text, giọng đọc giàu biểu cảm giúp tôi ra video hàng ngày đều đặn."
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "layout": "3d-flip-cards",
+      "title": "Câu hỏi thường gặp về ViVoice",
+      "subtitle": "Mọi thông tin cần thiết về công nghệ, chính sách bản quyền và phương thức tích hợp.",
+      "config3D": {
+        "perspective": 1200,
+        "flipAxis": "Y",
+        "enterFrom": "top",
+        "durationMs": 850,
+        "staggerMs": 150,
+        "gap": 24,
+        "cardMinHeight": 390,
+        "frontBg": "rgba(15, 23, 42, 0.78)",
+        "backBg": "rgba(23, 21, 60, 0.95)"
+      },
+      "items": [
+        {
+          "id": "faq-1",
+          "badge": "01",
+          "category": "Ngữ âm Tiếng Việt",
+          "icon": "fa-solid fa-microphone-lines",
+          "question": "Giọng đọc của ViVoice có bị máy móc hay vấp từ tiếng Việt không?",
+          "answer": "Không. Mô hình tạo sinh của ViVoice được huấn luyện chuyên sâu trên kho dữ liệu ngữ âm tiếng Việt, có khả năng phân tích ngữ cảnh câu để xác định chính xác trọng âm, từ Hán Việt, từ viết tắt và tiếng lóng thường ngày.",
+          "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
+          "backAction": "Quay lại câu hỏi"
+        },
+        {
+          "id": "faq-2",
+          "badge": "02",
+          "category": "Bản quyền thương mại",
+          "icon": "fa-solid fa-file-contract",
+          "question": "Tôi có được sử dụng file âm thanh tạo từ ViVoice để kiếm tiền trên YouTube, TikTok không?",
+          "answer": "Hoàn toàn được. Từ gói Chuyên nghiệp trở lên, bạn sở hữu 100% bản quyền thương mại cho các tệp âm thanh được tạo ra để phục vụ quảng cáo, phát thanh, podcast hoặc bán khóa học.",
+          "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
+          "backAction": "Quay lại câu hỏi"
+        },
+        {
+          "id": "faq-3",
+          "badge": "03",
+          "category": "Tích hợp API & SDK",
+          "icon": "fa-solid fa-code",
+          "question": "ViVoice có hỗ trợ API để nhúng vào ứng dụng di động hoặc web app không?",
+          "answer": "Có. Chúng tôi cung cấp REST API và WebSocket streaming với độ trễ phản hồi dưới 200 mili-giây, hỗ trợ đầy đủ SDK cho JavaScript, Python, PHP và Go kèm tài liệu mẫu.",
+          "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
+          "backAction": "Quay lại câu hỏi"
+        },
+        {
+          "id": "faq-4",
+          "badge": "04",
+          "category": "Giọng đọc độc quyền",
+          "icon": "fa-solid fa-award",
+          "question": "Doanh nghiệp của tôi có thể tạo một giọng đọc độc quyền riêng biệt không?",
+          "answer": "Có. Với gói Doanh nghiệp, đội ngũ kỹ sư của chúng tôi sẽ thu mẫu giọng từ người đại diện của bạn và tinh chỉnh mô hình độc quyền chỉ doanh nghiệp bạn mới có quyền kích hoạt.",
+          "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
+          "backAction": "Quay lại câu hỏi"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "title": "Cần giải pháp âm thanh AI tùy chỉnh?",
+      "channels": [
+        {
+          "label": "Email",
+          "value": "hello@vivoice.vn"
+        },
+        {
+          "label": "Hotline",
+          "value": "0901 234 567 (8:00 – 20:00)"
+        },
+        {
+          "label": "Địa chỉ",
+          "value": "Tầng 12, Tòa nhà Innovation, Quận 1, TP.HCM"
+        }
+      ],
+      "formTitle": "Nhận tư vấn trực tiếp",
+      "formName": "Họ và tên của bạn",
+      "formEmail": "Địa chỉ Email công việc",
+      "formMessage": "Chia sẻ về quy mô và nhu cầu âm thanh của bạn...",
+      "formButton": "Gửi yêu cầu tư vấn",
+      "formSuccess": "Cảm ơn bạn! Đội ngũ chuyên gia ViVoice đã nhận yêu cầu và sẽ liên hệ trong vòng 24 giờ."
+    }
+  ],
+  "theme": {
+    "primary": "#38bdf8",
+    "accent": "#a78bfa",
+    "background": "#070c1e",
+    "surface": "#0f1a36",
+    "text": "#f1f5f9",
+    "textMuted": "#94a3b8",
+    "fontHeading": "Space Grotesk",
+    "fontBody": "Be Vietnam Pro",
+    "radius": "16px"
+  },
+  "footer": {
+    "tagline": "Công nghệ giọng nói AI thế hệ mới dành riêng cho tiếng Việt.",
+    "columns": [
+      {
+        "title": "Sản phẩm",
+        "links": [
           {
             "href": "#demo",
-            "label": "Nghe thử miễn phí",
-            "style": "primary"
+            "label": "Trải nghiệm Studio"
           },
           {
             "href": "#features",
-            "label": "Khám phá công nghệ",
-            "style": "ghost"
+            "label": "Tính năng công nghệ"
+          },
+          {
+            "href": "#faq",
+            "label": "Câu hỏi thường gặp"
           }
         ]
       },
       {
-        "type": "features",
-        "layout": "3d-stack",
-        "title": "Kiểm soát toàn diện trải nghiệm giọng nói AI",
-        "subtitle": "Động cơ tạo sinh giọng nói AI chuyên sâu cho tiếng Việt, tối ưu độ tự nhiên và khả năng mở rộng quy mô lớn.",
-        "items": [
+        "title": "Tài nguyên",
+        "links": [
           {
-            "icon": "fa-solid fa-microphone-lines",
-            "badge": "Neural Voice",
-            "title": "Giọng nói tự nhiên, giàu sắc thái",
-            "text": "Tái tạo nhịp điệu, trọng âm và cao độ linh hoạt, giúp từng câu thoại có độ truyền cảm và hơi thở tự nhiên như giọng người bản xứ.",
-            "image": "assets/images/feature-neural-voice.jpg"
+            "href": "#",
+            "label": "Tài liệu API"
           },
           {
-            "icon": "fa-solid fa-earth-asia",
-            "badge": "20+ Voices",
-            "title": "Hệ giọng Bắc – Trung – Nam",
-            "text": "Kho chất giọng đa sắc thái ba miền, tối ưu chuyên biệt cho thuyết minh, sách nói, video ngắn, giáo dục và truyền thông.",
-            "image": "assets/images/about-voices.jpg"
+            "href": "#",
+            "label": "Thư viện giọng mẫu"
           },
           {
-            "icon": "fa-solid fa-sliders",
-            "badge": "Voice Control",
-            "title": "Tinh chỉnh giọng đọc theo ý muốn",
-            "text": "Làm chủ tốc độ, nhịp đọc và cao độ chính xác tới từng từ để khớp hoàn hảo với khung hình video hoặc thời lượng phát thanh.",
-            "waveform": true,
-            "image": "assets/images/about-processing.jpg"
+            "href": "#",
+            "label": "Hướng dẫn sử dụng"
           },
           {
-            "icon": "fa-solid fa-code",
-            "badge": "Developer API",
-            "title": "API tốc độ cao sẵn sàng tích hợp",
-            "text": "Độ trễ thấp dưới 200ms, SDK hoàn chỉnh và tài liệu mẫu tiếng Việt giúp kết nối năng lực tổng hợp giọng nói vào mọi ứng dụng.",
-            "image": "assets/images/feature-api-engine.jpg"
+            "href": "#",
+            "label": "Cộng đồng Discord"
           }
         ]
       },
       {
-        "type": "demo",
-        "title": "Nhập văn bản. Cảm nhận giọng nói.",
-        "subtitle": "Trải nghiệm trực tiếp khả năng chuyển đổi văn bản tiếng Việt thành giọng nói với tốc độ nhanh và ngữ điệu tự nhiên.",
-        "placeholder": "Nhập hoặc dán nội dung tiếng Việt của bạn vào đây...",
-        "defaultText": "Chào mừng bạn đến với ViVoice. Từ thuyết minh video, podcast đến trợ lý giọng nói và tổng đài tự động, mọi nội dung đều có thể trở nên sống động bằng một giọng đọc tự nhiên.",
-        "speakLabel": "Phát giọng nói",
-        "stopLabel": "Dừng phát",
-        "unsupported": "Trình duyệt của bạn chưa hỗ trợ Web Speech API. Vui lòng sử dụng phiên bản mới của Google Chrome hoặc Microsoft Edge."
-      },
-      {
-        "type": "about",
-        "scrollStory": {
-          "enabled": true,
-          "behavior": "sticky-story",
-          "slides": [
-            {
-              "image": "assets/images/about-users.jpg",
-              "eyebrow": "01 / CỘNG ĐỒNG",
-              "title": "Hơn 50.000 người dùng",
-              "description": "Đồng hành cùng nhà sáng tạo, giáo viên và doanh nghiệp trên hành trình tạo nội dung bằng giọng nói AI.",
-              "metric": {
-                "value": "50.000+",
-                "label": "Người dùng"
-              }
-            },
-            {
-              "image": "assets/images/about-processing.jpg",
-              "eyebrow": "02 / HIỆU SUẤT",
-              "title": "Xử lý hàng triệu phút âm thanh",
-              "description": "Tối ưu quy trình chuyển văn bản thành giọng nói, giúp tiết kiệm thời gian sản xuất nội dung.",
-              "metric": {
-                "value": "2.8M",
-                "label": "Phút xử lý / tháng"
-              }
-            },
-            {
-              "image": "assets/images/about-quality.jpg",
-              "eyebrow": "03 / CHẤT LƯỢNG",
-              "title": "Trải nghiệm được tin chọn",
-              "description": "Tập trung vào độ rõ ràng, nhịp điệu và ngữ điệu tự nhiên của tiếng Việt.",
-              "metric": {
-                "value": "4.9/5",
-                "label": "Mức độ hài lòng"
-              }
-            },
-            {
-              "image": "assets/images/about-voices.jpg",
-              "eyebrow": "04 / GIỌNG ĐỌC",
-              "title": "Nhiều lựa chọn giọng Việt",
-              "description": "Linh hoạt lựa chọn giọng đọc phù hợp với video, podcast, sách nói và nội dung giáo dục.",
-              "metric": {
-                "value": "20+",
-                "label": "Giọng đọc"
-              }
-            }
-          ],
-          "animation": {
-            "imageScaleFrom": 1.08,
-            "imageScaleTo": 1,
-            "revealDistance": 28,
-            "transitionMs": 650
-          }
-        }
-      },
-      {
-        "type": "testimonials",
-        "title": "Khi công nghệ trở thành một phần của quy trình sáng tạo",
-        "subtitle": "Lắng nghe những trải nghiệm thực tế từ các nhà sáng tạo và chuyên gia đang ứng dụng giọng nói AI vào công việc hàng ngày.",
-        "items": [
+        "title": "Pháp lý",
+        "links": [
           {
-            "name": "Minh Tuấn",
-            "role": "Nhà sáng tạo Podcast",
-            "avatar": "assets/images/avatar-tuan.jpg",
-            "quote": "Trước đây, mỗi tập podcast dài đều đòi hỏi rất nhiều thời gian cho việc thu âm và hậu kỳ. Với ViVoice, tôi có thể tập trung hoàn thiện nội dung và rút ngắn đáng kể thời gian sản xuất."
+            "href": "#contact",
+            "label": "Liên hệ hỗ trợ"
           },
           {
-            "name": "Hoàng Lan",
-            "role": "Giảng viên Ngôn ngữ học",
-            "avatar": "assets/images/avatar-lan.jpg",
-            "quote": "Điểm tôi đánh giá cao là khả năng xử lý ngắt nghỉ và ngữ điệu tiếng Việt. ViVoice đặc biệt hữu ích khi xây dựng học liệu số cần sự rõ ràng nhưng vẫn tự nhiên."
+            "href": "#",
+            "label": "Điều khoản dịch vụ"
           },
           {
-            "name": "Thanh Thảo",
-            "role": "Nhà sản xuất nội dung Du lịch",
-            "avatar": "assets/images/avatar-thao.jpg",
-            "quote": "ViVoice giúp tôi chuẩn hóa phần thuyết minh mà không phải phụ thuộc vào lịch thu âm. Quy trình sản xuất video trở nên nhanh hơn và nhất quán hơn rất nhiều."
-          },
-          {
-            "name": "Trần Quang Huy",
-            "role": "Giảng viên Đại học & E-Learning",
-            "avatar": "assets/images/avatar-huy.jpg",
-            "quote": "Tôi ứng dụng ViVoice để số hóa toàn bộ giáo trình điện tử. Sinh viên phản hồi giọng đọc vô cùng truyền cảm, mạch lạc và tự nhiên, giúp các bạn tập trung học tập hơn."
-          },
-          {
-            "name": "Phạm Tuấn Kiệt",
-            "role": "Giám đốc Sáng tạo Agency",
-            "avatar": "assets/images/avatar-kiet.jpg",
-            "quote": "Tốc độ sản xuất video quảng cáo và TVC tăng gấp 5 lần nhờ tính năng tạo giọng đọc tức thì. Khách hàng của chúng tôi hoàn toàn hài lòng với chất lượng âm thanh chuẩn phòng thu."
-          },
-          {
-            "name": "Ngô Đức Long",
-            "role": "YouTuber Công nghệ & Gaming",
-            "avatar": "assets/images/avatar-long.jpg",
-            "quote": "Trước đây tôi mất hàng giờ chỉ để thu lại giọng mỗi khi phát âm vấp hoặc sửa kịch bản. Giờ chỉ cần nhập text, giọng đọc giàu biểu cảm giúp tôi ra video hàng ngày đều đặn."
+            "href": "#",
+            "label": "Chính sách bảo mật"
           }
         ]
-      },
-      {
-        "type": "faq",
-        "layout": "3d-flip-cards",
-        "title": "Câu hỏi thường gặp về ViVoice",
-        "subtitle": "Mọi thông tin cần thiết về công nghệ, chính sách bản quyền và phương thức tích hợp.",
-        "config3D": {
-          "perspective": 1200,
-          "flipAxis": "Y",
-          "enterFrom": "top",
-          "durationMs": 850,
-          "staggerMs": 150,
-          "gap": 24,
-          "cardMinHeight": 390,
-          "frontBg": "rgba(15, 23, 42, 0.78)",
-          "backBg": "rgba(23, 21, 60, 0.95)"
-        },
-        "items": [
-          {
-            "id": "faq-1",
-            "badge": "01",
-            "category": "Ngữ âm Tiếng Việt",
-            "icon": "fa-solid fa-microphone-lines",
-            "question": "Giọng đọc của ViVoice có bị máy móc hay vấp từ tiếng Việt không?",
-            "answer": "Không. Mô hình tạo sinh của ViVoice được huấn luyện chuyên sâu trên kho dữ liệu ngữ âm tiếng Việt, có khả năng phân tích ngữ cảnh câu để xác định chính xác trọng âm, từ Hán Việt, từ viết tắt và tiếng lóng thường ngày.",
-            "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
-            "backAction": "Quay lại câu hỏi"
-          },
-          {
-            "id": "faq-2",
-            "badge": "02",
-            "category": "Bản quyền thương mại",
-            "icon": "fa-solid fa-file-contract",
-            "question": "Tôi có được sử dụng file âm thanh tạo từ ViVoice để kiếm tiền trên YouTube, TikTok không?",
-            "answer": "Hoàn toàn được. Từ gói Chuyên nghiệp trở lên, bạn sở hữu 100% bản quyền thương mại cho các tệp âm thanh được tạo ra để phục vụ quảng cáo, phát thanh, podcast hoặc bán khóa học.",
-            "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
-            "backAction": "Quay lại câu hỏi"
-          },
-          {
-            "id": "faq-3",
-            "badge": "03",
-            "category": "Tích hợp API & SDK",
-            "icon": "fa-solid fa-code",
-            "question": "ViVoice có hỗ trợ API để nhúng vào ứng dụng di động hoặc web app không?",
-            "answer": "Có. Chúng tôi cung cấp REST API và WebSocket streaming với độ trễ phản hồi dưới 200 mili-giây, hỗ trợ đầy đủ SDK cho JavaScript, Python, PHP và Go kèm tài liệu mẫu.",
-            "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
-            "backAction": "Quay lại câu hỏi"
-          },
-          {
-            "id": "faq-4",
-            "badge": "04",
-            "category": "Giọng đọc độc quyền",
-            "icon": "fa-solid fa-award",
-            "question": "Doanh nghiệp của tôi có thể tạo một giọng đọc độc quyền riêng biệt không?",
-            "answer": "Có. Với gói Doanh nghiệp, đội ngũ kỹ sư của chúng tôi sẽ thu mẫu giọng từ người đại diện của bạn và tinh chỉnh mô hình độc quyền chỉ doanh nghiệp bạn mới có quyền kích hoạt.",
-            "frontHint": "Bấm hoặc rê chuột để lật xem giải đáp",
-            "backAction": "Quay lại câu hỏi"
-          }
-        ]
-      },
-      {
-        "type": "contact",
-        "title": "Cần giải pháp âm thanh AI tùy chỉnh?",
-        "channels": [
-          {
-            "label": "Email",
-            "value": "hello@vivoice.vn"
-          },
-          {
-            "label": "Hotline",
-            "value": "0901 234 567 (8:00 – 20:00)"
-          },
-          {
-            "label": "Địa chỉ",
-            "value": "Tầng 12, Tòa nhà Innovation, Quận 1, TP.HCM"
-          }
-        ],
-        "formTitle": "Nhận tư vấn trực tiếp",
-        "formName": "Họ và tên của bạn",
-        "formEmail": "Địa chỉ Email công việc",
-        "formMessage": "Chia sẻ về quy mô và nhu cầu âm thanh của bạn...",
-        "formButton": "Gửi yêu cầu tư vấn",
-        "formSuccess": "Cảm ơn bạn! Đội ngũ chuyên gia ViVoice đã nhận yêu cầu và sẽ liên hệ trong vòng 24 giờ."
       }
     ],
-    "theme": {
-      "primary": "#38bdf8",
-      "accent": "#a78bfa",
-      "background": "#070c1e",
-      "surface": "#0f1a36",
-      "text": "#f1f5f9",
-      "textMuted": "#94a3b8",
-      "fontHeading": "Space Grotesk",
-      "fontBody": "Be Vietnam Pro",
-      "radius": "16px"
-    },
-    "footer": {
-      "tagline": "Công nghệ giọng nói AI thế hệ mới dành riêng cho tiếng Việt.",
-      "columns": [
-        {
-          "title": "Sản phẩm",
-          "links": [
-            {
-              "href": "#demo",
-              "label": "Trải nghiệm Studio"
-            },
-            {
-              "href": "#features",
-              "label": "Tính năng công nghệ"
-            },
-            {
-              "href": "#faq",
-              "label": "Câu hỏi thường gặp"
-            }
-          ]
-        },
-        {
-          "title": "Tài nguyên",
-          "links": [
-            {
-              "href": "#",
-              "label": "Tài liệu API"
-            },
-            {
-              "href": "#",
-              "label": "Thư viện giọng mẫu"
-            },
-            {
-              "href": "#",
-              "label": "Hướng dẫn sử dụng"
-            },
-            {
-              "href": "#",
-              "label": "Cộng đồng Discord"
-            }
-          ]
-        },
-        {
-          "title": "Pháp lý",
-          "links": [
-            {
-              "href": "#contact",
-              "label": "Liên hệ hỗ trợ"
-            },
-            {
-              "href": "#",
-              "label": "Điều khoản dịch vụ"
-            },
-            {
-              "href": "#",
-              "label": "Chính sách bảo mật"
-            }
-          ]
-        }
-      ],
-      "copyright": "Thương hiệu giả tưởng — Bài mẫu dự thi White Label."
-    }
+    "copyright": "Thương hiệu giả tưởng — Bài mẫu dự thi White Label."
   }
+}

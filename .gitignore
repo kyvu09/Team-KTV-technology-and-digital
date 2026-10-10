@@ -10,7 +10,6 @@ Thumbs.db
 # Chặn hoàn toàn Node.js
 node_modules/
 package-lock.json
-package.json
 
 # Tạm thời không commit file audio sinh ra ngoài thư mục assets
 output_edge.*
@@ -18,3 +17,17 @@ audio_temp.*
 
 quyTac/
 vivoice-mau/
+=======
+# Audio test outputs
+*.mp3
+*.wav
+
+# Cho phép Git theo dõi audio của dự án
+!assets/audio/*.mp3
+
+
+=======
+# Audio test outputs
+*.mp3
+*.wav
+

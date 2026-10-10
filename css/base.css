@@ -49,6 +49,43 @@ body {
   padding: 0 clamp(16px, 2.5vw, 36px);
 }
 
+/* Khung Section chuẩn toàn trang */
+.section {
+  padding: 120px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Tiện ích căn lề và văn bản chung */
+.text-center {
+  text-align: center;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Lưới Bento chia cột nền tảng */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.bento-span-2 {
+  grid-column: span 2;
+}
+
+/* Reset danh sách tính năng (3D Stack ul/li) */
+.feature-stack-3d,
+.feature-stack-item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 /* 5. Cấu hình Nút bấm cơ bản (Buttons) */
 .btn {
   display: inline-flex;
@@ -386,6 +423,13 @@ body {
   .studio-card {
     padding: 24px;
   }
+  /* Lưới Bento chuyển thành 2 cột trên Tablet */
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-span-2 {
+    grid-column: span 1;
+  }
 }
 
 @media (max-width: 768px) {
@@ -401,6 +445,10 @@ body {
   .nav-menu,
   .navbar-menu {
     gap: 12px;
+  }
+  /* Lưới Bento chuyển thành 1 cột trên Mobile */
+  .bento-grid {
+    grid-template-columns: 1fr;
   }
 }
 
