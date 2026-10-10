@@ -12,7 +12,7 @@ import {
   initTestimonialsInteractions,
 } from "./sections/Testimonials.js";
 import { renderFaq, initFaqInteractions } from "./sections/Faq.js";
-
+import { renderContact, initContactInteractions } from "./sections/Contact.js";
 // Bảng từ điển giúp chuyển đổi từ tên loại trong JSON sang Hàm tạo HTML tương ứng
 const RENDERERS = {
   hero: renderHero,
@@ -21,6 +21,7 @@ const RENDERERS = {
   about: renderAbout,
   testimonials: renderTestimonials,
   faq: renderFaq,
+  contact: renderContact,
 };
 
 // Bảng từ điển giúp gọi Hàm kích hoạt nút bấm tương ứng
@@ -31,6 +32,7 @@ const INTERACTION_HANDLERS = {
   about: initAboutScroll,
   testimonials: initTestimonialsInteractions,
   faq: initFaqInteractions,
+  contact: initContactInteractions,
 };
 
 export function renderSite(config) {
