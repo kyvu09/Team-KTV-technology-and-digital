@@ -319,8 +319,39 @@
           {
             "href": "#faq",
             "label": "Câu hỏi thường gặp"
+<<<<<<< HEAD
           },
           {
+=======
+          }
+        ]
+      },
+      {
+        "title": "Tài nguyên",
+        "links": [
+          {
+            "href": "#",
+            "label": "Tài liệu API"
+          },
+          {
+            "href": "#",
+            "label": "Thư viện giọng mẫu"
+          },
+          {
+            "href": "#",
+            "label": "Hướng dẫn sử dụng"
+          },
+          {
+            "href": "#",
+            "label": "Cộng đồng Discord"
+          }
+        ]
+      },
+      {
+        "title": "Pháp lý",
+        "links": [
+          {
+>>>>>>> kyvu
             "href": "#contact",
             "label": "Liên hệ hỗ trợ"
           }

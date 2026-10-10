@@ -260,154 +260,287 @@ body {
   justify-content: center;
 }
 
-/* --- TTS STUDIO / EXPERIENCE SECTION --- */
+/* ==========================================================================
+   8. CẤU HÌNH CƠ BẢN (BASE): PHẦN TRẢI NGHIỆM (DEMO / STUDIO CONSOLE)
+   Tham chiếu chuẩn mã nguồn vivoice-mau — Bộ giả lập giọng nói AI & Công nghệ
+   ========================================================================== */
+
+/* Khung Section Trải nghiệm (Demo) */
+.demo-section,
 .experience-section {
-  padding: 80px 0 100px;
   position: relative;
+  z-index: 2;
+  padding: 120px 0;
 }
 
+/* Tiêu đề mục và tiêu đề phụ chuẩn toàn trang */
 .section-title {
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 12px;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
   color: var(--text);
-}
-
-.section-subtitle {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  max-width: 600px;
-  margin: 0 auto 40px;
-}
-
-.studio-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-.quick-prompts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   margin-bottom: 16px;
 }
 
-.prompt-chip {
-  background: color-mix(in srgb, var(--background) 70%, transparent);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.section-sub,
+.section-subtitle {
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  color: var(--text-muted);
+  max-width: 640px;
+  line-height: 1.7;
+  margin-bottom: 48px;
 }
 
-.prompt-chip:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 10%, transparent);
-}
-
-.studio-textarea {
+/* Khung bảng điều khiển âm thanh trung tâm (Studio Console) */
+.studio-console {
+  max-width: 960px;
   width: 100%;
-  padding: 16px;
-  border-radius: calc(var(--radius) / 1.5);
-  background: var(--background);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
-  resize: vertical;
-  min-height: 120px;
-  outline: none;
-  transition: border-color 0.2s;
+  margin: 40px auto 0;
+  position: relative;
+  overflow: hidden;
 }
 
-.studio-textarea:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
-}
-
-.studio-controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin: 24px 0;
+/* Thanh tiêu đề giả lập cửa sổ ứng dụng (Top bar) */
+.console-topbar {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+/* 3 nút chấm giả lập cửa sổ hệ điều hành (Đỏ - Vàng - Xanh) */
+.console-window-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.console-window-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Tiêu đề giữa thanh topbar */
+.console-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Dải hiển thị sóng âm trực quan (Visualizer Bar) */
+.console-visualizer-bar {
+  width: 100%;
+}
+
+.demo-canvas {
+  width: 100%;
+  height: 50px;
+  display: block;
+}
+
+/* Khu vực chọn nhanh câu thoại mẫu (Preset Chips) */
+.preset-chips {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Khung soạn thảo văn bản cần đọc */
+.console-editor {
+  width: 100%;
+}
+
+.console-editor textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Cụm điều khiển tham số giọng đọc (Tốc độ, Giọng đọc, Âm lượng) */
+.console-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .control-group {
   display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  flex: 1;
+}
+
+.demo-field {
+  display: flex;
   flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Cụm nút hành động (Nút Phát, Dừng) */
+.console-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Ghi chú thông tin kỹ thuật dưới đáy Console */
+.demo-note {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.control-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
+
+/* ==========================================================================
+   9. CẤU HÌNH CƠ BẢN (BASE): PHẦN VỀ CHÚNG TÔI (ABOUT SECTION)
+   Hỗ trợ 2 chế độ hiển thị: Fallback Grid và 3D Sticky Scroll Story
+   ========================================================================== */
+
+/* --- 9.1. CHẾ ĐỘ 1: LƯỚI TĨNH VỚI HÌNH ẢNH & THỐNG KÊ (FALLBACK GRID) --- */
+.about-section {
+  position: relative;
+  z-index: 2;
+  padding: 120px 0;
 }
 
-.studio-select {
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: var(--background);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  outline: none;
-}
-
-.studio-range {
-  accent-color: var(--primary);
-  cursor: pointer;
-}
-
-.studio-visualizer-container {
-  display: flex;
-  justify-content: center;
+.about-inner {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 70px;
   align-items: center;
-  height: 50px;
-  margin: 16px 0;
-  background: color-mix(in srgb, var(--background) 50%, transparent);
-  border-radius: 8px;
+}
+
+.about-media-col {
+  position: relative;
+}
+
+.about-image-wrapper {
+  position: relative;
   overflow: hidden;
 }
 
-.visualizer-canvas {
+.about-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+}
+
+.about-floating-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+.about-text-col {
+  position: relative;
+}
+
+.about-paragraphs {
+  margin: 24px 0 40px;
+}
+
+.about-p {
+  font-size: 1.12rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* --- 9.2. CHẾ ĐỘ 2: 3D STICKY SCROLL STORY (CUỘN ĐA TẦNG KỂ CHUYỆN) --- */
+.about-story {
+  position: relative;
+}
+
+.about-story__intro {
+  width: min(1480px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+  align-items: end;
+}
+
+.about-story__track {
+  position: relative;
+}
+
+.about-story__step {
+  height: 82vh;
+  min-height: 540px;
+  pointer-events: none;
+}
+
+.about-story__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 540px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.about-story__slides,
+.about-story__slide {
+  position: absolute;
+  inset: 0;
+}
+
+.about-story__image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
-.studio-actions {
+.about-story__shade {
+  position: absolute;
+  inset: 0;
+}
+
+.about-story__content {
+  position: absolute;
+  z-index: 1;
+}
+
+.about-story__progress {
+  position: absolute;
+  z-index: 3;
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 24px;
+  gap: 8px;
 }
 
-.studio-status {
-  text-align: center;
-  margin-top: 16px;
-  font-size: 0.9rem;
-  color: var(--primary);
-  min-height: 24px;
+.about-story__end {
+  height: 12vh;
+  min-height: 60px;
 }
+
 
 /* ==========================================================================
-   8. CẤU HÌNH RESPONSIVE CƠ BẢN (TABLET & MOBILE)
+   10. CẤU HÌNH RESPONSIVE CƠ BẢN (TABLET & MOBILE)
    ========================================================================== */
 @media (max-width: 1024px) {
   /* Chuyển Hero từ 2 cột sang 1 cột và căn giữa nội dung */
@@ -420,15 +553,17 @@ body {
   .hero-actions {
     justify-content: center;
   }
-  .studio-card {
-    padding: 24px;
-  }
   /* Lưới Bento chuyển thành 2 cột trên Tablet */
   .bento-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .bento-span-2 {
     grid-column: span 1;
+  }
+  /* Phần About chuyển thành 1 cột trên Tablet */
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
   }
 }
 
@@ -450,10 +585,24 @@ body {
   .bento-grid {
     grid-template-columns: 1fr;
   }
+  /* Bảng điều khiển Console xếp chồng trên Mobile */
+  .console-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .control-group {
+    max-width: 100%;
+    min-width: 100%;
+  }
+  /* Thẻ thống kê chuyển thành 1 cột */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 }
 
 /* ==========================================================================
-   9. NÚT CHUYỂN ĐỔI GIAO DIỆN (WHITE LABEL SWITCHER - GÓC DƯỚI TRÁI)
+   11. NÚT CHUYỂN ĐỔI GIAO DIỆN (WHITE LABEL SWITCHER - GÓC DƯỚI TRÁI)
    ========================================================================== */
 .white-label-switcher {
   position: fixed;
