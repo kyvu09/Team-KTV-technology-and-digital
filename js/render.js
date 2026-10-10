@@ -13,6 +13,10 @@ import {
 } from "./sections/Testimonials.js";
 import { renderFaq, initFaqInteractions } from "./sections/Faq.js";
 import { renderContact, initContactInteractions } from "./sections/Contact.js";
+import { initSmoothScroll } from "./effects/smooth-scroll.js";
+import { initCustomCursor } from "./effects/cursor.js";
+import { initScrollAnimations } from "./effects/scroll-animations.js";
+
 // Bảng từ điển giúp chuyển đổi từ tên loại trong JSON sang Hàm tạo HTML tương ứng
 const RENDERERS = {
   hero: renderHero,
@@ -48,7 +52,7 @@ export function renderSite(config) {
 
   // 3. Đọc từng phần (section) trong config.sections và ghép code HTML
   let fullHTML = "";
-  const sections = config.sections || [];
+  const sections = config.sections;
 
   for (let i = 0; i < sections.length; i++) {
     const sectionData = sections[i];
@@ -61,10 +65,8 @@ export function renderSite(config) {
       // Nối mã HTML vào chuỗi chung
       fullHTML += rendererFunction(sectionData);
     } else {
-      // Chưa triển khai các section này (Features, About, FAQ...) -> tạm bỏ qua để không lỗi
-      console.log(
-        `[White Label] Section "${type}" chưa được triển khai, tạm thời bỏ qua.`,
-      );
+      let htmlOfThisSection = rendererFunction(sectionData);
+      fullHTML = fullHTML + htmlOfThisSection;
     }
   }
 
@@ -87,12 +89,29 @@ export function renderSite(config) {
     }
   }
 
-  // 6. Khởi tạo hiệu ứng Quả cầu 3D (nếu có thư viện Three.js)
-  if (config.effects?.orb !== false) {
-    try {
-      initVoiceOrb("hero-voice-orb");
-    } catch (e) {
-      console.warn("Không khởi tạo được Voice Orb:", e);
-    }
+  //Bật các hiệu ứng đồ họa bắt mắt (Animation, 3D, Custom Cursor...)
+  let effects = config.effects;
+  if (effects === undefined) {
+    effects = {}; // Đảm bảo effects không bị rỗng để tránh lỗi
   }
+
+  // Bật cuộn chuột mượt
+  if (effects.smoothScroll !== false) {
+    initSmoothScroll();
+  }
+
+  // Bật con trỏ chuột đặc biệt
+  if (effects.cursor !== false) {
+    initCustomCursor();
+  }
+
+  let orbElement = document.getElementById("hero-voice-orb");
+  if (effects.orb !== false && orbElement !== null) {
+    initVoiceOrb("hero-voice-orb");
+  }
+
+  // Đợi 0.1 giây (100 mili-giây) rồi bật hiệu ứng các khối bay từ dưới lên khi cuộn chuột
+  setTimeout(function () {
+    initScrollAnimations(config);
+  }, 100);
 }
