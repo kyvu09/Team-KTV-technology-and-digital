@@ -326,35 +326,6 @@
         "title": "Tài nguyên",
         "links": [
           {
-<<<<<<< HEAD
-            "icon": "fa-solid fa-microphone-lines",
-            "badge": "Neural Voice",
-            "title": "Giọng nói tự nhiên, giàu sắc thái",
-            "text": "Tái tạo nhịp điệu, trọng âm và cao độ linh hoạt, giúp từng câu thoại có độ truyền cảm và hơi thở tự nhiên như giọng người bản xứ.",
-            "image": "assets/images/imgvivoice/feature-neural-voice.jpg"
-          },
-          {
-            "icon": "fa-solid fa-earth-asia",
-            "badge": "20+ Voices",
-            "title": "Hệ giọng Bắc – Trung – Nam",
-            "text": "Kho chất giọng đa sắc thái ba miền, tối ưu chuyên biệt cho thuyết minh, sách nói, video ngắn, giáo dục và truyền thông.",
-            "image": "assets/images/imgvivoice/feature-regional-voice.jpg"
-          },
-          {
-            "icon": "fa-solid fa-sliders",
-            "badge": "Voice Control",
-            "title": "Tinh chỉnh giọng đọc theo ý muốn",
-            "text": "Làm chủ tốc độ, nhịp đọc và cao độ chính xác tới từng từ để khớp hoàn hảo với khung hình video hoặc thời lượng phát thanh.",
-            "waveform": true,
-            "image": "assets/images/imgvivoice/feature-voice-control.jpg"
-          },
-          {
-            "icon": "fa-solid fa-code",
-            "badge": "Developer API",
-            "title": "API tốc độ cao sẵn sàng tích hợp",
-            "text": "Độ trễ thấp dưới 200ms, SDK hoàn chỉnh và tài liệu mẫu tiếng Việt giúp kết nối năng lực tổng hợp giọng nói vào mọi ứng dụng.",
-            "image": "assets/images/imgvivoice/feature-api-engine.jpg"
-=======
             "href": "#",
             "label": "Tài liệu API"
           },
@@ -369,85 +340,12 @@
           {
             "href": "#",
             "label": "Cộng đồng Discord"
->>>>>>> 51fc4a4e0448346e2bf3aaa8d5a7e51c20f4d140
           }
         ]
       },
       {
-<<<<<<< HEAD
-        "type": "demo",
-        "title": "Nhập văn bản. Cảm nhận giọng nói.",
-        "subtitle": "Trải nghiệm trực tiếp khả năng chuyển đổi văn bản tiếng Việt thành giọng nói với tốc độ nhanh và ngữ điệu tự nhiên.",
-        "placeholder": "Nhập hoặc dán nội dung tiếng Việt của bạn vào đây...",
-        "defaultText": "Chào mừng bạn đến với ViVoice. Từ thuyết minh video, podcast đến trợ lý giọng nói và tổng đài tự động, mọi nội dung đều có thể trở nên sống động bằng một giọng đọc tự nhiên.",
-        "speakLabel": "Phát giọng nói",
-        "stopLabel": "Dừng phát",
-        "unsupported": "Trình duyệt của bạn chưa hỗ trợ Web Speech API. Vui lòng sử dụng phiên bản mới của Google Chrome hoặc Microsoft Edge."
-      },
-      {
-        "type": "about",
-        "scrollStory": {
-          "enabled": true,
-          "behavior": "sticky-story",
-          "slides": [
-            {
-              "image": "assets/images/imgvivoice/about-users.jpg",
-              "eyebrow": "01 / CỘNG ĐỒNG",
-              "title": "Hơn 50.000 người dùng",
-              "description": "Đồng hành cùng nhà sáng tạo, giáo viên và doanh nghiệp trên hành trình tạo nội dung bằng giọng nói AI.",
-              "metric": {
-                "value": "50.000+",
-                "label": "Người dùng"
-              }
-            },
-            {
-              "image": "assets/images/imgvivoice/about-processing.jpg",
-              "eyebrow": "02 / HIỆU SUẤT",
-              "title": "Xử lý hàng triệu phút âm thanh",
-              "description": "Tối ưu quy trình chuyển văn bản thành giọng nói, giúp tiết kiệm thời gian sản xuất nội dung.",
-              "metric": {
-                "value": "2.8M",
-                "label": "Phút xử lý / tháng"
-              }
-            },
-            {
-              "image": "assets/images/imgvivoice/about-quality.jpg",
-              "eyebrow": "03 / CHẤT LƯỢNG",
-              "title": "Trải nghiệm được tin chọn",
-              "description": "Tập trung vào độ rõ ràng, nhịp điệu và ngữ điệu tự nhiên của tiếng Việt.",
-              "metric": {
-                "value": "4.9/5",
-                "label": "Mức độ hài lòng"
-              }
-            },
-            {
-              "image": "assets/images/imgvivoice/about-voices.jpg",
-              "eyebrow": "04 / GIỌNG ĐỌC",
-              "title": "Nhiều lựa chọn giọng Việt",
-              "description": "Linh hoạt lựa chọn giọng đọc phù hợp với video, podcast, sách nói và nội dung giáo dục.",
-              "metric": {
-                "value": "20+",
-                "label": "Giọng đọc"
-              }
-            }
-          ],
-          "animation": {
-            "imageScaleFrom": 1.08,
-            "imageScaleTo": 1,
-            "revealDistance": 28,
-            "transitionMs": 650
-          }
-        }
-      },
-      {
-        "type": "testimonials",
-        "title": "Khi công nghệ trở thành một phần của quy trình sáng tạo",
-        "subtitle": "Lắng nghe những trải nghiệm thực tế từ các nhà sáng tạo và chuyên gia đang ứng dụng giọng nói AI vào công việc hàng ngày.",
-        "items": [
-=======
         "title": "Pháp lý",
         "links": [
->>>>>>> 51fc4a4e0448346e2bf3aaa8d5a7e51c20f4d140
           {
             "href": "#contact",
             "label": "Liên hệ hỗ trợ"
