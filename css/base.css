@@ -260,154 +260,513 @@ body {
   justify-content: center;
 }
 
-/* --- TTS STUDIO / EXPERIENCE SECTION --- */
-.experience-section {
-  padding: 80px 0 100px;
+/* ==========================================================================
+   8. CẤU HÌNH CƠ BẢN (BASE): PHẦN TRẢI NGHIỆM (DEMO / STUDIO CONSOLE)
+   Khung giao diện Studio Console tương tác âm thanh & xử lý văn bản
+   Tham chiếu trực tiếp từ vivoice-mau
+   ========================================================================== */
+.demo-section {
+  position: relative;
+  z-index: 1;
+}
+
+/* Khung vỏ ngoài của Studio Console */
+.studio-console {
+  max-width: 960px;
+  width: 100%;
+  margin: 40px auto 0;
+  border-radius: 24px;
+  overflow: hidden;
   position: relative;
 }
 
-.section-title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 12px;
-  color: var(--text);
-}
-
-.section-subtitle {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  max-width: 600px;
-  margin: 0 auto 40px;
-}
-
-.studio-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-.quick-prompts {
+/* Thanh tiêu đề đỉnh Console (Top Bar) */
+.console-topbar {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
 }
 
-.prompt-chip {
-  background: color-mix(in srgb, var(--background) 70%, transparent);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+/* Các chấm nút cửa sổ phong cách hệ điều hành macOS */
+.console-window-dots {
+  display: flex;
+  gap: 8px;
 }
 
-.prompt-chip:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 10%, transparent);
+.console-window-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
-.studio-textarea {
+/* Tiêu đề & Biểu tượng của Console */
+.console-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Huy hiệu hiển thị trạng thái phát âm thanh (Live Badge) */
+.console-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+.console-live-badge .live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Khung hiển thị trực quan sóng âm (Waveform Canvas Bar) */
+.console-visualizer-bar {
+  padding: 12px 24px;
   width: 100%;
-  padding: 16px;
-  border-radius: calc(var(--radius) / 1.5);
-  background: var(--background);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.demo-canvas {
+  width: 100%;
+  height: 50px;
+  display: block;
+}
+
+/* Cụm nút chọn mẫu câu văn bản nhanh (Preset Chips) */
+.preset-chips {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 24px 8px;
+  flex-wrap: wrap;
+}
+
+.chip-btn {
+  padding: 6px 16px;
+  border-radius: 100px;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+/* Khu vực soạn thảo văn bản để tổng hợp giọng nói (Editor) */
+.console-editor {
+  padding: 16px 24px;
+  position: relative;
+}
+
+.console-editor textarea {
+  width: 100%;
+  border-radius: 16px;
+  padding: 18px 20px;
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.6;
   resize: vertical;
-  min-height: 120px;
+  min-height: 150px;
   outline: none;
-  transition: border-color 0.2s;
+  display: block;
 }
 
-.studio-textarea:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
-}
-
-.studio-controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin: 24px 0;
+/* Chân khung soạn thảo: Đếm số ký tự & Nút xóa nhanh */
+.editor-footer {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 0 4px;
+}
+
+.clear-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Cụm điều khiển thông số kỹ thuật (Tốc độ, Giọng đọc, Bộ lọc) */
+.console-controls {
+  padding: 14px 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .control-group {
   display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  flex: 1;
+  min-width: 260px;
+  max-width: 480px;
+}
+
+.demo-field {
+  display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
 }
 
-.control-label {
+.field-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: 700;
 }
 
-.studio-select {
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: var(--background);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper select {
+  width: 100%;
+  padding: 12px 36px 12px 16px;
+  border-radius: 12px;
+  font-family: inherit;
+  cursor: pointer;
   outline: none;
 }
 
-.studio-range {
-  accent-color: var(--primary);
+.select-arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.demo-field input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
   cursor: pointer;
 }
 
-.studio-visualizer-container {
+/* Cụm nút hành động điều khiển phát / dừng */
+.console-actions {
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 50px;
-  margin: 16px 0;
-  background: color-mix(in srgb, var(--background) 50%, transparent);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.visualizer-canvas {
-  width: 100%;
-  height: 100%;
-}
-
-.studio-actions {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
   justify-content: center;
-  margin-top: 24px;
+  gap: 12px;
+  width: 100%;
 }
 
-.studio-status {
+/* Ghi chú chân khu vực Demo */
+.demo-note {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+}
+
+.demo-status {
   text-align: center;
-  margin-top: 16px;
-  font-size: 0.9rem;
-  color: var(--primary);
-  min-height: 24px;
+  font-size: 0.85rem;
+  margin: 8px 0 0;
 }
 
 /* ==========================================================================
-   8. CẤU HÌNH RESPONSIVE CƠ BẢN (TABLET & MOBILE)
+   9. CẤU HÌNH CƠ BẢN (BASE): PHẦN VỀ CHÚNG TÔI (ABOUT SECTION)
+   Hỗ trợ cả 2 chế độ: 3D Sticky Scroll Story tương tác & Fallback Grid tiêu chuẩn
+   ========================================================================== */
+
+/* --- CHẾ ĐỘ 1: 3D STICKY SCROLL STORY (CUỘN ĐA TẦNG DÍNH MÀN HÌNH) --- */
+.about-story {
+  position: relative;
+  overflow: clip;
+}
+
+/* Khối giới thiệu mở đầu trước khi bước vào dải cuộn sticky */
+.about-story__intro {
+  width: min(1480px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 140px) 0 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+  gap: clamp(28px, 6vw, 88px);
+  align-items: end;
+}
+
+.about-story__eyebrow,
+.about-story__slide-eyebrow {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.about-story__intro h2 {
+  max-width: 760px;
+  margin: 16px 0 0;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+
+.about-story__copy p {
+  margin: 0 0 14px;
+  font-size: clamp(0.98rem, 1.2vw, 1.1rem);
+  line-height: 1.8;
+}
+
+/* Trục hành trình cuộn (Track) */
+.about-story__track {
+  position: relative;
+}
+
+/* Bước cuộn ảo để tạo chiều cao kích hoạt sự kiện dính */
+.about-story__step {
+  height: 82vh;
+  min-height: 540px;
+  pointer-events: none;
+}
+
+/* Sân khấu ghim cố định toàn màn hình khi người dùng cuộn qua các bước */
+.about-story__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 540px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Ngăn chứa các tầng slide hình ảnh & nội dung */
+.about-story__slides,
+.about-story__slide {
+  position: absolute;
+  inset: 0;
+}
+
+.about-story__slide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--story-duration, 650ms) ease, visibility var(--story-duration, 650ms) ease;
+}
+
+.about-story__slide.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hình ảnh minh họa nền của từng slide */
+.about-story__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(var(--image-scale-from, 1.08));
+  transition: transform 1100ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.about-story__slide.is-active .about-story__image {
+  transform: scale(var(--image-scale-to, 1));
+}
+
+/* Lớp phủ chuyển mờ đa hướng (Shade Overlay) */
+.about-story__shade {
+  position: absolute;
+  inset: 0;
+}
+
+/* Hộp nội dung chữ nổi trên từng slide */
+.about-story__content {
+  position: absolute;
+  z-index: 1;
+  left: clamp(20px, 4.5vw, 64px);
+  right: 24px;
+  bottom: clamp(72px, 13vh, 150px);
+  max-width: 850px;
+  opacity: 0;
+  transform: translateY(var(--reveal-distance, 28px));
+  transition: opacity 600ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.about-story__slide.is-active .about-story__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-story__content h3 {
+  max-width: 850px;
+  margin: 16px 0;
+  font-size: clamp(2.5rem, 7vw, 6.8rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.about-story__description {
+  max-width: 570px;
+  margin: 0;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.75;
+}
+
+/* Chỉ số đo lường / Số liệu ấn tượng trong slide */
+.about-story__metric {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 26px;
+  padding-left: 16px;
+}
+
+.about-story__metric-value {
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+  font-weight: 750;
+  letter-spacing: -0.04em;
+}
+
+.about-story__metric-label {
+  font-size: 0.88rem;
+}
+
+/* Thanh phân đoạn tiến trình cuộn slide ở đáy sân khấu */
+.about-story__progress {
+  position: absolute;
+  z-index: 3;
+  left: clamp(20px, 4.5vw, 64px);
+  right: clamp(20px, 4.5vw, 64px);
+  bottom: 28px;
+  display: flex;
+  gap: 8px;
+}
+
+.about-story__progress-item {
+  height: 3px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.about-story__progress-item span {
+  display: block;
+  width: 0;
+  height: 100%;
+  transition: width 250ms ease;
+}
+
+.about-story__progress-item.is-active span {
+  width: 100%;
+}
+
+.about-story__end {
+  height: 12vh;
+  min-height: 60px;
+}
+
+/* --- CHẾ ĐỘ 2: FALLBACK GRID VỀ CHÚNG TÔI (BỐ CỤC LƯỚI TĨNH TIÊU CHUẨN) --- */
+.about-section {
+  position: relative;
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 70px;
+  align-items: center;
+}
+
+/* Cột hình ảnh minh họa bên trái */
+.about-image-wrapper {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.about-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+}
+
+/* Huy hiệu nổi bật gắn trên hình ảnh */
+.about-floating-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 20px;
+}
+
+.badge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.badge-text strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  line-height: 1.1;
+}
+
+.badge-text span {
+  font-size: 0.8rem;
+}
+
+/* Cột văn bản & số liệu thống kê bên phải */
+.about-paragraphs {
+  margin: 24px 0 40px;
+}
+
+.about-p {
+  font-size: 1.12rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+/* Lưới hiển thị các thẻ số liệu thống kê */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding-top: 30px;
+}
+
+.stat-card {
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.stat-number {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   10. CẤU HÌNH RESPONSIVE CƠ BẢN (TABLET & MOBILE)
    ========================================================================== */
 @media (max-width: 1024px) {
   /* Chuyển Hero từ 2 cột sang 1 cột và căn giữa nội dung */
@@ -420,15 +779,17 @@ body {
   .hero-actions {
     justify-content: center;
   }
-  .studio-card {
-    padding: 24px;
-  }
   /* Lưới Bento chuyển thành 2 cột trên Tablet */
   .bento-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .bento-span-2 {
     grid-column: span 1;
+  }
+  /* Bố cục Về chúng tôi (About) chuyển thành 1 cột */
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
   }
 }
 
