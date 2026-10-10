@@ -24,9 +24,14 @@ async function loadEnvGeminiKey() {
     const res = await fetch(".env");
     if (res.ok) {
       const text = await res.text();
-      const match = text.match(/(?:DEFAULT_GEMINI_KEY|GEMINI_API_KEY)\s*=\s*([^;\r\n]+)/);
+      const match = text.match(
+        /(?:DEFAULT_GEMINI_KEY|GEMINI_API_KEY)\s*=\s*([^;\r\n]+)/,
+      );
       if (match && match[1]) {
-        const envKey = match[1].trim().replace(/^["']|["'];?$/g, "").replace(/;$/, "");
+        const envKey = match[1]
+          .trim()
+          .replace(/^["']|["'];?$/g, "")
+          .replace(/;$/, "");
         if (envKey) {
           DEFAULT_GEMINI_KEY = envKey;
           localStorage.setItem("viv_gemini_key", envKey);
@@ -63,7 +68,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=1200&q=80",
   ],
   gaming: [
     "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80",
@@ -75,7 +80,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?auto=format&fit=crop&w=1200&q=80",
   ],
   kiosk: [
     "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80",
@@ -85,7 +90,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80",
   ],
   edtech: [
     "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
@@ -96,7 +101,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1532012164546-f432f2e3edd4?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80",
   ],
   callcenter: [
     "https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&w=1200&q=80",
@@ -106,7 +111,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80",
   ],
   bakery: [
     "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80",
@@ -115,7 +120,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1511018556340-d16986a1c194?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1511018556340-d16986a1c194?auto=format&fit=crop&w=1200&q=80",
   ],
   coffee: [
     "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
@@ -124,7 +129,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?auto=format&fit=crop&w=1200&q=80",
   ],
   dental: [
     "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80",
@@ -133,7 +138,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?auto=format&fit=crop&w=1200&q=80",
   ],
   medical: [
     "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
@@ -144,7 +149,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1583912267670-6575ad362483?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1583912267670-6575ad362483?auto=format&fit=crop&w=1200&q=80",
   ],
   finance: [
     "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1200&q=80",
@@ -154,7 +159,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80",
   ],
   fashion: [
     "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80",
@@ -163,7 +168,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1479064555552-3ef4979f8908?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1479064555552-3ef4979f8908?auto=format&fit=crop&w=1200&q=80",
   ],
   fitness: [
     "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80",
@@ -172,7 +177,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&w=1200&q=80",
   ],
   realestate: [
     "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
@@ -181,7 +186,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
   ],
   logistics: [
     "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
@@ -190,7 +195,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1200&q=80",
   ],
   cyber: [
     "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
@@ -200,7 +205,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1200&q=80",
   ],
   data: [
     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
@@ -210,7 +215,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
   ],
   pet: [
     "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1200&q=80",
@@ -219,7 +224,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&w=1200&q=80",
   ],
   hotel: [
     "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
@@ -228,7 +233,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80",
   ],
   eco: [
     "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1200&q=80",
@@ -237,7 +242,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
   ],
   audio: [
     "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80",
@@ -246,7 +251,7 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?auto=format&fit=crop&w=1200&q=80"
+    "https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?auto=format&fit=crop&w=1200&q=80",
   ],
   tech: [
     "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
@@ -256,36 +261,88 @@ const TOPIC_IMAGES = {
     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
     "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1200&q=80",
-    "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80"
-  ]
+    "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80",
+  ],
 };
 
 // Hàm gán ảnh thông minh theo ngữ cảnh từ khóa
 function resolveTopicImages(topicKey = "tech") {
   const key = (topicKey || "tech").toLowerCase();
 
-  if (key.includes("video") || key.includes("clip") || key.includes("lồng tiếng") || key.includes("thuyết minh") || key.includes("phim")) {
+  if (
+    key.includes("video") ||
+    key.includes("clip") ||
+    key.includes("lồng tiếng") ||
+    key.includes("thuyết minh") ||
+    key.includes("phim")
+  ) {
     return TOPIC_IMAGES.video;
   }
-  if (key.includes("game") || key.includes("npc") || key.includes("metaverse") || key.includes("vũ trụ") || key.includes("cybertone") || key.includes("vr")) {
+  if (
+    key.includes("game") ||
+    key.includes("npc") ||
+    key.includes("metaverse") ||
+    key.includes("vũ trụ") ||
+    key.includes("cybertone") ||
+    key.includes("vr")
+  ) {
     return TOPIC_IMAGES.gaming;
   }
-  if (key.includes("kiosk") || key.includes("trợ lý") || key.includes("echomind") || key.includes("assistant") || key.includes("điều khiển")) {
+  if (
+    key.includes("kiosk") ||
+    key.includes("trợ lý") ||
+    key.includes("echomind") ||
+    key.includes("assistant") ||
+    key.includes("điều khiển")
+  ) {
     return TOPIC_IMAGES.kiosk;
   }
-  if (key.includes("edu") || key.includes("giáo") || key.includes("học") || key.includes("sách") || key.includes("ngoại ngữ") || key.includes("eduspeak")) {
+  if (
+    key.includes("edu") ||
+    key.includes("giáo") ||
+    key.includes("học") ||
+    key.includes("sách") ||
+    key.includes("ngoại ngữ") ||
+    key.includes("eduspeak")
+  ) {
     return TOPIC_IMAGES.edtech;
   }
-  if (key.includes("cskh") || key.includes("tổng đài") || key.includes("call") || key.includes("hotline") || key.includes("khách hàng") || key.includes("omniclarity")) {
+  if (
+    key.includes("cskh") ||
+    key.includes("tổng đài") ||
+    key.includes("call") ||
+    key.includes("hotline") ||
+    key.includes("khách hàng") ||
+    key.includes("omniclarity")
+  ) {
     return TOPIC_IMAGES.callcenter;
   }
-  if (key.includes("y tế") || key.includes("bệnh") || key.includes("bác sĩ") || key.includes("medical") || key.includes("thuốc") || key.includes("sức khỏe")) {
+  if (
+    key.includes("y tế") ||
+    key.includes("bệnh") ||
+    key.includes("bác sĩ") ||
+    key.includes("medical") ||
+    key.includes("thuốc") ||
+    key.includes("sức khỏe")
+  ) {
     return TOPIC_IMAGES.medical;
   }
-  if (key.includes("tài chính") || key.includes("ngân hàng") || key.includes("finance") || key.includes("đầu tư") || key.includes("chứng khoán")) {
+  if (
+    key.includes("tài chính") ||
+    key.includes("ngân hàng") ||
+    key.includes("finance") ||
+    key.includes("đầu tư") ||
+    key.includes("chứng khoán")
+  ) {
     return TOPIC_IMAGES.finance;
   }
-  if (key.includes("âm thanh") || key.includes("giọng") || key.includes("voice") || key.includes("audio") || key.includes("podcast")) {
+  if (
+    key.includes("âm thanh") ||
+    key.includes("giọng") ||
+    key.includes("voice") ||
+    key.includes("audio") ||
+    key.includes("podcast")
+  ) {
     return TOPIC_IMAGES.audio;
   }
 
@@ -335,7 +392,7 @@ const BRAND_PALETTES = {
     background: "#030c14",
     surface: "#071c2e",
     text: "#ecfeff",
-    textMuted: "#64748b"
+    textMuted: "#64748b",
   },
   data: {
     primary: "#6366f1",
@@ -343,7 +400,7 @@ const BRAND_PALETTES = {
     background: "#05071a",
     surface: "#0c1133",
     text: "#f8fafc",
-    textMuted: "#94a3b8"
+    textMuted: "#94a3b8",
   },
   creative: {
     primary: "#f43f5e",
@@ -351,7 +408,7 @@ const BRAND_PALETTES = {
     background: "#0f051d",
     surface: "#1a0b36",
     text: "#faf5ff",
-    textMuted: "#a8a29e"
+    textMuted: "#a8a29e",
   },
   gold: {
     primary: "#eab308",
@@ -359,7 +416,15 @@ const BRAND_PALETTES = {
     background: "#0c0a09",
     surface: "#1c1917",
     text: "#fefce8",
-    textMuted: "#a8a29e"
+    textMuted: "#a8a29e",
+  },
+  purple: {
+    primary: "#8b5cf6",
+    accent: "#f59e0b",
+    background: "#0c071e",
+    surface: "#180d38",
+    text: "#fdf4ff",
+    textMuted: "#c084fc",
   },
   eco: {
     primary: "#22c55e",
@@ -367,8 +432,8 @@ const BRAND_PALETTES = {
     background: "#021a12",
     surface: "#052e22",
     text: "#f0fdf4",
-    textMuted: "#86efac"
-  }
+    textMuted: "#86efac",
+  },
 };
 
 export function renderChatbot(config = {}) {
@@ -542,11 +607,17 @@ function enrichAndValidateBrandJson(data, topicHint = "tech") {
 
   // 1. Kiểm tra các khóa gốc bắt buộc
   if (!data.brand || !data.theme || !data.sections) {
-    throw new Error("JSON thiếu các khóa bắt buộc: brand, theme hoặc sections.");
+    throw new Error(
+      "JSON thiếu các khóa bắt buộc: brand, theme hoặc sections.",
+    );
   }
 
   const brandName = data.brand.name || "BrandNew";
-  const slug = brandName.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-") || "brand-new";
+  const slug =
+    brandName
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "-")
+      .replace(/-+/g, "-") || "brand-new";
 
   // Xác định chủ đề ảnh phù hợp và xáo trộn mảng ảnh đa dạng độc bản cho thương hiệu
   const detectedTopic = (data.topic || topicHint || "tech").toLowerCase();
@@ -560,7 +631,7 @@ function enrichAndValidateBrandJson(data, topicHint = "tech") {
     orb: true,
     ambientBackground: true,
     scrollProgress: true,
-    ...(data.effects || {})
+    ...(data.effects || {}),
   };
 
   data.nav = [
@@ -569,26 +640,26 @@ function enrichAndValidateBrandJson(data, topicHint = "tech") {
     { href: "#demo", label: "Trải nghiệm" },
     { href: "#about", label: "Về chúng tôi" },
     { href: "#faq", label: "Hỏi đáp" },
-    { href: "#contact", label: "Liên hệ" }
+    { href: "#contact", label: "Liên hệ" },
   ];
 
   // 3. Chuẩn hóa các sections và gán ảnh 4K tương ứng
   const sections = Array.isArray(data.sections) ? data.sections : [];
 
   // Hero
-  const hero = sections.find(s => s.type === "hero");
+  const hero = sections.find((s) => s.type === "hero");
   if (hero) {
     hero.layout = "split-right";
     if (!hero.buttons) {
       hero.buttons = [
         { href: "#demo", label: "Khám phá ngay", style: "primary" },
-        { href: "#features", label: "Xem chi tiết", style: "secondary" }
+        { href: "#features", label: "Xem chi tiết", style: "secondary" },
       ];
     }
   }
 
   // Features (4 thẻ tính năng 3D stack cards)
-  const features = sections.find(s => s.type === "features");
+  const features = sections.find((s) => s.type === "features");
   if (features && Array.isArray(features.items)) {
     features.items.forEach((item, idx) => {
       // Gán ảnh Unsplash chất lượng cao nếu chưa có hoặc ảnh cục bộ
@@ -599,37 +670,50 @@ function enrichAndValidateBrandJson(data, topicHint = "tech") {
   }
 
   // About (3 mốc câu chuyện thương hiệu & 3D Sticky Scroll Story)
-  const about = sections.find(s => s.type === "about");
+  const about = sections.find((s) => s.type === "about");
   if (about) {
-    const rawSlides = (about.scrollStory && Array.isArray(about.scrollStory.slides))
-      ? about.scrollStory.slides
-      : (Array.isArray(about.story) ? about.story : []);
+    const rawSlides =
+      about.scrollStory && Array.isArray(about.scrollStory.slides)
+        ? about.scrollStory.slides
+        : Array.isArray(about.story)
+          ? about.story
+          : [];
 
-    const slides = (rawSlides.length > 0 ? rawSlides : [
-      {
-        eyebrow: "01 / TIN CẬY",
-        title: "Đồng hành cùng khách hàng",
-        description: `Xây dựng giải pháp ${brandName} lấy sự hài lòng của người dùng làm trung tâm.`,
-        metric: { value: "10,000+", label: "Khách hàng tin chọn" }
-      },
-      {
-        eyebrow: "02 / QUY MÔ",
-        title: "Xử lý dữ liệu quy mô lớn",
-        description: "Hệ thống điện toán phân tán sẵn sàng mở rộng đáp ứng hàng triệu tác vụ.",
-        metric: { value: "99.99%", label: "Thời gian hoạt động" }
-      },
-      {
-        eyebrow: "03 / CHẤT LƯỢNG",
-        title: "Đánh giá xuất sắc",
-        description: "Chất lượng dịch vụ đạt chuẩn quốc tế, mang lại sự an tâm tuyệt đối.",
-        metric: { value: "4.9/5", label: "Mức độ hài lòng" }
-      }
-    ]).map((item, idx) => ({
-      image: (item.image && !item.image.startsWith("assets/images/")) ? item.image : photoPool[(idx + 4) % photoPool.length],
+    const slides = (
+      rawSlides.length > 0
+        ? rawSlides
+        : [
+            {
+              eyebrow: "01 / TIN CẬY",
+              title: "Đồng hành cùng khách hàng",
+              description: `Xây dựng giải pháp ${brandName} lấy sự hài lòng của người dùng làm trung tâm.`,
+              metric: { value: "10,000+", label: "Khách hàng tin chọn" },
+            },
+            {
+              eyebrow: "02 / QUY MÔ",
+              title: "Xử lý dữ liệu quy mô lớn",
+              description:
+                "Hệ thống điện toán phân tán sẵn sàng mở rộng đáp ứng hàng triệu tác vụ.",
+              metric: { value: "99.99%", label: "Thời gian hoạt động" },
+            },
+            {
+              eyebrow: "03 / CHẤT LƯỢNG",
+              title: "Đánh giá xuất sắc",
+              description:
+                "Chất lượng dịch vụ đạt chuẩn quốc tế, mang lại sự an tâm tuyệt đối.",
+              metric: { value: "4.9/5", label: "Mức độ hài lòng" },
+            },
+          ]
+    ).map((item, idx) => ({
+      image:
+        item.image && !item.image.startsWith("assets/images/")
+          ? item.image
+          : photoPool[(idx + 4) % photoPool.length],
       eyebrow: item.eyebrow || `0${idx + 1} / ĐIỂM NHẤN`,
       title: item.title || "Giá trị thương hiệu",
-      description: item.description || "Cam kết mang lại chuẩn mực chất lượng hàng đầu.",
-      metric: item.metric || { value: "100%", label: "Tin cậy" }
+      description:
+        item.description || "Cam kết mang lại chuẩn mực chất lượng hàng đầu.",
+      metric: item.metric || { value: "100%", label: "Tin cậy" },
     }));
 
     about.scrollStory = {
@@ -640,25 +724,26 @@ function enrichAndValidateBrandJson(data, topicHint = "tech") {
         imageScaleFrom: 1.08,
         imageScaleTo: 1,
         revealDistance: 28,
-        transitionMs: 650
-      }
+        transitionMs: 650,
+      },
     };
     about.story = slides; // Tương thích cả 2 chuẩn
   }
 
   // Demo
-  const demo = sections.find(s => s.type === "demo");
+  const demo = sections.find((s) => s.type === "demo");
   if (demo && !demo.speakButtonText) {
     demo.speakButtonText = "Kích hoạt trải nghiệm";
   }
 
   // FAQ (4 thẻ lật 3D)
-  const faq = sections.find(s => s.type === "faq");
+  const faq = sections.find((s) => s.type === "faq");
   if (faq && Array.isArray(faq.items)) {
     faq.items.forEach((item, idx) => {
       item.id = item.id || `faq-${idx + 1}`;
       item.badge = item.badge || `0${idx + 1}`;
-      item.frontHint = item.frontHint || "Bấm hoặc rê chuột để lật xem giải đáp";
+      item.frontHint =
+        item.frontHint || "Bấm hoặc rê chuột để lật xem giải đáp";
       item.backAction = item.backAction || "Quay lại";
     });
   }
@@ -673,7 +758,7 @@ function enrichAndValidateBrandJson(data, topicHint = "tech") {
     textMuted: data.theme.textMuted || "#94a3b8",
     fontHeading: data.theme.fontHeading || "Space Grotesk",
     fontBody: data.theme.fontBody || "Be Vietnam Pro",
-    radius: "16px"
+    radius: "16px",
   };
 
   // Footer
@@ -686,25 +771,25 @@ function enrichAndValidateBrandJson(data, topicHint = "tech") {
           links: [
             { href: "#demo", label: "Trải nghiệm" },
             { href: "#features", label: "Tính năng" },
-            { href: "#faq", label: "Hỏi đáp" }
-          ]
+            { href: "#faq", label: "Hỏi đáp" },
+          ],
         },
         {
           title: "Liên kết",
           links: [
             { href: "#", label: "Tài liệu giới thiệu" },
-            { href: "#", label: "Báo cáo năng lực" }
-          ]
+            { href: "#", label: "Báo cáo năng lực" },
+          ],
         },
         {
           title: "Pháp lý",
           links: [
             { href: "#contact", label: "Liên hệ trực tiếp" },
-            { href: "#", label: "Chính sách bảo mật" }
-          ]
-        }
+            { href: "#", label: "Chính sách bảo mật" },
+          ],
+        },
       ],
-      copyright: `© Bản quyền thuộc về ${brandName}. Tạo tự động bởi Gemini 2.5 Flash.`
+      copyright: `© Bản quyền thuộc về ${brandName}. Tạo tự động bởi Gemini 2.5 Flash.`,
     };
   }
 
@@ -716,22 +801,36 @@ function enrichAndValidateBrandJson(data, topicHint = "tech") {
 // ============================================================================
 export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
   const brandName = (name && name.trim()) || "NewBrand";
-  const slug = brandName.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-") || "brand-new";
+  const brandSlogan =
+    (slogan && slogan.trim()) || `Kiến tạo giá trị khác biệt cùng ${brandName}`;
+  const slug =
+    brandName
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "-")
+      .replace(/-+/g, "-") || "brand-new";
   const pal = BRAND_PALETTES[paletteKey] || BRAND_PALETTES.cyber;
-  const brandField = (field && field.trim()) || "Giải pháp công nghệ số thông minh";
+  const brandField =
+    (field && field.trim()) || "Giải pháp công nghệ số thông minh";
   const photos = getDiverseBrandPhotos(field || name || "tech", brandName);
 
   const base = {
     brand: { favicon: "", logo: "", name: brandName, slogan: brandSlogan },
     topic: "tech",
-    effects: { smoothScroll: true, cursor: true, preloader: true, orb: true, ambientBackground: true, scrollProgress: true },
+    effects: {
+      smoothScroll: true,
+      cursor: true,
+      preloader: true,
+      orb: true,
+      ambientBackground: true,
+      scrollProgress: true,
+    },
     nav: [
       { href: "#hero", label: "Trang chủ" },
       { href: "#features", label: "Tính năng" },
       { href: "#demo", label: "Trải nghiệm" },
       { href: "#about", label: "Về chúng tôi" },
       { href: "#faq", label: "Hỏi đáp" },
-      { href: "#contact", label: "Liên hệ" }
+      { href: "#contact", label: "Liên hệ" },
     ],
     sections: [
       {
@@ -745,8 +844,8 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
         playSample: `Xin chào! Bạn đang trải nghiệm giao diện White Label hoàn toàn mới của thương hiệu ${brandName}.`,
         buttons: [
           { href: "#demo", label: "Khám phá ngay", style: "primary" },
-          { href: "#features", label: "Xem tính năng", style: "secondary" }
-        ]
+          { href: "#features", label: "Xem tính năng", style: "secondary" },
+        ],
       },
       {
         type: "features",
@@ -758,30 +857,30 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
             icon: "fa-solid fa-bolt",
             title: "Xử lý Siêu tốc",
             desc: "Kiến trúc luồng xử lý tối ưu với độ trễ thấp, tăng tốc quy trình làm việc gấp 5 lần.",
-            image: photos[0]
+            image: photos[0],
           },
           {
             badge: "02 / AN TOÀN TUYỆT ĐỐI",
             icon: "fa-solid fa-shield-halved",
             title: "Bảo mật Toàn diện",
             desc: "Bảo vệ toàn vẹn tài sản kỹ thuật số và dữ liệu riêng tư của bạn mọi lúc.",
-            image: photos[1]
+            image: photos[1],
           },
           {
             badge: "03 / TÍCH HỢP LINH HOẠT",
             icon: "fa-solid fa-network-wired",
             title: "Kết nối Đồng bộ",
             desc: "Dễ dàng kết nối vào bất kỳ nền tảng Web hoặc Mobile chỉ với vài thao tác.",
-            image: photos[2]
+            image: photos[2],
           },
           {
             badge: "04 / TÙY BIẾN ĐỘC BẢN",
             icon: "fa-solid fa-palette",
             title: "Cá nhân hóa 100%",
             desc: "Bảng màu và thông điệp truyền thông được tinh chỉnh riêng biệt phù hợp với nhận diện của bạn.",
-            image: photos[3]
-          }
-        ]
+            image: photos[3],
+          },
+        ],
       },
       {
         type: "demo",
@@ -789,7 +888,7 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
         subtitle: `Tương tác trực tiếp và cảm nhận sức mạnh của hệ sinh thái ${brandName}.`,
         placeholder: `Nhập văn bản hoặc yêu cầu thử nghiệm cho ${brandName}...`,
         defaultText: `Xin chào! Tôi đang trải nghiệm thương hiệu ${brandName} - ${brandSlogan}.`,
-        speakButtonText: "Kích hoạt trải nghiệm"
+        speakButtonText: "Kích hoạt trải nghiệm",
       },
       {
         type: "about",
@@ -805,24 +904,31 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
               eyebrow: "01 / TIN CẬY",
               title: "Đồng hành cùng khách hàng",
               description: `Xây dựng giải pháp ${brandField} lấy sự hài lòng của người dùng làm trung tâm.`,
-              metric: { value: "10,000+", label: "Khách hàng tin chọn" }
+              metric: { value: "10,000+", label: "Khách hàng tin chọn" },
             },
             {
               image: photos[5] || photos[1],
               eyebrow: "02 / QUY MÔ",
               title: "Xử lý dữ liệu quy mô lớn",
-              description: "Hệ thống điện toán phân tán sẵn sàng mở rộng đáp ứng hàng triệu tác vụ.",
-              metric: { value: "99.99%", label: "Thời gian hoạt động" }
+              description:
+                "Hệ thống điện toán phân tán sẵn sàng mở rộng đáp ứng hàng triệu tác vụ.",
+              metric: { value: "99.99%", label: "Thời gian hoạt động" },
             },
             {
               image: photos[6] || photos[2],
               eyebrow: "03 / CHẤT LƯỢNG",
               title: "Đánh giá xuất sắc",
-              description: "Chất lượng dịch vụ đạt chuẩn quốc tế, mang lại sự an tâm tuyệt đối.",
-              metric: { value: "4.9/5", label: "Mức độ hài lòng" }
-            }
+              description:
+                "Chất lượng dịch vụ đạt chuẩn quốc tế, mang lại sự an tâm tuyệt đối.",
+              metric: { value: "4.9/5", label: "Mức độ hài lòng" },
+            },
           ],
-          animation: { imageScaleFrom: 1.08, imageScaleTo: 1, revealDistance: 28, transitionMs: 650 }
+          animation: {
+            imageScaleFrom: 1.08,
+            imageScaleTo: 1,
+            revealDistance: 28,
+            transitionMs: 650,
+          },
         },
         story: [
           {
@@ -830,24 +936,31 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
             eyebrow: "01 / TIN CẬY",
             title: "Đồng hành cùng khách hàng",
             description: `Xây dựng giải pháp ${brandField} lấy sự hài lòng của người dùng làm trung tâm.`,
-            metric: { value: "10,000+", label: "Khách hàng tin chọn" }
+            metric: { value: "10,000+", label: "Khách hàng tin chọn" },
           },
           {
             image: photos[5] || photos[1],
             eyebrow: "02 / QUY MÔ",
             title: "Xử lý dữ liệu quy mô lớn",
-            description: "Hệ thống điện toán phân tán sẵn sàng mở rộng đáp ứng hàng triệu tác vụ.",
-            metric: { value: "99.99%", label: "Thời gian hoạt động" }
+            description:
+              "Hệ thống điện toán phân tán sẵn sàng mở rộng đáp ứng hàng triệu tác vụ.",
+            metric: { value: "99.99%", label: "Thời gian hoạt động" },
           },
           {
             image: photos[6] || photos[2],
             eyebrow: "03 / CHẤT LƯỢNG",
             title: "Đánh giá xuất sắc",
-            description: "Chất lượng dịch vụ đạt chuẩn quốc tế, mang lại sự an tâm tuyệt đối.",
-            metric: { value: "4.9/5", label: "Mức độ hài lòng" }
-          }
+            description:
+              "Chất lượng dịch vụ đạt chuẩn quốc tế, mang lại sự an tâm tuyệt đối.",
+            metric: { value: "4.9/5", label: "Mức độ hài lòng" },
+          },
         ],
-        animation: { imageScaleFrom: 1.08, imageScaleTo: 1, revealDistance: 28, transitionMs: 650 }
+        animation: {
+          imageScaleFrom: 1.08,
+          imageScaleTo: 1,
+          revealDistance: 28,
+          transitionMs: 650,
+        },
       },
       {
         type: "faq",
@@ -862,7 +975,7 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
             question: `${brandName} có cấp toàn quyền thương mại không?`,
             answer: `Có. Bạn sở hữu 100% bản quyền thương mại đối với toàn bộ tài sản được tạo ra qua nền tảng ${brandName}.`,
             frontHint: "Bấm để xem câu trả lời",
-            backAction: "Quay lại"
+            backAction: "Quay lại",
           },
           {
             id: "faq-2",
@@ -872,7 +985,7 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
             question: `Làm thế nào để tích hợp ${brandName} vào hệ thống hiện tại?`,
             answer: `Chúng tôi cung cấp hệ thống API với tài liệu mẫu đầy đủ, kết nối nhanh chóng chỉ trong vài phút.`,
             frontHint: "Bấm để xem câu trả lời",
-            backAction: "Quay lại"
+            backAction: "Quay lại",
           },
           {
             id: "faq-3",
@@ -880,9 +993,10 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
             category: "Bảo mật",
             icon: "fa-solid fa-shield-virus",
             question: `Dữ liệu của tôi được bảo vệ như thế nào?`,
-            answer: "Mọi dữ liệu truyền tải đều được mã hóa SSL/TLS 256-bit và lưu trữ trên cụm máy chủ an toàn cao.",
+            answer:
+              "Mọi dữ liệu truyền tải đều được mã hóa SSL/TLS 256-bit và lưu trữ trên cụm máy chủ an toàn cao.",
             frontHint: "Bấm để xem câu trả lời",
-            backAction: "Quay lại"
+            backAction: "Quay lại",
           },
           {
             id: "faq-4",
@@ -890,11 +1004,12 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
             category: "Chính sách Dùng thử",
             icon: "fa-solid fa-gift",
             question: `Tôi có thể dùng thử miễn phí các tính năng không?`,
-            answer: "Hoàn toàn có thể! Bạn có thể sử dụng trực tiếp mô đun trải nghiệm trên website này.",
+            answer:
+              "Hoàn toàn có thể! Bạn có thể sử dụng trực tiếp mô đun trải nghiệm trên website này.",
             frontHint: "Bấm để xem câu trả lời",
-            backAction: "Quay lại"
-          }
-        ]
+            backAction: "Quay lại",
+          },
+        ],
       },
       {
         type: "contact",
@@ -902,15 +1017,18 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
         channels: [
           { label: "Email", value: `support@${slug}.vn` },
           { label: "Hotline", value: "0901 888 999 (24/7)" },
-          { label: "Địa chỉ", value: "Trung tâm Đổi mới Sáng tạo, Hà Nội / TP.HCM" }
+          {
+            label: "Địa chỉ",
+            value: "Trung tâm Đổi mới Sáng tạo, Hà Nội / TP.HCM",
+          },
         ],
         formTitle: "Để lại lời nhắn tư vấn",
         formName: "Họ và tên của bạn",
         formEmail: "Email công việc",
         formMessage: `Nhu cầu hợp tác cùng ${brandName}...`,
         formButton: "Gửi thông tin liên hệ",
-        formSuccess: `Cảm ơn bạn! Chuyên viên của ${brandName} sẽ liên hệ lại trong vòng 24 giờ.`
-      }
+        formSuccess: `Cảm ơn bạn! Chuyên viên của ${brandName} sẽ liên hệ lại trong vòng 24 giờ.`,
+      },
     ],
     theme: {
       primary: pal.primary,
@@ -921,7 +1039,7 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
       textMuted: pal.textMuted,
       fontHeading: "Space Grotesk",
       fontBody: "Be Vietnam Pro",
-      radius: "16px"
+      radius: "16px",
     },
     footer: {
       tagline: `${brandName} — ${brandSlogan}.`,
@@ -931,26 +1049,26 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
           links: [
             { href: "#demo", label: "Trải nghiệm tính năng" },
             { href: "#features", label: "Năng lực công nghệ" },
-            { href: "#faq", label: "Câu hỏi thường gặp" }
-          ]
+            { href: "#faq", label: "Câu hỏi thường gặp" },
+          ],
         },
         {
           title: "Hệ thống",
           links: [
             { href: "#", label: "Tài liệu hướng dẫn" },
-            { href: "#", label: "Cộng đồng hỗ trợ" }
-          ]
+            { href: "#", label: "Cộng đồng hỗ trợ" },
+          ],
         },
         {
           title: "Pháp lý",
           links: [
             { href: "#contact", label: "Liên hệ trực tiếp" },
-            { href: "#", label: "Chính sách bảo mật" }
-          ]
-        }
+            { href: "#", label: "Chính sách bảo mật" },
+          ],
+        },
       ],
-      copyright: `© Bản quyền thuộc về ${brandName}. Tạo tự động bởi AI Brand Architect.`
-    }
+      copyright: `© Bản quyền thuộc về ${brandName}. Tạo tự động bởi AI Brand Architect.`,
+    },
   };
 
   return base;
@@ -990,7 +1108,8 @@ export function initChatbot(config = {}) {
 
   // 1. Quản lý Mở / Đóng Panel Chat
   function togglePanel(open) {
-    const isOpen = open !== undefined ? open : !panel.classList.contains("is-open");
+    const isOpen =
+      open !== undefined ? open : !panel.classList.contains("is-open");
     panel.classList.toggle("is-open", isOpen);
     panel.setAttribute("aria-hidden", isOpen ? "false" : "true");
     toggleBtn.classList.toggle("is-active", isOpen);
@@ -1044,7 +1163,8 @@ export function initChatbot(config = {}) {
     scrollToBottom();
   }
 
-  if (toggleWizardBtn) toggleWizardBtn.addEventListener("click", showWizardView);
+  if (toggleWizardBtn)
+    toggleWizardBtn.addEventListener("click", showWizardView);
   if (wzCloseBtn) wzCloseBtn.addEventListener("click", showIdeasView);
   if (backIdeasBtn) backIdeasBtn.addEventListener("click", showIdeasView);
 
@@ -1057,7 +1177,10 @@ export function initChatbot(config = {}) {
 
   // Thêm tin nhắn vào khung chat
   function appendMessage(content, sender = "bot", metaButtons = "") {
-    const timeStr = new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" });
+    const timeStr = new Date().toLocaleTimeString("vi-VN", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     const msgDiv = document.createElement("div");
     msgDiv.className = `chat-msg ${sender}-msg`;
 
@@ -1087,7 +1210,9 @@ export function initChatbot(config = {}) {
   // Tải file JSON xuống máy tính
   function downloadJsonFile(brandData, filename) {
     const jsonStr = JSON.stringify(brandData, null, 2);
-    const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8" });
+    const blob = new Blob([jsonStr], {
+      type: "application/json;charset=utf-8",
+    });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -1104,7 +1229,9 @@ export function initChatbot(config = {}) {
       applyTheme(brandData);
       renderSite(brandData);
       window.scrollTo({ top: 0, behavior: "smooth" });
-      audioState.playSpeech(`Đã chuyển đổi giao diện sang thương hiệu ${brandData.brand.name} thành công!`);
+      audioState.playSpeech(
+        `Đã chuyển đổi giao diện sang thương hiệu ${brandData.brand.name} thành công!`,
+      );
     } catch (err) {
       console.error("Lỗi khi áp dụng thương hiệu mới:", err);
       alert("Không thể áp dụng trực tiếp: " + err.message);
@@ -1114,7 +1241,13 @@ export function initChatbot(config = {}) {
   // ============================================================================
   // XỬ LÝ GỌI GEMINI 2.5 FLASH VÀ SINH FILE JSON THƯƠNG HIỆU
   // ============================================================================
-  async function handleCreateBrand({ name, field, slogan, paletteKey, promptQuery }) {
+  async function handleCreateBrand({
+    name,
+    field,
+    slogan,
+    paletteKey,
+    promptQuery,
+  }) {
     // 1. Ẩn gợi ý và form wizard
     const quickReplies = document.getElementById("ai-quick-replies");
     if (quickReplies) quickReplies.style.display = "none";
@@ -1123,16 +1256,22 @@ export function initChatbot(config = {}) {
     // 2. Bật typing indicator
     if (typingIndicator) {
       typingIndicator.classList.add("is-active");
-      if (typingText) typingText.innerText = "Gemini 2.5 Flash đang sáng tạo nội dung & chọn ảnh Unsplash 4K...";
+      if (typingText)
+        typingText.innerText = "Đang khởi tạo, vui lòng chờ 20-30 giây.....";
       scrollToBottom();
     }
 
-    const currentKey = (await loadEnvGeminiKey()) || localStorage.getItem("viv_gemini_key") || DEFAULT_GEMINI_KEY;
+    const currentKey =
+      (await loadEnvGeminiKey()) ||
+      localStorage.getItem("viv_gemini_key") ||
+      DEFAULT_GEMINI_KEY;
     let generatedData = null;
     let isGeminiPowered = false;
 
     // Chuẩn bị câu yêu cầu
-    const userPrompt = promptQuery || `Tên: ${name || ""}, Ngành nghề: ${field || ""}, Slogan: ${slogan || ""}, Tông màu: ${paletteKey || "tự động phối"}`;
+    const userPrompt =
+      promptQuery ||
+      `Tên: ${name || ""}, Ngành nghề: ${field || ""}, Slogan: ${slogan || ""}, Tông màu: ${paletteKey || "tự động phối"}`;
 
     // Prompt hệ thống ràng buộc nghiêm ngặt chỉ sinh JSON theo schema White Label
     const systemInstruction = `Bạn là Trợ lý AI Brand Architect hàng đầu cho nền tảng White Label.
@@ -1172,55 +1311,84 @@ RÀNG BUỘC BẮT BUỘC (STRICT POLICY):
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [{
-              parts: [{ text: `${systemInstruction}\n\nYêu cầu thương hiệu cụ thể của người dùng: "${userPrompt}"` }]
-            }],
+            contents: [
+              {
+                parts: [
+                  {
+                    text: `${systemInstruction}\n\nYêu cầu thương hiệu cụ thể của người dùng: "${userPrompt}"`,
+                  },
+                ],
+              },
+            ],
             generationConfig: {
-              responseMimeType: "application/json"
-            }
-          })
+              responseMimeType: "application/json",
+            },
+          }),
         });
 
         if (resp.ok) {
           const result = await resp.json();
-          let rawJson = result?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-          rawJson = rawJson.replace(/```json/g, "").replace(/```/g, "").trim();
+          let rawJson =
+            result?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+          rawJson = rawJson
+            .replace(/```json/g, "")
+            .replace(/```/g, "")
+            .trim();
           const parsed = JSON.parse(rawJson);
-          generatedData = enrichAndValidateBrandJson(parsed, parsed.topic || promptQuery);
+          generatedData = enrichAndValidateBrandJson(
+            parsed,
+            parsed.topic || promptQuery,
+          );
           isGeminiPowered = true;
         } else {
-          console.warn("Gemini API phản hồi lỗi:", resp.status, await resp.text());
+          console.warn(
+            "Gemini API phản hồi lỗi:",
+            resp.status,
+            await resp.text(),
+          );
         }
       } catch (err) {
-        console.warn("Lỗi khi kết nối Gemini API, kích hoạt bộ sinh nội bộ:", err);
+        console.warn(
+          "Lỗi khi kết nối Gemini API, kích hoạt bộ sinh nội bộ:",
+          err,
+        );
       }
     }
 
     // Nếu không kết nối được Gemini (mất mạng hoặc lỗi), tự động dùng bộ sinh dự phòng nội bộ
     if (!generatedData) {
-      await new Promise(r => setTimeout(r, 650));
+      await new Promise((r) => setTimeout(r, 650));
       const fallback = generateBrandJsonOffline({
         name: name,
         field: field || promptQuery,
         slogan: slogan,
-        paletteKey: paletteKey
+        paletteKey: paletteKey,
       });
-      generatedData = enrichAndValidateBrandJson(fallback, promptQuery || "tech");
+      generatedData = enrichAndValidateBrandJson(
+        fallback,
+        promptQuery || "tech",
+      );
     }
 
     // Tắt typing indicator
     if (typingIndicator) typingIndicator.classList.remove("is-active");
 
     const brandName = generatedData.brand.name;
-    const slug = brandName.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-") || "brand-new";
+    const slug =
+      brandName
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "-")
+        .replace(/-+/g, "-") || "brand-new";
     const filename = `brand-${slug}.json`;
     const jsonString = JSON.stringify(generatedData, null, 2);
 
     // Thu thập các hình ảnh đã chọn để hiển thị thumbnail
     const previewImages = [];
-    const featSection = generatedData.sections.find(s => s.type === "features");
+    const featSection = generatedData.sections.find(
+      (s) => s.type === "features",
+    );
     if (featSection && featSection.items) {
-      featSection.items.slice(0, 3).forEach(it => {
+      featSection.items.slice(0, 3).forEach((it) => {
         if (it.image) previewImages.push(it.image);
       });
     }
@@ -1241,12 +1409,20 @@ RÀNG BUỘC BẮT BUỘC (STRICT POLICY):
           <span class="palette-label">Tông màu: ${generatedData.theme.primary} • ${generatedData.theme.accent}</span>
         </div>
 
-        ${previewImages.length > 0 ? `
+        ${
+          previewImages.length > 0
+            ? `
         <div class="brand-preview-gallery" style="display: flex; gap: 6px; margin: 6px 0;">
-          ${previewImages.map(img => `
+          ${previewImages
+            .map(
+              (img) => `
             <img src="${esc(img)}" alt="Brand Photo" style="width: 32%; height: 56px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15);" loading="lazy" />
-          `).join("")}
-        </div>` : ""}
+          `,
+            )
+            .join("")}
+        </div>`
+            : ""
+        }
 
         <div class="brand-policy-notice">
           <i class="fa-solid fa-shield-halved"></i> <span>Chỉ tạo file JSON <code>config/${filename}</code>. Giữ nguyên 100% mã nguồn website theo quy định tại <strong>BRAND_GENERATOR_POLICY.md</strong>.</span>
@@ -1279,7 +1455,9 @@ RÀNG BUỘC BẮT BUỘC (STRICT POLICY):
     const msgElement = appendMessage(resultHtml, "bot");
 
     // Phát âm thanh đọc lời xác nhận
-    audioState.playSpeech(`Thương hiệu ${brandName} đã được Gemini khởi tạo thành công với hình ảnh 4K và cấu hình JSON hoàn chỉnh. Bạn có thể tải file hoặc bấm xem trước ngay.`);
+    audioState.playSpeech(
+      `Thương hiệu ${brandName} đã được Gemini khởi tạo thành công với hình ảnh 4K và cấu hình JSON hoàn chỉnh. Bạn có thể tải file hoặc bấm xem trước ngay.`,
+    );
 
     // Gắn sự kiện cho các nút hành động trong tin nhắn vừa tạo
     const dlBtn = msgElement.querySelector(".btn-brand-download");
@@ -1346,32 +1524,41 @@ RÀNG BUỘC BẮT BUỘC (STRICT POLICY):
         if (preset === "clipvoice") {
           req = {
             name: "ClipVoice",
-            field: "video, lồng tiếng video bằng AI, tạo lời thuyết minh và bản địa hóa nội dung đa ngôn ngữ.",
+            field:
+              "video, lồng tiếng video bằng AI, tạo lời thuyết minh và bản địa hóa nội dung đa ngôn ngữ.",
             slogan: "Lồng tiếng video bằng AI đa ngôn ngữ chuẩn bản địa",
             paletteKey: "data",
-            promptQuery: "ClipVoice: Lồng tiếng video bằng AI, tạo lời thuyết minh và bản địa hóa nội dung đa ngôn ngữ."
+            promptQuery:
+              "ClipVoice: Lồng tiếng video bằng AI, tạo lời thuyết minh và bản địa hóa nội dung đa ngôn ngữ.",
           };
         } else if (preset === "eduspeak") {
           req = {
             name: "EduSpeak",
-            field: "edtech, giáo dục số, biến giáo trình thành bài học âm thanh, hỗ trợ luyện nghe, phát âm và học ngoại ngữ.",
+            field:
+              "edtech, giáo dục số, biến giáo trình thành bài học âm thanh, hỗ trợ luyện nghe, phát âm và học ngoại ngữ.",
             slogan: "Biến giáo trình thành bài học âm thanh thông minh",
             paletteKey: "purple",
-            promptQuery: "EduSpeak: Biến giáo trình thành bài học âm thanh, hỗ trợ luyện nghe, phát âm và học ngoại ngữ."
+            promptQuery:
+              "EduSpeak: Biến giáo trình thành bài học âm thanh, hỗ trợ luyện nghe, phát âm và học ngoại ngữ.",
           };
         } else if (preset === "echomind") {
           req = {
             name: "EchoMind",
-            field: "kiosk, trợ lý ảo, cung cấp giọng nói cho trợ lý ảo, kiosk thông minh và ứng dụng điều khiển bằng giọng nói.",
+            field:
+              "kiosk, trợ lý ảo, cung cấp giọng nói cho trợ lý ảo, kiosk thông minh và ứng dụng điều khiển bằng giọng nói.",
             slogan: "Giọng nói AI thông minh cho trợ lý ảo và kiosk",
             paletteKey: "creative",
-            promptQuery: "EchoMind: Cung cấp giọng nói cho trợ lý ảo, kiosk thông minh và ứng dụng điều khiển bằng giọng nói."
+            promptQuery:
+              "EchoMind: Cung cấp giọng nói cho trợ lý ảo, kiosk thông minh và ứng dụng điều khiển bằng giọng nói.",
           };
         }
 
         if (req.name) {
           showMessagesView();
-          appendMessage(`Tôi muốn tạo thương hiệu ${req.name}: ${req.field}`, "user");
+          appendMessage(
+            `Tôi muốn tạo thương hiệu ${req.name}: ${req.field}`,
+            "user",
+          );
           handleCreateBrand(req);
         }
       }
@@ -1392,13 +1579,16 @@ RÀNG BUỘC BẮT BUỘC (STRICT POLICY):
       }
 
       showMessagesView();
-      appendMessage(`Tạo thương hiệu: ${wzName} | Ngành: ${wzField || "Doanh nghiệp số"} | Slogan: ${wzSlogan || "Đột phá"}`, "user");
+      appendMessage(
+        `Tạo thương hiệu: ${wzName} | Ngành: ${wzField || "Doanh nghiệp số"} | Slogan: ${wzSlogan || "Đột phá"}`,
+        "user",
+      );
       handleCreateBrand({
         name: wzName,
         field: wzField,
         slogan: wzSlogan,
         paletteKey: wzPalette,
-        promptQuery: `Tên: ${wzName}, Ngành: ${wzField || ""}, Slogan: ${wzSlogan || ""}`
+        promptQuery: `Tên: ${wzName}, Ngành: ${wzField || ""}, Slogan: ${wzSlogan || ""}`,
       });
     });
   }
