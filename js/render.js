@@ -7,12 +7,16 @@ import { renderHeader } from "./sections/Header.js";
 import { renderFooter } from "./sections/Footer.js";
 import { renderHero, initHeroInteractions } from "./sections/Hero.js";
 import { renderDemo, initDemoInteractions } from "./sections/Demo.js";
-import { renderFeatures, initFeaturesInteractions } from "./sections/Features.js";
+import {
+  renderFeatures,
+  initFeaturesInteractions,
+} from "./sections/Features.js";
 import { renderAbout, initAboutScroll } from "./sections/About.js";
-import { renderTestimonials, initTestimonialsInteractions } from "./sections/Testimonials.js";
-import { renderPricing, initPricingInteractions } from "./sections/Pricing.js";
+import {
+  renderTestimonials,
+  initTestimonialsInteractions,
+} from "./sections/Testimonials.js";
 import { renderFaq, initFaqInteractions } from "./sections/Faq.js";
-import { renderCta } from "./sections/Cta.js";
 import { renderContact, initContactInteractions } from "./sections/Contact.js";
 
 import { initVoiceOrb } from "./effects/voice-orb.js";
@@ -20,7 +24,6 @@ import { initSmoothScroll } from "./effects/smooth-scroll.js";
 import { initCustomCursor } from "./effects/cursor.js";
 import { initScrollAnimations } from "./effects/scroll-animations.js";
 import { initAmbientBackground } from "./effects/ambient-background.js";
-import { initMarquee } from "./components/Marquee.js";
 import { initChatbot } from "./components/Chatbot.js";
 
 // Bảng từ điển ánh xạ từ loại Section trong file JSON sang Hàm sinh mã HTML tương ứng
@@ -30,9 +33,7 @@ const RENDERERS = {
   features: renderFeatures,
   about: renderAbout,
   testimonials: renderTestimonials,
-  pricing: renderPricing,
   faq: renderFaq,
-  cta: renderCta,
   contact: renderContact,
 };
 
@@ -43,7 +44,6 @@ const INTERACTION_HANDLERS = {
   features: initFeaturesInteractions,
   about: initAboutScroll,
   testimonials: initTestimonialsInteractions,
-  pricing: initPricingInteractions,
   faq: initFaqInteractions,
   contact: initContactInteractions,
 };
@@ -123,9 +123,6 @@ export function renderSite(config) {
   if (effects.ambientBackground !== false && bgElement !== null) {
     initAmbientBackground(config);
   }
-
-  // Bật dải chữ chạy ngang liên tục (Marquee)
-  initMarquee(".marquee-track");
 
   // Khởi tạo Chatbox AI hỗ trợ tạo thương hiệu mới
   initChatbot(config);

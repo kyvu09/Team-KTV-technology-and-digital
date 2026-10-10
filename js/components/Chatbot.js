@@ -444,7 +444,6 @@ export function renderChatbot(config = {}) {
     <!-- Nút kích hoạt nổi ở góc phải (nằm dưới nút mũi tên cuộn lên) -->
     <div class="ai-chat-trigger-wrap">
       <div class="ai-chat-callout" id="ai-chat-callout">
-        <span class="callout-wave">✨</span>
         <span>Tôi sẽ hỗ trợ bạn <strong>tạo thương hiệu cho chính bạn!</strong></span>
         <button type="button" class="callout-close" id="ai-callout-close" aria-label="Đóng gợi ý">&times;</button>
       </div>
@@ -479,7 +478,7 @@ export function renderChatbot(config = {}) {
         <!-- Khung Ý TƯỞNG MẪU (Mặc định hiển thị đúng 4 thẻ như trong ảnh) -->
         <div class="ai-ideas-view" id="ai-ideas-view">
           <div class="ideas-heading">
-            <span class="ideas-bulb">💡</span> Ý TƯỞNG MẪU :
+             Ý TƯỞNG MẪU :
           </div>
 
           <div class="ideas-list">
@@ -550,7 +549,7 @@ export function renderChatbot(config = {}) {
           <div class="wizard-field">
             <label>Tông màu nhận diện:</label>
             <select id="wz-palette">
-              <option value="auto">✨ Để Gemini tự phối màu chuẩn tâm lý</option>
+              <option value="auto"> Tự động phối màu chuẩn tâm lý</option>
               <option value="data">🔵 Indigo &amp; Cyan (Công nghệ, Dữ liệu, Video)</option>
               <option value="purple">🟣 Tím Violet &amp; Hổ phách (Giáo dục, E-learning)</option>
               <option value="creative">🔴 Hồng Rose &amp; Magenta (Trợ lý ảo, Trực quan)</option>
@@ -1458,7 +1457,7 @@ RÀNG BUỘC BẮT BUỘC (STRICT POLICY):
 
     // Phát âm thanh đọc lời xác nhận
     audioState.playSpeech(
-      `Thương hiệu ${brandName} đã được Gemini khởi tạo thành công với hình ảnh 4K và cấu hình JSON hoàn chỉnh. Bạn có thể tải file hoặc bấm xem trước ngay.`,
+      `Thương hiệu ${brandName} đã được khởi tạo thành công thương hiệu cho riêng bạn.`,
     );
 
     // Gắn sự kiện cho các nút hành động trong tin nhắn vừa tạo
