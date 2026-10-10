@@ -2,11 +2,14 @@ import { renderHeader } from "./sections/Header.js";
 import { renderHero, initHeroInteractions } from "./sections/Hero.js";
 import { initVoiceOrb } from "./effects/voice-orb.js";
 import { renderFeatures, initFeaturesInteractions } from "./sections/Features.js";
+import { renderFooter } from "./sections/Footer.js";
+import { initChatbot } from "./components/Chatbot.js";
 
 // Bảng từ điển giúp chuyển đổi từ tên loại trong JSON sang Hàm tạo HTML tương ứng
 const RENDERERS = {
   "hero": renderHero,
   "features": renderFeatures,
+
 };
 
 // Bảng từ điển giúp gọi Hàm kích hoạt nút bấm tương ứng
@@ -48,7 +51,8 @@ export function renderSite(config) {
 
   // Đổ toàn bộ mã HTML vào trong khung "app" trên màn hình
   app.innerHTML = fullHTML;
-
+  renderFooter(config);
+  initChatbot(config);
   // 4. Gắn sự kiện tương tác (click, audio, hiệu ứng) cho từng section
   for (let i = 0; i < sections.length; i++) {
     const sectionData = sections[i];
