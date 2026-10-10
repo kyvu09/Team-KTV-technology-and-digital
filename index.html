@@ -1,46 +1,90 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
-    <!-- Thư viện biểu tượng FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/theme.css">
-</head>
-<body>
-    <header id="site-header"></header>
-    <main id="app"></main>
-    <footer id="site-footer"></footer>
 
-      <!-- Khung Chatbox AI hỗ trợ tạo thương hiệu mới (nằm dưới nút mũi tên góc phải) -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading...</title>
+
+  <!-- Thư viện biểu tượng & phông chữ FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Toàn bộ CSS nền tảng và giao diện nâng cao -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/theme.css" />
+</head>
+
+<body class="is-loading">
+  <!-- Con trỏ tương tác cao cấp (Custom Cursor) -->
+  <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Màn hình khởi động sóng âm (Preloader) -->
+  <div id="site-preloader" class="preloader" aria-hidden="true">
+    <div class="preloader-content">
+      <div class="preloader-soundwave">
+        <i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="preloader-brand">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Thanh tiến trình cuộn trang công nghệ sóng âm (Scroll Progress Bar) -->
+  <div id="scroll-progress" class="scroll-progress-bar" aria-hidden="true">
+    <div class="scroll-progress-fill" id="scroll-progress-fill"></div>
+    <div class="scroll-progress-glow"></div>
+  </div>
+
+  <!-- Hệ thống nền động đa tầng (Ambient Canvas, Lưới không gian & Hào quang cực quang) -->
+  <canvas id="ambient-canvas" class="ambient-bg-canvas" aria-hidden="true"></canvas>
+  <div class="ambient-grid-overlay" aria-hidden="true"></div>
+  <div class="ambient-noise-overlay" aria-hidden="true"></div>
+  <div class="ambient-aurora-container" aria-hidden="true">
+    <div class="aurora-orb aurora-1" data-speed="0.2"></div>
+    <div class="aurora-orb aurora-2" data-speed="-0.15"></div>
+    <div class="aurora-orb aurora-3" data-speed="0.25"></div>
+    <div class="aurora-orb aurora-4" data-speed="-0.2"></div>
+  </div>
+
+  <header id="site-header"></header>
+  <main id="app"></main>
+  <footer id="site-footer"></footer>
+
+  <!-- Nút cuộn nhanh lên đầu trang (Floating Back to Top) -->
+  <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Cuộn lên đầu trang">
+    <i class="fa-solid fa-arrow-up"></i>
+    <span class="scroll-top-ring"></span>
+  </button>
+
+  <!-- Khung Chatbox AI hỗ trợ tạo thương hiệu mới (nằm dưới nút mũi tên góc phải) -->
   <div id="ai-chat-root"></div>
 
-    <!-- Nút chuyển đổi White Label (Góc dưới trái) -->
-    <div class="white-label-switcher">
-      <button id="wl-toggle-btn" class="wl-btn" aria-label="Switch White Label Brand">
-        <i class="fa-solid fa-swatchbook"></i> <span id="wl-brand-name">Đổi Giao Diện</span>
+  <!-- Nút chuyển đổi White Label (Bottom Left) -->
+  <div class="white-label-switcher">
+    <button id="wl-toggle-btn" class="wl-btn" aria-label="Switch White Label Brand">
+      <i class="fa-solid fa-swatchbook"></i> <span id="wl-brand-name">Đổi Giao Diện</span>
+    </button>
+    <div class="wl-menu" id="wl-menu">
+      <div class="wl-menu-title">Chọn giao diện White Label:</div>
+      <button class="wl-menu-item" data-brand="brand-vivoice">
+        <i class="fa-solid fa-microphone-lines"></i> ViVoice (AI Voice)
       </button>
-      <div class="wl-menu" id="wl-menu">
-        <div class="wl-menu-title">Chọn giao diện White Label:</div>
-        <button class="wl-menu-item" data-brand="brand-vivoice">
-          <i class="fa-solid fa-microphone-lines"></i> ViVoice (AI Voice)
-        </button>
-        <button class="wl-menu-item" data-brand="brand-cybertone">
-          <i class="fa-solid fa-gamepad"></i> CyberTone (Game NPC)
-        </button>
-        <button class="wl-menu-item" data-brand="brand-omniclarity">
-          <i class="fa-solid fa-headset"></i> OmniClarity (CSKH &amp; Y Tế)
-        </button>
-      </div>
+      <button class="wl-menu-item" data-brand="brand-cybertone">
+        <i class="fa-solid fa-gamepad"></i> CyberTone (Game NPC)
+      </button>
+      <button class="wl-menu-item" data-brand="brand-omniclarity">
+        <i class="fa-solid fa-headset"></i> OmniClarity (CSKH &amp; Y Tế)
+      </button>
     </div>
+  </div>
 
-    <!-- Thư viện đồ họa 3D Three.js và Animation GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- Thư viện đồ họa 3D Three.js và Animation GSAP + ScrollTrigger + Lenis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 
-    <!-- Script chính của ứng dụng -->
-    <script type="module" src="js/main.js"></script>
+  <!-- Script chính của ứng dụng -->
+  <script type="module" src="js/main.js"></script>
 </body>
+
 </html>

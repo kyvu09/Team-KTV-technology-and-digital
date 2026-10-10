@@ -12,8 +12,41 @@ import { audioState } from "../core/audio-state.js";
 import { applyTheme } from "../theme.js?v=3";
 import { renderSite } from "../render.js?v=3";
 
-// API Key Gemini mặc định (do người dùng cung cấp)
-const DEFAULT_GEMINI_KEY = "AQ.Ab8RN6IzgDwonNKsFIEzrjBrSezXYxaTfG77eGJ64QqzrZ4N5g";
+// API Key Gemini (không lưu cứng trong mã nguồn, tự động nạp từ file .env hoặc LocalStorage)
+let DEFAULT_GEMINI_KEY = "";
+
+// Hàm đọc Gemini Key an toàn từ file .env hoặc LocalStorage
+async function loadEnvGeminiKey() {
+  if (DEFAULT_GEMINI_KEY) return DEFAULT_GEMINI_KEY;
+
+  // 1. Thử đọc từ file .env (hỗ trợ qua Live Server / Local Web Server)
+  try {
+    const res = await fetch(".env");
+    if (res.ok) {
+      const text = await res.text();
+      const match = text.match(/(?:DEFAULT_GEMINI_KEY|GEMINI_API_KEY)\s*=\s*([^;\r\n]+)/);
+      if (match && match[1]) {
+        const envKey = match[1].trim().replace(/^["']|["'];?$/g, "").replace(/;$/, "");
+        if (envKey) {
+          DEFAULT_GEMINI_KEY = envKey;
+          localStorage.setItem("viv_gemini_key", envKey);
+          return envKey;
+        }
+      }
+    }
+  } catch (err) {
+    // Không thể đọc .env (ví dụ mở trực tiếp qua file://), sẽ dùng LocalStorage hoặc bộ sinh dự phòng
+  }
+
+  // 2. Thử lấy từ LocalStorage
+  const stored = localStorage.getItem("viv_gemini_key");
+  if (stored && stored.trim()) {
+    DEFAULT_GEMINI_KEY = stored.trim();
+    return DEFAULT_GEMINI_KEY;
+  }
+
+  return "";
+}
 
 // ============================================================================
 // KHO ẢNH CHUYÊN NGÀNH CHẤT LƯỢNG CAO 4K (UNSPLASH TOPIC ASSETS)
@@ -952,12 +985,8 @@ export function initChatbot(config = {}) {
 
   if (!widget || !toggleBtn || !panel) return;
 
-  // Khởi tạo Gemini Key nếu chưa có trong LocalStorage
-  let activeKey = localStorage.getItem("viv_gemini_key");
-  if (!activeKey) {
-    activeKey = DEFAULT_GEMINI_KEY;
-    localStorage.setItem("viv_gemini_key", activeKey);
-  }
+  // Tự động nạp Gemini Key từ file .env hoặc LocalStorage
+  loadEnvGeminiKey().catch(() => {});
 
   // 1. Quản lý Mở / Đóng Panel Chat
   function togglePanel(open) {
@@ -1098,7 +1127,7 @@ export function initChatbot(config = {}) {
       scrollToBottom();
     }
 
-    const currentKey = localStorage.getItem("viv_gemini_key") || DEFAULT_GEMINI_KEY;
+    const currentKey = (await loadEnvGeminiKey()) || localStorage.getItem("viv_gemini_key") || DEFAULT_GEMINI_KEY;
     let generatedData = null;
     let isGeminiPowered = false;
 

@@ -259,6 +259,7 @@
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   padding: 160px 0 80px;
@@ -694,29 +695,139 @@
    ========================================================================== */
 
 @media (max-width: 1024px) {
+  /* Tối ưu bố cục Hero trên Tablet (iPad Pro, iPad Air, Surface) */
   .hero {
-    padding: 140px 0 60px;
+    padding: 130px 0 60px;
+    min-height: auto;
   }
 
   .hero-inner {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 40px;
+    gap: 36px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .hero-content {
+    align-items: center;
+  }
+
+  .badge-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .hero-title,
+  .hero-content h1 {
+    font-size: clamp(2.2rem, 4.8vw, 3rem);
+    margin-bottom: 20px;
+  }
+
+  .lead,
+  .hero-content p {
+    font-size: 1.1rem;
+    line-height: 1.65;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 32px;
+    text-align: center;
   }
 
   .hero-cta,
   .hero-actions {
     justify-content: center;
+    gap: 16px;
   }
 
-  .lead,
-  .hero-content p {
-    margin-left: auto;
-    margin-right: auto;
+  .hero-media {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .orb-stage {
+    min-height: 380px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .voice-orb-container {
+    height: 380px;
+    width: 380px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .orb-ring {
+    width: 310px;
+    height: 310px;
+  }
+
+  .orb-ring-outer {
+    width: 350px;
+    height: 350px;
   }
 
   .trust-header-flex {
     justify-content: center;
+  }
+
+  .hero-scroll-cue {
+    bottom: 16px;
+  }
+
+  /* Tối ưu Header trên Tablet */
+  #site-header {
+    top: 16px;
+    width: calc(100% - 32px);
+  }
+
+  .header-inner,
+  .navbar-container {
+    height: 60px;
+    padding: 0 18px;
+  }
+
+  .nav-menu,
+  .navbar-menu {
+    gap: 4px;
+  }
+
+  .nav-link,
+  .navbar-menu a {
+    padding: 6px 12px;
+    font-size: 0.86rem;
+  }
+
+  .logo-text,
+  .navbar-brand a {
+    font-size: 1.35rem;
+  }
+
+  .header-action {
+    gap: 10px;
+  }
+
+  /* Tối ưu White Label Switcher & AI Chatbot trên Tablet */
+  .white-label-switcher {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .ai-chat-widget {
+    bottom: 80px;
+    left: 20px;
+  }
+
+  .ai-chat-panel {
+    bottom: 140px;
+    left: 20px;
+    width: 380px;
+    max-height: calc(100vh - 160px);
   }
 }
 
@@ -749,33 +860,307 @@
     padding: 8px 10px;
   }
 
-  /* Thu gọn Hero */
+  /* Thu gọn Hero trên Phablet & Mobile lớn (iPad Mini, Android to) */
   .hero {
-    padding: 110px 0 50px;
+    padding: 110px 0 45px;
     min-height: auto;
+  }
+
+  .hero-inner {
+    gap: 28px;
+    text-align: center;
+  }
+
+  .badge-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
   }
 
   .hero-title,
   .hero-content h1 {
-    font-size: 2.1rem;
+    font-size: clamp(1.9rem, 5.8vw, 2.4rem);
+    line-height: 1.22;
+    margin-bottom: 16px;
+  }
+
+  .lead,
+  .hero-content p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto 26px;
+    padding: 0 10px;
+  }
+
+  .hero-cta,
+  .hero-actions {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .hero-cta .btn {
+    padding: 13px 24px;
+    font-size: 0.92rem;
   }
 
   .orb-stage {
-    min-height: 320px;
+    min-height: 300px;
+    max-width: 320px;
+    margin: 0 auto;
   }
 
   .voice-orb-container {
-    height: 320px;
+    height: 300px;
+    width: 300px;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .orb-ring {
-    width: 260px;
-    height: 260px;
+    width: 250px;
+    height: 250px;
   }
 
   .orb-ring-outer {
-    width: 300px;
-    height: 300px;
+    width: 290px;
+    height: 290px;
+  }
+
+  /* Nút cuộn khám phá chuyển sang vị trí tương đối tránh đè lên quả cầu 3D */
+  .hero-scroll-cue {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Tối ưu White Label Switcher & AI Chatbot trên 768px */
+  .white-label-switcher {
+    bottom: 18px;
+    left: 16px;
+  }
+
+  .ai-chat-widget {
+    bottom: 74px;
+    left: 16px;
+  }
+
+  .ai-chat-panel {
+    bottom: 130px;
+    left: 16px;
+    width: 360px;
+    max-width: calc(100vw - 32px);
+  }
+}
+
+@media (max-width: 480px) {
+  /* Tối ưu hóa đặc biệt cho iPhone (iPhone 12/13/14/15/16 Pro Max, iPhone SE) & Điện thoại di động */
+  .hero {
+    padding: 96px 0 32px;
+    min-height: auto;
+    overflow: hidden;
+  }
+
+  .hero-inner {
+    gap: 22px;
+    padding: 0 12px;
+    text-align: center;
+  }
+
+  .badge-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 6px;
+  }
+
+  .badge-wrapper .badge {
+    font-size: 0.78rem;
+    padding: 6px 14px;
+    gap: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-title,
+  .hero-content h1 {
+    font-size: clamp(1.65rem, 7.2vw, 2.05rem);
+    line-height: 1.25;
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+    word-break: break-word;
+  }
+
+  .rotating-text-wrapper {
+    display: inline-block;
+    white-space: normal;
+  }
+
+  .rotating-text {
+    display: inline-block;
+  }
+
+  .lead,
+  .hero-content p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    max-width: 100%;
+    margin: 0 auto 22px;
+    padding: 0 4px;
+  }
+
+  /* Nút bấm CTA xếp chồng dọc và kéo dài full width, chuẩn UX ngón tay cái trên iPhone */
+  .hero-cta,
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    gap: 10px;
+  }
+
+  .hero-cta .btn,
+  .hero-actions .btn {
+    width: 100%;
+    padding: 13px 20px;
+    font-size: 0.92rem;
+    justify-content: center;
+    border-radius: 12px;
+  }
+
+  .hero-media {
+    margin-top: 6px;
+    width: 100%;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  /* Kích thước Quả cầu 3D thu nhỏ tương thích màn hình dọc của iPhone */
+  .orb-stage {
+    min-height: 250px;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  .voice-orb-container {
+    height: 250px;
+    width: 250px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .orb-ring {
+    width: 210px;
+    height: 210px;
+    border-width: 1px;
+  }
+
+  .orb-ring-outer {
+    width: 240px;
+    height: 240px;
+  }
+
+  /* Giảm mờ cực quang tránh tụt FPS trên iPhone */
+  .blob {
+    filter: blur(60px);
+    opacity: 0.25;
+  }
+
+  .blob-1 {
+    width: 75vw;
+    height: 75vw;
+    top: -10%;
+    left: -20%;
+  }
+
+  .blob-2 {
+    width: 65vw;
+    height: 65vw;
+    bottom: -10%;
+    right: -15%;
+  }
+
+  .blob-3 {
+    display: none;
+  }
+
+  /* Nút cuộn khám phá căn giữa gọn gàng */
+  .hero-scroll-cue {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .scroll-cue-text {
+    font-size: 0.72rem;
+  }
+
+  .scroll-mouse-icon {
+    width: 20px;
+    height: 32px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Tối ưu cho màn hình siêu nhỏ (iPhone SE thế hệ 1, Galaxy Fold màn ngoài) */
+  .hero {
+    padding: 88px 0 24px;
+  }
+
+  .hero-title,
+  .hero-content h1 {
+    font-size: 1.5rem;
+    line-height: 1.25;
+  }
+
+  .lead,
+  .hero-content p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .hero-cta,
+  .hero-actions {
+    max-width: 100%;
+  }
+
+  .hero-cta .btn,
+  .hero-actions .btn {
+    padding: 11px 16px;
+    font-size: 0.86rem;
+  }
+
+  .orb-stage {
+    min-height: 210px;
+    max-width: 220px;
+  }
+
+  .voice-orb-container {
+    height: 210px;
+    width: 210px;
+  }
+
+  .orb-ring {
+    width: 180px;
+    height: 180px;
+  }
+
+  .orb-ring-outer {
+    width: 205px;
+    height: 205px;
+  }
+
+  .scroll-mouse-icon {
+    display: none;
   }
 }
 
@@ -1081,6 +1466,13 @@
   gap: 20px;
 }
 
+/* Chặn triệt để hiệu ứng giật lag khi đang tải trang (FOUC Transition Prevention) */
+body.is-loading .feature-stack-item,
+body.is-loading .feature-stack-3d {
+  transition: none !important;
+  animation: none !important;
+}
+
 /* Từng thẻ trong chồng thẻ 3D */
 .feature-stack-item {
   position: relative;
@@ -1099,14 +1491,22 @@
   align-items: center;
   box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.55),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  /* Mặc định chỉ chuyển động viền và đổ bóng, tránh giật lag khi vừa vẽ thẻ ra DOM */
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+  will-change: transform, opacity, filter;
+}
+
+/* Kích hoạt chuyển động 3D xếp tầng mượt mà sau khi trang đã sẵn sàng (.is-ready) hoặc khi tương tác */
+.feature-stack-3d.is-ready .feature-stack-item,
+.feature-stack-3d:hover .feature-stack-item,
+.feature-stack-3d.is-unfolded .feature-stack-item {
   transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
     opacity 500ms ease,
     filter 500ms ease,
     border-color 0.35s ease,
     box-shadow 0.35s ease;
   transition-delay: calc(var(--i, 0) * 50ms);
-  cursor: pointer;
-  will-change: transform, opacity, filter;
 }
 
 /* Thứ tự chiều sâu Z mặc định tạo cảm giác xếp tầng 3D */
@@ -1315,28 +1715,123 @@
     transform: translateY(0);
     pointer-events: auto;
   }
+
+  /* Tối ưu hóa Features: Chuyển hoàn toàn từ 3D Stack sang Danh sách Thẻ phẳng tự nhiên trên Mobile */
+  .features-section--stack {
+    padding: clamp(50px, 8vw, 75px) 0 clamp(70px, 12vw, 100px);
+  }
+
+  .feature-stack-wrapper {
+    min-height: auto !important;
+    margin-top: 28px !important;
+    width: 100% !important;
+  }
+
+  .feature-stack-3d {
+    perspective: none !important;
+    transform-style: flat !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    width: 100% !important;
+    cursor: default !important;
+  }
+
+  /* Triệt tiêu hoàn toàn xếp tầng 3D, mờ blur và dịch chuyển Z trên điện thoại di động */
+  .feature-stack-item,
+  .feature-stack-item:nth-child(1),
+  .feature-stack-item:nth-child(2),
+  .feature-stack-item:nth-child(3),
+  .feature-stack-item:nth-child(4),
+  .feature-stack-3d:hover .feature-stack-item,
+  .feature-stack-3d.is-unfolded .feature-stack-item {
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease !important;
+    transition-delay: 0s !important;
+    will-change: auto;
+    padding: 15px 18px;
+    gap: 15px;
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--surface) 86%, transparent);
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* Phản hồi chạm mượt mà trên màn hình cảm ứng điện thoại */
+  .feature-stack-item:active {
+    transform: scale(0.985) !important;
+    border-color: color-mix(in srgb, var(--primary) 70%, transparent) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .feature-stack-media {
+    width: 62px;
+    height: 62px;
+    border-radius: 14px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+
+  .feature-stack-icon-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    bottom: 3px;
+    right: 3px;
+    font-size: 0.72rem;
+  }
+
+  .feature-stack-header {
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+
+  .feature-stack-title {
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
+
+  .feature-stack-badge {
+    font-size: 0.68rem;
+    padding: 2.5px 8px;
+  }
+
+  .feature-stack-desc {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .feature-stack-arrow {
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--text) 35%, transparent);
+  }
+
+  .feature-stack-waveform {
+    display: none !important;
+  }
+
+  .feature-stack-hint {
+    display: none !important;
+  }
 }
 
 @media (max-width: 640px) {
-  .feature-stack-3d {
-    perspective: 400px;
-  }
   .feature-stack-item {
     padding: 14px 16px;
-    gap: 14px;
+    gap: 13px;
   }
   .feature-stack-media {
-    width: 60px;
-    height: 60px;
+    width: 58px;
+    height: 58px;
   }
   .feature-stack-title {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
   }
   .feature-stack-desc {
     font-size: 0.85rem;
-  }
-  .feature-stack-waveform {
-    display: none;
   }
 }
 
@@ -4569,6 +5064,11 @@
   .faq-flip-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .about-teaser-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
 }
 
 @media (max-width: 1024px) {
@@ -4641,52 +5141,441 @@
     grid-template-columns: 1fr;
   }
 
+  .about-teaser-grid {
+    grid-template-columns: 1fr;
+  }
+
+
   .faq-card-3d {
     min-height: 340px;
   }
 }
 
 @media (max-width: 480px) {
-  .ai-chat-widget {
-    bottom: 78px;
-    left: 16px;
-    right: auto;
+  /* ========================================================================
+     A. TỐI ƯU HEADER TRÊN IPHONE & ĐIỆN THOẠI DI ĐỘNG (<= 480px)
+     ======================================================================== */
+  #site-header {
+    top: 10px;
+    width: calc(100% - 20px);
+    border-radius: 50px;
   }
 
-  .scroll-top-btn {
-    bottom: 20px;
-    right: 20px;
+  .header-inner,
+  .navbar-container {
+    height: 52px;
+    padding: 0 12px;
   }
 
-  .ai-chat-panel {
-    bottom: 78px;
-    right: 12px;
-    left: 12px;
+  .logo-text,
+  .navbar-brand a {
+    font-size: clamp(1.05rem, 4.2vw, 1.22rem);
+    max-width: 145px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+
+  .logo-img {
+    height: 28px;
     width: auto;
-    max-width: none;
-    height: calc(100vh - 120px);
-    max-height: 82vh;
-    border-radius: 20px;
-    transform-origin: bottom center;
+  }
+
+  .header-action {
+    gap: 6px;
+  }
+
+  /* Nút âm thanh trên Header dạng icon tròn tinh tế */
+  .header-audio-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header-audio-btn .audio-bars {
+    gap: 2px;
+  }
+
+  .btn.btn-sm {
+    padding: 7px 13px;
+    font-size: 0.8rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* ========================================================================
+     B. TỐI ƯU NÚT ĐỔI BRAND (WHITE LABEL SWITCHER) TRÊN IPHONE & MOBILE
+     ======================================================================== */
+  .white-label-switcher {
+    bottom: 14px;
+    left: 12px;
+    z-index: 9999;
+  }
+
+  .wl-btn {
+    padding: 8px 14px;
+    font-size: 12.5px;
+    border-radius: 100px;
+    gap: 7px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  }
+
+  .wl-btn i {
+    font-size: 13px;
+  }
+
+  #wl-brand-name {
+    font-size: 12px;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .wl-menu {
+    bottom: calc(100% + 8px);
+    left: 0;
+    min-width: 240px;
+    max-width: calc(100vw - 24px);
+    padding: 8px;
+    border-radius: 14px;
+    gap: 6px;
+  }
+
+  .wl-menu-title {
+    font-size: 11px;
+    padding: 2px 6px 6px;
+  }
+
+  .wl-menu-item {
+    padding: 8px 10px;
+    font-size: 12.5px;
+    gap: 8px;
+    border-radius: 8px;
+  }
+
+  .wl-menu-item i {
+    font-size: 13px;
+    width: 14px;
+  }
+
+  /* ========================================================================
+     C. TỐI ƯU AI BRAND ARCHITECT CHATBOT TRÊN IPHONE & MOBILE
+     ======================================================================== */
+  .ai-chat-widget {
+    bottom: 64px;
+    left: 12px;
+    right: auto;
+    z-index: 9998;
+  }
+
+  .ai-chat-trigger-btn {
+    width: 46px;
+    height: 46px;
+    box-shadow: 0 8px 24px rgba(2, 132, 199, 0.4);
   }
 
   .ai-chat-callout {
+    bottom: 56px;
     left: 0;
     right: auto;
-    max-width: 260px;
+    max-width: 215px;
+    padding: 7px 11px;
+    font-size: 0.74rem;
+    line-height: 1.35;
+    border-radius: 12px;
     white-space: normal;
   }
 
+  .ai-chat-callout::after {
+    left: 18px;
+    bottom: -5px;
+  }
+
+  .ai-chat-callout-close {
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+  }
+
+  /* Cửa sổ AI Chatbot toàn màn hình dạng Bottom Sheet trên Mobile */
+  .ai-chat-panel {
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    top: auto;
+    width: auto;
+    max-width: none;
+    height: calc(100dvh - 20px);
+    max-height: 94dvh;
+    border-radius: 20px;
+    transform-origin: bottom left;
+    z-index: 10002;
+  }
+
   .chat-header {
-    padding: 14px 16px 12px;
+    padding: 12px 14px;
+  }
+
+  .chat-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 1.05rem;
+    border-radius: 10px;
+  }
+
+  .chat-title-group h3 {
+    font-size: 0.92rem;
+  }
+
+  .chat-status-text {
+    font-size: 0.72rem;
+  }
+
+  .chat-header-actions button {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
   }
 
   .ai-chat-body {
-    padding: 14px 14px 8px;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .ai-ideas-header h4 {
+    font-size: 0.88rem;
+  }
+
+  .ai-ideas-header p {
+    font-size: 0.76rem;
+  }
+
+  .idea-card {
+    padding: 10px 12px;
+    gap: 10px;
+    border-radius: 12px;
+  }
+
+  .card-icon-box {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+  }
+
+  .card-title {
+    font-size: 0.86rem;
+  }
+
+  .card-desc {
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+
+  .brand-wizard-card {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .wizard-title {
+    font-size: 0.88rem;
+  }
+
+  .wizard-field label {
+    font-size: 0.76rem;
+  }
+
+  .wizard-field input,
+  .wizard-field select {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+    border-radius: 8px;
+  }
+
+  .wizard-submit-btn {
+    padding: 10px;
+    font-size: 0.85rem;
   }
 
   .chat-input-bar {
-    padding: 8px 14px 14px;
+    padding: 8px 12px 12px;
+  }
+
+  .chat-input-pill {
+    padding: 4px 6px 4px 12px;
+    border-radius: 100px;
+  }
+
+  .chat-input-pill input {
+    font-size: 0.85rem;
+  }
+
+  .chat-send-btn {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    font-size: 0.82rem;
+  }
+
+  .scroll-top-btn {
+    bottom: 16px;
+    right: 14px;
+    width: 44px;
+    height: 44px;
+  }
+
+  /* ========================================================================
+     E. TỐI ƯU FEATURES SECTION TRÊN IPHONE & MOBILE NHỎ (<= 480px)
+     ======================================================================== */
+  .feature-stack-item,
+  .feature-stack-item:nth-child(1),
+  .feature-stack-item:nth-child(2),
+  .feature-stack-item:nth-child(3),
+  .feature-stack-item:nth-child(4) {
+    padding: 13px 14px !important;
+    gap: 12px !important;
+    border-radius: 15px !important;
+  }
+
+  .feature-stack-media {
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 12px !important;
+    margin-top: 2px !important;
+  }
+
+  .feature-stack-icon-badge {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 0.65rem !important;
+    border-radius: 5px !important;
+  }
+
+  .feature-stack-title {
+    font-size: 0.98rem !important;
+  }
+
+  .feature-stack-badge {
+    font-size: 0.65rem !important;
+    padding: 2px 7px !important;
+  }
+
+  .feature-stack-desc {
+    font-size: 0.82rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .feature-stack-arrow {
+    font-size: 0.78rem !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* ========================================================================
+     D. TỐI ƯU MÀN HÌNH SIÊU NHỎ (<= 360px)
+     ======================================================================== */
+  #site-header {
+    top: 8px;
+    width: calc(100% - 14px);
+  }
+
+  .header-inner,
+  .navbar-container {
+    height: 48px;
+    padding: 0 10px;
+  }
+
+  .logo-text,
+  .navbar-brand a {
+    font-size: 1rem;
+    max-width: 110px;
+  }
+
+  .header-audio-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+  }
+
+  .btn.btn-sm {
+    padding: 5px 9px;
+    font-size: 0.74rem;
+  }
+
+  .white-label-switcher {
+    bottom: 10px;
+    left: 8px;
+  }
+
+  .wl-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+    gap: 5px;
+  }
+
+  #wl-brand-name {
+    max-width: 85px;
+  }
+
+  .wl-menu {
+    min-width: 220px;
+    max-width: calc(100vw - 16px);
+  }
+
+  .ai-chat-widget {
+    bottom: 54px;
+    left: 8px;
+  }
+
+  .ai-chat-trigger-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .ai-chat-callout {
+    max-width: 175px;
+    font-size: 0.7rem;
+    bottom: 46px;
+  }
+
+  .ai-chat-panel {
+    bottom: 6px;
+    left: 6px;
+    right: 6px;
+    height: calc(100dvh - 12px);
+    max-height: 96dvh;
+    border-radius: 16px;
+  }
+
+  /* Tối ưu thẻ Features trên màn hình siêu nhỏ */
+  .feature-stack-item,
+  .feature-stack-item:nth-child(1),
+  .feature-stack-item:nth-child(2),
+  .feature-stack-item:nth-child(3),
+  .feature-stack-item:nth-child(4) {
+    padding: 11px 12px !important;
+    gap: 10px !important;
+    border-radius: 13px !important;
+  }
+
+  .feature-stack-media {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 10px !important;
+  }
+
+  .feature-stack-title {
+    font-size: 0.9rem !important;
+  }
+
+  .feature-stack-desc {
+    font-size: 0.78rem !important;
   }
 }
 

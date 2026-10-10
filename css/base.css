@@ -267,6 +267,13 @@ body.is-loading {
   padding: 0;
 }
 
+/* Ngăn ngừa giật lag / nhảy animation khi trang đang nạp (FOUC Transition Prevention) */
+body.is-loading .feature-stack-item,
+body.is-loading .feature-stack-3d {
+  transition: none !important;
+  animation: none !important;
+}
+
 /* 5. Cấu hình Nút bấm cơ bản (Buttons) */
 .btn {
   display: inline-flex;
@@ -295,6 +302,12 @@ body.is-loading {
   padding: 18px 36px;
   font-size: 1.1rem;
 }
+
+/* Nút bấm kéo giãn toàn bộ chiều rộng (100%) của thẻ cha */
+.btn-block {
+  width: 100%;
+}
+
 
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--accent));
