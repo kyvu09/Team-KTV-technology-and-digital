@@ -1,20 +1,18 @@
-// ============================================================================
-// render.js — Bộ phận lắp ráp giao diện (Render Engine)
-// Đã được viết lại thân thiện với người mới học (Beginner Friendly)
-// ============================================================================
-
 import { renderHeader } from "./sections/Header.js";
 import { renderHero, initHeroInteractions } from "./sections/Hero.js";
 import { initVoiceOrb } from "./effects/voice-orb.js";
+import { renderFeatures, initFeaturesInteractions } from "./sections/Features.js";
 
 // Bảng từ điển giúp chuyển đổi từ tên loại trong JSON sang Hàm tạo HTML tương ứng
 const RENDERERS = {
   "hero": renderHero,
+  "features": renderFeatures,
 };
 
 // Bảng từ điển giúp gọi Hàm kích hoạt nút bấm tương ứng
 const INTERACTION_HANDLERS = {
   "hero": initHeroInteractions,
+  "features": initFeaturesInteractions,
 };
 
 export function renderSite(config) {
