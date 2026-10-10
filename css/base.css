@@ -26,15 +26,21 @@
 
 /* 3. Cuộn trang mượt mà & bù trừ khoảng cách đỉnh cho thanh Header cố định */
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 100px; /* Tránh tình trạng tiêu đề section bị che khuất dưới Header khi click menu */
+}
+
+/* Fallback cuộn mượt gốc khi không kích hoạt Lenis */
+html:not(.lenis) {
+  scroll-behavior: smooth;
 }
 
 /* Hỗ trợ cuộn mượt bằng thư viện Lenis */
 html.lenis, html.lenis body {
   height: auto;
+  scroll-behavior: auto !important;
 }
-.lenis.lenis-smooth {
+.lenis.lenis-smooth,
+html.lenis {
   scroll-behavior: auto !important;
 }
 .lenis.lenis-smooth [data-lenis-prevent] {

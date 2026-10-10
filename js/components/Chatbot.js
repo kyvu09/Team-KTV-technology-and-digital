@@ -650,6 +650,8 @@ function enrichAndValidateBrandJson(data, topicHint = "tech") {
   const hero = sections.find((s) => s.type === "hero");
   if (hero) {
     hero.layout = "split-right";
+    hero.welcomeMessage = "Chào mừng đến website của chúng tôi";
+    hero.welcomeAudio = "";
     if (!hero.buttons) {
       hero.buttons = [
         { href: "#demo", label: "Khám phá ngay", style: "primary" },
@@ -836,7 +838,7 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey }) {
       {
         type: "hero",
         layout: "split-right",
-        welcomeMessage: `Chào mừng bạn đến với ${brandName}`,
+        welcomeMessage: "Chào mừng đến website của chúng tôi",
         welcomeAudio: "",
         title: `Định hình tương lai cùng ${brandName} cho`,
         rotatingWords: ["doanh nghiệp", "chuyên gia số", "hệ sinh thái mới"],
@@ -1282,7 +1284,7 @@ RÀNG BUỘC BẮT BUỘC (STRICT POLICY):
    - "brand": { "name": string, "slogan": string, "logo": "", "favicon": "" }
    - "topic": từ tiếng Anh đại diện chủ đề (ví dụ: bakery, coffee, dental, medical, fashion, fitness, realestate, logistics, education, cyber, data, pet, hotel, eco, audio, tech...)
    - "sections": [
-       { "type": "hero", "layout": "split-right", "welcomeMessage": string, "welcomeAudio": "", "title": string, "rotatingWords": [3 từ ngắn luân phiên], "subtitle": string, "playSample": string, "buttons": [{ "href": "#demo", "label": "Khám phá ngay", "style": "primary" }, { "href": "#features", "label": "Xem tính năng", "style": "secondary" }] },
+       { "type": "hero", "layout": "split-right", "welcomeMessage": "Chào mừng đến website của chúng tôi", "welcomeAudio": "", "title": string, "rotatingWords": [3 từ ngắn luân phiên], "subtitle": string, "playSample": string, "buttons": [{ "href": "#demo", "label": "Khám phá ngay", "style": "primary" }, { "href": "#features", "label": "Xem tính năng", "style": "secondary" }] },
        { "type": "features", "title": string, "subtitle": string, "items": [4 mục gồm: "badge", "icon" (FontAwesome fa-solid fa-...), "title", "desc", "image": ""] },
        { "type": "demo", "title": string, "subtitle": string, "placeholder": string, "defaultText": string, "speakButtonText": "Kích hoạt trải nghiệm" },
        { "type": "about", "eyebrow": string, "title": string, "subtitle": string, "scrollStory": { "enabled": true, "behavior": "sticky-story", "slides": [3 mục gồm: "image": "", "eyebrow", "title", "description", "metric": { "value": string, "label": string }], "animation": { "imageScaleFrom": 1.08, "imageScaleTo": 1, "revealDistance": 28, "transitionMs": 650 } } },

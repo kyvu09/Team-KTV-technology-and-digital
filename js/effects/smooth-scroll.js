@@ -9,10 +9,12 @@ export function initSmoothScroll() {
   }
 
   const lenis = new window.Lenis({
-    duration: 1.2,
+    duration: 1.0,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     orientation: "vertical",
     smoothWheel: true,
+    wheelMultiplier: 1.0,
+    touchMultiplier: 1.5,
   });
 
   // Tích hợp với GSAP ScrollTrigger nếu có
@@ -21,7 +23,8 @@ export function initSmoothScroll() {
     window.gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
-    window.gsap.ticker.lagSmoothing(0);
+    // Bật lagSmoothing mượt mà thay vì tắt bằng 0 (tránh giật khựng khi tải nặng)
+    window.gsap.ticker.lagSmoothing(500, 33);
   } else {
     function raf(time) {
       lenis.raf(time);

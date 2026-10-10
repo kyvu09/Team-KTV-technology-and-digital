@@ -157,6 +157,7 @@ export function initAboutScroll(root = document) {
     if (!section || !stage || slides.length < 1) return;
 
     let ticking = false;
+    let lastActiveIndex = -1;
     const update = () => {
       ticking = false;
       const rect = track.getBoundingClientRect();
@@ -172,14 +173,17 @@ export function initAboutScroll(root = document) {
         Math.floor(progressed * slides.length),
       );
 
-      slides.forEach((slide, index) => {
-        const active = index === activeIndex;
-        slide.classList.toggle("is-active", active);
-        slide.setAttribute("aria-hidden", active ? "false" : "true");
-      });
-      progressItems.forEach((item, index) => {
-        item.classList.toggle("is-active", index <= activeIndex);
-      });
+      if (activeIndex !== lastActiveIndex) {
+        lastActiveIndex = activeIndex;
+        slides.forEach((slide, index) => {
+          const active = index === activeIndex;
+          slide.classList.toggle("is-active", active);
+          slide.setAttribute("aria-hidden", active ? "false" : "true");
+        });
+        progressItems.forEach((item, index) => {
+          item.classList.toggle("is-active", index <= activeIndex);
+        });
+      }
     };
 
     const requestUpdate = () => {
