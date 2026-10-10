@@ -77,22 +77,14 @@
           "badge": "Numeric Accuracy",
           "title": "Phát âm chuẩn xác số liệu & đơn vị y tế",
           "text": "Mô hình xử lý ngôn ngữ tự nhiên hiểu đúng ngữ cảnh số dư tài khoản, số thẻ, chỉ số sinh hóa (mg/dL, mmol/L, mmHg), liều lượng thuốc mà không bị nhầm lẫn.",
-<<<<<<< HEAD
-          "image": "assets/images/about-processing.jpg"
-=======
           "image": "assets/images/imgomniclarity/feature-numeric-accuracy.jpg"
->>>>>>> origin/hoangvu
         },
         {
           "icon": "fa-solid fa-headset",
           "badge": "100K+ Concurrent",
           "title": "Tổng đài tự động 100.000+ cuộc gọi",
           "text": "Hạ tầng đám mây phân tán sẵn sàng xử lý hàng trăm ngàn cuộc gọi tự động đồng thời (Callbot/IVR) với độ ổn định 99.99%, giảm 70% áp lực cho tổng đài viên.",
-<<<<<<< HEAD
-          "image": "assets/images/about-quality.jpg"
-=======
           "image": "assets/images/imgomniclarity/feature-concurrent.jpg"
->>>>>>> origin/hoangvu
         },
         {
           "icon": "fa-solid fa-shield-halved",
@@ -100,22 +92,14 @@
           "title": "Bảo mật chuẩn y tế & ngân hàng",
           "text": "Tuân thủ nghiêm ngặt các tiêu chuẩn an toàn thông tin HIPAA, PCI-DSS và ISO 27001. Mã hóa đầu cuối toàn bộ dữ liệu âm thanh cuộc gọi và hồ sơ bệnh án.",
           "waveform": true,
-<<<<<<< HEAD
-          "image": "assets/images/about-voices.jpg"
-=======
           "image": "assets/images/imgomniclarity/feature-hipaa.jpg"
->>>>>>> origin/hoangvu
         },
         {
           "icon": "fa-solid fa-heart-pulse",
           "badge": "Empathetic Tone",
           "title": "Giọng đọc ân cần, giàu sự đồng cảm",
           "text": "Âm sắc trầm ấm, tự nhiên giúp bệnh nhân cảm thấy an tâm khi nhận thông báo kết quả khám bệnh hoặc khách hàng cảm thấy được phục vụ chu đáo.",
-<<<<<<< HEAD
-          "image": "assets/images/about-users.jpg"
-=======
           "image": "assets/images/imgomniclarity/feature-empathetic.jpg"
->>>>>>> origin/hoangvu
         }
       ]
     },
@@ -136,11 +120,7 @@
         "behavior": "sticky-story",
         "slides": [
           {
-<<<<<<< HEAD
-            "image": "assets/images/about-users.jpg",
-=======
             "image": "assets/images/imgomniclarity/about-accuracy.jpg",
->>>>>>> origin/hoangvu
             "eyebrow": "01 / CHUẨN XÁC TUYỆT ĐỐI",
             "title": "Độ chính xác phát âm đạt 99.98%",
             "description": "Thuật toán khử nhiễu ngữ âm hiểu sâu cấu trúc từ viết tắt tài chính và y khoa, loại bỏ hoàn toàn các lỗi đọc sai số liệu nguy hiểm.",
@@ -150,11 +130,7 @@
             }
           },
           {
-<<<<<<< HEAD
-            "image": "assets/images/about-processing.jpg",
-=======
             "image": "assets/images/imgomniclarity/about-scale.jpg",
->>>>>>> origin/hoangvu
             "eyebrow": "02 / QUY MÔ CUỘC GỌI",
             "title": "Hơn 10 triệu cuộc gọi tự động / tháng",
             "description": "Kết nối mượt mà với các hệ thống SIP Trunking, tổng đài Cisco, Asterisk, Genesys và phần mềm bệnh viện HIS/LIS.",
@@ -164,11 +140,7 @@
             }
           },
           {
-<<<<<<< HEAD
-            "image": "assets/images/about-quality.jpg",
-=======
             "image": "assets/images/imgomniclarity/about-optimize.jpg",
->>>>>>> origin/hoangvu
             "eyebrow": "03 / TỐI ƯU CHI PHÍ",
             "title": "Tiết kiệm 70% chi phí vận hành CSKH",
             "description": "Tự động hóa các cuộc gọi nhắc lịch khám, thông báo biến động số dư và xác thực OTP, giúp giải phóng nguồn lực nhân sự chuyên môn.",

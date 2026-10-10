@@ -77,22 +77,14 @@
             "badge": "Neural Voice",
             "title": "Giọng nói tự nhiên, giàu sắc thái",
             "text": "Tái tạo nhịp điệu, trọng âm và cao độ linh hoạt, giúp từng câu thoại có độ truyền cảm và hơi thở tự nhiên như giọng người bản xứ.",
-<<<<<<< HEAD
-            "image": "assets/images/feature-neural-voice.jpg"
-=======
             "image": "assets/images/imgvivoice/feature-neural-voice.jpg"
->>>>>>> origin/hoangvu
           },
           {
             "icon": "fa-solid fa-earth-asia",
             "badge": "20+ Voices",
             "title": "Hệ giọng Bắc – Trung – Nam",
             "text": "Kho chất giọng đa sắc thái ba miền, tối ưu chuyên biệt cho thuyết minh, sách nói, video ngắn, giáo dục và truyền thông.",
-<<<<<<< HEAD
-            "image": "assets/images/about-voices.jpg"
-=======
             "image": "assets/images/imgvivoice/feature-regional-voice.jpg"
->>>>>>> origin/hoangvu
           },
           {
             "icon": "fa-solid fa-sliders",
@@ -100,22 +92,14 @@
             "title": "Tinh chỉnh giọng đọc theo ý muốn",
             "text": "Làm chủ tốc độ, nhịp đọc và cao độ chính xác tới từng từ để khớp hoàn hảo với khung hình video hoặc thời lượng phát thanh.",
             "waveform": true,
-<<<<<<< HEAD
-            "image": "assets/images/about-processing.jpg"
-=======
             "image": "assets/images/imgvivoice/feature-voice-control.jpg"
->>>>>>> origin/hoangvu
           },
           {
             "icon": "fa-solid fa-code",
             "badge": "Developer API",
             "title": "API tốc độ cao sẵn sàng tích hợp",
             "text": "Độ trễ thấp dưới 200ms, SDK hoàn chỉnh và tài liệu mẫu tiếng Việt giúp kết nối năng lực tổng hợp giọng nói vào mọi ứng dụng.",
-<<<<<<< HEAD
-            "image": "assets/images/feature-api-engine.jpg"
-=======
             "image": "assets/images/imgvivoice/feature-api-engine.jpg"
->>>>>>> origin/hoangvu
           }
         ]
       },
@@ -136,11 +120,7 @@
           "behavior": "sticky-story",
           "slides": [
             {
-<<<<<<< HEAD
-              "image": "assets/images/about-users.jpg",
-=======
               "image": "assets/images/imgvivoice/about-users.jpg",
->>>>>>> origin/hoangvu
               "eyebrow": "01 / CỘNG ĐỒNG",
               "title": "Hơn 50.000 người dùng",
               "description": "Đồng hành cùng nhà sáng tạo, giáo viên và doanh nghiệp trên hành trình tạo nội dung bằng giọng nói AI.",
@@ -150,11 +130,7 @@
               }
             },
             {
-<<<<<<< HEAD
-              "image": "assets/images/about-processing.jpg",
-=======
               "image": "assets/images/imgvivoice/about-processing.jpg",
->>>>>>> origin/hoangvu
               "eyebrow": "02 / HIỆU SUẤT",
               "title": "Xử lý hàng triệu phút âm thanh",
               "description": "Tối ưu quy trình chuyển văn bản thành giọng nói, giúp tiết kiệm thời gian sản xuất nội dung.",
@@ -164,11 +140,7 @@
               }
             },
             {
-<<<<<<< HEAD
-              "image": "assets/images/about-quality.jpg",
-=======
               "image": "assets/images/imgvivoice/about-quality.jpg",
->>>>>>> origin/hoangvu
               "eyebrow": "03 / CHẤT LƯỢNG",
               "title": "Trải nghiệm được tin chọn",
               "description": "Tập trung vào độ rõ ràng, nhịp điệu và ngữ điệu tự nhiên của tiếng Việt.",
@@ -178,11 +150,7 @@
               }
             },
             {
-<<<<<<< HEAD
-              "image": "assets/images/about-voices.jpg",
-=======
               "image": "assets/images/imgvivoice/about-voices.jpg",
->>>>>>> origin/hoangvu
               "eyebrow": "04 / GIỌNG ĐỌC",
               "title": "Nhiều lựa chọn giọng Việt",
               "description": "Linh hoạt lựa chọn giọng đọc phù hợp với video, podcast, sách nói và nội dung giáo dục.",
