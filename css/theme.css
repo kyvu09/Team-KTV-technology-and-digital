@@ -297,7 +297,7 @@
   margin-bottom: 24px;
 }
 
-/* Hiệu ứng chữ xoay động với dải màu Gradient */
+/* Hiệu ứng chữ xoay động với dải màu Gradient chuẩn từ vivoice-mau */
 .rotating-text-wrapper {
   display: inline-block;
   vertical-align: bottom;
@@ -305,13 +305,28 @@
   white-space: nowrap;
 }
 
-.rotating-text,
-.hero-content h1 span {
+.rotating-text {
   display: inline-block;
   background: linear-gradient(135deg, var(--primary), var(--accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Nút phụ trong suốt bóng kính (Ghost Button) chuẩn mẫu */
+.btn-ghost {
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.btn-ghost:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-3px);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
 }
 
 /* Đoạn mô tả mở đầu (Lead paragraph) */
@@ -673,6 +688,13 @@
 }
 
 @media (max-width: 768px) {
+  /* Ẩn menu điều hướng trên màn hình nhỏ/mobile để không bị tràn thanh Header dạng viên thuốc */
+  #site-header nav,
+  .nav-menu,
+  .navbar-menu {
+    display: none !important;
+  }
+
   /* Thu nhỏ khoảng cách Header trên mobile */
   #site-header {
     top: 12px;
