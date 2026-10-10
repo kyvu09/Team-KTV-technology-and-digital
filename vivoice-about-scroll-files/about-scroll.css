@@ -1,0 +1,171 @@
+/* About scroll-story — Vanilla CSS, không phụ thuộc framework */
+.about-story {
+  position: relative;
+  color: var(--text, #f1f5f9);
+  background: var(--background, #070c1e);
+}
+.about-story__intro {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 140px) 0 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, .8fr);
+  gap: clamp(28px, 6vw, 88px);
+  align-items: end;
+}
+.about-story__eyebrow,
+.about-story__slide-eyebrow {
+  display: inline-block;
+  color: var(--accent, #a78bfa);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.about-story__intro h2 {
+  max-width: 760px;
+  margin: 16px 0 0;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  line-height: 1.02;
+  letter-spacing: -.055em;
+}
+.about-story__copy p {
+  margin: 0 0 14px;
+  color: var(--textMuted, #94a3b8);
+  font-size: clamp(.98rem, 1.2vw, 1.1rem);
+  line-height: 1.8;
+}
+.about-story__track { position: relative; }
+.about-story__step {
+  height: 82vh;
+  min-height: 540px;
+  pointer-events: none;
+}
+.about-story__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 540px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #080b14;
+}
+.about-story__slides,
+.about-story__slide {
+  position: absolute;
+  inset: 0;
+}
+.about-story__slide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--story-duration, 650ms) ease, visibility var(--story-duration, 650ms) ease;
+}
+.about-story__slide.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+.about-story__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(var(--image-scale-from, 1.08));
+  transition: transform 1100ms cubic-bezier(.2,.7,.2,1);
+}
+.about-story__slide.is-active .about-story__image { transform: scale(var(--image-scale-to, 1)); }
+.about-story__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(3, 7, 18, .76), rgba(3, 7, 18, .15) 75%),
+    linear-gradient(0deg, rgba(3, 7, 18, .78), transparent 65%);
+}
+.about-story__content {
+  position: absolute;
+  z-index: 1;
+  left: clamp(24px, 9vw, 140px);
+  right: 24px;
+  bottom: clamp(72px, 13vh, 150px);
+  max-width: 850px;
+  opacity: 0;
+  transform: translateY(var(--reveal-distance, 28px));
+  transition: opacity 600ms ease, transform 700ms cubic-bezier(.2,.7,.2,1);
+}
+.about-story__slide.is-active .about-story__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+.about-story__content h3 {
+  max-width: 850px;
+  margin: 16px 0;
+  font-size: clamp(2.5rem, 7vw, 6.8rem);
+  line-height: .96;
+  letter-spacing: -.06em;
+  text-wrap: balance;
+}
+.about-story__description {
+  max-width: 570px;
+  margin: 0;
+  color: rgba(255,255,255,.82);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.75;
+}
+.about-story__metric {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 26px;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent, #a78bfa);
+}
+.about-story__metric-value {
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+  font-weight: 750;
+  letter-spacing: -.04em;
+}
+.about-story__metric-label { color: rgba(255,255,255,.68); font-size: .88rem; }
+.about-story__progress {
+  position: absolute;
+  z-index: 3;
+  left: clamp(24px, 9vw, 140px);
+  right: clamp(24px, 9vw, 140px);
+  bottom: 28px;
+  display: flex;
+  gap: 8px;
+}
+.about-story__progress-item {
+  height: 3px;
+  flex: 1;
+  overflow: hidden;
+  background: rgba(255,255,255,.28);
+}
+.about-story__progress-item span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--accent, #a78bfa);
+  transition: width 250ms ease;
+}
+.about-story__progress-item.is-active span { width: 100%; }
+.about-story__end { height: 12vh; min-height: 60px; }
+@media (max-width: 720px) {
+  .about-story__intro {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    width: min(100% - 36px, 600px);
+    padding: 76px 0 32px;
+  }
+  .about-story__step { height: 76vh; min-height: 500px; }
+  .about-story__stage { min-height: 500px; }
+  .about-story__content { left: 22px; right: 22px; bottom: 76px; }
+  .about-story__content h3 { font-size: clamp(2.4rem, 12vw, 4rem); }
+  .about-story__shade {
+    background: linear-gradient(0deg, rgba(3,7,18,.9), rgba(3,7,18,.12) 90%);
+  }
+  .about-story__progress { left: 22px; right: 22px; bottom: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-story__slide, .about-story__image, .about-story__content,
+  .about-story__progress-item span { transition-duration: 1ms !important; }
+}

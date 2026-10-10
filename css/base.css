@@ -30,6 +30,20 @@ html {
   scroll-padding-top: 100px; /* Tránh tình trạng tiêu đề section bị che khuất dưới Header khi click menu */
 }
 
+/* Hỗ trợ cuộn mượt bằng thư viện Lenis */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 body {
   font-family: var(--font-body), sans-serif;
   background-color: var(--background);
@@ -39,6 +53,173 @@ body {
   overflow-x: hidden;
   position: relative;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body.is-loading {
+  overflow: hidden;
+}
+
+/* Thanh cuộn trang tùy biến (Custom Scrollbar) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--surface) 80%, white);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Tô sáng khối văn bản được chọn */
+::selection {
+  background: var(--primary);
+  color: var(--background);
+}
+
+/* Lớp ẩn phần tử trực quan cho thiết bị đọc màn hình */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   CON TRỎ CHUỘT TỪ TÍNH CAO CẤP (CUSTOM MAGNETIC CURSOR)
+   ========================================================================== */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid color-mix(in srgb, var(--primary) 70%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate3d(-100px, -100px, 0);
+  transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+  margin-left: -18px;
+  margin-top: -18px;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate3d(-100px, -100px, 0);
+  margin-left: -3px;
+  margin-top: -3px;
+}
+
+.custom-cursor.cursor-hover {
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  background-color: color-mix(in srgb, var(--primary) 12%, transparent);
+  border-color: var(--primary);
+  backdrop-filter: blur(2px);
+}
+
+.custom-cursor.cursor-audio {
+  width: 52px;
+  height: 52px;
+  margin-left: -26px;
+  margin-top: -26px;
+  border-color: var(--accent);
+  background-color: color-mix(in srgb, var(--accent) 20%, transparent);
+  animation: cursor-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes cursor-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@media (pointer: coarse) {
+  .custom-cursor, .cursor-dot {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   MÀN HÌNH KHỞI ĐỘNG SÓNG ÂM (PRELOADER)
+   ========================================================================== */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background-color: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.preloader-soundwave {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 48px;
+}
+
+.preloader-soundwave i {
+  display: block;
+  width: 6px;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  border-radius: 3px;
+  animation: preloader-bounce 1s infinite ease-in-out;
+}
+
+.preloader-soundwave i:nth-child(1) { height: 16px; animation-delay: 0.0s; }
+.preloader-soundwave i:nth-child(2) { height: 36px; animation-delay: 0.15s; }
+.preloader-soundwave i:nth-child(3) { height: 48px; animation-delay: 0.3s; }
+.preloader-soundwave i:nth-child(4) { height: 28px; animation-delay: 0.45s; }
+.preloader-soundwave i:nth-child(5) { height: 20px; animation-delay: 0.6s; }
+
+@keyframes preloader-bounce {
+  0%, 100% { transform: scaleY(0.3); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+.preloader-brand {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
 }
 
 /* 4. Khung chứa nội dung căn giữa toàn trang */
@@ -86,6 +267,13 @@ body {
   padding: 0;
 }
 
+/* Ngăn ngừa giật lag / nhảy animation khi trang đang nạp (FOUC Transition Prevention) */
+body.is-loading .feature-stack-item,
+body.is-loading .feature-stack-3d {
+  transition: none !important;
+  animation: none !important;
+}
+
 /* 5. Cấu hình Nút bấm cơ bản (Buttons) */
 .btn {
   display: inline-flex;
@@ -114,6 +302,12 @@ body {
   padding: 18px 36px;
   font-size: 1.1rem;
 }
+
+/* Nút bấm kéo giãn toàn bộ chiều rộng (100%) của thẻ cha */
+.btn-block {
+  width: 100%;
+}
+
 
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -260,154 +454,655 @@ body {
   justify-content: center;
 }
 
-/* --- TTS STUDIO / EXPERIENCE SECTION --- */
+/* ==========================================================================
+   8. CẤU HÌNH CƠ BẢN (BASE): PHẦN TRẢI NGHIỆM (DEMO / STUDIO CONSOLE)
+   Tham chiếu chuẩn mã nguồn vivoice-mau — Bộ giả lập giọng nói AI & Công nghệ
+   ========================================================================== */
+
+/* Khung Section Trải nghiệm (Demo) */
+.demo-section,
 .experience-section {
-  padding: 80px 0 100px;
   position: relative;
+  z-index: 2;
+  padding: 120px 0;
 }
 
+/* Tiêu đề mục và tiêu đề phụ chuẩn toàn trang */
 .section-title {
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 12px;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
   color: var(--text);
-}
-
-.section-subtitle {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  max-width: 600px;
-  margin: 0 auto 40px;
-}
-
-.studio-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  padding: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-.quick-prompts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   margin-bottom: 16px;
 }
 
-.prompt-chip {
-  background: color-mix(in srgb, var(--background) 70%, transparent);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.section-sub,
+.section-subtitle {
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  color: var(--text-muted);
+  max-width: 640px;
+  line-height: 1.7;
+  margin-bottom: 48px;
 }
 
-.prompt-chip:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 10%, transparent);
-}
-
-.studio-textarea {
+/* Khung bảng điều khiển âm thanh trung tâm (Studio Console) */
+.studio-console {
+  max-width: 960px;
   width: 100%;
-  padding: 16px;
-  border-radius: calc(var(--radius) / 1.5);
-  background: var(--background);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
-  resize: vertical;
-  min-height: 120px;
-  outline: none;
-  transition: border-color 0.2s;
+  margin: 40px auto 0;
+  position: relative;
+  overflow: hidden;
 }
 
-.studio-textarea:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
-}
-
-.studio-controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin: 24px 0;
+/* Thanh tiêu đề giả lập cửa sổ ứng dụng (Top bar) */
+.console-topbar {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+/* 3 nút chấm giả lập cửa sổ hệ điều hành (Đỏ - Vàng - Xanh) */
+.console-window-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.console-window-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Tiêu đề giữa thanh topbar */
+.console-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Dải hiển thị sóng âm trực quan (Visualizer Bar) */
+.console-visualizer-bar {
+  width: 100%;
+}
+
+.demo-canvas {
+  width: 100%;
+  height: 50px;
+  display: block;
+}
+
+/* Khu vực chọn nhanh câu thoại mẫu (Preset Chips) */
+.preset-chips {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Khung soạn thảo văn bản cần đọc */
+.console-editor {
+  width: 100%;
+}
+
+.console-editor textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Cụm điều khiển tham số giọng đọc (Tốc độ, Giọng đọc, Âm lượng) */
+.console-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .control-group {
   display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  flex: 1;
+}
+
+.demo-field {
+  display: flex;
   flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Cụm nút hành động (Nút Phát, Dừng) */
+.console-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Ghi chú thông tin kỹ thuật dưới đáy Console */
+.demo-note {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.control-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
+
+/* ==========================================================================
+   9. CẤU HÌNH CƠ BẢN (BASE): PHẦN VỀ CHÚNG TÔI (ABOUT SECTION)
+   Hỗ trợ 2 chế độ hiển thị: Fallback Grid và 3D Sticky Scroll Story
+   ========================================================================== */
+
+/* --- 9.1. CHẾ ĐỘ 1: LƯỚI TĨNH VỚI HÌNH ẢNH & THỐNG KÊ (FALLBACK GRID) --- */
+.about-section {
+  position: relative;
+  z-index: 2;
+  padding: 120px 0;
 }
 
-.studio-select {
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: var(--background);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  outline: none;
-}
-
-.studio-range {
-  accent-color: var(--primary);
-  cursor: pointer;
-}
-
-.studio-visualizer-container {
-  display: flex;
-  justify-content: center;
+.about-inner {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 70px;
   align-items: center;
-  height: 50px;
-  margin: 16px 0;
-  background: color-mix(in srgb, var(--background) 50%, transparent);
-  border-radius: 8px;
+}
+
+.about-media-col {
+  position: relative;
+}
+
+.about-image-wrapper {
+  position: relative;
   overflow: hidden;
 }
 
-.visualizer-canvas {
+.about-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+}
+
+.about-floating-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+.about-text-col {
+  position: relative;
+}
+
+.about-paragraphs {
+  margin: 24px 0 40px;
+}
+
+.about-p {
+  font-size: 1.12rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* --- 9.2. CHẾ ĐỘ 2: 3D STICKY SCROLL STORY (CUỘN ĐA TẦNG KỂ CHUYỆN) --- */
+.about-story {
+  position: relative;
+}
+
+.about-story__intro {
+  width: min(1480px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+  align-items: end;
+}
+
+.about-story__track {
+  position: relative;
+}
+
+.about-story__step {
+  height: 82vh;
+  min-height: 540px;
+  pointer-events: none;
+}
+
+.about-story__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 540px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.about-story__slides,
+.about-story__slide {
+  position: absolute;
+  inset: 0;
+}
+
+.about-story__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-story__shade {
+  position: absolute;
+  inset: 0;
+}
+
+.about-story__content {
+  position: absolute;
+  z-index: 1;
+}
+
+.about-story__progress {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+}
+
+.about-story__end {
+  height: 12vh;
+  min-height: 60px;
+}
+
+
+/* ==========================================================================
+   10. CẤU HÌNH CƠ BẢN (BASE): TESTIMONIALS SECTION — Đánh giá khách hàng
+   Tham chiếu mã nguồn code-mau — Dải trượt Marquee vô tận & Điều hướng Carousel
+   ========================================================================== */
+.testimonials-section {
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0;
+}
+
+.testimonials-slider-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1360px;
+  margin: 48px auto 0;
+  padding: 0 48px;
+}
+
+.testimonials-marquee-viewport {
+  overflow: hidden;
+  width: 100%;
+  cursor: grab;
+  user-select: none;
+  padding: 16px 0 28px 0;
+}
+
+.testimonials-marquee-track {
+  display: flex;
+  gap: 28px;
+  width: max-content;
+}
+
+.testimonials-marquee-group {
+  display: flex;
+  gap: 28px;
+  flex-shrink: 0;
+}
+
+.testimonial-card {
+  flex: 0 0 380px;
+  width: 380px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.testimonial-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   11. CẤU HÌNH CƠ BẢN (BASE): PRICING SECTION — Bảng giá dịch vụ
+   Tham chiếu mã nguồn code-mau — Thẻ giá 3 cột và Chuyển đổi chu kỳ
+   ========================================================================== */
+.pricing-section {
+  position: relative;
+  padding: 120px 0;
+}
+
+.pricing-toggle-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 50px;
+  align-items: stretch;
+}
+
+.price-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.plan-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ==========================================================================
+   12. CẤU HÌNH CƠ BẢN (BASE): FAQ SECTION — Câu hỏi thường gặp
+   Hỗ trợ cả 2 chế độ: Accordion thu gọn & 3D Flip Card lật mặt
+   ========================================================================== */
+.faq-section,
+.faq-section--3d {
+  position: relative;
+  padding: 120px 0;
+}
+
+/* Chế độ Accordion */
+.faq-list {
+  max-width: 800px;
+  margin: 50px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+}
+
+/* Chế độ 3D Flip Card */
+.faq-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--faq-gap, 24px);
+  margin-top: 52px;
+}
+
+.faq-card-3d {
+  position: relative;
+  min-height: var(--faq-min-height, 390px);
+}
+
+.faq-card-inner {
+  position: relative;
   width: 100%;
   height: 100%;
 }
 
-.studio-actions {
+.faq-card-face {
+  position: absolute;
+  inset: 0;
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 24px;
-}
-
-.studio-status {
-  text-align: center;
-  margin-top: 16px;
-  font-size: 0.9rem;
-  color: var(--primary);
-  min-height: 24px;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* ==========================================================================
-   8. CẤU HÌNH RESPONSIVE CƠ BẢN (TABLET & MOBILE)
+   13. CẤU HÌNH CƠ BẢN (BASE): FINAL CTA SECTION — Kêu gọi hành động
+   Tham chiếu mã nguồn code-mau — Banner hào quang tâm điểm
+   ========================================================================== */
+.cta-section {
+  position: relative;
+  padding: 120px 0;
+}
+
+.cta-card {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   14. CẤU HÌNH CƠ BẢN (BASE): CONTACT SECTION — Liên hệ hỗ trợ
+   Tham chiếu mã nguồn code-mau — Kênh kết nối & Form liên hệ kính mờ
+   ========================================================================== */
+.contact-section {
+  position: relative;
+  padding: 120px 0;
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.contact-channels {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.channel-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.contact-glass-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   15. CẤU HÌNH CƠ BẢN (BASE): AI BRAND ARCHITECT CHATBOT
+   Tham chiếu mã nguồn code-mau — Trợ lý AI ở góc trái màn hình
+   ========================================================================== */
+.ai-chat-widget {
+  position: fixed;
+  bottom: 84px;
+  left: 24px;
+  z-index: 9998;
+}
+
+.ai-chat-panel {
+  position: fixed;
+  bottom: 148px;
+  left: 24px;
+  width: 395px;
+  max-width: calc(100vw - 32px);
+  height: 600px;
+  max-height: calc(100vh - 170px);
+  display: flex;
+  flex-direction: column;
+  z-index: 10005;
+}
+
+/* ==========================================================================
+   16. CẤU HÌNH CƠ BẢN (BASE): FOOTER SECTION — Chân trang sang trọng
+   Tham chiếu mã nguồn code-mau — Watermark Brand khổng lồ & Lưới liên kết đa cột
+   ========================================================================== */
+
+/* Khung chân trang tổng thể */
+#site-footer {
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0 40px;
+}
+
+/* Dòng chữ Watermark tên thương hiệu chìm khổng lồ */
+.footer-huge-wordmark {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Khung chứa nội dung chính chân trang */
+.footer-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+/* Cột thông tin thương hiệu (Logo, Slogan, Mạng xã hội) */
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.footer-tagline {
+  margin: 16px 0 24px;
+  max-width: 320px;
+}
+
+/* Cụm liên kết mạng xã hội */
+.footer-socials {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-socials a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* Lưới các cột liên kết điều hướng chân trang */
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* Từng cột liên kết */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-col-title {
+  margin-bottom: 20px;
+}
+
+.footer-col-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-col-links a {
+  text-decoration: none;
+}
+
+/* Thanh chân trang dưới cùng (Bản quyền & Lên đầu trang) */
+.footer-bottom-bar {
+  position: relative;
+  z-index: 1;
+  padding-top: 30px;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.copyright {
+  margin: 0;
+}
+
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+
+/* ==========================================================================
+   17. CẤU HÌNH RESPONSIVE CƠ BẢN (TABLET & MOBILE)
    ========================================================================== */
 @media (max-width: 1024px) {
   /* Chuyển Hero từ 2 cột sang 1 cột và căn giữa nội dung */
@@ -420,15 +1115,42 @@ body {
   .hero-actions {
     justify-content: center;
   }
-  .studio-card {
-    padding: 24px;
-  }
   /* Lưới Bento chuyển thành 2 cột trên Tablet */
   .bento-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .bento-span-2 {
     grid-column: span 1;
+  }
+  /* Phần About chuyển thành 1 cột trên Tablet */
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  /* Bảng giá chuyển thành 1 cột */
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* FAQ lật mặt 3D chuyển thành 2 cột */
+  .faq-flip-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* Liên hệ chuyển sang 1 cột */
+  .contact-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  /* Chân trang chuyển thành 1 cột trên Tablet */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  .testimonials-slider-wrapper {
+    padding: 0 36px;
   }
 }
 
@@ -450,10 +1172,75 @@ body {
   .bento-grid {
     grid-template-columns: 1fr;
   }
+  /* Bảng điều khiển Console xếp chồng trên Mobile */
+  .console-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .control-group {
+    max-width: 100%;
+    min-width: 100%;
+  }
+  /* Thẻ thống kê chuyển thành 1 cột */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  /* Carousel đánh giá thu gọn */
+  .testimonials-slider-wrapper {
+    padding: 0 16px;
+    margin-top: 36px;
+  }
+  .testimonial-card {
+    flex: 0 0 85vw;
+    max-width: 340px;
+    padding: 24px;
+  }
+  /* Lưới liên kết chân trang chia thành 2 cột */
+  .footer-links-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  /* Thanh đáy chân trang xếp dọc căn giữa */
+  .footer-bottom-inner {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .faq-flip-grid {
+    grid-template-columns: 1fr;
+  }
+  .faq-card-3d {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Lưới liên kết chân trang xếp thành 1 cột trên màn hình siêu nhỏ */
+  .footer-links-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .ai-chat-widget {
+    bottom: 78px;
+    left: 16px;
+  }
+  .ai-chat-panel {
+    bottom: 78px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-width: none;
+    height: calc(100vh - 120px);
+    max-height: 82vh;
+  }
 }
 
 /* ==========================================================================
-   9. NÚT CHUYỂN ĐỔI GIAO DIỆN (WHITE LABEL SWITCHER - GÓC DƯỚI TRÁI)
+   18. NÚT CHUYỂN ĐỔI GIAO DIỆN (WHITE LABEL SWITCHER - GÓC DƯỚI TRÁI)
    ========================================================================== */
 .white-label-switcher {
   position: fixed;

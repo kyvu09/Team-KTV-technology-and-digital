@@ -17,7 +17,7 @@ audio_temp.*
 
 quyTac/
 vivoice-mau/
-=======
+
 # Audio test outputs
 *.mp3
 *.wav
@@ -26,9 +26,7 @@ vivoice-mau/
 !assets/audio/*.mp3
 
 
-=======
-# Audio test outputs
-*.mp3
-*.wav
+code-mau/
+.env
 
 code-mau/

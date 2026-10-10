@@ -6,6 +6,7 @@
 import { loadConfig, normalizeBrandKey } from "./config-loader.js";
 import { applyTheme } from "./theme.js";
 import { renderSite } from "./render.js";
+import { initPreloader } from "./effects/preloader.js";
 
 // HÀM CHÍNH KHỞI CHẠY TRANG WEB
 async function startApp() {
@@ -21,7 +22,18 @@ async function startApp() {
     // 3. Áp dụng màu sắc, phông chữ (từ file theme.js)
     applyTheme(config);
 
-    // 4. In giao diện Header và các Section ra màn hình (từ file render.js)
+    // 4. Bật màn hình chờ sóng âm (Preloader)
+    const preloaderEl = document.getElementById("site-preloader");
+    if (config.effects !== undefined && config.effects.preloader !== false) {
+      initPreloader(config.brand.name);
+    } else {
+      if (preloaderEl !== null) {
+        preloaderEl.style.display = "none";
+      }
+      document.body.classList.remove("is-loading");
+    }
+
+    // 5. In giao diện Header và các Section ra màn hình (từ file render.js)
     renderSite(config);
 
     // Cập nhật tên thương hiệu đang hiển thị trên nút White Label Switcher nếu có
@@ -29,8 +41,28 @@ async function startApp() {
     if (wlBrandNameEl && config.brand) {
       wlBrandNameEl.textContent = config.brand.name;
     }
+
+    // 6. Tự động cuộn đến 1 phần nào đó nếu link có chứa ?scroll=
+    const scrollTarget = params.get("scroll");
+    if (scrollTarget !== null) {
+      setTimeout(function () {
+        const el = document.getElementById(scrollTarget);
+        if (el !== null) {
+          if (window.__lenis !== undefined) {
+            window.__lenis.scrollTo(el, { immediate: true, offset: -40 });
+          } else {
+            el.scrollIntoView({ block: "start" });
+          }
+        }
+      }, 800);
+    }
   } catch (err) {
-    // 5. Nếu bị lỗi thì hiện thông báo hướng dẫn
+    // 7. Nếu bị lỗi thì tắt màn hình chờ và hiện thông báo hướng dẫn
+    const preloaderEl = document.getElementById("site-preloader");
+    if (preloaderEl !== null) {
+      preloaderEl.style.display = "none";
+    }
+
     const errorHTML = `
       <div class="container" style="padding: 80px 20px;">
         <h1>Không tải được website</h1>
@@ -53,15 +85,15 @@ const wlSwitcher = document.querySelector(".white-label-switcher");
 const wlToggleBtn = document.getElementById("wl-toggle-btn");
 const wlMenuItems = document.querySelectorAll(".wl-menu-item");
 
-if (wlToggleBtn && wlSwitcher) {
+if (wlToggleBtn !== null && wlSwitcher !== null) {
   // Khi bấm nút mở menu
-  wlToggleBtn.addEventListener("click", function(e) {
+  wlToggleBtn.addEventListener("click", function (e) {
     e.stopPropagation();
     wlSwitcher.classList.toggle("open");
   });
 
   // Khi bấm ra ngoài menu thì đóng lại
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     if (!wlSwitcher.contains(e.target)) {
       wlSwitcher.classList.remove("open");
     }
@@ -72,12 +104,12 @@ if (wlToggleBtn && wlSwitcher) {
   const currentBrand = normalizeBrandKey(params.get("brand"));
 
   // Duyệt qua tất cả các lựa chọn trong menu
-  wlMenuItems.forEach(function(item) {
+  wlMenuItems.forEach(function (item) {
     if (item.dataset.brand === currentBrand) {
       item.classList.add("active");
     }
 
-    item.addEventListener("click", function() {
+    item.addEventListener("click", function () {
       const newBrand = item.dataset.brand;
       const newParams = new URLSearchParams(window.location.search);
       newParams.set("brand", newBrand);
