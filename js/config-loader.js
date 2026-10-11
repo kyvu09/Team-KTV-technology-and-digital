@@ -1,40 +1,7 @@
-// ============================================================================
-// config-loader.js — Chịu trách nhiệm nạp file cấu hình (JSON)
-// Đã được viết lại thân thiện với người mới học (Beginner Friendly)
-// ============================================================================
-
-// Bảng ánh xạ bí danh (Aliases) để tương thích ngược mọi đường link cũ/mới
-const BRAND_ALIASES = {
-  "brand-datasphere": "brand-omniclarity",
-  "datasphere": "brand-omniclarity",
-  "brand-cyberguard": "brand-cybertone",
-  "cyberguard": "brand-cybertone",
-  "vivoice": "brand-vivoice",
-  "cybertone": "brand-cybertone",
-  "omniclarity": "brand-omniclarity",
-  "vi-voice": "brand-vivoice",
-  "edu-ai": "brand-cybertone",
-  "travel-ai": "brand-omniclarity"
-};
-
 // Hàm chuẩn hóa tên file brand
 export function normalizeBrandKey(rawName) {
   if (!rawName) return "brand-vivoice";
   let clean = rawName.trim().toLowerCase();
-
-  // 1. Kiểm tra bảng ánh xạ bí danh
-  if (BRAND_ALIASES[clean]) {
-    return BRAND_ALIASES[clean];
-  }
-
-  // 2. Tự động thêm tiền tố "brand-" nếu người dùng gõ thiếu (ví dụ ?brand=cybertone)
-  if (!clean.startsWith("brand-")) {
-    let prefixed = "brand-" + clean;
-    if (BRAND_ALIASES[prefixed]) {
-      return BRAND_ALIASES[prefixed];
-    }
-    return prefixed;
-  }
 
   return clean;
 }
@@ -55,7 +22,9 @@ export async function loadConfig(rawBrandName) {
 
     // Nếu không tìm thấy file yêu cầu (404), tự động chuyển về brand mặc định thay vì báo lỗi đứng trang
     if (!res.ok) {
-      console.warn(`Không tìm thấy file "${path}". Tự động nạp cấu hình mặc định "brand-vivoice"...`);
+      console.warn(
+        `Không tìm thấy file "${path}". Tự động nạp cấu hình mặc định "brand-vivoice"...`,
+      );
       let fallbackPath = configPath("brand-vivoice");
       let fallbackRes = await fetch(fallbackPath);
       if (!fallbackRes.ok) {
@@ -80,7 +49,7 @@ export async function loadConfig(rawBrandName) {
           validateConfig(fbConfig);
           return fbConfig;
         }
-      } catch (e) { }
+      } catch (e) {}
     }
     throw err;
   }
