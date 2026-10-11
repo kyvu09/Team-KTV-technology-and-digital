@@ -21,12 +21,12 @@ const BRAND_ALIASES = {
 export function normalizeBrandKey(rawName) {
   if (!rawName) return "brand-vivoice";
   let clean = rawName.trim().toLowerCase();
-  
+
   // 1. Kiểm tra bảng ánh xạ bí danh
   if (BRAND_ALIASES[clean]) {
     return BRAND_ALIASES[clean];
   }
-  
+
   // 2. Tự động thêm tiền tố "brand-" nếu người dùng gõ thiếu (ví dụ ?brand=cybertone)
   if (!clean.startsWith("brand-")) {
     let prefixed = "brand-" + clean;
@@ -35,24 +35,24 @@ export function normalizeBrandKey(rawName) {
     }
     return prefixed;
   }
-  
+
   return clean;
 }
 
 // Hàm này giúp tạo ra đường dẫn tới file json
 function configPath(brandName) {
   let currentTime = Date.now();
-  return "config/" + brandName + ".json?t=" + currentTime; 
+  return "config/" + brandName + ".json?t=" + currentTime;
 }
 
 // Hàm tải file cấu hình JSON từ thư mục config kèm cơ chế Fallback an toàn
 export async function loadConfig(rawBrandName) {
   let brandName = normalizeBrandKey(rawBrandName);
   let path = configPath(brandName);
-  
+
   try {
     let res = await fetch(path);
-    
+
     // Nếu không tìm thấy file yêu cầu (404), tự động chuyển về brand mặc định thay vì báo lỗi đứng trang
     if (!res.ok) {
       console.warn(`Không tìm thấy file "${path}". Tự động nạp cấu hình mặc định "brand-vivoice"...`);
@@ -65,7 +65,7 @@ export async function loadConfig(rawBrandName) {
       validateConfig(fallbackConfig);
       return fallbackConfig;
     }
-    
+
     let config = await res.json();
     validateConfig(config);
     return config;
@@ -80,7 +80,7 @@ export async function loadConfig(rawBrandName) {
           validateConfig(fbConfig);
           return fbConfig;
         }
-      } catch (e) {}
+      } catch (e) { }
     }
     throw err;
   }
