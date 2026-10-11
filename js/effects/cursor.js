@@ -29,7 +29,7 @@ export function initCustomCursor() {
   // Hiệu ứng tương tác khi hover vào các phần tử
   const updateHoverTargets = () => {
     const interactiveEls = document.querySelectorAll(
-      "a, button, input, select, textarea, .feature-card, .price-card, .play-sample-btn, .audio-pill, summary",
+      "a, button, input, select, textarea, .feature-card, .play-sample-btn, .audio-pill, summary",
     );
 
     interactiveEls.forEach((el) => {

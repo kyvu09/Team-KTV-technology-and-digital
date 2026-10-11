@@ -1,11 +1,38 @@
 /* ==========================================================================
-   theme.css — Cấu hình Giao diện Nâng cao: Floating Header & Hero Section
-   Tham chiếu từ mã nguồn vivoice-mau — Phong cách "Âm thanh hữu hình"
-   Hiệu ứng: Glassmorphism, Nền cực quang Aurora, Quả cầu 3D, Text Gradient
+   theme.css — TOÀN BỘ GIAO DIỆN NÂNG CAO CỦA WEBSITE WHITE LABEL
+   Phong cách thiết kế: Dark Mode, Kính mờ (Glassmorphism), Cực quang Aurora, 3D Tilt
+   
+   ==========================================================================
+   MỤC LỤC & HƯỚNG DẪN TÌM KIẾM NHANH (Nhấn Ctrl + F và gõ mã mục để đến ngay):
+   --------------------------------------------------------------------------
+   [MỤC 01] TYPOGRAPHY & LOGO       -> Font chữ, logo gradient, tiêu đề section
+   [MỤC 02] FLOATING GLASS HEADER   -> Thanh menu điều hướng kính mờ dạng viên thuốc
+   [MỤC 03] HERO SECTION            -> Quả cầu 3D, cực quang Aurora, nút CTA chính
+   [MỤC 04] RESPONSIVE HEADER/HERO  -> Tối ưu Tablet & Mobile cho Header + Hero
+   [MỤC 05] FEATURES SECTION        -> Hiệu ứng 3D Stack Cards & lưới Bento Grid
+   [MỤC 06] STUDIO DEMO CONSOLE     -> Khung nhập thử giọng nói, nút phát, sóng âm Canvas
+   [MỤC 07] ABOUT SECTION           -> Cuộn trang kể chuyện Sticky Story & số liệu
+   [MỤC 08] RESPONSIVE DEMO/ABOUT   -> Tối ưu Tablet & Mobile cho Demo + About
+   [MỤC 09] FOOTER SECTION          -> Chân trang, watermark chữ chìm khổng lồ
+   [MỤC 10] RESPONSIVE FOOTER       -> Tối ưu Tablet & Mobile cho Footer
+   [MỤC 11] TESTIMONIALS            -> Slider trượt khách hàng đánh giá & Marquee
+   [MỤC 12] FAQ ACCORDION           -> Hỏi đáp dạng đóng/mở đơn giản (Dự phòng)
+   [MỤC 13] CONTACT SECTION         -> Khung liên hệ kính mờ, form nhập tin nhắn
+   [MỤC 14] AMBIENT & SCROLL        -> Nền lưới không gian, thanh cuộn sóng âm, nút Top
+   [MỤC 15] 3D FLIP CARDS FAQ       -> Thẻ FAQ lật 2 mặt 3D (4 cột ngang)
+   [MỤC 16] CHATBOT AI BRAND        -> Trợ lý AI tạo thương hiệu ở góc màn hình
+   [MỤC 17] RESPONSIVE TỔNG THỂ     -> Tối ưu chi tiết cho iPhone & màn hình siêu nhỏ
+   ==========================================================================
+   LƯU Ý QUAN TRỌNG KHI CHỈNH SỬA MÀU SẮC & GIAO DIỆN:
+   - Màu sắc chủ đạo: var(--primary) và var(--accent) tự động đổi theo file JSON
+     của từng thương hiệu trong thư mục config/ (nhờ file js/theme.js).
+   - Màu nền chính: var(--background) | Màu thẻ card: var(--surface)
+   - Font tiêu đề: var(--font-heading) | Font nội dung: var(--font-body)
    ========================================================================== */
 
 /* ==========================================================================
-   1. TYPOGRAPHY & LOGO PHỤ TRỢ CHO HEADER VÀ HERO
+   [MỤC 01] TYPOGRAPHY & LOGO PHỤ TRỢ CHO HEADER VÀ HERO
+   GỢI Ý: Chỉnh font chữ, logo chữ gradient và kích thước tiêu đề toàn trang
    ========================================================================== */
 
 /* Logo thương hiệu dạng chữ phủ gradient màu sắc */
@@ -94,7 +121,9 @@
 }
 
 /* ==========================================================================
-   2. FLOATING GLASS PILL HEADER — Thanh điều hướng kính mờ dạng viên thuốc
+   [MỤC 02] FLOATING GLASS HEADER — THANH ĐIỀU HƯỚNG KÍNH MỜ DẠNG VIÊN THUỐC
+   GỢI Ý: Chỉnh độ bo góc Header (border-radius), độ mờ kính (backdrop-filter: blur),
+   vị trí lơ lửng (top, width) tại #site-header. Menu liên kết tại .nav-link.
    ========================================================================== */
 
 /* Thanh Header lơ lửng (Floating) dạng viên thuốc bo cong, kính mờ sang trọng */
@@ -252,7 +281,9 @@
 }
 
 /* ==========================================================================
-   3. HERO SECTION — SOUND MADE VISIBLE (CỰC QUANG AURORA, 3D ORB & MARQUEE)
+   [MỤC 03] HERO SECTION — SOUND MADE VISIBLE (CỰC QUANG AURORA & 3D ORB)
+   GỢI Ý: Chỉnh chiều cao Hero (.hero min-height), kích thước quả cầu Three.js
+   (#hero-voice-orb), nút bấm chính (.btn-primary), nút nghe thử (.play-sample-btn).
    ========================================================================== */
 
 /* Khung Hero tổng thể */
@@ -691,7 +722,9 @@
 }
 
 /* ==========================================================================
-   4. RESPONSIVE THEME CHO HEADER & HERO (TABLET & MOBILE)
+   [MỤC 04] RESPONSIVE CHO HEADER & HERO (TABLET & MOBILE)
+   GỢI Ý: Chỉnh menu ẩn/hiện (.nav-links.is-open), nút hamburger (.nav-toggle),
+   khoảng cách padding và cỡ chữ tiêu đề Hero trên màn hình nhỏ.
    ========================================================================== */
 
 @media (max-width: 1024px) {
@@ -1165,8 +1198,10 @@
 }
 
 /* ==========================================================================
-   5. FEATURES SECTION — CẤU HÌNH TÍNH NĂNG (BENTO GRID & 3D STACK CARDS)
-   Tham chiếu chuẩn từ mã nguồn vivoice-mau
+   [MỤC 05] FEATURES SECTION — TÍNH NĂNG (BENTO GRID & 3D STACK CARDS)
+   GỢI Ý: Chỉnh hiệu ứng thẻ 3D bung xòe (.feature-stack-item, .feature-stack-3d),
+   thẻ Bento kính mờ (.bento-card), viền phát sáng Spotlight (--mouse-x, --mouse-y),
+   icon tính năng (.feature-icon) và huy hiệu (.card-pill).
    Bao gồm:
    - 5.1. Bento Grid: Thẻ Bento kính mờ, Spotlight phát sáng con trỏ, Card có ảnh nền
    - 5.2. 3D Stack Cards: Xếp chồng thẻ 3D theo chiều sâu Z, mở rộng khi hover/chạm
@@ -1855,9 +1890,9 @@ body.is-loading .feature-stack-3d {
 }
 
 /* ==========================================================================
-   6. STUDIO CONSOLE (DEMO SECTION) — BÀN ĐIỀU KHIỂN & BỘ GIẢ LẬP TRẢI NGHIỆM
-   Tham chiếu mã nguồn vivoice-mau — Phong cách "Âm thanh hữu hình"
-   Hiệu ứng: Mặt kính mờ Glassmorphism, Viền phát sáng ánh cực quang, Sóng âm Canvas
+   [MỤC 06] STUDIO CONSOLE (DEMO SECTION) — BÀN ĐIỀU KHIỂN & BỘ GIẢ LẬP TRẢI NGHIỆM
+   GỢI Ý: Chỉnh khung nhập văn bản (#demo-text-input, .console-textarea), nút phát âm
+   thanh (#demo-speak-btn, .btn-play-voice), khung hiển thị sóng âm (#demo-waveform).
    ========================================================================== */
 
 /* Khung chứa bảng điều khiển âm thanh trung tâm (Console Box) */
@@ -2202,8 +2237,9 @@ body.is-loading .feature-stack-3d {
 
 
 /* ==========================================================================
-   7. ABOUT SECTION — CÂU CHUYỆN THƯƠNG HIỆU & SỨ MỆNH
-   Tham chiếu mã nguồn vivoice-mau
+   [MỤC 07] ABOUT SECTION — CÂU CHUYỆN THƯƠNG HIỆU & SỨ MỆNH
+   GỢI Ý: Chỉnh cuộn trang Sticky Story (.about-story__slide), ảnh cuộn
+   (.about-story__photo), thẻ số liệu thống kê (.stat-card, .stat-value).
    Hỗ trợ 2 chế độ:
      7.1. Chế độ 1: 3D Sticky Scroll Story (Cuộn đa tầng kể chuyện thương hiệu)
      7.2. Chế độ 2: Static Fallback Grid (Lưới hình ảnh kèm thẻ số liệu thống kê)
@@ -2547,7 +2583,9 @@ body.is-loading .feature-stack-3d {
 
 
 /* ==========================================================================
-   8. RESPONSIVE THEME CHO DEMO VÀ ABOUT (TABLET & MOBILE)
+   [MỤC 08] RESPONSIVE CHO DEMO VÀ ABOUT (TABLET & MOBILE)
+   GỢI Ý: Chỉnh bố cục Studio Console trên màn hình điện thoại (<= 768px),
+   ẩn bớt hiệu ứng phức tạp để tối ưu hiệu năng cuộn trên thiết bị di động.
    ========================================================================== */
 
 @media (max-width: 1024px) {
@@ -2646,9 +2684,9 @@ body.is-loading .feature-stack-3d {
 }
 
 /* ==========================================================================
-   9. FOOTER SECTION — CHÂN TRANG THƯƠNG HIỆU & WATERMARK CHÌM KHỔNG LỒ
-   Tham chiếu mã nguồn code-mau — Phong cách "Âm thanh hữu hình"
-   Hiệu ứng: Chữ viền Watermark Outline khổng lồ, Nút mạng xã hội kính mờ phát sáng
+   [MỤC 09] FOOTER SECTION — CHÂN TRANG THƯƠNG HIỆU & WATERMARK CHÌM
+   GỢI Ý: Chỉnh chữ chìm khổng lồ (.footer-huge-wordmark font-size), khoảng cách
+   đệm (#site-footer padding), icon mạng xã hội (.footer-social-btn), link (.footer-link).
    ========================================================================== */
 
 /* Khung chân trang tổng thể với nền chuyển tiếp mờ sâu */
@@ -2831,7 +2869,9 @@ body.is-loading .feature-stack-3d {
 
 
 /* ==========================================================================
-   10. RESPONSIVE THEME CHO FOOTER (TABLET & MOBILE)
+   [MỤC 10] RESPONSIVE CHO FOOTER (TABLET & MOBILE)
+   GỢI Ý: Chỉnh bố cục cột footer (.footer-links-grid) từ 4 cột sang 2 cột hoặc 1 cột,
+   cỡ chữ watermark chữ chìm trên màn hình di động (<= 768px, <= 480px).
    ========================================================================== */
 
 @media (max-width: 1024px) {
@@ -2878,8 +2918,9 @@ body.is-loading .feature-stack-3d {
 }
 
 /* ==========================================================================
-   11. TESTIMONIALS SECTION (HORIZONTAL SCROLLABLE CAROUSEL & MARQUEE)
-   Tham chiếu mã nguồn code-mau — Dải trượt phản hồi khách hàng & Băng chuyền vô tận
+   [MỤC 11] TESTIMONIALS SECTION — ĐÁNH GIÁ KHÁCH HÀNG & BĂNG CHUYỀN VÔ TẬN
+   GỢI Ý: Chỉnh thẻ đánh giá (.testimonial-card), ảnh đại diện (.testimonial-avatar),
+   ngôi sao (.rating-stars), dải trượt vô tận (.marquee-track).
    ========================================================================== */
 .testimonials-section {
   position: relative;
@@ -3155,167 +3196,9 @@ body.is-loading .feature-stack-3d {
 
 
 /* ==========================================================================
-   12. PRICING SECTION (BẢNG GIÁ & CHUYỂN ĐỔI CHU KỲ THANH TOÁN)
-   Tham chiếu mã nguồn code-mau — Thẻ giá 3D kính mờ & Hiệu ứng gói nổi bật
-   ========================================================================== */
-.pricing-toggle-wrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 30px;
-  padding: 8px 18px;
-  border-radius: 100px;
-  background: color-mix(in srgb, var(--surface) 60%, transparent);
-  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
-}
-
-.toggle-label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.discount-pill {
-  padding: 2px 10px;
-  border-radius: 100px;
-  background: #10b981;
-  color: #070c1e;
-  font-size: 0.75rem;
-  font-weight: 800;
-}
-
-.pricing-toggle {
-  width: 50px;
-  height: 28px;
-  border-radius: 100px;
-  background: color-mix(in srgb, var(--background) 80%, transparent);
-  border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
-  position: relative;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.toggle-knob {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--primary);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.pricing-toggle.is-yearly .toggle-knob {
-  transform: translateX(22px);
-  background: var(--accent);
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-top: 50px;
-  align-items: stretch;
-}
-
-.price-card {
-  position: relative;
-  background: color-mix(in srgb, var(--surface) 70%, transparent);
-  backdrop-filter: blur(16px);
-  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
-  border-radius: 28px;
-  padding: 40px 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.3s, border-color 0.3s;
-}
-
-.price-card:hover {
-  transform: translateY(-6px);
-}
-
-.price-card.featured {
-  background: linear-gradient(160deg, color-mix(in srgb, var(--surface) 85%, transparent), color-mix(in srgb, var(--primary) 12%, var(--surface)));
-  border: 2px solid var(--primary);
-  box-shadow: 0 25px 70px -15px color-mix(in srgb, var(--primary) 30%, transparent);
-}
-
-.featured-badge {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 6px 18px;
-  border-radius: 100px;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: #070c1e;
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.plan-name {
-  font-family: var(--font-heading);
-  font-size: 1.45rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.price {
-  font-family: var(--font-heading);
-  font-size: 2.8rem;
-  font-weight: 800;
-  color: var(--primary);
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-.price-unit {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-
-.plan-divider {
-  height: 1px;
-  background: color-mix(in srgb, var(--text) 8%, transparent);
-  margin: 24px 0;
-}
-
-.plan-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  flex: 1;
-  margin-bottom: 30px;
-}
-
-.plan-features li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.95rem;
-  color: var(--text);
-}
-
-.feature-check {
-  color: var(--primary);
-  font-size: 1rem;
-}
-
-
-/* ==========================================================================
-   13. FAQ ACCORDION (CÂU HỎI THƯỜNG GẶP DẠNG THU GỌN)
-   Tham chiếu mã nguồn code-mau — Tương tác mở đóng trơn tru
+   [MỤC 12] FAQ ACCORDION (CÂU HỎI THƯỜNG GẶP DẠNG THU GỌN - DỰ PHÒNG)
+   GỢI Ý: Chế độ accordion cổ điển khi không dùng thẻ lật 3D. Chỉnh câu hỏi
+   (.faq-question), câu trả lời (.faq-answer), icon mũi tên (.faq-icon).
    ========================================================================== */
 .faq-list {
   max-width: 800px;
@@ -3387,105 +3270,9 @@ body.is-loading .feature-stack-3d {
 
 
 /* ==========================================================================
-   14. FINAL CTA SECTION (KÊU GỌI HÀNH ĐỘNG CUỐI TRANG)
-   Tham chiếu mã nguồn code-mau — Cực quang xoay tròn 360 độ & Ảnh nền nghệ thuật
-   ========================================================================== */
-.cta-card {
-  position: relative;
-  border-radius: 36px;
-  padding: 80px 40px;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--surface) 90%, transparent), color-mix(in srgb, var(--primary) 20%, var(--surface)));
-  border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent);
-  box-shadow: 0 30px 80px -20px color-mix(in srgb, var(--primary) 25%, transparent);
-  overflow: hidden;
-  text-align: center;
-}
-
-.cta-aurora {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--primary) 15%, transparent) 0%, transparent 60%);
-  animation: rotate-aurora 20s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes rotate-aurora {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.cta-backdrop-wrap {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  border-radius: 36px;
-}
-
-.cta-backdrop-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.16;
-  filter: saturate(1.2) brightness(0.85);
-  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
-}
-
-.cta-card:hover .cta-backdrop-img {
-  transform: scale(1.05);
-  opacity: 0.24;
-}
-
-.cta-backdrop-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, transparent 30%, color-mix(in srgb, var(--surface) 90%, transparent) 95%);
-  pointer-events: none;
-}
-
-.cta-content {
-  position: relative;
-  z-index: 1;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.cta-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  border-radius: 100px;
-  background: color-mix(in srgb, var(--primary) 20%, transparent);
-  color: var(--primary);
-  font-size: 0.85rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-.cta-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 4.5vw, 3.5rem);
-  font-weight: 800;
-  line-height: 1.15;
-  color: var(--text);
-  margin-bottom: 18px;
-}
-
-.cta-sub {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  margin-bottom: 36px;
-}
-
-
-/* ==========================================================================
-   15. CONTACT SECTION (LIÊN HỆ & FORM GỬI TIN NHẮN KÍNH MỜ)
-   Tham chiếu mã nguồn code-mau — Khối kính mờ bo góc 28px
+   [MỤC 13] CONTACT SECTION (LIÊN HỆ & FORM GỬI TIN NHẮN KÍNH MỜ)
+   GỢI Ý: Chỉnh bố cục 2 cột (.contact-inner), kênh liên hệ (.channel-card),
+   ô nhập liệu form (.form-input, .form-textarea), nút gửi (.contact-submit-btn).
    ========================================================================== */
 .contact-inner {
   display: grid;
@@ -3583,8 +3370,10 @@ body.is-loading .feature-stack-3d {
 
 
 /* ==========================================================================
-   16. HỆ THỐNG NỀN ĐỘNG ĐA TẦNG & HIỆU ỨNG CUỘN SÂU (AMBIENT & SCROLL EFFECTS)
-   Tham chiếu mã nguồn code-mau — Canvas sóng âm, Lưới Cyber, Hào quang Aurora
+   [MỤC 14] HỆ THỐNG NỀN ĐỘNG & CUỘN TRANG (AMBIENT, PROGRESS BAR & BACK TO TOP)
+   GỢI Ý: Chỉnh thanh tiến trình cuộn trang (.scroll-progress-bar), nền lưới
+   không gian (.ambient-grid-overlay), các đốm hào quang cực quang (.aurora-orb),
+   nút cuộn nhanh lên đầu trang (.scroll-top-btn).
    ========================================================================== */
 
 /* A. Thanh tiến trình cuộn trang công nghệ sóng âm */
@@ -3854,8 +3643,10 @@ body.is-loading .feature-stack-3d {
 
 
 /* ============================================================================
-   17. 3D FLIP CARDS FAQ (4 CỘT NẰM NGANG, LẬT MẶT 3D)
-   Tham chiếu mã nguồn code-mau — Hiệu ứng phối cảnh perspective 1200px
+   [MỤC 15] 3D FLIP CARDS FAQ (4 CỘT NẰM NGANG, THẺ LẬT 2 MẶT 3D)
+   GỢI Ý: Chỉnh số cột lưới (.faq-flip-grid), chiều cao thẻ (.faq-card-3d),
+   mặt trước câu hỏi (.faq-card-front), mặt sau câu trả lời (.faq-card-back),
+   nút lật lại (.faq-flip-back-btn), hiệu ứng transform: rotateY/X 3D.
    ============================================================================ */
 .faq-section--3d {
   position: relative;
@@ -4075,7 +3866,9 @@ body.is-loading .feature-stack-3d {
 
 
 /* ============================================================================
-   18. AI BRAND ARCHITECT CHATBOT (TRỢ LÝ AI TẠO THƯƠNG HIỆU MỚI Ở GÓC TRÁI)
+   [MỤC 16] AI BRAND ARCHITECT CHATBOT (TRỢ LÝ AI TẠO THƯƠNG HIỆU MỚI)
+   GỢI Ý: Chỉnh nút kích hoạt chat (.ai-chat-trigger), cửa sổ hội thoại (.ai-chat-window),
+   tin nhắn bot/user (.chat-msg), các nút chip gợi ý nhanh (.chat-quick-action-chip).
    Vị trí: Góc trái màn hình, nằm TRÊN nút đổi giao diện (white-label-switcher)
    ============================================================================ */
 .ai-chat-widget {
@@ -5058,7 +4851,12 @@ body.is-loading .feature-stack-3d {
 
 
 /* ==========================================================================
-   19. RESPONSIVE THEME TỔNG THỂ CHO CÁC PHẦN MỚI
+   [MỤC 17] RESPONSIVE TỔNG THỂ CHO TOÀN BỘ CÁC PHẦN (IPHONE & MOBILE)
+   GỢI Ý: Chỉnh các breakpoint:
+   - max-width: 1080px (Tablet ngang, thu gọn lưới FAQ & About sang 2 cột)
+   - max-width: 768px  (Mobile chuẩn)
+   - max-width: 480px  (iPhone & Mobile hẹp: Header, nút đổi Brand, Chatbot, Features)
+   - max-width: 360px  (Màn hình siêu nhỏ)
    ========================================================================== */
 @media (max-width: 1080px) {
   .faq-flip-grid {
@@ -5072,13 +4870,6 @@ body.is-loading .feature-stack-3d {
 }
 
 @media (max-width: 1024px) {
-  .pricing-grid {
-    grid-template-columns: 1fr;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   .testimonials-slider-wrapper {
     padding: 0 36px;
   }

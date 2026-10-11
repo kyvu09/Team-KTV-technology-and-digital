@@ -135,10 +135,9 @@ export function initScrollAnimations(config = {}) {
     }
   });
 
-  // 7. Hiệu ứng nâng khối 3D (3D Perspective Tilt on Scroll) cho Bento, Pricing & Testimonial Cards
+  // 7. Hiệu ứng nâng khối 3D (3D Perspective Tilt on Scroll) cho Bento & Testimonial Cards
   const cardsToTilt = [
     { selector: ".bento-card", stagger: 0.12 },
-    { selector: ".price-card", stagger: 0.14 },
     { selector: ".testimonial-card", stagger: 0.12 },
     { selector: ".faq-item", stagger: 0.08 },
     { selector: ".stat-card", stagger: 0.1 },
