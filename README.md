@@ -218,17 +218,7 @@ Do dự án sử dụng chuẩn **JavaScript ES6 Modules** và nạp cấu hình
 3. Nhấp chuột phải vào file [`index.html`](index.html) và chọn **"Open with Live Server"** (hoặc phím tắt `Alt + L, Alt + O`).
 4. Trang web sẽ tự động mở trên trình duyệt tại địa chỉ `http://127.0.0.1:5500`.
 
-### Cách 2: Sử dụng Node.js `npx serve`
-
-Mở Terminal tại thư mục gốc của dự án và chạy lệnh:
-
-```bash
-npx serve .
-```
-
-Truy cập theo đường dẫn cổng được thông báo trên màn hình (thường là `http://localhost:3000`).
-
-### Cách 3: Sử dụng Python
+### Cách 2: Sử dụng Python
 
 Nếu máy tính đã cài đặt Python:
 
