@@ -10,7 +10,7 @@
     "cursor": true,
     "preloader": true,
     "orb": true,
-    "ambientBackground": true,
+    "ambientBackground": false,
     "scrollProgress": true
   },
   "nav": [
@@ -42,7 +42,7 @@
   "sections": [
     {
       "type": "hero",
-      "layout": "split-right",
+      "layout": "voice-studio",
       "welcomeMessage": "Chào mừng bạn đến với CyberTone - Giọng thoại NPC thời gian thực cho Game và Vũ trụ ảo.",
       "welcomeAudio": "assets/audio/npcGame.mp3",
       "title": "Kiến tạo giọng thoại NPC thời gian thực cho",
@@ -64,7 +64,7 @@
     },
     {
       "type": "features",
-      "layout": "3d-stack",
+      "layout": "bento",
       "title": "Đột phá công nghệ âm thanh Game thời gian thực",
       "subtitle": "Động cơ tạo sinh giọng nói AI chuyên biệt cho nhân vật NPC thế giới mở và vũ trụ Metaverse với độ trễ thấp chưa từng có.",
       "items": [
@@ -144,6 +144,16 @@
               "value": "120 FPS",
               "label": "Duy trì khung hình"
             }
+          },
+          {
+            "image": "assets/images/imgcyberTone/about-spatial.jpg",
+            "eyebrow": "04 / ÂM THANH KHÔNG GIAN",
+            "title": "Định vị âm thanh 3D Spatial Audio",
+            "description": "Tích hợp hoàn hảo cùng Unreal Engine 5 và Unity, tái hiện âm thanh đa hướng chân thực theo thời gian thực.",
+            "metric": {
+              "value": "360°",
+              "label": "Âm vòm đa hướng"
+            }
           }
         ],
         "animation": {
@@ -199,7 +209,7 @@
     },
     {
       "type": "faq",
-      "layout": "3d-flip-cards",
+      "layout": "accordion",
       "title": "Câu hỏi thường gặp về CyberTone",
       "subtitle": "Mọi thông tin cần thiết về công nghệ giọng nói NPC thời gian thực, độ trễ và SDK game.",
       "config3D": {
@@ -282,11 +292,11 @@
     }
   ],
   "theme": {
-    "primary": "#00f0ff",
-    "accent": "#ff007f",
-    "background": "#050512",
-    "surface": "#0c0d24",
-    "text": "#f1f5f9",
+    "primary": "#06b6d4",
+    "accent": "#f43f5e",
+    "background": "#070814",
+    "surface": "#111227",
+    "text": "#f8fafc",
     "textMuted": "#94a3b8",
     "fontHeading": "Space Grotesk",
     "fontBody": "Be Vietnam Pro",
@@ -294,61 +304,26 @@
   },
   "footer": {
     "tagline": "CyberTone — Tạo giọng thoại NPC thời gian thực (độ trễ siêu thấp < 40ms) cho Game & vũ trụ ảo.",
-    "columns": [
+    "links": [
       {
-        "title": "Sản phẩm",
-        "links": [
-          {
-            "href": "#demo",
-            "label": "Thử giọng NPC"
-          },
-          {
-            "href": "#features",
-            "label": "Tính năng Engine"
-          },
-          {
-            "href": "#faq",
-            "label": "Hỏi đáp SDK"
-          }
-        ]
+        "href": "#demo",
+        "label": "Trải nghiệm Studio",
+        "icon": "fa-solid fa-wand-magic-sparkles"
       },
       {
-        "title": "Tài nguyên Game",
-        "links": [
-          {
-            "href": "#",
-            "label": "Tài liệu Unity SDK"
-          },
-          {
-            "href": "#",
-            "label": "Unreal Engine Plugin"
-          },
-          {
-            "href": "#",
-            "label": "Thư viện NPC Preset"
-          },
-          {
-            "href": "#",
-            "label": "Cộng đồng Game Dev"
-          }
-        ]
+        "href": "#features",
+        "label": "Tính năng công nghệ",
+        "icon": "fa-solid fa-layer-group"
       },
       {
-        "title": "Pháp lý",
-        "links": [
-          {
-            "href": "#contact",
-            "label": "Liên hệ hỗ trợ"
-          },
-          {
-            "href": "#",
-            "label": "Chính sách bản quyền Game"
-          },
-          {
-            "href": "#",
-            "label": "Cam kết hiệu năng SLA"
-          }
-        ]
+        "href": "#faq",
+        "label": "Câu hỏi thường gặp",
+        "icon": "fa-solid fa-circle-question"
+      },
+      {
+        "href": "#contact",
+        "label": "Liên hệ hỗ trợ",
+        "icon": "fa-solid fa-headset"
       }
     ],
     "copyright": "© CyberTone. Công nghệ giọng thoại thời gian thực cho Game & Metaverse. White Label Specification."
