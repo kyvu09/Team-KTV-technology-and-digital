@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+// ============================================================================
+// PageHeader.js — Component Banner Tiêu đề Đầu trang cho các Trang con
+// Hỗ trợ ảnh nền điện ảnh (Hero Background Image), lớp phủ bảo vệ độ nét chữ
+// và bảng màu ánh sáng (Ambient Glow) riêng biệt theo từng trang con
+// ============================================================================
+
+>>>>>>> origin/kyvu
 import { esc } from "../../core/esc.js";
 
 /**
@@ -52,3 +61,7 @@ export function renderPageHeader({
       </div>
     </section>`.trim();
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/kyvu

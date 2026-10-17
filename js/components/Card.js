@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+// ============================================================================
+// js/components/Card.js — Component Thẻ Tái Sử Dụng Chuẩn Web Components
+// Theo đúng quy định và ví dụ mẫu tại dòng 28-45 của quy-tac-code.md:
+// <wl-card title="..." desc="..." icon="..."></wl-card>
+// ============================================================================
+
+>>>>>>> origin/kyvu
 import { esc } from "../core/esc.js";
 
 export class WlCard extends (typeof HTMLElement !== "undefined"
