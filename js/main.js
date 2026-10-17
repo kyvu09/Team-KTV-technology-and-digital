@@ -7,6 +7,7 @@ import { loadConfig, normalizeBrandKey } from "./config-loader.js";
 import { applyTheme } from "./theme.js";
 import { renderSite } from "./render.js";
 import { initPreloader } from "./effects/preloader.js";
+import "./components/Card.js";
 
 // HÀM CHÍNH KHỞI CHẠY TRANG WEB
 async function startApp() {
@@ -113,7 +114,8 @@ if (wlToggleBtn !== null && wlSwitcher !== null) {
       const newBrand = item.dataset.brand;
       const newParams = new URLSearchParams(window.location.search);
       newParams.set("brand", newBrand);
-      window.location.href = window.location.pathname + "?" + newParams.toString();
+      window.location.href =
+        window.location.pathname + "?" + newParams.toString();
     });
   });
 }

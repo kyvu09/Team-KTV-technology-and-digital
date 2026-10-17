@@ -1,147 +1,239 @@
 import { esc } from "../core/esc.js";
-import { audioState } from "../core/audio-state.js";
+import { renderHeaderLogo } from "../components/header/HeaderLogo.js";
+import {
+  renderHeaderNav,
+  initHeaderNav,
+} from "../components/header/HeaderNav.js";
+import { authState } from "../core/auth-state.js";
+
+/**
+ * Sinh mã HTML cho khu vực hành động bên phải Header:
+ * - Khi chưa đăng nhập: Hiển thị nút "Đăng nhập"
+ * - Khi đã đăng nhập demo: Ẩn nút "Đăng nhập", hiển thị "Xin chào, [Tên]" và Avatar tròn
+ * @returns {string} HTML markup
+ */
+export function renderHeaderAction() {
+  const user = authState.getUser();
+
+  if (user && (user.name || user.email)) {
+    const displayName = user.name || user.email.split("@")[0] || "Người dùng";
+    const initialLetter = displayName.trim().charAt(0).toUpperCase();
+    const email = user.email || "";
+
+    return `
+      <div class="header-user-menu" id="header-user-menu">
+        <button type="button" class="header-user-btn" id="header-user-btn" aria-expanded="false" aria-haspopup="true" title="Tài khoản: ${esc(displayName)}">
+          <div class="user-avatar" aria-hidden="true">${esc(initialLetter)}</div>
+          <span class="user-greeting">Xin chào, <strong class="user-name">${esc(displayName)}</strong></span>
+          <i class="fa-solid fa-chevron-down user-chevron" aria-hidden="true"></i>
+        </button>
+
+        <div class="user-dropdown-menu" id="user-dropdown-menu" role="menu" aria-label="Menu tài khoản">
+          <div class="user-dropdown-header">
+            <div class="user-avatar-lg" aria-hidden="true">${esc(initialLetter)}</div>
+            <div class="user-details">
+              <div class="user-fullname">${esc(displayName)}</div>
+              <div class="user-email">${esc(email)}</div>
+            </div>
+          </div>
+          <div class="user-dropdown-divider"></div>
+          <button type="button" class="user-dropdown-item user-logout-item" id="menu-user-logout" role="menuitem">
+            <i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i>
+            <span>Đăng xuất</span>
+          </button>
+        </div>
+      </div>
+    `.trim();
+  }
+
+  // Khi chưa đăng nhập -> Nút "Đăng nhập" chuẩn
+  return `<a class="btn btn-sm btn-primary btn-magnetic" href="#auth" id="header-auth-btn" data-page-link="auth">Đăng nhập</a>`;
+}
+
+let headerBrandConfig = null;
 
 // HÀM TẠO GIAO DIỆN HEADER
 export function renderHeader(config) {
-    let brand = config.brand;
-    let nav = config.nav;
+  headerBrandConfig = config;
+  const brand = config.brand || {};
+  const nav = config.nav || [];
 
-    if (nav === undefined) {
-        nav = []; // Nếu không có menu thì tạo mảng rỗng để không bị lỗi
-    }
+  const logoHTML = renderHeaderLogo(brand);
+  const navLinksHTML = renderHeaderNav(nav);
+  const actionHTML = renderHeaderAction();
 
-    // 1. Kiểm tra xem công ty có Logo hình ảnh không, nếu không thì dùng tên dạng chữ
-    let logoHTML = "";
-    if (brand.logo !== undefined && brand.logo !== "") {
-        logoHTML = '<img class="logo-img" src="' + esc(brand.logo) + '" alt="' + esc(brand.name) + '" />';
-    } else {
-        logoHTML = '<span class="logo-text">' + esc(brand.name) + '</span>';
-    }
-
-    // 2. Tạo danh sách các đường link (Menu) bằng vòng lặp for
-    let navLinksHTML = "";
-    for (let i = 0; i < nav.length; i++) {
-        let item = nav[i];
-        navLinksHTML = navLinksHTML + '<a class="nav-link" href="' + esc(item.href) + '">' + esc(item.label) + '</a>';
-    }
-
-    // 3. Ghép toàn bộ vào khung Header
-    let headerElement = document.getElementById("site-header");
-    if (headerElement !== null) {
-        headerElement.innerHTML = `
+  const headerElement = document.getElementById("site-header");
+  if (headerElement) {
+    headerElement.innerHTML = `
       <div class="container header-inner">
-        <a class="brand" href="#" aria-label="${esc(brand.name)}">${logoHTML}</a>
+        <a class="brand" href="#hero" aria-label="${esc(brand.name || "")}" data-page-link="home">${logoHTML}</a>
         
-        <nav class="nav-menu" id="header-nav">
-          <div class="nav-indicator" id="nav-indicator"></div>
-          ${navLinksHTML}
-        </nav>
+        ${navLinksHTML}
         
-        <div class="header-action">
-          <!-- Nút bật/tắt âm thanh giọng đọc thương hiệu -->
-          <button type="button" id="header-audio-toggle" class="header-audio-btn" aria-label="Bật hoặc tắt âm thanh" title="Bật giọng đọc giới thiệu">
-            <span class="audio-bars" aria-hidden="true">
-              <span class="bar bar-1"></span>
-              <span class="bar bar-2"></span>
-              <span class="bar bar-3"></span>
-            </span>
-            <span class="audio-btn-label">Âm thanh</span>
-          </button>
-          
-          <a class="btn btn-sm btn-primary btn-magnetic" href="#demo">Trải nghiệm</a>
+        <div class="header-action" id="header-action-root">
+          ${actionHTML}
         </div>
       </div>`;
-    }
+  }
 
-    // 4. Kích hoạt hiệu ứng "viên thuốc" trượt theo con trỏ chuột
-    initNavIndicator();
+  // Khởi tạo tương tác menu điều hướng
+  initHeaderNav();
 
-    // 5. Kích hoạt nút bật/tắt âm thanh
-    initHeaderAudio(config);
+  // Khởi tạo tương tác menu người dùng
+  initHeaderUserMenu();
 }
 
-// HÀM TẠO HIỆU ỨNG DI CHUỘT TRÊN MENU
-function initNavIndicator() {
-    let nav = document.getElementById("header-nav");
-    let indicator = document.getElementById("nav-indicator");
+/**
+ * Hiển thị Modal Thông tin tài khoản người dùng
+ * @param {Object} user
+ */
+function showUserInfoModal(user) {
+  let modal = document.getElementById("user-info-modal-backdrop");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "user-info-modal-backdrop";
+    modal.className = "user-info-modal-backdrop";
+    document.body.appendChild(modal);
+  }
 
-    if (nav === null || indicator === null) {
-        return;
+  const brandName = headerBrandConfig?.brand?.name || "AI Voice";
+  const emailDomain =
+    brandName.toLowerCase().replace(/[^a-z0-9]/g, "") || "aivoice";
+  const displayName = user?.name || user?.email?.split("@")[0] || "Người dùng";
+  const initialLetter = displayName.trim().charAt(0).toUpperCase();
+  const email = user?.email || `demo@${emailDomain}.vn`;
+
+  modal.innerHTML = `
+    <div class="user-info-modal-card" role="dialog" aria-modal="true" aria-labelledby="user-info-modal-title">
+      <div class="user-info-modal-header">
+        <h3 id="user-info-modal-title"><i class="fa-regular fa-id-badge" style="margin-right: 8px;"></i>Thông tin tài khoản</h3>
+        <button type="button" class="user-info-modal-close" id="user-info-modal-close-btn" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="user-info-modal-profile">
+        <div class="user-info-modal-avatar">${esc(initialLetter)}</div>
+        <div class="user-info-modal-user">
+          <h4>${esc(displayName)}</h4>
+          <p>${esc(email)}</p>
+          <span class="user-info-modal-badge"><i class="fa-solid fa-circle-check"></i> Đã xác thực Demo</span>
+        </div>
+      </div>
+      <div class="user-info-modal-fields">
+        <div class="user-info-modal-row">
+          <span class="label">Họ và tên:</span>
+          <span class="val">${esc(displayName)}</span>
+        </div>
+        <div class="user-info-modal-row">
+          <span class="label">Email liên hệ:</span>
+          <span class="val">${esc(email)}</span>
+        </div>
+        <div class="user-info-modal-row">
+          <span class="label">Gói thành viên:</span>
+          <span class="val">${esc(brandName)} Studio (Demo)</span>
+        </div>
+        <div class="user-info-modal-row">
+          <span class="label">Trạng thái:</span>
+          <span class="val" style="color: #4ade80;"><i class="fa-solid fa-circle-check"></i> Đang hoạt động</span>
+        </div>
+      </div>
+      <div class="user-info-modal-actions">
+        <button type="button" class="btn btn-sm btn-primary" id="user-info-modal-ok-btn">Đóng</button>
+      </div>
+    </div>
+  `;
+
+  requestAnimationFrame(() => {
+    modal.classList.add("open");
+  });
+
+  const closeModal = () => {
+    modal.classList.remove("open");
+  };
+
+  modal
+    .querySelector("#user-info-modal-close-btn")
+    ?.addEventListener("click", closeModal);
+  modal
+    .querySelector("#user-info-modal-ok-btn")
+    ?.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+}
+
+/**
+ * Gắn các sự kiện click cho menu tài khoản và đăng xuất
+ */
+function bindHeaderUserEvents() {
+  const userMenu = document.getElementById("header-user-menu");
+  const userBtn = document.getElementById("header-user-btn");
+  const btnLogout = document.getElementById("menu-user-logout");
+
+  if (!userMenu || !userBtn) return;
+
+  // Toggle mở / đóng menu nhỏ
+  userBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = userMenu.classList.toggle("open");
+    userBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
+
+  // Đóng khi click ngoài menu
+  document.addEventListener("click", (e) => {
+    if (!userMenu.contains(e.target)) {
+      userMenu.classList.remove("open");
+      userBtn.setAttribute("aria-expanded", "false");
     }
+  });
 
-    let links = nav.querySelectorAll(".nav-link");
-
-    for (let i = 0; i < links.length; i++) {
-        let link = links[i];
-
-        link.addEventListener("mouseenter", function () {
-            indicator.style.width = link.offsetWidth + "px";
-            indicator.style.left = link.offsetLeft + "px";
-            indicator.style.opacity = "1";
-        });
-    }
-
-    nav.addEventListener("mouseleave", function () {
-        indicator.style.opacity = "0";
+  // Mục "Đăng xuất"
+  if (btnLogout) {
+    btnLogout.addEventListener("click", () => {
+      userMenu.classList.remove("open");
+      userBtn.setAttribute("aria-expanded", "false");
+      authState.logout();
     });
+  }
 }
 
-// HÀM KHỞI TẠO NÚT BẬT/TẮT ÂM THANH TRÊN HEADER
-function initHeaderAudio(config) {
-    let audioBtn = document.getElementById("header-audio-toggle");
-    if (!audioBtn) return;
+let isAuthSubscribed = false;
 
-    const heroSection = (config.sections || []).find((s) => s.type === "hero");
-    const welcomeAudio = heroSection ? heroSection.welcomeAudio : "";
-    const sampleText =
-        (heroSection && (heroSection.playSample || heroSection.welcomeMessage)) ||
-        ("Chào mừng bạn đến với " + (config.brand ? config.brand.name : "thương hiệu của chúng tôi"));
+/**
+ * Khởi tạo tương tác menu tài khoản và đăng ký lắng nghe thay đổi trạng thái
+ */
+export function initHeaderUserMenu() {
+  bindHeaderUserEvents();
 
-    // Lắng nghe thay đổi trạng thái phát âm thanh toàn trang để đồng bộ nút
-    audioState.subscribe((event, data) => {
-        let isPlaying = data && data.isPlaying;
-        if (isPlaying) {
-            audioBtn.classList.add("is-playing");
-            audioBtn.setAttribute("title", "Đang phát âm thanh — Bấm để tắt");
-            let label = audioBtn.querySelector(".audio-btn-label");
-            if (label) label.textContent = "Đang phát";
-        } else {
-            audioBtn.classList.remove("is-playing");
-            audioBtn.setAttribute("title", "Bật giọng đọc giới thiệu");
-            let label = audioBtn.querySelector(".audio-btn-label");
-            if (label) label.textContent = "Âm thanh";
-        }
+  if (!isAuthSubscribed) {
+    isAuthSubscribed = true;
+    // Tự động cập nhật lại khu vực nút hành động Header khi người dùng đăng nhập hoặc đăng xuất
+    authState.subscribe(() => {
+      const actionRoot = document.getElementById("header-action-root");
+      if (actionRoot) {
+        actionRoot.innerHTML = renderHeaderAction();
+        bindHeaderUserEvents();
+      }
     });
-
-    // Bấm vào nút để bật / tắt âm thanh
-    audioBtn.addEventListener("click", () => {
-        if (audioState.isPlaying) {
-            audioState.stopSpeech();
-        } else {
-            if (welcomeAudio) {
-                audioState.playAudioFile(welcomeAudio, { text: sampleText });
-            } else {
-                audioState.playSpeech(sampleText);
-            }
-        }
-    });
+  }
 }
 
-// Web Component (Yêu cầu nâng cao - Giữ nguyên kiến trúc nhưng viết lại cho dễ hiểu)
-export class WlHeader extends (typeof HTMLElement !== "undefined" ? HTMLElement : class { }) {
-    connectedCallback() {
-        if (this._config !== undefined) {
-            renderHeader(this._config);
-        }
+// ============================================================================
+// Web Component <wl-header> theo quy chuẩn thể lệ cuộc thi
+// ============================================================================
+export class WlHeader extends (typeof HTMLElement !== "undefined"
+  ? HTMLElement
+  : class {}) {
+  connectedCallback() {
+    if (this._config !== undefined) {
+      renderHeader(this._config);
     }
+  }
 
-    setConfig(config) {
-        this._config = config;
-        renderHeader(config);
-    }
+  setConfig(config) {
+    this._config = config;
+    renderHeader(config);
+  }
 }
 
-// Đăng ký thẻ HTML tự chế <wl-header>
 if (typeof customElements !== "undefined" && !customElements.get("wl-header")) {
-    customElements.define("wl-header", WlHeader);
+  customElements.define("wl-header", WlHeader);
 }
