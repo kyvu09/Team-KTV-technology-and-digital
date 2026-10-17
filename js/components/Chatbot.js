@@ -1185,6 +1185,26 @@ export function detectUserIntent(val, currentBrand = null, activeSection = null)
     return { action: "refine", sectionKey: "testimonials", subAction: "refresh", customPrompt: val };
   }
 
+  // ƯU TIÊN: Nếu người dùng đang chọn sẵn một mục (activeSection) và gửi yêu cầu, ưu tiên tinh chỉnh mục đó
+  if (activeSection) {
+    let subAct = "";
+    if (activeSection === "hero") {
+      if (lowerVal.includes("căn giữa") || lowerVal.includes("centered")) subAct = "centered";
+      else if (lowerVal.includes("chia đôi") || lowerVal.includes("split")) subAct = "split";
+      else if (lowerVal.includes("khung ảnh") || lowerVal.includes("image-frame")) subAct = "image-frame";
+    } else if (activeSection === "features") {
+      if (lowerVal.includes("bento")) subAct = "bento";
+      else if (lowerVal.includes("stack") || lowerVal.includes("xếp tầng")) subAct = "stack";
+    } else if (activeSection === "about") {
+      if (lowerVal.includes("lưới") || lowerVal.includes("grid")) subAct = "grid";
+      else if (lowerVal.includes("cuộn") || lowerVal.includes("story")) subAct = "story";
+    } else if (activeSection === "faq") {
+      if (lowerVal.includes("accordion")) subAct = "accordion";
+      else if (lowerVal.includes("thẻ lật") || lowerVal.includes("flip")) subAct = "3d-flip";
+    }
+    return { action: "refine", sectionKey: activeSection, subAction: subAct, customPrompt: val };
+  }
+
   // 9. Hero / Trang chủ (Tiêu đề chính, Slogan, Bố cục Hero, Nút bấm)
   if (
     lowerVal.includes("trang chủ") ||
@@ -1213,12 +1233,7 @@ export function detectUserIntent(val, currentBrand = null, activeSection = null)
     return { action: "refine", sectionKey: "hero", subAction, customPrompt: val };
   }
 
-  // 10. Nếu người dùng đang chọn sẵn một mục (activeSection) và gửi yêu cầu
-  if (activeSection) {
-    return { action: "refine", sectionKey: activeSection, customPrompt: val };
-  }
-
-  // 11. Các câu lệnh bắt đầu bằng động từ sửa/chỉnh chung
+  // 10. Các câu lệnh bắt đầu bằng động từ sửa/chỉnh chung
   if (
     lowerVal.startsWith("sửa") ||
     lowerVal.startsWith("chỉnh") ||
@@ -2752,11 +2767,11 @@ export function enrichAndValidateBrandJson(data, topicHint = "tech") {
         : "grid");
 
     const rawSlides =
-      about.scrollStory && Array.isArray(about.scrollStory.slides)
-        ? about.scrollStory.slides
-        : Array.isArray(about.story)
-          ? about.story
-          : [];
+      Array.isArray(about.slides) && about.slides.length > 0
+        ? about.slides
+        : (about.scrollStory && Array.isArray(about.scrollStory.slides) && about.scrollStory.slides.length > 0
+          ? about.scrollStory.slides
+          : (Array.isArray(about.story) && about.story.length > 0 ? about.story : []));
 
     const slides = (
       rawSlides.length > 0
@@ -2822,9 +2837,11 @@ export function enrichAndValidateBrandJson(data, topicHint = "tech") {
       ? about.image
       : photoPool[4 % photoPool.length] || photoPool[0];
 
+    about.slides = slides;
     // Điều khiển scrollStory theo layout đã chọn
     if (about.layout === "grid") {
       about.scrollStory = { enabled: false, slides: slides };
+      about.story = slides;
     } else {
       about.scrollStory = {
         enabled: true,
@@ -4857,9 +4874,9 @@ export async function callAiToRefineSection(sectionKey, userPrompt, currentBrand
 
   if (activeKey) {
     const candidateModels = [
-      "gemini-2.5-flash",
+      "gemini-3.8-flash",
       "gemini-3.7-flash",
-      "gemini-3.8-flash"
+      "gemini-2.5-flash"
     ];
 
     const promptText = buildSectionAiPrompt(sectionKey, userPrompt, brandName, brandField, brandSlogan, currentSection);
@@ -5419,11 +5436,24 @@ export function initChatbot(config = {}) {
       // 1. Dừng ngay toàn bộ âm thanh và giọng đọc cũ
       audioState.stopSpeech();
 
-      // 2. Nếu không có section chỉ định, chuyển hash về #hero
-      if (!targetSection) {
+      // Lưu trữ cấu hình thương hiệu hiện tại vào LocalStorage để bền vững
+      try {
+        localStorage.setItem("viv_custom_brand_json", JSON.stringify(brandData));
+      } catch (e) {
+        console.warn("Không thể lưu cấu hình thương hiệu vào localStorage:", e);
+      }
+
+      // 2. Điều hướng router đúng theo section cần hiển thị
+      if (!targetSection || ["hero", "features", "about", "demo", "theme"].includes(targetSection)) {
         if (window.location.hash !== "#hero" && window.location.hash !== "" && window.location.hash !== "#home") {
           window.location.hash = "#hero";
         }
+      } else if (targetSection === "faq") {
+        if (window.location.hash !== "#faq") window.location.hash = "#faq";
+      } else if (targetSection === "contact") {
+        if (window.location.hash !== "#contact") window.location.hash = "#contact";
+      } else if (targetSection === "testimonials") {
+        if (window.location.hash !== "#about") window.location.hash = "#about";
       }
 
       // 3. Áp dụng bảng màu và giao diện mới
@@ -5548,10 +5578,31 @@ export function initChatbot(config = {}) {
         chip.classList.add("is-active");
 
         // Cuộn mượt màn hình đến đúng section trên website và chớp sáng
-        const targetId = rType === "theme" ? "hero" : rType;
-        const targetEl = document.getElementById(targetId) || document.getElementById(`home-${targetId}`);
+        if (["hero", "features", "about", "demo", "theme"].includes(rType)) {
+          if (window.location.hash !== "#hero" && window.location.hash !== "" && window.location.hash !== "#home") {
+            window.location.hash = "#hero";
+          }
+        }
+
+        let targetEl = null;
+        if (rType === "theme" || rType === "hero") {
+          targetEl = document.getElementById("hero");
+        } else if (rType === "features") {
+          targetEl = document.getElementById("home-features") || document.getElementById("features");
+        } else if (rType === "about") {
+          targetEl = document.getElementById("home-about") || document.getElementById("about");
+        } else if (rType === "demo") {
+          targetEl = document.getElementById("how-to-use") || document.getElementById("demo");
+        } else {
+          targetEl = document.getElementById(rType) || document.getElementById(`home-${rType}`);
+        }
+
         if (targetEl) {
-          targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          if (window.__lenis) {
+            window.__lenis.scrollTo(targetEl, { offset: -80, duration: 1.2 });
+          } else {
+            targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
           targetEl.classList.add("section-highlight-pulse");
           setTimeout(() => targetEl.classList.remove("section-highlight-pulse"), 2500);
         }
@@ -5695,13 +5746,21 @@ export function initChatbot(config = {}) {
             }
             if (sectionKey === "about" && Array.isArray(rewritten.slides)) {
               rewritten.slides.forEach((sl, i) => {
-                const oldSl = sections[idx]?.slides?.[i];
+                const oldSl = sections[idx]?.slides?.[i] || sections[idx]?.scrollStory?.slides?.[i];
                 if (!sl.image && oldSl?.image) sl.image = oldSl.image;
               });
+              if (sections[idx].scrollStory) {
+                sections[idx].scrollStory.slides = rewritten.slides;
+              }
+              sections[idx].story = rewritten.slides;
             }
             if (sectionKey === "demo") {
               // Đảm bảo không có layout console để trang chủ render 3 bước HowToUse
               delete rewritten.layout;
+              if (Array.isArray(rewritten.steps)) {
+                sections[idx].steps = rewritten.steps;
+                sections[idx].howToUseSteps = rewritten.steps;
+              }
             }
             sections[idx] = { ...sections[idx], ...rewritten };
           } else {
@@ -5981,16 +6040,29 @@ export function initChatbot(config = {}) {
 
     // 4. Cuộn trực tiếp và làm nổi bật section vừa chỉnh
     setTimeout(() => {
-      const targetId = sectionKey === "theme" ? "hero" : sectionKey;
-      const targetEl =
-        document.getElementById(targetId) ||
-        document.getElementById(`home-${targetId}`);
+      let targetEl = null;
+      if (sectionKey === "theme" || sectionKey === "hero") {
+        targetEl = document.getElementById("hero");
+      } else if (sectionKey === "features") {
+        targetEl = document.getElementById("home-features") || document.getElementById("features");
+      } else if (sectionKey === "about") {
+        targetEl = document.getElementById("home-about") || document.getElementById("about");
+      } else if (sectionKey === "demo") {
+        targetEl = document.getElementById("how-to-use") || document.getElementById("demo");
+      } else {
+        targetEl = document.getElementById(sectionKey) || document.getElementById(`home-${sectionKey}`);
+      }
+
       if (targetEl) {
-        targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (window.__lenis) {
+          window.__lenis.scrollTo(targetEl, { offset: -80, duration: 1.2 });
+        } else {
+          targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
         targetEl.classList.add("section-highlight-pulse");
         setTimeout(() => targetEl.classList.remove("section-highlight-pulse"), 2500);
       }
-    }, 300);
+    }, 450);
 
     // 5. Đọc giọng nói phản hồi
     if (speechNotice) {
@@ -6113,9 +6185,9 @@ export function initChatbot(config = {}) {
       // Gọi Gemini AI với cơ chế tự động thử các model ổn định nhất
       if (currentKey) {
         const candidateModels = [
-          "gemini-2.5-flash",
-          "gemini-3.7-flash",
           "gemini-3.8-flash",
+          "gemini-3.7-flash",
+          "gemini-2.5-flash",
         ];
 
         for (const modelName of candidateModels) {
