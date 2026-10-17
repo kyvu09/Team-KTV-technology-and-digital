@@ -7,21 +7,12 @@
    LƯU Ý: Khi chạy White Label, các biến màu sắc và font chữ này sẽ tự động
    được cập nhật theo cấu hình trong file config/brand-*.json (nhờ js/theme.js). */
 :root {
-<<<<<<< HEAD
   --primary: #38bdf8;        /* Màu chủ đạo (Xanh dương sắc nét) */
   --accent: #818cf8;         /* Màu nhấn bổ trợ (Tím gradient) */
   --background: #0b0f19;     /* Màu nền chính toàn trang (Tĩnh 1 màu, sang trọng) */
   --surface: #131b2e;        /* Màu nền thẻ card, bảng console */
   --text: #f8fafc;           /* Màu chữ tiêu đề và nội dung chính (Trắng ngà sắc nét) */
   --text-muted: #94a3b8;     /* Màu chữ phụ, mô tả, nhãn mờ (Slate gray) */
-=======
-  --primary: #38bdf8;        /* Màu chủ đạo (Xanh neon / Tím / Cyan...) */
-  --accent: #a78bfa;         /* Màu nhấn bổ trợ (Gradient nút, viền phát sáng) */
-  --background: #070c1e;     /* Màu nền chính toàn trang (Dark mode) */
-  --surface: #0f1a36;        /* Màu nền thẻ card, bảng console, khung kính mờ */
-  --text: #f1f5f9;           /* Màu chữ tiêu đề và nội dung chính */
-  --text-muted: #94a3b8;     /* Màu chữ phụ, mô tả, nhãn mờ */
->>>>>>> origin/kyvu
   --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif; /* Font tiêu đề */
   --font-body: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;    /* Font nội dung */
   --radius: 16px;            /* Bán kính bo góc chuẩn */

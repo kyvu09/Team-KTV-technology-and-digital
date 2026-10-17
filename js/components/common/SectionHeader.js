@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-=======
 // ============================================================================
 // SectionHeader.js — Component tiêu đề chung cho các Section
 // Tái sử dụng linh hoạt theo cơ chế White-Label (Eyebrow, Title, Subtitle)
 // ============================================================================
 
->>>>>>> origin/kyvu
 import { esc } from "../../core/esc.js";
 
 /**
