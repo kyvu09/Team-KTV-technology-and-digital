@@ -7,12 +7,12 @@
    LƯU Ý: Khi chạy White Label, các biến màu sắc và font chữ này sẽ tự động
    được cập nhật theo cấu hình trong file config/brand-*.json (nhờ js/theme.js). */
 :root {
-  --primary: #38bdf8;        /* Màu chủ đạo (Xanh neon / Tím / Cyan...) */
-  --accent: #a78bfa;         /* Màu nhấn bổ trợ (Gradient nút, viền phát sáng) */
-  --background: #070c1e;     /* Màu nền chính toàn trang (Dark mode) */
-  --surface: #0f1a36;        /* Màu nền thẻ card, bảng console, khung kính mờ */
-  --text: #f1f5f9;           /* Màu chữ tiêu đề và nội dung chính */
-  --text-muted: #94a3b8;     /* Màu chữ phụ, mô tả, nhãn mờ */
+  --primary: #38bdf8;        /* Màu chủ đạo (Xanh dương sắc nét) */
+  --accent: #818cf8;         /* Màu nhấn bổ trợ (Tím gradient) */
+  --background: #0b0f19;     /* Màu nền chính toàn trang (Tĩnh 1 màu, sang trọng) */
+  --surface: #131b2e;        /* Màu nền thẻ card, bảng console */
+  --text: #f8fafc;           /* Màu chữ tiêu đề và nội dung chính (Trắng ngà sắc nét) */
+  --text-muted: #94a3b8;     /* Màu chữ phụ, mô tả, nhãn mờ (Slate gray) */
   --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif; /* Font tiêu đề */
   --font-body: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;    /* Font nội dung */
   --radius: 16px;            /* Bán kính bo góc chuẩn */
@@ -24,6 +24,20 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* Định kiểu mặc định cho các Web Components chuẩn White Label */
+wl-header,
+wl-footer,
+wl-hero,
+wl-features,
+wl-demo,
+wl-about,
+wl-testimonials,
+wl-faq,
+wl-contact,
+wl-card {
+  display: block;
 }
 
 /* 3. Cuộn trang mượt mà & bù trừ khoảng cách đỉnh cho thanh Header cố định */
@@ -346,6 +360,22 @@ body.is-loading .feature-stack-3d {
   transform: translateY(-2px);
 }
 
+.btn-outline {
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.btn-outline:hover {
+  background: color-mix(in srgb, var(--primary) 15%, var(--surface));
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
 /* ==========================================================================
    6. CẤU HÌNH CƠ BẢN (BASE): HEADER SECTION — Thanh điều hướng chính
    ========================================================================== */
@@ -487,6 +517,17 @@ body.is-loading .feature-stack-3d {
   max-width: 640px;
   line-height: 1.7;
   margin-bottom: 48px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-center .section-sub,
+.text-center .section-subtitle,
+.section-header.text-center .section-sub,
+.section-header.text-center .section-subtitle {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
 }
 
 /* Khung bảng điều khiển âm thanh trung tâm (Studio Console) */
@@ -796,44 +837,6 @@ body.is-loading .feature-stack-3d {
 }
 
 /* ==========================================================================
-   11. CẤU HÌNH CƠ BẢN (BASE): PRICING SECTION — Bảng giá dịch vụ
-   Tham chiếu mã nguồn code-mau — Thẻ giá 3 cột và Chuyển đổi chu kỳ
-   ========================================================================== */
-.pricing-section {
-  position: relative;
-  padding: 120px 0;
-}
-
-.pricing-toggle-wrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 30px;
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-top: 50px;
-  align-items: stretch;
-}
-
-.price-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.plan-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* ==========================================================================
    12. CẤU HÌNH CƠ BẢN (BASE): FAQ SECTION — Câu hỏi thường gặp
    Hỗ trợ cả 2 chế độ: Accordion thu gọn & 3D Flip Card lật mặt
    ========================================================================== */
@@ -986,36 +989,30 @@ body.is-loading .feature-stack-3d {
    Tham chiếu mã nguồn code-mau — Watermark Brand khổng lồ & Lưới liên kết đa cột
    ========================================================================== */
 
-/* Khung chân trang tổng thể */
+/* Khung chân trang tổng thể: Hạ thấp độ cao */
 #site-footer {
   position: relative;
   overflow: hidden;
-  padding: 100px 0 40px;
+  padding: 42px 0 20px;
 }
 
-/* Dòng chữ Watermark tên thương hiệu chìm khổng lồ */
+/* Ẩn watermark khổng lồ chiếm diện tích */
 .footer-huge-wordmark {
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  white-space: nowrap;
-  user-select: none;
-  z-index: 0;
+  display: none !important;
 }
 
-/* Khung chứa nội dung chính chân trang */
+/* Khung chứa nội dung chính chân trang: 2 khối cân bằng */
 .footer-inner {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 1.2fr 2fr;
-  gap: 60px;
-  margin-bottom: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 24px;
 }
 
-/* Cột thông tin thương hiệu (Logo, Slogan, Mạng xã hội) */
+/* Cột thông tin thương hiệu (Logo, Slogan) */
 .footer-brand-col {
   display: flex;
   flex-direction: column;
@@ -1028,31 +1025,13 @@ body.is-loading .feature-stack-3d {
 }
 
 .footer-tagline {
-  margin: 16px 0 24px;
-  max-width: 320px;
+  margin: 8px 0 0;
+  max-width: 400px;
 }
 
-/* Cụm liên kết mạng xã hội */
+/* Ẩn cụm liên kết mạng xã hội cũ */
 .footer-socials {
-  display: flex;
-  gap: 12px;
-}
-
-.footer-socials a {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-}
-
-/* Lưới các cột liên kết điều hướng chân trang */
-.footer-links-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  display: none !important;
 }
 
 /* Từng cột liên kết */
@@ -1128,13 +1107,6 @@ body.is-loading .feature-stack-3d {
   .about-inner {
     grid-template-columns: 1fr;
     gap: 48px;
-  }
-  /* Bảng giá chuyển thành 1 cột */
-  .pricing-grid {
-    grid-template-columns: 1fr;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
   }
   /* FAQ lật mặt 3D chuyển thành 2 cột */
   .faq-flip-grid {

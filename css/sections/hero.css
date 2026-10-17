@@ -1,0 +1,416 @@
+/* ==========================================================================
+   hero.css — Section Hero (Sound Made Visible, Aurora Blobs & 3D Orb)
+   ========================================================================== */
+
+/* Khung Hero tổng thể */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding: 160px 0 80px;
+  overflow: hidden;
+}
+
+/* Bố cục căn giữa trang trọng (Hero Centered) */
+.hero.hero-centered .hero-inner {
+  grid-template-columns: 1fr !important;
+  max-width: 860px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.hero.hero-centered .hero-content {
+  align-items: center;
+  text-align: center;
+}
+
+.hero.hero-centered .hero-title,
+.hero.hero-centered .lead,
+.hero.hero-centered .hero-content p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero.hero-centered .hero-cta,
+.hero.hero-centered .hero-actions {
+  justify-content: center;
+}
+
+.hero.hero-centered .hero-media {
+  max-width: 440px;
+  margin: 30px auto 0;
+}
+
+
+/* Tiêu đề chính Hero */
+.hero-title,
+.hero-content h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+/* Hiệu ứng chữ xoay động với dải màu Gradient */
+.rotating-text-wrapper {
+  display: inline-block;
+  vertical-align: bottom;
+  position: relative;
+  white-space: nowrap;
+}
+
+.rotating-text {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Nút phụ trong suốt bóng kính (Ghost Button) */
+.btn-ghost {
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.btn-ghost:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-3px);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+/* Đoạn mô tả mở đầu (Lead paragraph) */
+.lead,
+.hero-content p {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: 36px;
+  max-width: 600px;
+}
+
+/* Cụm nút bấm kêu gọi hành động Hero */
+.hero-cta,
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Nút nghe thử âm thanh mẫu giọng đọc AI */
+.btn-audio {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.play-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #070c1e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.sound-bars-mini {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 16px;
+}
+
+.sound-bars-mini i {
+  display: block;
+  width: 3px;
+  height: 4px;
+  background: var(--primary);
+  border-radius: 2px;
+  transition: height 0.2s;
+}
+
+.btn-audio.is-playing .sound-bars-mini i {
+  animation: mini-equalizer 0.8s infinite alternate ease-in-out;
+}
+
+.btn-audio.is-playing .sound-bars-mini i:nth-child(1) { height: 10px; animation-delay: 0.0s; }
+.btn-audio.is-playing .sound-bars-mini i:nth-child(2) { height: 16px; animation-delay: 0.2s; }
+.btn-audio.is-playing .sound-bars-mini i:nth-child(3) { height: 8px;  animation-delay: 0.4s; }
+.btn-audio.is-playing .sound-bars-mini i:nth-child(4) { height: 14px; animation-delay: 0.1s; }
+
+@keyframes mini-equalizer {
+  0% { transform: scaleY(0.4); }
+  100% { transform: scaleY(1); }
+}
+
+.btn-audio:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 25px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+/* Sân khấu Quả cầu 3D tương tác (3D Voice Orb Stage) */
+.orb-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 450px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.35s ease;
+}
+
+.orb-stage:hover {
+  filter: brightness(1.15) drop-shadow(0 0 35px color-mix(in srgb, var(--primary) 40%, transparent));
+}
+
+.orb-stage:active {
+  transform: scale(0.97);
+}
+
+.orb-stage.is-playing {
+  filter: brightness(1.25) drop-shadow(0 0 50px color-mix(in srgb, var(--primary) 65%, transparent));
+}
+
+.orb-stage.is-playing .orb-ring {
+  border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--primary) 35%, transparent);
+}
+
+.voice-orb-container {
+  width: 100%;
+  height: 450px;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Các vòng hào quang quay xung quanh quả cầu */
+.orb-ring {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--primary) 25%, transparent);
+  animation: rotate-ring 35s linear infinite;
+  pointer-events: none;
+}
+
+.orb-ring-outer {
+  width: 440px;
+  height: 440px;
+  border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+  animation: rotate-ring 50s linear infinite reverse;
+}
+
+@keyframes rotate-ring {
+  100% { transform: rotate(360deg); }
+}
+
+/* Thẻ Card Visual công nghệ (khi không dùng Orb 3D canvas) */
+.hero-visual {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero-visual:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+}
+
+/* Dải băng uy tín / Đối tác (Trust Marquee & Khách hàng tin dùng) */
+.hero-trust {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.trust-header-flex {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.trust-avatar-stack {
+  display: flex;
+  align-items: center;
+}
+
+.stack-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  object-fit: cover;
+  margin-left: -10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease;
+}
+
+.stack-avatar:first-child {
+  margin-left: 0;
+}
+
+.stack-avatar:hover {
+  transform: translateY(-3px) scale(1.15);
+  z-index: 2;
+}
+
+.trust-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.trust-marquee {
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.trust-track {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  width: max-content;
+  animation: marquee-run 25s linear infinite;
+}
+
+.trust-track img {
+  height: 26px;
+  opacity: 0.45;
+  filter: grayscale(100%) brightness(180%);
+  transition: opacity 0.3s, filter 0.3s;
+}
+
+.trust-track img:hover {
+  opacity: 1;
+  filter: grayscale(0%) brightness(100%);
+}
+
+@keyframes marquee-run {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Nút chỉ dẫn cuộn xuống khám phá (Hero Scroll Cue) */
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+  z-index: 5;
+  transition: color 0.3s, transform 0.3s;
+  user-select: none;
+  text-decoration: none;
+}
+
+.hero-scroll-cue:hover {
+  color: var(--primary);
+  transform: translateX(-50%) translateY(3px);
+}
+
+.scroll-cue-text {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.8;
+}
+
+.scroll-mouse-icon {
+  width: 24px;
+  height: 38px;
+  border-radius: 14px;
+  border: 2px solid color-mix(in srgb, var(--text) 30%, transparent);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  transition: border-color 0.3s;
+}
+
+.hero-scroll-cue:hover .scroll-mouse-icon {
+  border-color: var(--primary);
+}
+
+.scroll-mouse-wheel {
+  position: absolute;
+  top: 6px;
+  width: 4px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--primary);
+  animation: mouse-wheel-bounce 1.6s infinite ease-in-out;
+}
+
+@keyframes mouse-wheel-bounce {
+  0%   { transform: translateY(0); opacity: 1; }
+  60%  { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+.scroll-sound-waves {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 12px;
+}
+
+.scroll-sound-waves i {
+  display: block;
+  width: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  animation: scroll-wave-pulse 1.2s infinite ease-in-out;
+}
+
+.scroll-sound-waves i:nth-child(1) { height: 6px;  animation-delay: 0.1s; }
+.scroll-sound-waves i:nth-child(2) { height: 12px; animation-delay: 0.3s; }
+.scroll-sound-waves i:nth-child(3) { height: 8px;  animation-delay: 0.2s; }
+
+@keyframes scroll-wave-pulse {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.5; }
+  50%      { transform: scaleY(1); opacity: 1; }
+}

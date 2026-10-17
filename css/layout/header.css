@@ -1,0 +1,437 @@
+/* ==========================================================================
+   header.css — Thanh điều hướng kính mờ Floating Glass Header
+   ========================================================================== */
+
+/* Thanh Header lơ lửng (Floating) dạng viên thuốc bo cong, kính mờ sang trọng */
+#site-header,
+wl-header {
+  display: block;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: var(--max-width, 1520px);
+  z-index: 1000;
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  border-radius: 100px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Bố cục bên trong Header: Chiều cao chuẩn 64px, căn giữa các phần tử */
+.header-inner,
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Cụm menu điều hướng */
+.nav-menu,
+.navbar-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Viên thuốc trượt động theo con trỏ chuột khi hover qua các link menu */
+.nav-indicator {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 36px;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Từng liên kết trong Menu */
+.nav-link,
+.navbar-menu a {
+  padding: 8px 16px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  opacity: 0.75;
+  transition: opacity 0.25s, color 0.25s;
+  border-radius: 100px;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+}
+
+.nav-link:hover,
+.navbar-menu a:hover,
+.nav-link.active {
+  opacity: 1;
+  color: var(--primary);
+}
+
+/* Khu vực nút hành động bên phải Header */
+.header-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   User Profile Menu in Header (Trạng thái đã đăng nhập Demo)
+   ========================================================================== */
+.header-user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.header-user-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 8px;
+  background: color-mix(in srgb, var(--surface, #131b2e) 85%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text, #fff) 15%, transparent);
+  border-radius: 100px;
+  color: var(--text, #fff);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+  outline: none;
+  white-space: nowrap;
+}
+
+.header-user-btn:hover,
+.header-user-menu.open .header-user-btn {
+  background: color-mix(in srgb, var(--surface, #131b2e) 95%, var(--primary, #38bdf8));
+  border-color: var(--primary, #38bdf8);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--primary, #38bdf8) 25%, transparent);
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary, #38bdf8), var(--accent, #818cf8));
+  color: #070c1e;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--primary, #38bdf8) 40%, transparent);
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.user-greeting {
+  font-size: 0.88rem;
+  color: var(--text, #f8fafc);
+  white-space: nowrap;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--primary, #38bdf8);
+}
+
+.user-chevron {
+  font-size: 0.72rem;
+  color: var(--text-muted, #94a3b8);
+  transition: transform 0.25s ease;
+  margin-left: 2px;
+}
+
+.header-user-menu.open .user-chevron {
+  transform: rotate(180deg);
+}
+
+/* Menu Dropdown nhỏ */
+.user-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  min-width: 240px;
+  background: color-mix(in srgb, var(--surface, #131b2e) 95%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid color-mix(in srgb, var(--text, #fff) 12%, transparent);
+  border-radius: 18px;
+  padding: 10px 8px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 20px color-mix(in srgb, var(--primary, #38bdf8) 12%, transparent);
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1001;
+}
+
+.header-user-menu.open .user-dropdown-menu {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.user-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px 10px;
+}
+
+.user-avatar-lg {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary, #38bdf8), var(--accent, #818cf8));
+  color: #070c1e;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.user-details {
+  overflow: hidden;
+}
+
+.user-fullname {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text, #f8fafc);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-email {
+  font-size: 0.76rem;
+  color: var(--text-muted, #94a3b8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-dropdown-divider {
+  height: 1px;
+  background: color-mix(in srgb, var(--text, #fff) 8%, transparent);
+  margin: 6px 0;
+}
+
+.user-dropdown-item {
+  width: 100%;
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 10px;
+  color: var(--text, #f8fafc) !important;
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  box-shadow: none !important;
+  white-space: nowrap;
+}
+
+.user-dropdown-item i {
+  font-size: 0.95rem;
+  width: 16px;
+  color: var(--text-muted, #94a3b8);
+  transition: color 0.2s ease;
+}
+
+.user-dropdown-item:hover {
+  background: color-mix(in srgb, var(--text, #fff) 8%, transparent) !important;
+  color: var(--primary, #38bdf8) !important;
+}
+
+.user-dropdown-item:hover i {
+  color: var(--primary, #38bdf8);
+}
+
+.user-dropdown-item.user-logout-item:hover {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #f87171 !important;
+}
+
+.user-dropdown-item.user-logout-item:hover i {
+  color: #f87171;
+}
+
+/* Modal Thông tin tài khoản */
+.user-info-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.user-info-modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.user-info-modal-card {
+  width: 100%;
+  max-width: 440px;
+  background: color-mix(in srgb, var(--surface, #131b2e) 95%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text, #fff) 15%, transparent);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  transform: translateY(20px) scale(0.96);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--text, #f8fafc);
+}
+
+.user-info-modal-backdrop.open .user-info-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.user-info-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--text, #fff) 8%, transparent);
+}
+
+.user-info-modal-header h3 {
+  font-family: var(--font-heading, sans-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text, #f8fafc);
+}
+
+.user-info-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #94a3b8);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.user-info-modal-close:hover {
+  color: var(--text, #fff);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.user-info-modal-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+}
+
+.user-info-modal-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary, #38bdf8), var(--accent, #818cf8));
+  color: #070c1e;
+  font-weight: 700;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--primary, #38bdf8) 35%, transparent);
+  text-transform: uppercase;
+}
+
+.user-info-modal-user h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text, #f8fafc);
+  margin-bottom: 2px;
+}
+
+.user-info-modal-user p {
+  font-size: 0.82rem;
+  color: var(--text-muted, #94a3b8);
+  margin-bottom: 6px;
+}
+
+.user-info-modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--primary, #38bdf8) 18%, transparent);
+  color: var(--primary, #38bdf8);
+}
+
+.user-info-modal-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.user-info-modal-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.86rem;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.user-info-modal-row .label {
+  color: var(--text-muted, #94a3b8);
+}
+
+.user-info-modal-row .val {
+  font-weight: 600;
+  color: var(--text, #f8fafc);
+}
+
+.user-info-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 640px) {
+  .user-greeting {
+    display: none;
+  }
+  .header-user-btn {
+    padding: 6px;
+  }
+}
+
