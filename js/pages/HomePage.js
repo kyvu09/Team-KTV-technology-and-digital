@@ -1,7 +1,16 @@
 // ============================================================================
-// HomePage.js — Trang chủ Động & Linh Hoạt (Config-Driven Homepage)
-// Tự động render và sắp xếp các Section theo đúng thứ tự mảng config.sections
-// Cho phép hoán đổi vị trí, bật/tắt section tùy biến theo tiêu chuẩn White Label Nâng cao
+// HomePage.js — Trang chủ Tinh gọn & Cốt lõi (Core 4-Section Homepage)
+// Bố cục Trang chủ gồm đúng 4 Section chính:
+// 1. Hero: Quả cầu 3D Three.js & Giới thiệu âm thanh thương hiệu
+// 2. Features: Các tính năng đột phá & Bento Grid
+// 3. How To Use / Demo: Giới thiệu quy trình sử dụng 3 bước đơn giản & nút CTA chuyển sang trang Trải nghiệm (#demo)
+// 4. About: Câu chuyện thương hiệu dạng cuộn 3D (không kèm component đánh giá)
+//
+// LƯU Ý QUAN TRỌNG:
+// - Trang chủ chỉ gọi đúng 4 Section trên.
+// - KHÔNG gọi Section Đánh giá (Testimonials) và Liên hệ (Contact) tại Homepage.
+// - Section Về chúng tôi (About) tại Homepage chỉ hiển thị câu chuyện thương hiệu,
+//   hoàn toàn không gọi component đánh giá (Testimonials đã thuộc riêng trang AboutPage).
 // ============================================================================
 
 import { renderHero, initHeroInteractions } from "../sections/Hero.js";
@@ -10,32 +19,40 @@ import {
   initFeaturesInteractions,
 } from "../sections/Features.js";
 import { renderDemo, initDemoInteractions } from "../sections/Demo.js";
+import {
+  renderHomeHowToUse,
+  initHomeHowToUse,
+} from "../components/home/HomeHowToUse.js";
 import { renderAbout, initAboutScroll } from "../sections/About.js";
-import {
-  renderTestimonials,
-  initTestimonialsInteractions,
-} from "../sections/Testimonials.js";
-import { renderFaq, initFaqInteractions } from "../sections/Faq.js";
-import { renderContact, initContactInteractions } from "../sections/Contact.js";
-import {
-  renderHomeStudioTeaser,
-  initHomeStudioTeaser,
-} from "../components/home/HomeStudioTeaser.js";
-import { navigateTo, ROUTES } from "../core/router.js";
 
 /**
- * Render toàn bộ giao diện Trang chủ động theo mảng config.sections
+ * Các Section tiêu chuẩn được phép xuất hiện trên Trang chủ
+ */
+const HOMEPAGE_ALLOWED_SECTIONS = [
+  "hero",
+  "features",
+  "how-to-use",
+  "demo",
+  "about",
+];
+
+/**
+ * Render giao diện Trang chủ tinh gọn với đúng 4 Section cốt lõi
  * @param {Object} config - Cấu hình White-Label đầy đủ
  * @returns {string} HTML markup
  */
 export function renderHomePage(config) {
   const sections = config.sections || [];
 
-  // Duyệt và render từng Section theo đúng thứ tự mảng config.sections
+  // Lọc chỉ giữ lại đúng 4 Section cho Homepage theo thứ tự khai báo
   const sectionHtmlList = sections
+    .filter(
+      (s) =>
+        s.disabled !== true &&
+        s.visible !== false &&
+        HOMEPAGE_ALLOWED_SECTIONS.includes(s.type),
+    )
     .map((s) => {
-      if (s.disabled === true || s.visible === false) return "";
-
       switch (s.type) {
         case "hero":
           return renderHero({ ...s, brandName: config.brand?.name });
@@ -43,23 +60,20 @@ export function renderHomePage(config) {
         case "features":
           return renderFeatures(s, "home-features");
 
+        case "how-to-use":
+          return renderHomeHowToUse({ ...s, brandName: config.brand?.name });
+
         case "demo":
-          return renderDemo(s);
+          // Section thứ 3 trên Homepage: Thay thế bằng component dùng chung HowToUse
+          // Có nút CTA điều hướng người dùng chuyển qua trang Trải nghiệm (#demo)
+          if (s.layout === "console") {
+            return renderDemo(s);
+          }
+          return renderHomeHowToUse({ ...s, brandName: config.brand?.name });
 
         case "about":
+          // Section Về chúng tôi chỉ hiển thị câu chuyện 3D Scroll Story / Grid, không kèm component đánh giá
           return renderAbout(s, "home-about");
-
-        case "testimonials":
-          return renderTestimonials(s);
-
-        case "faq":
-          return renderFaq(s);
-
-        case "contact":
-          return renderContact(s);
-
-        case "studio-teaser":
-          return renderHomeStudioTeaser(s);
 
         default:
           return "";
@@ -74,49 +88,48 @@ export function renderHomePage(config) {
 }
 
 /**
- * Khởi tạo toàn bộ tương tác trên Trang chủ theo các section có mặt
+ * Khởi tạo tương tác cho đúng các Section trên Trang chủ
  * @param {Object} config
  */
 export function initHomePage(config) {
   const sections = config.sections || [];
 
-  // Duyệt qua từng section để kích hoạt tương tác tương ứng
-  sections.forEach((s) => {
-    if (s.disabled === true || s.visible === false) return;
-
-    try {
-      switch (s.type) {
-        case "hero":
-          initHeroInteractions({ ...s, brandName: config.brand?.name });
-          break;
-        case "features":
-          initFeaturesInteractions();
-          break;
-        case "demo":
-          initDemoInteractions(s);
-          break;
-        case "about":
-          initAboutScroll(
-            document.getElementById("home-about") ||
-              document.getElementById("about") ||
-              document,
-          );
-          break;
-        case "testimonials":
-          initTestimonialsInteractions(s);
-          break;
-        case "faq":
-          initFaqInteractions(s);
-          break;
-        case "contact":
-          initContactInteractions(s);
-          break;
-        case "studio-teaser":
-          initHomeStudioTeaser();
-          break;
+  sections
+    .filter(
+      (s) =>
+        s.disabled !== true &&
+        s.visible !== false &&
+        HOMEPAGE_ALLOWED_SECTIONS.includes(s.type),
+    )
+    .forEach((s) => {
+      try {
+        switch (s.type) {
+          case "hero":
+            initHeroInteractions({ ...s, brandName: config.brand?.name });
+            break;
+          case "features":
+            initFeaturesInteractions();
+            break;
+          case "how-to-use":
+            initHomeHowToUse();
+            break;
+          case "demo":
+            if (s.layout === "console") {
+              initDemoInteractions(s);
+            } else {
+              initHomeHowToUse();
+            }
+            break;
+          case "about":
+            initAboutScroll(
+              document.getElementById("home-about") ||
+                document.getElementById("about") ||
+                document,
+            );
+            break;
+        }
+      } catch (e) {
+        console.error(`Lỗi khởi tạo tương tác section "${s.type}":`, e);
       }
-    } catch (e) {
-      console.error(`Lỗi khởi tạo tương tác section "${s.type}":`, e);
-    }
-  });
+    });
 }

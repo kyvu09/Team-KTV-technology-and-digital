@@ -6,6 +6,10 @@
 
 import { esc } from "../../core/esc.js";
 import { audioState } from "../../core/audio-state.js";
+import {
+  renderHeroImageFrame,
+  initHeroImageFrame,
+} from "./HeroImageFrame.js";
 
 // ============================================================================
 // 1. GIAO DIỆN CON 1: BẢNG ĐIỀU KHIỂN VOICE AI STUDIO CONSOLE (ViVoice)
@@ -122,9 +126,12 @@ class StudioDashVisualizer {
   }
 }
 
-function renderStudioMarkup() {
+function renderStudioMarkup(props = {}) {
+  const idPrefix = props.idPrefix || "hero";
+  const getId = (name) => `${idPrefix}-${name}`;
+
   return `
-    <div class="hero-voice-studio reveal" id="hero-voice-studio">
+    <div class="hero-voice-studio reveal" id="${getId("voice-studio")}">
       <div class="studio-console-card studio-simple-card">
         <!-- Header Console: macOS dots & Status badge -->
         <div class="studio-card-header">
@@ -133,7 +140,7 @@ function renderStudioMarkup() {
             <span class="mac-dot mac-dot--yellow"></span>
             <span class="mac-dot mac-dot--green"></span>
           </div>
-          <div class="studio-status-badge" id="studio-status-badge">
+          <div class="studio-status-badge" id="${getId("studio-status-badge")}">
             <span class="status-pulse-dot"></span>
             <span class="status-text">SẴN SÀNG</span>
           </div>
@@ -141,39 +148,39 @@ function renderStudioMarkup() {
 
         <!-- Dải sóng âm thanh dạng vạch ngang -->
         <div class="studio-waveform-strip" id="studio-waveform-strip">
-          <canvas id="hero-studio-waveform" class="hero-studio-waveform" height="32"></canvas>
+          <canvas id="${getId("studio-waveform")}" class="hero-studio-waveform" height="32"></canvas>
         </div>
 
         <!-- Khung nhập nội dung văn bản đọc thử (để trống mặc định) -->
         <div class="studio-text-box-wrap">
           <textarea 
-            id="studio-text-input" 
+            id="${getId("studio-text-input")}"
             class="studio-text-input" 
             rows="3" 
             spellcheck="false" 
             aria-label="Văn bản đọc thử giọng nói AI"
-            placeholder="Nhập văn bản cần đọc..."></textarea>
+            placeholder="${esc(props.placeholder || "Nhập văn bản cần đọc...")}">${esc(props.defaultText || "")}</textarea>
         </div>
 
         <!-- Thanh phụ: Đếm số ký tự & Nút thùng rác -->
         <div class="studio-text-subbar">
-          <span class="studio-char-count" id="studio-char-count">0 ký tự</span>
-          <button class="studio-trash-btn" id="studio-clear-btn" type="button" aria-label="Xóa nội dung" title="Xóa nội dung">
+          <span class="studio-char-count" id="${getId("studio-char-count")}">0 ký tự</span>
+          <button class="studio-trash-btn" id="${getId("studio-clear-btn")}" type="button" aria-label="Xóa nội dung" title="Xóa nội dung">
             <span>Xóa</span>
           </button>
         </div>
 
         <!-- Nút hành động chính: Phát giọng nói -->
         <div class="studio-action-center">
-          <button class="studio-pill-play-btn" id="hero-studio-play-btn" type="button" aria-label="Phát giọng nói">
-            <span id="hero-studio-play-label">Phát giọng nói</span>
+          <button class="studio-pill-play-btn" id="${getId("studio-play-btn")}" type="button" aria-label="Phát giọng nói">
+            <span id="${getId("studio-play-label")}">${esc(props.speakLabel || "Phát giọng nói")}</span>
           </button>
         </div>
       </div>
     </div>`.trim();
 }
 
-let currentVisualizerInstance = null;
+const visualizerInstances = new Map();
 let currentAutoWelcomeCleanup = null;
 let currentWelcomeTimeout = null;
 
@@ -189,19 +196,21 @@ export function clearPendingWelcome() {
 }
 
 function initStudioInteractions(props = {}) {
-  const container = document.getElementById("hero-voice-studio");
+  const idPrefix = props.idPrefix || "hero";
+  const getId = (name) => `${idPrefix}-${name}`;
+  const container = document.getElementById(getId("voice-studio"));
   if (!container) return;
 
-  const playBtn = document.getElementById("hero-studio-play-btn");
-  const playIcon = document.getElementById("hero-studio-play-icon");
-  const playLabel = document.getElementById("hero-studio-play-label");
-  const statusBadge = document.getElementById("studio-status-badge");
+  const playBtn = document.getElementById(getId("studio-play-btn"));
+  const playIcon = document.getElementById(getId("studio-play-icon"));
+  const playLabel = document.getElementById(getId("studio-play-label"));
+  const statusBadge = document.getElementById(getId("studio-status-badge"));
   const statusText = statusBadge
     ? statusBadge.querySelector(".status-text")
     : null;
-  const textInput = document.getElementById("studio-text-input");
-  const charCount = document.getElementById("studio-char-count");
-  const clearBtn = document.getElementById("studio-clear-btn");
+  const textInput = document.getElementById(getId("studio-text-input"));
+  const charCount = document.getElementById(getId("studio-char-count"));
+  const clearBtn = document.getElementById(getId("studio-clear-btn"));
 
   const brandName = props.brandName || "";
   const welcomeMessage =
@@ -209,16 +218,20 @@ function initStudioInteractions(props = {}) {
     (brandName ? `Chào mừng bạn đến với ${brandName}` : "Chào mừng đến website của chúng tôi");
   const welcomeAudio =
     typeof props.welcomeAudio === "string" ? props.welcomeAudio.trim() : "";
+  const playText = props.speakLabel || "Phát giọng nói";
+  const stopText = props.stopLabel || "Dừng phát";
 
   // Visualizer sóng âm (dọn dẹp visualizer cũ nếu có)
-  if (currentVisualizerInstance) {
+  const waveformId = getId("studio-waveform");
+  const currentVisualizer = visualizerInstances.get(waveformId);
+  if (currentVisualizer) {
     try {
-      currentVisualizerInstance.destroy();
+      currentVisualizer.destroy();
     } catch (e) {}
-    currentVisualizerInstance = null;
+    visualizerInstances.delete(waveformId);
   }
   try {
-    currentVisualizerInstance = new StudioDashVisualizer("hero-studio-waveform");
+    visualizerInstances.set(waveformId, new StudioDashVisualizer(waveformId));
   } catch (err) {
     console.warn("Lỗi khởi tạo StudioDashVisualizer:", err);
   }
@@ -237,6 +250,7 @@ function initStudioInteractions(props = {}) {
       autoWelcomeTriggered = true;
     });
   }
+  updateCharCount();
 
   if (clearBtn && textInput) {
     clearBtn.addEventListener("click", () => {
@@ -250,13 +264,13 @@ function initStudioInteractions(props = {}) {
     if (isPlaying) {
       container.classList.add("is-active-playing");
       if (playIcon) playIcon.className = "fa-solid fa-pause";
-      if (playLabel) playLabel.textContent = "Dừng phát";
+      if (playLabel) playLabel.textContent = stopText;
       if (statusBadge) statusBadge.classList.add("is-live");
       if (statusText) statusText.textContent = "ĐANG PHÁT";
     } else {
       container.classList.remove("is-active-playing");
       if (playIcon) playIcon.className = "fa-solid fa-play";
-      if (playLabel) playLabel.textContent = "Phát giọng nói";
+      if (playLabel) playLabel.textContent = playText;
       if (statusBadge) statusBadge.classList.remove("is-live");
       if (statusText) statusText.textContent = "SẴN SÀNG";
     }
@@ -357,17 +371,19 @@ function initStudioInteractions(props = {}) {
     }
   };
 
-  const triggerAutoWelcome = () => {
-    currentWelcomeTimeout = setTimeout(playWelcome, 250);
-  };
-  const preloaderEl = document.getElementById("site-preloader");
-  if (preloaderEl && preloaderEl.style.display !== "none") {
-    window.addEventListener("preloader:finished", triggerAutoWelcome, {
-      once: true,
-    });
-    currentWelcomeTimeout = setTimeout(triggerAutoWelcome, 1200);
-  } else {
-    triggerAutoWelcome();
+  if (props.autoWelcome !== false) {
+    const triggerAutoWelcome = () => {
+      currentWelcomeTimeout = setTimeout(playWelcome, 250);
+    };
+    const preloaderEl = document.getElementById("site-preloader");
+    if (preloaderEl && preloaderEl.style.display !== "none") {
+      window.addEventListener("preloader:finished", triggerAutoWelcome, {
+        once: true,
+      });
+      currentWelcomeTimeout = setTimeout(triggerAutoWelcome, 1200);
+    } else {
+      triggerAutoWelcome();
+    }
   }
 }
 
@@ -524,11 +540,27 @@ function initOrbInteractions({ welcomeMessage = "", welcomeAudio = "", brandName
 // ============================================================================
 
 /**
- * Render khối trực quan bên phải của Hero (Tự động chọn Studio hoặc 3D Orb)
+ * Kiểm tra xem Hero có sử dụng khối ảnh Cyber Frame hay không (dựa hoàn toàn vào cấu hình JSON)
+ */
+function isHeroImageFrame(props = {}) {
+  return (
+    props.layout === "image-frame" ||
+    props.layout === "image" ||
+    props.mediaComponent === "image" ||
+    props.mediaComponent === "image-frame"
+  );
+}
+
+/**
+ * Render khối trực quan bên phải của Hero (Tự động chọn Cyber Image Frame, Studio hoặc 3D Orb)
  * @param {Object} props
  * @returns {string} HTML markup
  */
 export function renderHeroVisual(props = {}) {
+  if (isHeroImageFrame(props)) {
+    return renderHeroImageFrame(props);
+  }
+
   const isStudio =
     props.layout === "voice-studio" ||
     props.layout === "studio" ||
@@ -545,6 +577,11 @@ export function initHeroVisual(props = {}) {
   // Dọn dẹp bất kỳ âm thanh / cử chỉ / hẹn giờ chào mừng cũ nào trước đó
   clearPendingWelcome();
   audioState.stopSpeech();
+
+  if (isHeroImageFrame(props)) {
+    initHeroImageFrame(props);
+    return;
+  }
 
   const isStudio =
     props.layout === "voice-studio" ||
@@ -564,6 +601,8 @@ export function initHeroVisual(props = {}) {
 
 // Tương thích ngược nếu các file khác gọi trực tiếp
 export {
+  renderHeroImageFrame,
+  initHeroImageFrame,
   renderStudioMarkup as renderHeroVoiceStudio,
   initStudioInteractions as initHeroVoiceStudio,
   renderOrbMarkup as renderHeroMedia,

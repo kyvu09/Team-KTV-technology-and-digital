@@ -33,8 +33,10 @@
    -------------------------------------------------------------------------- */
 @import "./sections/hero.css";
 @import "./sections/hero-voice-studio.css";
+@import "./sections/hero-image-frame.css";
 @import "./sections/features.css";
 @import "./sections/demo.css";
+@import "./sections/how-to-use.css";
 @import "./sections/about.css";
 @import "./sections/testimonials.css";
 @import "./sections/faq.css";

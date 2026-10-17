@@ -7,6 +7,8 @@ import { authState } from "../../core/auth-state.js";
 import { navigateTo, ROUTES } from "../../core/router.js";
 import { showAuthModal } from "../../auth.js";
 
+let unsubscribeContactAuth = null;
+
 /**
  * Render khối biểu mẫu liên hệ
  * @param {Object} props
@@ -59,18 +61,29 @@ export function initContactForm({ formSuccess = "Yêu cầu của bạn đã đ�
   const form = document.getElementById("contact-form");
   if (!form) return;
 
-  // Tự động điền thông tin nếu tài khoản đã đăng nhập
-  const currentUser = authState.getUser();
-  if (currentUser) {
-    const nameInput = document.getElementById("contact-name");
-    const emailInput = document.getElementById("contact-email");
-    if (nameInput && !nameInput.value && currentUser.name) {
-      nameInput.value = currentUser.name;
+  const syncContactIdentity = (user, clearOnLogout = false) => {
+    const nameInput = form.querySelector("#contact-name");
+    const emailInput = form.querySelector("#contact-email");
+    if (!nameInput || !emailInput) return;
+
+    const isLoggedIn = Boolean(user && (user.name || user.email));
+    nameInput.readOnly = isLoggedIn;
+    emailInput.readOnly = isLoggedIn;
+
+    if (isLoggedIn) {
+      nameInput.value = user.name || "";
+      emailInput.value = user.email || "";
+    } else if (clearOnLogout) {
+      nameInput.value = "";
+      emailInput.value = "";
     }
-    if (emailInput && !emailInput.value && currentUser.email) {
-      emailInput.value = currentUser.email;
-    }
-  }
+  };
+
+  syncContactIdentity(authState.getUser());
+  if (unsubscribeContactAuth) unsubscribeContactAuth();
+  unsubscribeContactAuth = authState.subscribe((event, user) => {
+    syncContactIdentity(user, event === "logout");
+  });
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -106,13 +119,8 @@ export function initContactForm({ formSuccess = "Yêu cầu của bạn đã đ�
 
     form.reset();
 
-    // Giữ lại email và tên nếu vẫn đang đăng nhập
+    // Giữ lại và khóa thông tin tài khoản sau khi gửi thành công
     const userAfterReset = authState.getUser();
-    if (userAfterReset) {
-      const nameInput = document.getElementById("contact-name");
-      const emailInput = document.getElementById("contact-email");
-      if (nameInput && userAfterReset.name) nameInput.value = userAfterReset.name;
-      if (emailInput && userAfterReset.email) emailInput.value = userAfterReset.email;
-    }
+    syncContactIdentity(userAfterReset);
   });
 }

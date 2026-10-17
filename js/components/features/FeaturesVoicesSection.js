@@ -152,11 +152,14 @@ function renderCustomVoiceCard(voice, index) {
  * @returns {string} HTML markup
  */
 export function renderFeaturesVoicesSection(config = {}) {
-  const cardsHtml = FEATURE_VOICES.map((voice, idx) =>
+  const brandName = config?.brand?.name || "AI Voice";
+  const voiceList = Array.isArray(config?.voices) && config.voices.length > 0 ? config.voices : FEATURE_VOICES;
+
+  const cardsHtml = voiceList.map((voice, idx) =>
     renderCustomVoiceCard(voice, idx),
   ).join("");
 
-  const dotsHtml = FEATURE_VOICES.map(
+  const dotsHtml = voiceList.map(
     (_, idx) =>
       `<button class="carousel-dot${idx === 0 ? " is-active" : ""}" data-index="${idx}" type="button" aria-label="Chuyển đến giọng ${idx + 1}"></button>`,
   ).join("");
@@ -174,7 +177,7 @@ export function renderFeaturesVoicesSection(config = {}) {
             </div>
             <h2 class="voices-main-title">Kho Giọng Đọc Đa Dạng Vùng Miền</h2>
             <p class="voices-main-desc">
-              Trải nghiệm 5 chất giọng tiêu biểu đại diện cho hệ sinh thái hơn 20+ giọng đọc Bắc — Trung — Nam của ViVoice, tái hiện trọn vẹn cảm xúc và ngữ điệu tự nhiên.
+              Trải nghiệm các chất giọng tiêu biểu đại diện cho hệ sinh thái giọng đọc của ${esc(brandName)}, tái hiện trọn vẹn cảm xúc và ngữ điệu tự nhiên.
             </p>
           </div>
         </div>

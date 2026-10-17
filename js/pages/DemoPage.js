@@ -26,6 +26,10 @@ export function renderDemoPage(config) {
           demoData.pageHeader?.subtitle ||
           demoData.subtitle ||
           `Trải nghiệm trực tiếp giải pháp và tương tác trong thời gian thực cùng ${config?.brand?.name || ""}.`,
+        brand: config?.brand,
+        brandKey: config?.brandKey,
+        brandName: config?.brand?.name,
+        config: config,
       })}
 
       <!-- 2. Bàn điều khiển Studio Console chuyên sâu (Demo Studio) -->

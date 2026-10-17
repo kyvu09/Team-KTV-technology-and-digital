@@ -11,7 +11,7 @@ import { esc } from "../../core/esc.js";
  * @returns {string} HTML markup
  */
 export function renderFeaturesHero(config = {}) {
-  const brandName = config.brand?.name || "ViVoice";
+  const brandName = config.brand?.name || "AI Voice";
 
   return `
     <section class="section features-hero-section" id="features-hero">

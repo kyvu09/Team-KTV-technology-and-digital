@@ -1,0 +1,231 @@
+/* ==========================================================================
+   hero-image-frame.css — Khung ảnh 3D Tương tác dùng chung cho Hero
+   Thiết kế chuẩn White-Label: Tự động đổi màu theo biến CSS toàn cục
+   ========================================================================== */
+
+/* 1. Bao bọc tổng thể Khối hình ảnh Hero */
+.hero-image-frame-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  perspective: 1200px;
+  user-select: none;
+}
+
+/* Sân khấu nghiêng 3D */
+.hero-image-frame-stage {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+}
+
+/* Hào quang Neon xung quanh khung ảnh (Ambient Aura Glow) */
+.hero-image-ambient-aura {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(56, 189, 248, 0.28) 0%,
+    rgba(168, 85, 247, 0.22) 45%,
+    transparent 70%
+  );
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--primary, #38bdf8) 35%, transparent) 0%,
+    color-mix(in srgb, var(--accent, #a855f7) 28%, transparent) 45%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+  animation: cyberAuraPulse 4s infinite alternate ease-in-out;
+}
+
+@keyframes cyberAuraPulse {
+  0% { transform: scale(0.95); opacity: 0.75; }
+  100% { transform: scale(1.05); opacity: 1; }
+}
+
+/* 2. Thẻ Frame chính với viền Neon & Bo góc công nghệ */
+.hero-image-cyber-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 560px;
+  background: var(--surface, #070c18);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-color: color-mix(in srgb, var(--primary, #38bdf8) 40%, transparent);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.8),
+    0 0 35px rgba(56, 189, 248, 0.18),
+    inset 0 0 25px rgba(56, 189, 248, 0.08);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.8),
+    0 0 35px color-mix(in srgb, var(--primary, #38bdf8) 22%, transparent),
+    inset 0 0 25px color-mix(in srgb, var(--primary, #38bdf8) 10%, transparent);
+  transform-style: preserve-3d;
+  will-change: transform;
+  z-index: 1;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.hero-image-cyber-card:hover {
+  border-color: rgba(56, 189, 248, 0.75);
+  border-color: color-mix(in srgb, var(--primary, #38bdf8) 80%, transparent);
+  box-shadow:
+    0 35px 80px rgba(0, 0, 0, 0.9),
+    0 0 55px color-mix(in srgb, var(--primary, #38bdf8) 38%, transparent),
+    0 0 25px color-mix(in srgb, var(--accent, #a855f7) 28%, transparent),
+    inset 0 0 35px color-mix(in srgb, var(--primary, #38bdf8) 18%, transparent);
+}
+
+/* 3. 4 Góc viền công nghệ viễn tưởng (HUD Corner Brackets) */
+.cyber-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: #38bdf8;
+  border-color: var(--primary, #38bdf8);
+  border-style: solid;
+  z-index: 6;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px #38bdf8);
+  filter: drop-shadow(0 0 6px var(--primary, #38bdf8));
+  transition: all 0.3s ease;
+}
+
+.cyber-corner--tl {
+  top: 8px;
+  left: 8px;
+  border-width: 3px 0 0 3px;
+  border-top-left-radius: 4px;
+}
+
+.cyber-corner--tr {
+  top: 8px;
+  right: 8px;
+  border-width: 3px 3px 0 0;
+  border-top-right-radius: 4px;
+}
+
+.cyber-corner--bl {
+  bottom: 8px;
+  left: 8px;
+  border-width: 0 0 3px 3px;
+  border-bottom-left-radius: 4px;
+}
+
+.cyber-corner--br {
+  bottom: 8px;
+  right: 8px;
+  border-width: 0 3px 3px 0;
+  border-bottom-right-radius: 4px;
+}
+
+.hero-image-cyber-card:hover .cyber-corner {
+  width: 24px;
+  height: 24px;
+  border-color: #a855f7;
+  border-color: var(--accent, #a855f7);
+  filter: drop-shadow(0 0 10px #a855f7);
+  filter: drop-shadow(0 0 10px var(--accent, #a855f7));
+}
+
+/* 4. Dải quét Holographic Scanline chuyển động */
+.cyber-scanline {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(56, 189, 248, 0.08) 50%,
+    transparent 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--primary, #38bdf8) 12%, transparent) 50%,
+    transparent 100%
+  );
+  height: 90px;
+  width: 100%;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.6;
+  animation: cyberScanMove 6s linear infinite;
+}
+
+@keyframes cyberScanMove {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(600px); }
+}
+
+/* Lưới quang học mờ ảo phủ lên ảnh */
+.cyber-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* 5. Khung ảnh chính sắc nét */
+.hero-image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  transform: scale(1.01);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+
+.hero-image-cyber-card:hover .hero-image-img {
+  transform: scale(1.05);
+}
+
+/* Lớp ánh sáng phản chiếu chéo bóng loáng (Sheen) */
+.hero-image-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    transparent 65%,
+    color-mix(in srgb, var(--primary, #38bdf8) 12%, transparent) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Responsive Điều chỉnh */
+@media (max-width: 991px) {
+  .hero-image-frame-wrapper {
+    max-width: 440px;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-image-frame-wrapper {
+    max-width: 100%;
+  }
+}

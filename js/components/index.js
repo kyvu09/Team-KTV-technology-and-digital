@@ -50,7 +50,8 @@ export * from "./BentoGrid.js";
 export * from "./Waveform.js";
 export * from "./Chatbot.js";
 
-// 11. Homepage Teaser Blocks (Trang chủ Tinh gọn)
+// 11. Homepage Teaser Blocks & Shared Blocks (Trang chủ Tinh gọn)
+export * from "./home/HomeHowToUse.js";
 export * from "./home/HomeFeatureTeaser.js";
 export * from "./home/HomeStudioTeaser.js";
 export * from "./home/HomeAboutTeaser.js";

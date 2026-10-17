@@ -13,8 +13,8 @@ import { esc } from "../../core/esc.js";
  * @returns {string} HTML markup
  */
 export function renderFooterBrand({ brand = {}, tagline = "" } = {}) {
-  const brandName = brand.name || "ViVoice";
-  const slogan = tagline || brand.slogan || "Công nghệ giọng nói AI thế hệ mới dành riêng cho tiếng Việt.";
+  const brandName = brand.name || "Brand";
+  const slogan = tagline || brand.slogan || "Công nghệ giọng nói AI thế hệ mới.";
 
   return `
     <div class="footer-brand-col">

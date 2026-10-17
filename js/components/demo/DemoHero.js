@@ -14,7 +14,7 @@ import { renderDemoHeroContent } from "./DemoHeroContent.js";
  * @returns {string} HTML markup
  */
 export function renderDemoHero(props = {}) {
-  const bgHtml = renderDemoHeroBackground();
+  const bgHtml = renderDemoHeroBackground(props);
   const contentHtml = renderDemoHeroContent(props);
 
   return `
