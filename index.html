@@ -11,6 +11,8 @@
   <!-- Toàn bộ CSS nền tảng và giao diện nâng cao -->
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/layout/header.css" />
+  <link rel="stylesheet" href="css/auth.css" />
 </head>
 
 <body class="is-loading">
@@ -34,20 +36,10 @@
     <div class="scroll-progress-glow"></div>
   </div>
 
-  <!-- Hệ thống nền động đa tầng (Ambient Canvas, Lưới không gian & Hào quang cực quang) -->
-  <canvas id="ambient-canvas" class="ambient-bg-canvas" aria-hidden="true"></canvas>
-  <div class="ambient-grid-overlay" aria-hidden="true"></div>
-  <div class="ambient-noise-overlay" aria-hidden="true"></div>
-  <div class="ambient-aurora-container" aria-hidden="true">
-    <div class="aurora-orb aurora-1" data-speed="0.2"></div>
-    <div class="aurora-orb aurora-2" data-speed="-0.15"></div>
-    <div class="aurora-orb aurora-3" data-speed="0.25"></div>
-    <div class="aurora-orb aurora-4" data-speed="-0.2"></div>
-  </div>
-
-  <header id="site-header"></header>
+  <!-- Các Web Components chuẩn White Label quy chuẩn cuộc thi -->
+  <wl-header id="site-header"></wl-header>
   <main id="app"></main>
-  <footer id="site-footer"></footer>
+  <wl-footer id="site-footer"></wl-footer>
 
   <!-- Nút cuộn nhanh lên đầu trang (Floating Back to Top) -->
   <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Cuộn lên đầu trang">
