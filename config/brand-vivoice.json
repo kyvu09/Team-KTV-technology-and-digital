@@ -80,7 +80,7 @@
           "badge": "20+ Voices",
           "title": "Hệ giọng Bắc – Trung – Nam",
           "text": "Kho chất giọng đa sắc thái ba miền, tối ưu chuyên biệt cho thuyết minh, sách nói, video ngắn, giáo dục và truyền thông.",
-          "image": "assets/images/imgvivoice/feature-regional-voice.jpg"
+          "image": "assets/images/imgvivoice/about-voices.jpg"
         },
         {
           "icon": "fa-solid fa-sliders",
@@ -88,7 +88,7 @@
           "title": "Tinh chỉnh giọng đọc theo ý muốn",
           "text": "Làm chủ tốc độ, nhịp đọc và cao độ chính xác tới từng từ để khớp hoàn hảo với khung hình video hoặc thời lượng phát thanh.",
           "waveform": true,
-          "image": "assets/images/imgvivoice/feature-voice-control.jpg"
+          "image": "assets/images/imgvivoice/about-processing.jpg"
         },
         {
           "icon": "fa-solid fa-code",
@@ -319,14 +319,48 @@
           {
             "href": "#faq",
             "label": "Câu hỏi thường gặp"
+          }
+        ]
+      },
+      {
+        "title": "Tài nguyên",
+        "links": [
+          {
+            "href": "#",
+            "label": "Tài liệu API"
           },
+          {
+            "href": "#",
+            "label": "Thư viện giọng mẫu"
+          },
+          {
+            "href": "#",
+            "label": "Hướng dẫn sử dụng"
+          },
+          {
+            "href": "#",
+            "label": "Cộng đồng Discord"
+          }
+        ]
+      },
+      {
+        "title": "Pháp lý",
+        "links": [
           {
             "href": "#contact",
             "label": "Liên hệ hỗ trợ"
+          },
+          {
+            "href": "#",
+            "label": "Điều khoản dịch vụ"
+          },
+          {
+            "href": "#",
+            "label": "Chính sách bảo mật"
           }
         ]
       }
     ],
-    "copyright": "Thương hiệu giả tưởng — Bài mẫu dự thi White Label."
+    "copyright": "Thương hiệu giả tưởng"
   }
 }

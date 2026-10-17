@@ -17,7 +17,6 @@ audio_temp.*
 
 quyTac/
 vivoice-mau/
-vivoice-about-scroll-files/
 
 # Audio test outputs
 *.mp3
@@ -25,3 +24,9 @@ vivoice-about-scroll-files/
 
 # Cho phép Git theo dõi audio của dự án
 !assets/audio/*.mp3
+
+
+codeMauThamKhao/
+.env
+
+trienKhai.md

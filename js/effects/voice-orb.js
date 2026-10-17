@@ -130,9 +130,31 @@ export function initVoiceOrb(containerId = "hero-voice-orb") {
     }
   });
 
+  // Tối ưu hiệu năng: Tạm dừng render Three.js khi quả cầu cuộn ra khỏi màn hình
+  let isVisible = true;
+  let observer = null;
+  if ("IntersectionObserver" in window) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !animationFrameId) {
+            animate();
+          }
+        });
+      },
+      { threshold: 0.05 },
+    );
+    observer.observe(container);
+  }
+
   // Vòng lặp Render (60fps)
-  let animationFrameId;
+  let animationFrameId = null;
   function animate() {
+    if (!isVisible) {
+      animationFrameId = null;
+      return;
+    }
     animationFrameId = requestAnimationFrame(animate);
     time += 0.015;
 
@@ -183,7 +205,8 @@ export function initVoiceOrb(containerId = "hero-voice-orb") {
 
   return {
     destroy: () => {
-      cancelAnimationFrame(animationFrameId);
+      if (observer) observer.disconnect();
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);
       renderer.dispose();
