@@ -114,8 +114,18 @@ function renderBentoFeatures(s) {
 export function initFeaturesInteractions() {
   const stack = document.getElementById("feature-stack-3d");
   if (stack) {
+    // Kích hoạt class is-ready sau nhịp render đầu để không bị nhảy giật animation khi vừa nạp trang
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        stack.classList.add("is-ready");
+      }, 100);
+    });
+
     stack.addEventListener("click", () => {
-      stack.classList.toggle("is-unfolded");
+      // Chỉ kích hoạt bung mở 3D trên màn hình Desktop (> 768px)
+      if (window.innerWidth > 768) {
+        stack.classList.toggle("is-unfolded");
+      }
     });
   }
   initBentoSpotlight(".feature-stack-item, .bento-card");

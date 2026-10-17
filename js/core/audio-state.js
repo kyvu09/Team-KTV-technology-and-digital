@@ -4,16 +4,18 @@ class AudioStateManager {
     this.currentText = "";
     this.currentWordIndex = -1;
     this.wordList = [];
-    this.listeners = new Set();
+    this.listeners = new Set(); //Danh sách các thành phần trên web đang "đăng ký nhận tin tức"
     this.audioFrequencyLevel = 0; // 0..1
     this.animFrame = null;
   }
 
+  //Cho phép các file khác đăng ký
   subscribe(fn) {
     this.listeners.add(fn);
     return () => this.listeners.delete(fn);
   }
 
+  //Khi có sự kiện mới, thông báo cho tất cả các file đã đăng ký
   notify(event, payload = {}) {
     for (const fn of this.listeners) {
       try {
@@ -24,7 +26,10 @@ class AudioStateManager {
     }
   }
 
-  playSpeech(text, { voiceName = null, rate = 1, onWord = null, onEnd = null } = {}) {
+  playSpeech(
+    text,
+    { voiceName = null, rate = 1, onWord = null, onEnd = null } = {},
+  ) {
     if (!("speechSynthesis" in window)) {
       console.warn("Web Speech API không được hỗ trợ trên trình duyệt này.");
       return;
@@ -49,7 +54,9 @@ class AudioStateManager {
       const chosen = voices.find((v) => v.name === voiceName);
       if (chosen) utter.voice = chosen;
     } else {
-      const vi = voices.find((v) => v.lang && v.lang.toLowerCase().startsWith("vi"));
+      const vi = voices.find(
+        (v) => v.lang && v.lang.toLowerCase().startsWith("vi"),
+      );
       if (vi) utter.voice = vi;
     }
 
@@ -63,7 +70,7 @@ class AudioStateManager {
           charIndex: e.charIndex,
           charLength: e.charLength,
           wordIndex: this.currentWordIndex,
-          frequency: this.audioFrequencyLevel
+          frequency: this.audioFrequencyLevel,
         });
       }
     };
@@ -98,6 +105,7 @@ class AudioStateManager {
     }, 20);
   }
 
+  //HTML5 Audio API
   playAudioFile(src, { text = "", onEnd = null } = {}) {
     this.stopSpeech();
 
@@ -149,12 +157,16 @@ class AudioStateManager {
     this.notify("stop");
   }
 
+  // Tạo dao động tần số tự nhiên khi đang phát giọng nói
   _startFreqSimulation() {
     this._stopFreqSimulation();
     const update = () => {
       if (!this.isPlaying) return;
-      // Tạo dao động tần số tự nhiên khi đang phát giọng nói
-      this.audioFrequencyLevel = Math.max(0.2, this.audioFrequencyLevel * 0.92 + Math.random() * 0.15);
+
+      this.audioFrequencyLevel = Math.max(
+        0.2,
+        this.audioFrequencyLevel * 0.92 + Math.random() * 0.15,
+      );
       this.notify("tick", { frequency: this.audioFrequencyLevel });
       this.animFrame = requestAnimationFrame(update);
     };

@@ -3,18 +3,20 @@
    Tham chiếu từ mã nguồn mẫu vivoice-mau (Chuẩn White Label & Clean Code)
    ========================================================================== */
 
-/* 1. Thiết lập biến mặc định toàn cục (:root) làm dự phòng (fallback) */
+/* 1. Thiết lập biến mặc định toàn cục (:root) làm dự phòng (fallback)
+   LƯU Ý: Khi chạy White Label, các biến màu sắc và font chữ này sẽ tự động
+   được cập nhật theo cấu hình trong file config/brand-*.json (nhờ js/theme.js). */
 :root {
-  --primary: #38bdf8;
-  --accent: #a78bfa;
-  --background: #070c1e;
-  --surface: #0f1a36;
-  --text: #f1f5f9;
-  --text-muted: #94a3b8;
-  --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  --font-body: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
-  --radius: 16px;
-  --max-width: 1520px;
+  --primary: #38bdf8;        /* Màu chủ đạo (Xanh neon / Tím / Cyan...) */
+  --accent: #a78bfa;         /* Màu nhấn bổ trợ (Gradient nút, viền phát sáng) */
+  --background: #070c1e;     /* Màu nền chính toàn trang (Dark mode) */
+  --surface: #0f1a36;        /* Màu nền thẻ card, bảng console, khung kính mờ */
+  --text: #f1f5f9;           /* Màu chữ tiêu đề và nội dung chính */
+  --text-muted: #94a3b8;     /* Màu chữ phụ, mô tả, nhãn mờ */
+  --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif; /* Font tiêu đề */
+  --font-body: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;    /* Font nội dung */
+  --radius: 16px;            /* Bán kính bo góc chuẩn */
+  --max-width: 1520px;       /* Chiều rộng tối đa của nội dung trang (Container) */
 }
 
 /* 2. Reset chuẩn & tính toán kích thước hộp */
@@ -267,6 +269,13 @@ body.is-loading {
   padding: 0;
 }
 
+/* Ngăn ngừa giật lag / nhảy animation khi trang đang nạp (FOUC Transition Prevention) */
+body.is-loading .feature-stack-item,
+body.is-loading .feature-stack-3d {
+  transition: none !important;
+  animation: none !important;
+}
+
 /* 5. Cấu hình Nút bấm cơ bản (Buttons) */
 .btn {
   display: inline-flex;
@@ -295,6 +304,12 @@ body.is-loading {
   padding: 18px 36px;
   font-size: 1.1rem;
 }
+
+/* Nút bấm kéo giãn toàn bộ chiều rộng (100%) của thẻ cha */
+.btn-block {
+  width: 100%;
+}
+
 
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--accent));

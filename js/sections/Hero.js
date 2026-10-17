@@ -106,8 +106,8 @@ export function initHeroInteractions(s) {
     // 4. Quả cầu 3D — Bấm trực tiếp vào quả cầu để Phát / Dừng âm thanh & Tự động phát khi tải trang
     const orbStage = document.getElementById("hero-orb-stage");
     const orbContainer = document.getElementById("hero-voice-orb");
-    const welcomeText = s.welcomeMessage || "Chào mừng bạn đến với website của chúng tôi";
-    const welcomeAudio = s.welcomeAudio || "assets/audio/welcome-vivoice.mp3";
+    const welcomeText = s.welcomeMessage || "Chào mừng đến website của chúng tôi";
+    const welcomeAudio = typeof s.welcomeAudio === "string" ? s.welcomeAudio.trim() : "";
 
     const setPlayingUI = (playing) => {
         if (orbStage) {
