@@ -27,9 +27,12 @@ Nhiệm vụ: Dựa trên yêu cầu của người dùng, tạo một đối t�
 ```json
 {
   "brand": {
+    "id": "brand-slug-thuong-hieu",
+    "key": "brand-slug-thuong-hieu",
     "name": "Tên thương hiệu (Ví dụ: Arabica Roastery, Cafe Phố Xưa...)",
     "slogan": "Khẩu hiệu ngắn gọn ấn tượng phù hợp ngành nghề"
   },
+  "brandKey": "brand-slug-thuong-hieu",
   "topic": "{{TOPIC}}",
   "theme": {
     "primary": "#Mã_màu_chính",
@@ -45,8 +48,11 @@ Nhiệm vụ: Dựa trên yêu cầu của người dùng, tạo một đối t�
   "sections": [
     {
       "type": "hero",
-      "layout": "centered hoặc split-right hoặc voice-studio",
+      "layout": "image-frame hoặc split-right hoặc voice-studio hoặc centered",
+      "image": "{{PHOTO_1}}",
+      "imageAlt": "Tên thương hiệu - Khẩu hiệu",
       "welcomeMessage": "Chào mừng đến với...",
+      "welcomeAudio": "",
       "title": "Tiêu đề chính (đúng ngành nghề)...",
       "rotatingWords": ["từ xoay 1", "từ xoay 2", "từ xoay 3"],
       "subtitle": "Mô tả hấp dẫn về sản phẩm/dịch vụ...",
@@ -98,6 +104,56 @@ Nhiệm vụ: Dựa trên yêu cầu của người dùng, tạo một đối t�
           "image": "{{PHOTO_4}}"
         }
       ]
+    },
+    {
+      "type": "demo",
+      "title": "Bàn điều khiển trải nghiệm (đúng ngành nghề)",
+      "subtitle": "Thử nghiệm trực tiếp tính năng và tương tác trong thời gian thực...",
+      "placeholder": "Nhập nội dung tương tác đúng ngành nghề...",
+      "defaultText": "Nội dung văn bản mẫu đúng ngành nghề...",
+      "welcomeMessage": "Chào mừng bạn đến với...",
+      "speakLabel": "Phát âm thanh trải nghiệm",
+      "stopLabel": "Dừng phát",
+      "unsupported": "Trình duyệt của bạn chưa hỗ trợ Web Speech API. Vui lòng sử dụng phiên bản mới của Google Chrome hoặc Microsoft Edge.",
+      "howToUseTitle": "Trải Nghiệm Dễ Dàng Chỉ Với 3 Bước",
+      "howToUseSubtitle": "Mô tả quy trình 3 bước sử dụng hoặc đặt dịch vụ phù hợp ngành nghề...",
+      "steps": [
+        {
+          "step": "01",
+          "phase": "BƯỚC 01",
+          "title": "Tên bước 1 (đúng ngành nghề)",
+          "subtitle": "Khởi đầu",
+          "icon": "fa-solid fa-compass",
+          "description": "Mô tả chi tiết bước 1...",
+          "tag": "Nhanh chóng",
+          "snippetType": "editor",
+          "snippetText": "Nội dung mô phỏng bước 1..."
+        },
+        {
+          "step": "02",
+          "phase": "BƯỚC 02",
+          "title": "Tên bước 2 (đúng ngành nghề)",
+          "subtitle": "Tùy biến",
+          "icon": "fa-solid fa-sliders",
+          "description": "Mô tả chi tiết bước 2...",
+          "tag": "Linh hoạt",
+          "snippetType": "editor",
+          "snippetText": "Nội dung mô phỏng bước 2..."
+        },
+        {
+          "step": "03",
+          "phase": "BƯỚC 03",
+          "title": "Tên bước 3 (đúng ngành nghề)",
+          "subtitle": "Hoàn tất",
+          "icon": "fa-solid fa-circle-check",
+          "description": "Mô tả chi tiết bước 3...",
+          "tag": "Tức thì",
+          "snippetType": "editor",
+          "snippetText": "Nội dung mô phỏng bước 3..."
+        }
+      ],
+      "buttonText": "Trải Nghiệm Ngay Miễn Phí",
+      "buttonHref": "#demo"
     },
     {
       "type": "about",

@@ -1531,6 +1531,34 @@
 }
 
 .btn-refine-chip:hover {
+.btn-refine-chip.is-active {
+  background: var(--primary) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+  font-weight: 700;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--primary) 50%, transparent);
+}
+
+.brand-refine-active-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 4px 0 2px 0;
+}
+
+.brand-refine-active-header .badge-active-sec {
+  background: color-mix(in srgb, var(--primary) 25%, transparent);
+  border: 1px solid var(--primary);
+  color: #fff;
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+
   background: color-mix(in srgb, var(--primary) 25%, transparent);
   border-color: var(--primary);
   color: #fff;
@@ -1603,3 +1631,101 @@
 
 
 
+
+/* Custom Refine Input & Color Controls */
+.brand-refine-input-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  width: 100%;
+}
+
+.refine-custom-input,
+.refine-color-hex {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.74rem;
+  color: #fff;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.refine-custom-input:focus,
+.refine-color-hex:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.btn-refine-apply,
+.btn-refine-apply-color {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.btn-refine-apply:hover,
+.btn-refine-apply-color:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+.btn-refine-voice {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--accent);
+  border-radius: 8px;
+  padding: 6px 9px;
+  font-size: 0.74rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-refine-voice:hover,
+.btn-refine-voice.is-recording {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.brand-refine-color-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.refine-color-picker-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.refine-color-picker {
+  cursor: pointer;
+  width: 28px;
+  height: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  background: transparent;
+  padding: 0;
+  vertical-align: middle;
+}

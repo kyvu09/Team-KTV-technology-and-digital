@@ -85,9 +85,12 @@ Nhiệm vụ: Dựa trên yêu cầu của người dùng, tạo một đối t�
 \`\`\`json
 {
   "brand": {
+    "id": "brand-slug-thuong-hieu",
+    "key": "brand-slug-thuong-hieu",
     "name": "Tên thương hiệu",
     "slogan": "Khẩu hiệu ngắn gọn ấn tượng"
   },
+  "brandKey": "brand-slug-thuong-hieu",
   "topic": "{{TOPIC}}",
   "theme": {
     "primary": "#Mã_màu_chính",
@@ -103,8 +106,11 @@ Nhiệm vụ: Dựa trên yêu cầu của người dùng, tạo một đối t�
   "sections": [
     {
       "type": "hero",
-      "layout": "centered hoặc split-right hoặc voice-studio",
+      "layout": "image-frame hoặc split-right hoặc voice-studio hoặc centered",
+      "image": "{{PHOTO_1}}",
+      "imageAlt": "Tên thương hiệu - Khẩu hiệu",
       "welcomeMessage": "Chào mừng...",
+      "welcomeAudio": "",
       "title": "Tiêu đề chính...",
       "rotatingWords": ["từ xoay 1", "từ xoay 2", "từ xoay 3"],
       "subtitle": "Mô tả hấp dẫn...",
@@ -152,6 +158,56 @@ Nhiệm vụ: Dựa trên yêu cầu của người dùng, tạo một đối t�
           "image": "{{PHOTO_4}}"
         }
       ]
+    },
+    {
+      "type": "demo",
+      "title": "Bàn điều khiển trải nghiệm (đúng ngành nghề)",
+      "subtitle": "Thử nghiệm trực tiếp tính năng và tương tác trong thời gian thực...",
+      "placeholder": "Nhập nội dung tương tác đúng ngành nghề...",
+      "defaultText": "Nội dung văn bản mẫu đúng ngành nghề...",
+      "welcomeMessage": "Chào mừng bạn đến với...",
+      "speakLabel": "Phát âm thanh trải nghiệm",
+      "stopLabel": "Dừng phát",
+      "unsupported": "Trình duyệt của bạn chưa hỗ trợ Web Speech API. Vui lòng sử dụng phiên bản mới của Google Chrome hoặc Microsoft Edge.",
+      "howToUseTitle": "Trải Nghiệm Dễ Dàng Chỉ Với 3 Bước",
+      "howToUseSubtitle": "Mô tả quy trình 3 bước sử dụng hoặc đặt dịch vụ phù hợp ngành nghề...",
+      "steps": [
+        {
+          "step": "01",
+          "phase": "BƯỚC 01",
+          "title": "Tên bước 1 (đúng ngành nghề)",
+          "subtitle": "Khởi đầu",
+          "icon": "fa-solid fa-compass",
+          "description": "Mô tả chi tiết bước 1...",
+          "tag": "Nhanh chóng",
+          "snippetType": "editor",
+          "snippetText": "Nội dung mô phỏng bước 1..."
+        },
+        {
+          "step": "02",
+          "phase": "BƯỚC 02",
+          "title": "Tên bước 2 (đúng ngành nghề)",
+          "subtitle": "Tùy biến",
+          "icon": "fa-solid fa-sliders",
+          "description": "Mô tả chi tiết bước 2...",
+          "tag": "Linh hoạt",
+          "snippetType": "editor",
+          "snippetText": "Nội dung mô phỏng bước 2..."
+        },
+        {
+          "step": "03",
+          "phase": "BƯỚC 03",
+          "title": "Tên bước 3 (đúng ngành nghề)",
+          "subtitle": "Hoàn tất",
+          "icon": "fa-solid fa-circle-check",
+          "description": "Mô tả chi tiết bước 3...",
+          "tag": "Tức thì",
+          "snippetType": "editor",
+          "snippetText": "Nội dung mô phỏng bước 3..."
+        }
+      ],
+      "buttonText": "Trải Nghiệm Ngay Miễn Phí",
+      "buttonHref": "#demo"
     },
     {
       "type": "about",
@@ -840,7 +896,347 @@ const BRAND_PALETTES = {
     text: "#f0fdf4",
     textMuted: "#86efac",
   },
+  ruby: {
+    primary: "#ef4444",
+    accent: "#f97316",
+    background: "#140407",
+    surface: "#240a10",
+    text: "#fef2f2",
+    textMuted: "#fca5a5",
+  },
+  sunset: {
+    primary: "#f97316",
+    accent: "#f59e0b",
+    background: "#160702",
+    surface: "#291005",
+    text: "#fff7ed",
+    textMuted: "#fdba74",
+  },
+  emerald: {
+    primary: "#10b981",
+    accent: "#34d399",
+    background: "#02150d",
+    surface: "#052718",
+    text: "#ecfdf5",
+    textMuted: "#6ee7b7",
+  },
+  ocean: {
+    primary: "#3b82f6",
+    accent: "#06b6d4",
+    background: "#040e1e",
+    surface: "#0a1c38",
+    text: "#eff6ff",
+    textMuted: "#93c5fd",
+  },
+  rose: {
+    primary: "#ec4899",
+    accent: "#f43f5e",
+    background: "#170512",
+    surface: "#2c0b23",
+    text: "#fdf2f8",
+    textMuted: "#f472b6",
+  },
+  dark: {
+    primary: "#f1f5f9",
+    accent: "#94a3b8",
+    background: "#09090b",
+    surface: "#18181b",
+    text: "#f8fafc",
+    textMuted: "#94a3b8",
+  },
 };
+
+// Hàm sinh bảng màu hài hòa tự động từ bất kỳ mã HEX nào
+export function generatePaletteFromHex(hex) {
+  let cleanHex = (hex || "").replace("#", "").trim();
+  if (cleanHex.length === 3) cleanHex = cleanHex.split("").map((c) => c + c).join("");
+  if (cleanHex.length !== 6) return BRAND_PALETTES.data;
+
+  const r = parseInt(cleanHex.substr(0, 2), 16);
+  const g = parseInt(cleanHex.substr(2, 2), 16);
+  const b = parseInt(cleanHex.substr(4, 2), 16);
+
+  const bgR = Math.max(4, Math.round(r * 0.06));
+  const bgG = Math.max(6, Math.round(g * 0.06));
+  const bgB = Math.max(10, Math.round(b * 0.06));
+
+  const sR = Math.max(10, Math.round(r * 0.14));
+  const sG = Math.max(14, Math.round(g * 0.14));
+  const sB = Math.max(24, Math.round(b * 0.14));
+
+  const aR = Math.min(255, Math.round(r + (255 - r) * 0.25));
+  const aG = Math.min(255, Math.round(g + (255 - g) * 0.25));
+  const aB = Math.min(255, Math.round(b + (255 - b) * 0.25));
+
+  const pad = (n) => n.toString(16).padStart(2, "0");
+
+  return {
+    primary: `#${cleanHex}`,
+    accent: `#${pad(aR)}${pad(aG)}${pad(aB)}`,
+    background: `#${pad(bgR)}${pad(bgG)}${pad(bgB)}`,
+    surface: `#${pad(sR)}${pad(sG)}${pad(sB)}`,
+    text: "#f8fafc",
+    textMuted: "#94a3b8",
+  };
+}
+
+// Hàm trích xuất màu sắc hoặc mã HEX từ lời nói / câu chat của người dùng
+export function parseColorRequest(text = "") {
+  if (!text) return null;
+  const lower = text.toLowerCase();
+
+  const hexMatch = text.match(/#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b/);
+  if (hexMatch) {
+    const hex = hexMatch[0];
+    const pal = generatePaletteFromHex(hex);
+    if (pal) {
+      return {
+        name: `Mã màu ${hex}`,
+        palette: pal,
+      };
+    }
+  }
+
+  if (lower.includes("tím neon") || lower.includes("neon") || lower.includes("cyberpunk")) {
+    return {
+      name: "Tím Neon Cyber",
+      palette: {
+        primary: "#a855f7",
+        accent: "#06b6d4",
+        background: "#090417",
+        surface: "#150a30",
+        text: "#faf5ff",
+        textMuted: "#c084fc",
+      },
+    };
+  }
+  if (lower.includes("vàng gold") || lower.includes("vàng kim") || lower.includes("hoàng gia")) {
+    return { name: "Vàng Hoàng Gia Gold", palette: BRAND_PALETTES.gold };
+  }
+  if (lower.includes("ấm áp") || lower.includes("ấm cúng") || lower.includes("sang trọng")) {
+    return { name: "Hổ Phách & Nâu Ấm Sang Trọng", palette: BRAND_PALETTES.amber };
+  }
+  if (lower.includes("đỏ") || lower.includes("ruby") || lower.includes("crimson") || lower.includes("red")) {
+    return { name: "Đỏ Ruby", palette: BRAND_PALETTES.ruby };
+  }
+  if (lower.includes("cam") || lower.includes("sunset") || lower.includes("orange")) {
+    return { name: "Cam Sunset", palette: BRAND_PALETTES.sunset };
+  }
+  if (lower.includes("vàng") || lower.includes("gold") || lower.includes("yellow")) {
+    return { name: "Vàng Hoàng Gia", palette: BRAND_PALETTES.gold };
+  }
+  if (lower.includes("hổ phách") || lower.includes("nâu") || lower.includes("amber") || lower.includes("cà phê") || lower.includes("cafe")) {
+    return { name: "Hổ Phách & Nâu Ấm", palette: BRAND_PALETTES.amber };
+  }
+  if (lower.includes("lục") || lower.includes("emerald") || lower.includes("xanh lá") || lower.includes("mint") || lower.includes("bạc hà") || lower.includes("green")) {
+    return { name: "Xanh Lục Bảo & Bạc Hà", palette: BRAND_PALETTES.emerald };
+  }
+  if (lower.includes("xanh dương") || lower.includes("xanh biển") || lower.includes("navy") || lower.includes("ocean") || lower.includes("blue") || lower.includes("da trời")) {
+    return { name: "Xanh Đại Dương & Navy", palette: BRAND_PALETTES.ocean };
+  }
+  if (lower.includes("y tế") || lower.includes("nha khoa") || lower.includes("cyan") || lower.includes("medical")) {
+    return { name: "Xanh Y Tế & Cyan", palette: BRAND_PALETTES.medical };
+  }
+  if (lower.includes("tím") || lower.includes("violet") || lower.includes("purple")) {
+    return { name: "Tím Violet", palette: BRAND_PALETTES.purple };
+  }
+  if (lower.includes("hồng") || lower.includes("rose") || lower.includes("pink") || lower.includes("pastel")) {
+    return { name: "Hồng Luxury & Pastel", palette: BRAND_PALETTES.rose };
+  }
+  if (lower.includes("đen") || lower.includes("tối giản") || lower.includes("dark") || lower.includes("minimalist") || lower.includes("monochrome") || lower.includes("xám")) {
+    return { name: "Đen Tối Giản & Bạc", palette: BRAND_PALETTES.dark };
+  }
+  if (lower.includes("cyber") || lower.includes("gaming")) {
+    return { name: "Xanh Cyber Game", palette: BRAND_PALETTES.cyber };
+  }
+  if (lower.includes("tech") || lower.includes("data") || lower.includes("công nghệ") || lower.includes("indigo")) {
+    return { name: "Xanh Công Nghệ Data", palette: BRAND_PALETTES.data };
+  }
+
+  return null;
+}
+
+// Hàm nhận diện ý định tinh chỉnh từng phần hoặc tạo mới thông minh
+export function detectUserIntent(val, currentBrand = null, activeSection = null) {
+  const lowerVal = (val || "").toLowerCase().trim();
+
+  // 1. Kiểm tra nếu người dùng yêu cầu tạo mới hoàn toàn rõ rệt:
+  const isExplicitCreate =
+    lowerVal.startsWith("tạo brand mới") ||
+    lowerVal.startsWith("tạo thương hiệu mới") ||
+    lowerVal.startsWith("thiết kế thương hiệu mới") ||
+    lowerVal.startsWith("xây dựng thương hiệu mới") ||
+    lowerVal.startsWith("khởi tạo thương hiệu mới") ||
+    lowerVal.includes("brand mới:") ||
+    lowerVal.includes("thương hiệu mới:") ||
+    // Cho phép tạo mới ngay cả khi đã có brand (không cần từ "mới")
+    lowerVal.startsWith("tạo thương hiệu") ||
+    lowerVal.startsWith("tạo brand") ||
+    lowerVal.startsWith("tạo một thương hiệu") ||
+    lowerVal.startsWith("tạo một brand") ||
+    (!currentBrand && (
+      lowerVal.startsWith("tạo") ||
+      lowerVal.startsWith("làm") ||
+      lowerVal.startsWith("thiết kế") ||
+      lowerVal.startsWith("muốn") ||
+      lowerVal.includes("brand") ||
+      lowerVal.includes("thương hiệu")
+    ));
+
+  if (isExplicitCreate) {
+    return { action: "create", prompt: val };
+  }
+
+  // 2. Ý định đổi màu sắc theme toàn trang
+  const isThemeRequest =
+    lowerVal.includes("màu") ||
+    lowerVal.includes("theme") ||
+    lowerVal.includes("palette") ||
+    lowerVal.includes("tông") ||
+    lowerVal.includes("tone") ||
+    lowerVal.includes("toàn trang") ||
+    /#([0-9a-fA-F]{3,8})\b/.test(val);
+  if (isThemeRequest) {
+    return { action: "refine", sectionKey: "theme", customPrompt: val };
+  }
+
+  // 3. Demo / Trải nghiệm & 3 Bước sử dụng (ưu tiên trước Hero vì hay có từ 'tiêu đề 3 bước')
+  if (
+    lowerVal.includes("trải nghiệm") ||
+    lowerVal.includes("demo") ||
+    lowerVal.includes("3 bước") ||
+    lowerVal.includes("quy trình") ||
+    lowerVal.includes("hướng dẫn") ||
+    lowerVal.includes("bước 1") ||
+    lowerVal.includes("bước 2") ||
+    lowerVal.includes("bước 3") ||
+    lowerVal.includes("văn bản mẫu") ||
+    lowerVal.includes("thu âm mẫu")
+  ) {
+    return { action: "refine", sectionKey: "demo", customPrompt: val };
+  }
+
+  // 4. Features / Tính năng (ưu tiên trước Hero vì hay có 'tiêu đề tính năng')
+  if (
+    lowerVal.includes("tính năng") ||
+    lowerVal.includes("features") ||
+    lowerVal.includes("dịch vụ") ||
+    lowerVal.includes("bento") ||
+    lowerVal.includes("stack") ||
+    lowerVal.includes("xếp tầng")
+  ) {
+    let subAction = "";
+    if (lowerVal.includes("bento")) subAction = "bento";
+    else if (lowerVal.includes("stack") || lowerVal.includes("xếp tầng")) subAction = "stack";
+    else if (lowerVal.includes("làm mới") || lowerVal.includes("viết lại")) subAction = "rewrite";
+    return { action: "refine", sectionKey: "features", subAction, customPrompt: val };
+  }
+
+  // 5. About / Về chúng tôi (ưu tiên trước Hero vì hay có 'tiêu đề về chúng tôi')
+  if (
+    lowerVal.includes("về chúng tôi") ||
+    lowerVal.includes("giới thiệu") ||
+    lowerVal.includes("about") ||
+    lowerVal.includes("câu chuyện") ||
+    lowerVal.includes("story") ||
+    lowerVal.includes("thống kê")
+  ) {
+    let subAction = "";
+    if (lowerVal.includes("lưới") || lowerVal.includes("grid")) subAction = "grid";
+    else if (lowerVal.includes("cuộn") || lowerVal.includes("story")) subAction = "story";
+    return { action: "refine", sectionKey: "about", subAction, customPrompt: val };
+  }
+
+  // 6. Contact / Liên hệ
+  if (
+    lowerVal.includes("liên hệ") ||
+    lowerVal.includes("contact") ||
+    lowerVal.includes("hotline") ||
+    lowerVal.includes("số điện thoại") ||
+    lowerVal.includes("sđt") ||
+    lowerVal.includes("email") ||
+    lowerVal.includes("địa chỉ")
+  ) {
+    return { action: "refine", sectionKey: "contact", customPrompt: val };
+  }
+
+  // 7. FAQ / Hỏi đáp
+  if (
+    lowerVal.includes("hỏi đáp") ||
+    lowerVal.includes("faq") ||
+    lowerVal.includes("câu hỏi") ||
+    lowerVal.includes("accordion") ||
+    lowerVal.includes("thẻ lật") ||
+    lowerVal.includes("flip")
+  ) {
+    let subAction = "";
+    if (lowerVal.includes("accordion")) subAction = "accordion";
+    else if (lowerVal.includes("thẻ lật") || lowerVal.includes("flip")) subAction = "3d-flip";
+    return { action: "refine", sectionKey: "faq", subAction, customPrompt: val };
+  }
+
+  // 8. Testimonials / Đánh giá
+  if (
+    lowerVal.includes("đánh giá") ||
+    lowerVal.includes("nhận xét") ||
+    lowerVal.includes("review") ||
+    lowerVal.includes("testimonials")
+  ) {
+    return { action: "refine", sectionKey: "testimonials", subAction: "refresh", customPrompt: val };
+  }
+
+  // 9. Hero / Trang chủ (Tiêu đề chính, Slogan, Bố cục Hero, Nút bấm)
+  if (
+    lowerVal.includes("trang chủ") ||
+    lowerVal.includes("hero") ||
+    lowerVal.includes("tiêu đề") ||
+    lowerVal.includes("slogan") ||
+    lowerVal.includes("khẩu hiệu") ||
+    lowerVal.includes("nút bấm") ||
+    lowerVal.includes("nút hero") ||
+    lowerVal.includes("từ xoay") ||
+    lowerVal.includes("lời chào") ||
+    lowerVal.includes("giọng đọc") ||
+    lowerVal.includes("căn giữa") ||
+    lowerVal.includes("centered") ||
+    lowerVal.includes("chia đôi") ||
+    lowerVal.includes("split") ||
+    lowerVal.includes("khung ảnh") ||
+    lowerVal.includes("image-frame") ||
+    lowerVal.includes("studio")
+  ) {
+    let subAction = "";
+    if (lowerVal.includes("căn giữa") || lowerVal.includes("centered")) subAction = "centered";
+    else if (lowerVal.includes("chia đôi") || lowerVal.includes("split")) subAction = "split";
+    else if (lowerVal.includes("khung ảnh") || lowerVal.includes("image-frame") || lowerVal.includes("image frame")) subAction = "image-frame";
+    else if (lowerVal.includes("studio")) subAction = "studio";
+    return { action: "refine", sectionKey: "hero", subAction, customPrompt: val };
+  }
+
+  // 10. Nếu người dùng đang chọn sẵn một mục (activeSection) và gửi yêu cầu
+  if (activeSection) {
+    return { action: "refine", sectionKey: activeSection, customPrompt: val };
+  }
+
+  // 11. Các câu lệnh bắt đầu bằng động từ sửa/chỉnh chung
+  if (
+    lowerVal.startsWith("sửa") ||
+    lowerVal.startsWith("chỉnh") ||
+    lowerVal.startsWith("đổi") ||
+    lowerVal.startsWith("thay") ||
+    lowerVal.startsWith("cập nhật") ||
+    lowerVal.startsWith("update")
+  ) {
+    return { action: "refine", sectionKey: "hero", customPrompt: val };
+  }
+
+  if (currentBrand) {
+    return { action: "refine", sectionKey: "hero", customPrompt: val };
+  }
+
+  return { action: "create", prompt: val };
+}
+
 
 // Kho avatar chất lượng cao cho đánh giá khách hàng (Testimonials)
 const TESTIMONIAL_AVATARS = [
@@ -1486,6 +1882,648 @@ export function extractBrandNameFromPrompt(text = "", topicHint = "") {
 }
 
 // ============================================================================
+// HÀM SINH CẤU HÌNH BÀN ĐIỀU KHIỂN & 3 BƯỚC SỬ DỤNG THEO NGÀNH NGHỀ (THÁI V2.0 SCHEMA)
+// Phục vụ đồng thời 2 mục đích:
+// 1. Component HomeHowToUse.js trên Trang chủ (Section 3 Core Homepage)
+// 2. Component Demo.js & DemoPage.js trên trang Trải nghiệm (#demo)
+// ============================================================================
+export function getIndustryDemoConfig(topic = "tech", brandName = "Thương hiệu", slogan = "") {
+  const t = (topic || "").toLowerCase();
+
+  if (t.includes("coffee") || t.includes("cà phê")) {
+    return {
+      title: `Bàn Thử Nếm & Trải Nghiệm Cà Phê Mộc ${brandName}`,
+      subtitle: `Cảm nhận hương vị và chọn phong cách pha chế yêu thích cùng ${brandName}.`,
+      placeholder: "Nhập ghi chú hương vị cà phê bạn muốn thưởng thức (ví dụ: Espresso đậm đà, ít chua, béo ngậy sữa hạt)...",
+      defaultText: `Chào mừng bạn đến với ${brandName}. Tách cà phê thơm ngát từ hạt Robusta Cầu Đất nguyên bản đã sẵn sàng phục vụ bạn.`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Hương vị cà phê nguyên bản"}`,
+      speakLabel: "Nghe giới thiệu vị cà phê",
+            howToUseTitle: "Thưởng Thức Cà Phê Mộc Chỉ Với 3 Bước",
+      howToUseSubtitle: `Từ nông trại Cầu Đất đến tách cà phê nóng hổi thơm nồng trên bàn của bạn tại ${brandName}.`,
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Chọn Hạt Cà Phê Mộc",
+          subtitle: "Khởi nguồn",
+          icon: "fa-solid fa-seedling",
+          description: "Tuyển chọn hạt Arabica hoặc Robusta chín mọng rang mộc tự nhiên giữ trọn hương vị.",
+          tag: "100% Nguyên chất",
+          snippetType: "editor",
+          snippetText: "Lựa chọn hạt Arabica Cầu Đất rang vừa, thơm hương trái cây chín và hậu vị ngọt thanh...",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Tùy Biến Phương Pháp Pha",
+          subtitle: "Nghệ thuật pha chế",
+          icon: "fa-solid fa-mug-hot",
+          description: "Lựa chọn pha phin truyền thống, Espresso chuẩn Ý hoặc Cold Brew ủ lạnh mát lành.",
+          tag: "Đa dạng phong cách",
+          snippetType: "editor",
+          snippetText: "Pha chế Espresso 2 shot, kết hợp sữa tươi thanh trùng không đường...",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Thưởng Thức Trọn Vị Tinh Túy",
+          subtitle: "Trải nghiệm hoàn hảo",
+          icon: "fa-solid fa-circle-check",
+          description: "Nhận tách cà phê nóng hổi tại bàn hoặc đóng chai giao nhanh trong 20 phút.",
+          tag: "Nhanh chóng",
+          snippetType: "editor",
+          snippetText: "Đơn hàng cà phê đã sẵn sàng phục vụ bạn tại không gian quán hoặc giao tận nơi.",
+        },
+      ],
+      buttonText: "Khám Phá Menu Cà Phê",
+      buttonHref: "#demo",
+      hintText: "Phục vụ tận tâm • Nguyên liệu tự nhiên hảo hạng",
+    };
+  }
+
+  if (t.includes("bake") || t.includes("bánh") || t.includes("boba") || t.includes("trà sữa")) {
+    return {
+      title: `Bàn Thử Vị Bánh Nướng & Trà Tươi ${brandName}`,
+      subtitle: `Trải nghiệm thực đơn bánh ngọt thủ công nướng mới mỗi sáng cùng ${brandName}.`,
+      placeholder: "Nhập yêu cầu loại bánh hoặc trang trí (ví dụ: Croissant bơ Pháp, bánh kem sinh nhật ít ngọt)...",
+      defaultText: `Chào mừng bạn đến với ${brandName}. Những mẻ bánh ngọt thơm mùi bơ Pháp vừa ra lò giòn rụm đang chờ đón bạn.`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Vị ngọt thanh tao từ nguyên liệu tự nhiên"}`,
+      speakLabel: "Nghe giới thiệu bánh tươi",
+            howToUseTitle: "Đặt Bánh Tươi & Thưởng Trà Với 3 Bước",
+      howToUseSubtitle: `Bánh nướng thủ công bơ Pháp hảo hạng và trà búp non tươi mát mỗi ngày tại ${brandName}.`,
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Chọn Mẻ Bánh Trong Ngày",
+          subtitle: "Tươi mới mỗi sáng",
+          icon: "fa-solid fa-bread-slice",
+          description: "Xem các mẻ bánh Croissant, bánh mì men tự nhiên vừa ra lò thơm ngậy từ 7:30 sáng.",
+          tag: "Nướng mới 100%",
+          snippetType: "editor",
+          snippetText: "Chọn 02 Croissant bơ Pháp ngàn lớp và 01 Tart dâu tây tươi vừa ra lò...",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Tùy Chỉnh Khẩu Vị & Trang Trí",
+          subtitle: "Sở thích riêng",
+          icon: "fa-solid fa-sliders",
+          description: "Điều chỉnh lượng đường, chọn trà búp non ủ lạnh hoặc thiết kế bánh kem theo yêu cầu.",
+          tag: "Ít ngọt thanh mát",
+          snippetType: "editor",
+          snippetText: "Giảm 30% đường, dùng bơ lạt Pháp nguyên chất, ghi chữ chúc mừng sinh nhật...",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Nhận Bánh Nóng Hổi Giao Tận Cửa",
+          subtitle: "Thưởng thức",
+          icon: "fa-solid fa-box-open",
+          description: "Bánh được đóng hộp giữ nhiệt sinh học thân thiện môi trường, giao tận tay trong 30 phút.",
+          tag: "Giao hỏa tốc",
+          snippetType: "editor",
+          snippetText: "Bánh đã được đóng gói cẩn thận kèm thiệp chúc mừng, sẵn sàng giao tới bạn.",
+        },
+      ],
+      buttonText: "Xem Menu Bánh & Trà",
+      buttonHref: "#demo",
+      hintText: "Bơ Pháp hảo hạng • Nướng tươi mỗi sáng",
+    };
+  }
+
+  if (t.includes("fashion") || t.includes("thời trang") || t.includes("luxury") || t.includes("spa")) {
+    return {
+      title: `Phòng Thử Đồ Ảo & Tư Vấn Phong Cách ${brandName}`,
+      subtitle: `Khám phá các bộ sưu tập thời trang thiết kế độc bản cùng ${brandName}.`,
+      placeholder: "Nhập phong cách hoặc sự kiện bạn tham dự (ví dụ: Dạ tiệc sang trọng, công sở thanh lịch)...",
+      defaultText: `Chào mừng bạn đến với ${brandName}. Bộ sưu tập thời trang thiết kế cao cấp mang đến vẻ đẹp thanh lịch và cuốn hút.`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Tôn vinh khí chất & phong cách đỉnh cao"}`,
+      speakLabel: "Nghe tư vấn phong cách",
+            howToUseTitle: "Định Hình Phong Cách Với 3 Bước",
+      howToUseSubtitle: `Nâng tầm diện mạo với trang phục thiết kế may đo cao cấp từ ${brandName}.`,
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Khám Phá Bộ Sưu Tập Mới",
+          subtitle: "Xu hướng dẫn đầu",
+          icon: "fa-solid fa-shirt",
+          description: "Chiêm ngưỡng các mẫu thiết kế độc bản xu hướng mới nhất từ lụa tơ tằm và dạ len thượng hạng.",
+          tag: "Thiết kế độc bản",
+          snippetType: "editor",
+          snippetText: "Xem bộ sưu tập váy dạ tiệc lụa tơ tằm và âu phục may đo cao cấp...",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Tư Vấn May Đo Chuẩn Xác",
+          subtitle: "Cá nhân hóa",
+          icon: "fa-solid fa-ruler-combined",
+          description: "Nhập số đo cá nhân để được nhà thiết kế tư vấn phom dáng và chất liệu tôn vinh vóc dáng.",
+          tag: "Vừa vặn tuyệt đối",
+          snippetType: "editor",
+          snippetText: "Số đo: Ngực 86, Eo 64, Mông 92. Tùy chỉnh chiều dài váy theo chiều cao 1m68...",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Nhận Trang Phục & Hậu Mãi",
+          subtitle: "Hoàn hảo",
+          icon: "fa-solid fa-gem",
+          description: "Trang phục hoàn thiện tinh xảo, giao tận nhà kèm chính sách chỉnh sửa miễn phí trọn đời.",
+          tag: "Bảo hành trọn đời",
+          snippetType: "editor",
+          snippetText: "Trang phục đã hoàn thiện tinh xảo, đóng hộp sang trọng kèm phụ kiện bảo quản.",
+        },
+      ],
+      buttonText: "Khám Phá Bộ Sưu Tập",
+      buttonHref: "#demo",
+      hintText: "May đo tinh xảo • Chất liệu cao cấp quốc tế",
+    };
+  }
+
+  if (t.includes("dental") || t.includes("nha khoa")) {
+    return {
+      title: `Bàn Mô Phỏng Nụ Cười & Đặt Hẹn Nha Khoa ${brandName}`,
+      subtitle: `Khảo sát nụ cười 3D và nhận phác đồ điều trị chuyên sâu từ ${brandName}.`,
+      placeholder: "Nhập tình trạng răng miệng hoặc dịch vụ quan tâm (ví dụ: Tẩy trắng răng Laser, niềng răng trong suốt)...",
+      defaultText: `Chào mừng bạn đến với ${brandName}. Đội ngũ bác sĩ chuyên khoa sẵn sàng kiến tạo nụ cười khỏe đẹp, rạng rỡ.`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Kiến tạo nụ cười rạng rỡ chuẩn y khoa"}`,
+      speakLabel: "Nghe tư vấn nha khoa",
+            howToUseTitle: "Chăm Sóc Nụ Cười Chuẩn Y Khoa Với 3 Bước",
+      howToUseSubtitle: `Quy trình thăm khám nha khoa êm ái, an toàn tuyệt đối chuẩn quốc tế tại ${brandName}.`,
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Đặt Lịch & Chụp Phim CT 3D",
+          subtitle: "Thăm khám không chờ đợi",
+          icon: "fa-solid fa-calendar-check",
+          description: "Đặt lịch hẹn trước, chụp phim Cone Beam 3D khảo sát cấu trúc răng và xương hàm.",
+          tag: "Công nghệ CT 3D",
+          snippetType: "editor",
+          snippetText: "Đặt hẹn khám tổng quát và chụp phim toàn hàm CT Cone Beam 3D không đau...",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Xem Phác Đồ Cá Nhân Hóa",
+          subtitle: "Minh bạch lộ trình",
+          icon: "fa-solid fa-clipboard-user",
+          description: "Bác sĩ chuyên khoa phân tích chi tiết lộ trình, thời gian và chi phí điều trị trọn gói.",
+          tag: "Bác sĩ chuyên khoa",
+          snippetType: "editor",
+          snippetText: "Phác đồ niềng răng trong suốt: 18 khay, thời gian 14 tháng, mô phỏng nụ cười 3D...",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Điều Trị Êm Ái & Bảo Hành",
+          subtitle: "Nụ cười tự tin",
+          icon: "fa-solid fa-tooth",
+          description: "Thực hiện điều trị trong phòng vô trùng tiêu chuẩn quốc tế, bảo hành nụ cười dài hạn.",
+          tag: "Không đau êm ái",
+          snippetType: "editor",
+          snippetText: "Điều trị hoàn tất nhẹ nhàng, cấp thẻ bảo hành nụ cười chính hãng toàn quốc.",
+        },
+      ],
+      buttonText: "Đặt Lịch Khám Ngay",
+      buttonHref: "#demo",
+      hintText: "Bác sĩ đầu ngành • Vô trùng tiêu chuẩn quốc tế",
+    };
+  }
+
+  if (t.includes("medical") || t.includes("clinic") || t.includes("y tế") || t.includes("bác sĩ")) {
+    return {
+      title: `Cổng Tư Vấn Sức Khỏe & Đặt Lịch ${brandName}`,
+      subtitle: `Kết nối trực tiếp cùng đội ngũ bác sĩ chuyên khoa và hệ thống y tế hiện đại ${brandName}.`,
+      placeholder: "Nhập triệu chứng hoặc chuyên khoa cần tư vấn (ví dụ: Khám tổng quát định kỳ, tim mạch, tiêu hóa)...",
+      defaultText: `Chào mừng bạn đến với ${brandName}. Chúng tôi cam kết mang lại dịch vụ y tế chuẩn mực và sự an tâm tuyệt đối cho gia đình bạn.`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Tận tâm chăm sóc sức khỏe cộng đồng"}`,
+      speakLabel: "Nghe hướng dẫn y tế",
+            howToUseTitle: "Quy Trình Khám Chữa Bệnh Chuẩn 3 Bước",
+      howToUseSubtitle: `Nhanh chóng, chính xác và tiện lợi, tiết kiệm tối đa thời gian chờ đợi tại ${brandName}.`,
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Đăng Ký & Chọn Bác Sĩ",
+          subtitle: "Đặt lịch thông minh",
+          icon: "fa-solid fa-user-doctor",
+          description: "Đặt lịch hẹn khám trước trên hệ thống để được ưu tiên thăm khám đúng giờ hẹn.",
+          tag: "Ưu tiên khám ngay",
+          snippetType: "editor",
+          snippetText: "Đăng ký khám chuyên khoa Tim mạch cùng PGS. Bác sĩ chuyên gia vào lúc 9:00 sáng...",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Khám Lâm Sàng & Xét Nghiệm",
+          subtitle: "Chuẩn xác y khoa",
+          icon: "fa-solid fa-stethoscope",
+          description: "Khám lâm sàng cùng hệ thống xét nghiệm tự động, trả kết quả số hóa bảo mật.",
+          tag: "Kết quả số hóa",
+          snippetType: "editor",
+          snippetText: "Xét nghiệm sinh hóa máu tự động: Kết quả trả trực tuyến sau 30 phút qua ứng dụng...",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Nhận Phác Đồ & Tái Khám",
+          subtitle: "Đồng hành sức khỏe",
+          icon: "fa-solid fa-heart-pulse",
+          description: "Bác sĩ tư vấn chế độ chăm sóc và trợ lý y tế nhắc lịch tái khám chu đáo định kỳ.",
+          tag: "Chăm sóc trọn đời",
+          snippetType: "editor",
+          snippetText: "Phác đồ điều trị và đơn thuốc điện tử đã được gửi tới hồ sơ sức khỏe cá nhân của bạn.",
+        },
+      ],
+      buttonText: "Đặt Lịch Khám Chuyên Khoa",
+      buttonHref: "#demo",
+      hintText: "Y đức vẹn tròn • Thiết bị y tế hiện đại",
+    };
+  }
+
+  if (t.includes("fitness") || t.includes("gym") || t.includes("thể hình")) {
+    return {
+      title: `Bàn Phân Tích Thể Trạng & Lộ Trình Gym ${brandName}`,
+      subtitle: `Đo chỉ số InBody và nhận giáo án tập luyện chuẩn khoa học từ ${brandName}.`,
+      placeholder: "Nhập mục tiêu thể hình của bạn (ví dụ: Tăng cơ giảm mỡ trong 90 ngày, tăng cường sức bền)...",
+      defaultText: `Chào mừng bạn đến với ${brandName}. Hãy sẵn sàng bứt phá giới hạn bản thân cùng phòng tập hiện đại bậc nhất.`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Bứt phá giới hạn vóc dáng & thể lực"}`,
+      speakLabel: "Nghe phân tích thể trạng",
+            howToUseTitle: "Bứt Phá Vóc Dáng Chỉ Với 3 Bước",
+      howToUseSubtitle: `Hành trình lột xác thể hình khoa học cùng huấn luyện viên chuyên nghiệp tại ${brandName}.`,
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Đo InBody & Kiểm Tra Thể Lực",
+          subtitle: "Khảo sát chỉ số",
+          icon: "fa-solid fa-weight-scale",
+          description: "Phân tích tỉ lệ cơ mỡ, tốc độ trao đổi chất và tầm vận động khớp hoàn toàn miễn phí.",
+          tag: "Miễn phí đo InBody",
+          snippetType: "editor",
+          snippetText: "Chỉ số InBody: Mỡ 18%, Khối lượng cơ 32kg, TMB 1.650 kcal/ngày...",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Thiết Kế Giáo Án 1:1",
+          subtitle: "Khoa học cá nhân",
+          icon: "fa-solid fa-dumbbell",
+          description: "HLV cá nhân xây dựng lịch tập luyện chi tiết và thực đơn dinh dưỡng chuẩn calo.",
+          tag: "Giáo án cá nhân 1:1",
+          snippetType: "editor",
+          snippetText: "Lộ trình tập 4 buổi/tuần: Upper/Lower Body + Cardio ngắt quãng cường độ cao...",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Tập Luyện & Đạt Mục Tiêu",
+          subtitle: "Lột xác thể hình",
+          icon: "fa-solid fa-trophy",
+          description: "Trải nghiệm máy tập hiện đại, khu phục hồi xông hơi và đo lại tiến độ sau 30 ngày.",
+          tag: "Cam kết hiệu quả",
+          snippetType: "editor",
+          snippetText: "Mục tiêu tháng đầu: Giảm 2kg mỡ thừa, tăng 1.2kg khối lượng cơ nạc thành công.",
+        },
+      ],
+      buttonText: "Đăng Ký Tập Thử Miễn Phí",
+      buttonHref: "#demo",
+      hintText: "HLV chuẩn quốc tế • Máy tập TechnoGym cao cấp",
+    };
+  }
+
+  if (t.includes("hotel") || t.includes("khách sạn") || t.includes("resort") || t.includes("nghỉ dưỡng")) {
+    return {
+      title: `Bàn Đặt Phòng & Dịch Vụ Nghỉ Dưỡng ${brandName}`,
+      subtitle: `Khám phá các hạng phòng sang trọng hướng biển và tiện ích resort đẳng cấp tại ${brandName}.`,
+      placeholder: "Nhập ngày nhận phòng hoặc yêu cầu đặc biệt (ví dụ: Suite hướng biển, tiệc tối lãng mạn bên bờ biển)...",
+      defaultText: `Chào mừng bạn đến với ${brandName}. Kỳ nghỉ dưỡng trong mơ với dịch vụ chuẩn 5 sao quốc tế đang đón chờ bạn.`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Kỳ nghỉ dưỡng sang trọng chuẩn 5 sao"}`,
+      speakLabel: "Nghe giới thiệu kỳ nghỉ",
+            howToUseTitle: "Tận Hưởng Kỳ Nghỉ Dưỡng Với 3 Bước",
+      howToUseSubtitle: `Đặt phòng dễ dàng, nhận ngay đặc quyền chuẩn 5 sao không giới hạn tại ${brandName}.`,
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Chọn Hạng Phòng & Ngày Nghỉ",
+          subtitle: "Lựa chọn không gian",
+          icon: "fa-solid fa-bed",
+          description: "Duyệt qua các biệt thự hồ bơi riêng, phòng Suite view đại dương ngoạn mục.",
+          tag: "Chuẩn 5 sao",
+          snippetType: "editor",
+          snippetText: "Lựa chọn Ocean Pool Villa 2 phòng ngủ hướng hoàng hôn, check-in thứ Sáu...",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Tùy Chọn Đưa Đón & Tiện Ích",
+          subtitle: "Đặc quyền riêng",
+          icon: "fa-solid fa-spa",
+          description: "Đăng ký xe đón sân bay hạng sang và liệu trình chăm sóc sức khỏe thảo dược.",
+          tag: "Trọn gói tiện ích",
+          snippetType: "editor",
+          snippetText: "Bao gồm xe đưa đón Limousine, tiệc trà chiều hoàng hôn và gói Spa trị liệu...",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Check-in & Tận Hưởng Kỳ Nghỉ",
+          subtitle: "Thư thái tuyệt đối",
+          icon: "fa-solid fa-champagne-glasses",
+          description: "Thưởng thức đồ uống chào đón và tận hưởng toàn bộ tiện ích resort đẳng cấp.",
+          tag: "Phục vụ 24/7",
+          snippetType: "editor",
+          snippetText: "Phòng nghỉ đã được chuẩn bị chu đáo, chào đón bạn đến với kỳ nghỉ dưỡng tuyệt vời.",
+        },
+      ],
+      buttonText: "Đặt Phòng Nghỉ Dưỡng",
+      buttonHref: "#demo",
+      hintText: "Dịch vụ 5 sao quốc tế • Đưa đón sân bay miễn phí",
+    };
+  }
+
+  if (t.includes("realestate") || t.includes("bất động sản") || t.includes("nhà đất")) {
+    return {
+      title: `Sa Bàn Ảo & Tra Cứu Dự Án ${brandName}`,
+      subtitle: `Xem thực tế ảo 360 độ các căn hộ cao cấp và tra cứu tiềm năng sinh lời cùng ${brandName}.`,
+      placeholder: "Nhập khu vực hoặc loại hình bất động sản quan tâm (ví dụ: Căn hộ ven sông 3 phòng ngủ, biệt thự sinh thái)...",
+      defaultText: `Chào mừng bạn đến với ${brandName}. Khám phá không gian sống đẳng cấp và cơ hội đầu tư sinh lời vượt trội.`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Kiến tạo không gian sống thượng lưu"}`,
+      speakLabel: "Nghe giới thiệu dự án",
+            howToUseTitle: "Sở Hữu Bất Động Sản Với 3 Bước",
+      howToUseSubtitle: `Quy trình tư vấn chuyên nghiệp, minh bạch pháp lý và hỗ trợ tài chính tối ưu tại ${brandName}.`,
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Tìm Kiếm Theo Nhu Cầu",
+          subtitle: "Lọc thông minh",
+          icon: "fa-solid fa-building",
+          description: "Lọc theo vị trí, tầm tài chính và loại hình căn hộ trên sa bàn số thực tế ảo.",
+          tag: "Vị trí kim cương",
+          snippetType: "editor",
+          snippetText: "Tìm kiếm căn hộ 3 phòng ngủ ven sông, hướng Đông Nam, bàn giao nội thất cao cấp...",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Trải Nghiệm Thực Tế Ảo 360°",
+          subtitle: "Khảo sát không gian",
+          icon: "fa-solid fa-vr-cardboard",
+          description: "Khảo sát chi tiết kiến trúc, tầm view panorama và chuỗi 50+ tiện ích nội khu đẳng cấp.",
+          tag: "Công nghệ VR 360",
+          snippetType: "editor",
+          snippetText: "Xem thực tế ảo góc nhìn ban công, khu vườn chân mây và hồ bơi vô cực...",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Ký Hợp Đồng & Hỗ Trợ Pháp Lý",
+          subtitle: "Minh bạch",
+          icon: "fa-solid fa-file-signature",
+          description: "Đội ngũ luật sư và ngân hàng đồng hành giải ngân hỗ trợ lãi suất 0% trong 24 tháng.",
+          tag: "Sổ hồng trao tay",
+          snippetType: "editor",
+          snippetText: "Hồ sơ pháp lý hoàn chỉnh, chính sách thanh toán linh hoạt 1%/tháng.",
+        },
+      ],
+      buttonText: "Khám Phá Sa Bàn Dự Án",
+      buttonHref: "#demo",
+      hintText: "Pháp lý minh bạch • Hỗ trợ vay vốn ngân hàng",
+    };
+  }
+
+  if (t.includes("pet") || t.includes("thú cưng") || t.includes("chó") || t.includes("mèo")) {
+    return {
+      title: `Bàn Chăm Sóc & Đặt Lịch Thú Cưng ${brandName}`,
+      subtitle: `Đặt lịch spa, cắt tỉa lông thẩm mỹ và khám thú y chuyên khoa tại ${brandName}.`,
+      placeholder: "Nhập giống thú cưng và dịch vụ (ví dụ: Spa cắt tỉa tạo kiểu Poodle, tiêm phòng định kỳ)...",
+      defaultText: `Chào mừng bạn đến với ${brandName}. Ngôi nhà thứ hai yêu thương và chăm sóc toàn diện cho bé cưng của bạn.`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Tất cả vì sức khỏe & niềm vui của bé cưng"}`,
+      speakLabel: "Nghe tư vấn thú cưng",
+            howToUseTitle: "Chăm Sóc Bé Cưng Với 3 Bước",
+      howToUseSubtitle: `Dịch vụ tận tâm từ đội ngũ chuyên gia giàu tình yêu thương thú cưng tại ${brandName}.`,
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Chọn Gói Dịch Vụ Cho Bé",
+          subtitle: "Đa dạng dịch vụ",
+          icon: "fa-solid fa-paw",
+          description: "Đăng ký tắm sấy trị liệu, tỉa lông nghệ thuật hoặc khám sức khỏe định kỳ.",
+          tag: "Chăm sóc toàn diện",
+          snippetType: "editor",
+          snippetText: "Đặt lịch combo Spa tắm thảo dược và cắt tỉa tạo kiểu cho bé Poodle 4kg...",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Tiếp Nhận & Khảo Sát Tính Cách",
+          subtitle: "Thân thiện",
+          icon: "fa-solid fa-shield-cat",
+          description: "Chuyên viên làm quen giúp thú cưng thoải mái, thư giãn, không gây căng thẳng.",
+          tag: "Không gây sợ hãi",
+          snippetType: "editor",
+          snippetText: "Bé cưng được massage thư giãn, sấy lông bằng buồng ion âm chống ồn...",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Đón Bé Xinh Đẹp & Quà Tặng",
+          subtitle: "Hài lòng",
+          icon: "fa-solid fa-bone",
+          description: "Bé cưng sạch thơm lộng lẫy cùng sổ theo dõi sức khỏe và thực đơn dinh dưỡng.",
+          tag: "Sạch thơm hoàn hảo",
+          snippetType: "editor",
+          snippetText: "Bé cưng đã sẵn sàng về nhà với bộ lông bóng mượt và chiếc nơ xinh xắn.",
+        },
+      ],
+      buttonText: "Đặt Lịch Spa Thú Cưng",
+      buttonHref: "#demo",
+      hintText: "Bác sĩ thú y giàu kinh nghiệm • Phòng spa vô trùng",
+    };
+  }
+
+  if (t.includes("eco") || t.includes("organic") || t.includes("nông sản") || t.includes("hữu cơ")) {
+    return {
+      title: `Bàn Tra Cứu Nguồn Gốc Hữu Cơ ${brandName}`,
+      subtitle: `Truy xuất nguồn gốc trang trại hữu cơ và chứng nhận xanh chuẩn quốc tế cùng ${brandName}.`,
+      placeholder: "Nhập sản phẩm hoặc mã QR nông sản (ví dụ: Rau củ quả hữu cơ VietGAP, hạt dinh dưỡng tự nhiên)...",
+      defaultText: `Chào mừng bạn đến với ${brandName}. Nông sản sạch 100% hữu cơ vì sức khỏe của bạn và sự bền vững của Trái Đất.`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Thuần khiết từ thiên nhiên vì sức khỏe vàng"}`,
+      speakLabel: "Nghe giới thiệu nông sản",
+            howToUseTitle: "Tiêu Dùng Xanh Với 3 Bước",
+      howToUseSubtitle: `Từ cánh đồng hữu cơ đến mâm cơm gia đình an lành mỗi ngày cùng ${brandName}.`,
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Chọn Nông Sản Xanh Tươi Mới",
+          subtitle: "Thu hoạch trong ngày",
+          icon: "fa-solid fa-leaf",
+          description: "Duyệt qua danh mục rau củ quả, thực phẩm hữu cơ thu hoạch tươi mới buổi sáng.",
+          tag: "100% Organic",
+          snippetType: "editor",
+          snippetText: "Chọn giỏ nông sản tuần: Rau ăn lá hữu cơ, nấm sạch và trái cây nhiệt đới...",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Kiểm Tra Truy Xuất Nguồn Gốc",
+          subtitle: "Minh bạch",
+          icon: "fa-solid fa-qrcode",
+          description: "Xem nhật ký canh tác không phân bón hóa học và chứng nhận kiểm định minh bạch.",
+          tag: "Quét mã QR",
+          snippetType: "editor",
+          snippetText: "Mã QR chứng nhận: Trang trại hữu cơ Mộc Châu, tiêu chuẩn USDA Organic...",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Nhận Hàng Tươi Giao Tận Bếp",
+          subtitle: "Tiện lợi",
+          icon: "fa-solid fa-basket-shopping",
+          description: "Đóng gói bao bì sinh học phân hủy tự nhiên, giao nhanh trong ngày giữ trọn vitamin.",
+          tag: "Bao bì thân thiện",
+          snippetType: "editor",
+          snippetText: "Giỏ nông sản sạch đã được đóng gói cẩn thận, sẵn sàng giao tới căn bếp của bạn.",
+        },
+      ],
+      buttonText: "Chọn Nông Sản Sạch",
+      buttonHref: "#demo",
+      hintText: "100% Hữu cơ chứng nhận • Bao bì sinh học thân thiện",
+    };
+  }
+
+  if (t.includes("gaming") || t.includes("game") || t.includes("metaverse")) {
+    return {
+      title: `Bàn Điều Khiển Giọng Thoại NPC & Game Engine ${brandName}`,
+      subtitle: `Thử nghiệm engine giọng nói NPC thời gian thực với độ trễ siêu thấp cùng ${brandName}.`,
+      placeholder: "Nhập câu thoại chiến binh NPC (ví dụ: Này dũng sĩ! Hãy cầm lấy thanh kiếm này và tiến vào hang rồng)...",
+      defaultText: `Này lữ khách! Ngươi vừa bước vào vùng đất cấm của ${brandName}. Hãy sẵn sàng cho trận đại chiến khốc liệt nhất lịch sử!`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Giọng thoại NPC thời gian thực cho Game & Metaverse"}`,
+      speakLabel: "Phát giọng thoại NPC",
+      layout: "voice-studio",
+      howToUseTitle: "Tích Hợp Engine Giọng Nói Với 3 Bước",
+      howToUseSubtitle: "Độ trễ siêu thấp dưới 40ms, tương thích hoàn hảo Unity, Unreal Engine và Roblox.",
+      steps: [
+        {
+          step: "01",
+          phase: "BƯỚC 01",
+          title: "Nhập Kịch Bản Lời Thoại",
+          subtitle: "Dữ liệu lời thoại",
+          icon: "fa-solid fa-gamepad",
+          description: "Dán câu thoại NPC, phân cảnh cốt truyện điện ảnh hoặc câu lệnh liên lạc radio.",
+          tag: "Tự động phân tách",
+          snippetType: "editor",
+          snippetText: "[NPC Thần Kiếm]: Ngươi đã chứng minh được lòng dũng cảm khi bước vào vùng đất tử địa!",
+        },
+        {
+          step: "02",
+          phase: "BƯỚC 02",
+          title: "Chọn Sắc Thái Nhân Vật",
+          subtitle: "Bản sắc RPG",
+          icon: "fa-solid fa-masks-theater",
+          description: "Lựa chọn giọng chiến binh dũng mãnh, phù thủy bí ẩn hoặc người máy tương lai.",
+          tag: "Đa dạng âm hưởng",
+          snippetType: "voice",
+          snippetVoiceA: "Chiến Binh Titan",
+          snippetVoiceB: "Hắc Hiệp Sĩ",
+        },
+        {
+          step: "03",
+          phase: "BƯỚC 03",
+          title: "Kết Xuất Âm Thanh Siêu Tốc",
+          subtitle: "Độ trễ < 40ms",
+          icon: "fa-solid fa-bolt-lightning",
+          description: "Xuất âm thanh dưới 40ms, tích hợp SDK một dòng lệnh vào engine game.",
+          tag: "Độ trễ < 40ms",
+          snippetType: "player",
+          snippetMeta: "Độ trễ: 32ms • Spatial 3D Audio",
+        },
+      ],
+      buttonText: "Trải Nghiệm Voice Studio",
+      buttonHref: "#demo",
+      hintText: "Độ trễ < 40ms • SDK Unity & Unreal Engine",
+    };
+  }
+
+  // Mặc định hoặc Tech / Audio / CallCenter / General
+  const isAudio = t.includes("audio") || t.includes("voice") || t.includes("âm thanh") || t.includes("sound");
+  return {
+    title: isAudio ? `Phòng Thu Âm & Xử Lý Tín Hiệu Số ${brandName}` : `Bàn Điều Khiển Trải Nghiệm ${brandName}`,
+    subtitle: isAudio
+      ? `Thử nghiệm trực tiếp chất lượng âm thanh phòng thu 48kHz cùng ${brandName}.`
+      : `Thử nghiệm trực tiếp giải pháp và cảm nhận hiệu quả vượt trội từ ${brandName}.`,
+    placeholder: isAudio
+      ? "Nhập văn bản cần thu âm, lồng tiếng hoặc thuyết minh thử nghiệm..."
+      : `Nhập nội dung tương tác hoặc dữ liệu kiểm thử cùng ${brandName}...`,
+    defaultText: isAudio
+      ? `Chào mừng bạn đến với ${brandName}. Đây là bản thu âm chuẩn phòng thu Master 48kHz, tái hiện trung thực từng sắc thái biểu cảm và hơi thở tự nhiên.`
+      : `Chào mừng bạn đến với ${brandName}. Giải pháp thông minh toàn diện giúp bạn tối ưu hóa vận hành và bứt phá hiệu quả.`,
+    welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${slogan || "Kiến tạo chuẩn mực công nghệ mới"}`,
+    speakLabel: isAudio ? "Phát giọng đọc phòng thu" : "Kích hoạt trải nghiệm",
+    layout: isAudio ? "voice-studio" : undefined,
+    howToUseTitle: isAudio ? "Sáng Tạo Âm Thanh Studio Với 3 Bước" : "Trải Nghiệm Dễ Dàng Chỉ Với 3 Bước",
+    howToUseSubtitle: isAudio
+      ? `Không cần phòng thu đắt đỏ hay kỹ thuật phức tạp, kết xuất giọng đọc chuẩn Master cùng ${brandName}.`
+      : `Quy trình triển khai tinh gọn, nhanh chóng và đạt hiệu quả tối đa cùng ${brandName}.`,
+    steps: [
+      {
+        step: "01",
+        phase: "BƯỚC 01",
+        title: isAudio ? "Nhập Kịch Bản Hoặc Văn Bản" : "Nhập Yêu Cầu Hoặc Dữ Liệu",
+        subtitle: "Dữ liệu đầu vào",
+        icon: isAudio ? "fa-solid fa-keyboard" : "fa-solid fa-laptop-code",
+        description: isAudio
+          ? "Dán bất kỳ đoạn kịch bản podcast, video ngắn hoặc sách nói để hệ thống tự động xử lý chuẩn xác."
+          : `Cung cấp thông tin nhu cầu hoặc dữ liệu để hệ thống ${brandName} tự động phân tích tối ưu.`,
+        tag: "Tự động phân tích",
+        snippetType: "editor",
+        snippetText: `Chào mừng bạn đến với kỷ nguyên giải pháp mới của ${brandName}...`,
+      },
+      {
+        step: "02",
+        phase: "BƯỚC 02",
+        title: isAudio ? "Chọn Giọng Đọc & Tinh Chỉnh" : "Cấu Hình & Tinh Chỉnh Tham Số",
+        subtitle: "Cá nhân hóa",
+        icon: "fa-solid fa-sliders",
+        description: isAudio
+          ? "Lựa chọn âm sắc Bắc - Trung - Nam, điều chỉnh tốc độ từ 0.5x đến 2.0x tự nhiên chỉ với một thao tác."
+          : "Lựa chọn các gói tính năng và thông số kỹ thuật tối ưu hóa theo nhu cầu thực tế của bạn.",
+        tag: "Linh hoạt tối đa",
+        snippetType: isAudio ? "voice" : "editor",
+        snippetVoiceA: "Giọng Bản Xứ",
+        snippetVoiceB: "Giọng Truyền Cảm",
+        snippetText: "Cấu hình tham số tối ưu hóa thời gian thực...",
+      },
+      {
+        step: "03",
+        phase: "BƯỚC 03",
+        title: isAudio ? "Nghe Thử & Xuất Bản Tức Thì" : "Vận Hành & Đạt Kết Quả Xuất Sắc",
+        subtitle: "Kết xuất tức thì",
+        icon: "fa-solid fa-circle-check",
+        description: isAudio
+          ? "Chỉ mất dưới 80 mili-giây để xuất bản thu âm phòng thu 48kHz sắc nét, tải file hoặc tích hợp API."
+          : `Nhận kết quả phân tích và sẵn sàng vận hành hệ thống với độ ổn định 99.9%.`,
+        tag: "Tức thì < 80ms",
+        snippetType: isAudio ? "player" : "editor",
+        snippetMeta: "48kHz • Studio Master",
+        snippetText: "Hệ thống đã kích hoạt thành công, sẵn sàng phục vụ 24/7.",
+      },
+    ],
+    buttonText: "Trải Nghiệm Ngay Miễn Phí",
+    buttonHref: "#demo",
+    hintText: "Độ trễ siêu thấp • Độ tin cậy 99.9%",
+  };
+}
+
+// ============================================================================
 // HÀM KIỂM ĐỊNH VÀ BỔ SUNG ẢNH CHUYÊN NGÀNH (STRICT SCHEMA & IMAGE ENRICHER)
 // ============================================================================
 export function enrichAndValidateBrandJson(data, topicHint = "tech") {
@@ -1543,11 +2581,26 @@ export function enrichAndValidateBrandJson(data, topicHint = "tech") {
     brandName
       .toLowerCase()
       .replace(/[^a-z0-9]/g, "-")
-      .replace(/-+/g, "-") || "microphone";
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "") || "brand";
+
+  const brandKey = "brand-" + slug;
+  data.brand.id = data.brand.id || brandKey;
+  data.brand.key = data.brand.key || brandKey;
+  data.brandKey = data.brandKey || brandKey;
+  data.brandId = data.brandId || brandKey;
 
   // Xác định chủ đề ảnh phù hợp và xáo trộn mảng ảnh đa dạng độc bản cho thương hiệu
   const detectedTopic = (data.topic || topicHint || "tech").toLowerCase();
   const photoPool = getDiverseBrandPhotos(detectedTopic, brandName);
+
+  // Hàm kiểm tra link ảnh Unsplash thực tế (không phải placeholder có '...' hoặc ảnh assets cũ)
+  const isRealUnsplash = (url) => {
+    if (!url || typeof url !== "string") return false;
+    const clean = url.trim();
+    if (clean.includes("...") || clean.startsWith("assets/images/")) return false;
+    return clean.startsWith("https://images.unsplash.com/photo-") && clean.includes("w=1200");
+  };
 
   // 2. Bảo đảm effects đầy đủ
   data.effects = {
@@ -1562,6 +2615,18 @@ export function enrichAndValidateBrandJson(data, topicHint = "tech") {
 
   // 3. Chuẩn hóa các sections và gán ảnh Unsplash 4K tương ứng
   const sections = data.sections;
+
+  // Đảm bảo section demo luôn có mặt giữa features và about (chuẩn White Label Thai v2.0)
+  let demo = sections.find((s) => s.type === "demo");
+  if (!demo) {
+    demo = { type: "demo" };
+    const featIdx = sections.findIndex((s) => s.type === "features");
+    if (featIdx !== -1) {
+      sections.splice(featIdx + 1, 0, demo);
+    } else {
+      sections.push(demo);
+    }
+  }
 
   // Tự động sinh thanh điều hướng (data.nav) ĐỘNG theo đúng thứ tự các section xuất hiện trên trang
   const navMap = {
@@ -1589,6 +2654,7 @@ export function enrichAndValidateBrandJson(data, topicHint = "tech") {
     data.nav = [
       { href: "#hero", label: "Trang chủ" },
       { href: "#features", label: "Tính năng" },
+      { href: "#demo", label: "Trải nghiệm" },
       { href: "#about", label: "Về chúng tôi" },
       { href: "#faq", label: "Hỏi đáp" },
       { href: "#contact", label: "Liên hệ" },
@@ -1601,9 +2667,13 @@ export function enrichAndValidateBrandJson(data, topicHint = "tech") {
     // Giữ layout nếu có: "split-right", "voice-studio", "centered"
     hero.layout = hero.layout || "split-right";
     hero.welcomeMessage =
-      hero.welcomeMessage || `Chào mừng đến với ${brandName}`;
+      hero.welcomeMessage || `Chào mừng đến với ${brandName} - ${data.brand.slogan || "Kiến tạo giá trị mới"}`;
     hero.welcomeAudio = hero.welcomeAudio || "";
     hero.title = hero.title || `Khám phá giải pháp cùng ${brandName} cho`;
+    if (!isRealUnsplash(hero.image)) {
+      hero.image = photoPool[0];
+    }
+    hero.imageAlt = hero.imageAlt || `${brandName} - ${data.brand.slogan || "White Label"}`;
     if (!Array.isArray(hero.rotatingWords) || hero.rotatingWords.length < 2) {
       hero.rotatingWords = ["doanh nghiệp", "chuyên gia số", "tương lai"];
     }
@@ -1643,13 +2713,7 @@ export function enrichAndValidateBrandJson(data, topicHint = "tech") {
     }
   }
 
-  // Hàm kiểm tra link ảnh Unsplash thực tế (không phải placeholder có '...' hoặc ảnh assets cũ)
-  const isRealUnsplash = (url) => {
-    if (!url || typeof url !== "string") return false;
-    const clean = url.trim();
-    if (clean.includes("...") || clean.startsWith("assets/images/")) return false;
-    return clean.startsWith("https://images.unsplash.com/photo-") && clean.includes("w=1200");
-  };
+
 
   // Features (Lưới Bento hoặc 3D stack cards)
   const features = sections.find((s) => s.type === "features");
@@ -1807,16 +2871,28 @@ export function enrichAndValidateBrandJson(data, topicHint = "tech") {
     }
   }
 
-  // Demo (Phòng thu âm / Trải nghiệm tương tác)
-  const demo = sections.find((s) => s.type === "demo");
-  if (demo) {
-    demo.speakButtonText = demo.speakButtonText || "Kích hoạt trải nghiệm";
-    demo.placeholder =
-      demo.placeholder || `Nhập văn bản tương tác cùng ${brandName}...`;
-    demo.defaultText =
-      demo.defaultText ||
-      `Xin chào! Bạn đang trải nghiệm thương hiệu ${brandName}.`;
-  }
+  // Demo (Phòng thu âm / Trải nghiệm tương tác / How-to-use chuẩn White Label Thai v2.0)
+  demo = demo || sections.find((s) => s.type === "demo");
+
+  const demoCfg = getIndustryDemoConfig(detectedTopic, brandName, data.brand.slogan);
+  demo.type = "demo";
+  demo.layout = (demo.layout === "console" ? undefined : demo.layout) || demoCfg.layout || undefined;
+  demo.title = demo.title || demoCfg.title;
+  demo.subtitle = demo.subtitle || demoCfg.subtitle;
+  demo.placeholder = demo.placeholder || demoCfg.placeholder;
+  demo.defaultText = demo.defaultText || demoCfg.defaultText;
+  demo.welcomeMessage = demo.welcomeMessage || demoCfg.welcomeMessage;
+  demo.speakLabel = demo.speakLabel || demo.speakButtonText || demoCfg.speakLabel;
+  demo.speakButtonText = demo.speakLabel;
+  demo.stopLabel = demo.stopLabel || "Dừng phát";
+  demo.unsupported = demo.unsupported || "Trình duyệt của bạn chưa hỗ trợ Web Speech API. Vui lòng sử dụng phiên bản mới của Google Chrome hoặc Microsoft Edge.";
+  demo.howToUseTitle = demo.howToUseTitle || demoCfg.howToUseTitle;
+  demo.howToUseSubtitle = demo.howToUseSubtitle || demoCfg.howToUseSubtitle;
+  demo.steps = Array.isArray(demo.steps) && demo.steps.length > 0 ? demo.steps : (Array.isArray(demo.howToUseSteps) && demo.howToUseSteps.length > 0 ? demo.howToUseSteps : demoCfg.steps);
+  demo.howToUseSteps = demo.steps;
+  demo.buttonText = demo.buttonText || demoCfg.buttonText || "Trải Nghiệm Ngay Miễn Phí";
+  demo.buttonHref = demo.buttonHref || "#demo";
+  demo.hintText = demo.hintText || demoCfg.hintText || "Tối ưu thời gian • Đảm bảo chất lượng xuất sắc";
 
   // FAQ (Hỏi đáp - Thẻ lật 3D hoặc Accordion)
   const faq = sections.find((s) => s.type === "faq");
@@ -1967,6 +3043,21 @@ export function enrichAndValidateBrandJson(data, topicHint = "tech") {
     ],
     copyright: `© Bản quyền thuộc về ${brandName}. Kiến trúc White Label 2.0.`,
   };
+
+  // 4. Chuẩn bị ảnh dải cuộn 3D vô tận cho DemoPage (#demo)
+  if (!Array.isArray(data.demoHeroBackgroundBooks) || data.demoHeroBackgroundBooks.length === 0) {
+    const bookTitles = [
+      "Bộ sưu tập tuyển chọn 01", "Dấu ấn phong cách 02", "Trải nghiệm đỉnh cao 03",
+      "Tiêu chuẩn vàng 04", "Kiệt tác chọn lọc 05", "Giải pháp tương lai 06",
+      "Sáng tạo bứt phá 07", "Đồng hành bền vững 08", "Chất lượng thượng hạng 09",
+      "Đột phá công nghệ 10", "Dịch vụ tận tâm 11", "Khẳng định vị thế 12"
+    ];
+    data.demoHeroBackgroundBooks = bookTitles.map((t, idx) => ({
+      title: t,
+      author: brandName,
+      image: photoPool[idx % photoPool.length],
+    }));
+  }
 
   return data;
 }
@@ -3098,8 +4189,10 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey, prom
   const sections = [
     {
       type: "hero",
-      layout: tpl.hero.layout || "centered",
-      welcomeMessage: `Chào mừng bạn đến với ${brandName}`,
+      layout: tpl.hero.layout || "split-right",
+      image: photos[0],
+      imageAlt: `${brandName} - ${brandSlogan}`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${brandSlogan}`,
       welcomeAudio: "",
       title: `${tpl.hero.title} ${brandName}`,
       rotatingWords: tpl.hero.rotatingWords,
@@ -3213,20 +4306,38 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey, prom
     },
   ];
 
-  // Chèn demo console nếu là audio studio
-  if (detectedTopic === "audio") {
-    sections.splice(1, 0, {
-      type: "demo",
-      title: "Phòng Thu Âm Tương Tác Trực Tuyến",
-      subtitle: `Cảm nhận độ trung thực vượt trội của bộ giải mã âm thanh AI và thử nghiệm trực tiếp cùng ${brandName}.`,
-      placeholder: "Nhập văn bản cần thu âm hoặc lồng tiếng thử nghiệm...",
-      defaultText: `Xin chào! Đây là bản thu thử nghiệm với công nghệ âm thanh chuẩn Studio 32-bit từ ${brandName}. Mọi chi tiết âm sắc đều được tái hiện chân thực và sắc nét.`,
-      speakButtonText: "Kích hoạt thu âm / Nghe thử",
-    });
-  }
+  // Chèn demo & how-to-use section tại vị trí số 2 (sau features, trước about)
+  const offlineDemoCfg = getIndustryDemoConfig(detectedTopic, brandName, brandSlogan);
+  sections.splice(2, 0, {
+    type: "demo",
+    layout: offlineDemoCfg.layout || undefined,
+    title: offlineDemoCfg.title,
+    subtitle: offlineDemoCfg.subtitle,
+    placeholder: offlineDemoCfg.placeholder,
+    defaultText: offlineDemoCfg.defaultText,
+    welcomeMessage: offlineDemoCfg.welcomeMessage,
+    speakLabel: offlineDemoCfg.speakLabel,
+    stopLabel: "Dừng phát",
+    unsupported: "Trình duyệt của bạn chưa hỗ trợ Web Speech API. Vui lòng sử dụng phiên bản mới của Google Chrome hoặc Microsoft Edge.",
+    howToUseTitle: offlineDemoCfg.howToUseTitle,
+    howToUseSubtitle: offlineDemoCfg.howToUseSubtitle,
+    steps: offlineDemoCfg.steps,
+    howToUseSteps: offlineDemoCfg.steps,
+    buttonText: offlineDemoCfg.buttonText,
+    buttonHref: "#demo",
+    hintText: offlineDemoCfg.hintText,
+  });
 
   const base = {
-    brand: { name: brandName, slogan: brandSlogan, field: brandField },
+    brand: {
+      id: "brand-" + slug,
+      key: "brand-" + slug,
+      name: brandName,
+      slogan: brandSlogan,
+      field: brandField,
+    },
+    brandKey: "brand-" + slug,
+    brandId: "brand-" + slug,
     topic: detectedTopic,
     effects: {
       smoothScroll: true,
@@ -3256,6 +4367,706 @@ export function generateBrandJsonOffline({ name, field, slogan, paletteKey, prom
 
 // ============================================================================
 // KHỞI TẠO LOGIC TƯƠNG TÁC CHATBOT
+// ============================================================================
+// BỘ HÀM TINH CHỈNH TỪNG PHẦN BẰNG TRÍ TUỆ NHÂN TẠO AI (AI SECTION REFINER)
+// ============================================================================
+
+/**
+ * Kiểm tra xem người dùng có đang yêu cầu AI viết lại / sáng tạo lại nội dung hay không
+ */
+export function isAiRewritePrompt(text = "") {
+  if (!text || typeof text !== "string") return false;
+  const l = text.toLowerCase().trim();
+  if (["centered", "split", "image-frame", "studio", "bento", "stack", "grid", "story", "accordion", "3d-flip", "refresh"].includes(l)) {
+    return false;
+  }
+  return (
+    l.includes("viết lại") ||
+    l.includes("sửa lại") ||
+    l.includes("chỉnh lại") ||
+    l.includes("làm mới") ||
+    l.includes("thay đổi nội dung") ||
+    l.includes("nội dung") ||
+    l.includes("chuyên nghiệp") ||
+    l.includes("hấp dẫn") ||
+    l.includes("hay hơn") ||
+    l.includes("ngắn gọn") ||
+    l.includes("chi tiết") ||
+    l.includes("sâu sắc") ||
+    l.includes("cảm xúc") ||
+    l.includes("tập trung vào") ||
+    l.includes("phong cách") ||
+    l.includes("sáng tạo") ||
+    l.includes("nâng cấp") ||
+    l.includes("tối ưu") ||
+    l.includes("cho phù hợp") ||
+    l.includes("thêm") ||
+    l.length >= 15
+  );
+}
+
+/**
+ * Xây dựng prompt chi tiết cho Gemini để viết lại DUY NHẤT một section
+ */
+function buildSectionAiPrompt(sectionKey, userPrompt, brandName, brandField, brandSlogan, currentSection) {
+  const schemaMap = {
+    features: `{
+  "type": "features",
+  "layout": "bento",
+  "title": "Tiêu đề tính năng nổi bật (ngắn gọn, chuyên nghiệp)",
+  "subtitle": "Mô tả tính năng chuyên sâu và lôi cuốn",
+  "items": [
+    {
+      "badge": "01 / TÊN TRỤ CỘT",
+      "icon": "fa-solid fa-...",
+      "title": "Tên tính năng 1",
+      "desc": "Mô tả chi tiết tính năng 1",
+      "text": "Mô tả chi tiết tính năng 1"
+    },
+    {
+      "badge": "02 / TÊN TRỤ CỘT",
+      "icon": "fa-solid fa-...",
+      "title": "Tên tính năng 2",
+      "desc": "Mô tả chi tiết tính năng 2",
+      "text": "Mô tả chi tiết tính năng 2"
+    },
+    {
+      "badge": "03 / TÊN TRỤ CỘT",
+      "icon": "fa-solid fa-...",
+      "title": "Tên tính năng 3",
+      "desc": "Mô tả chi tiết tính năng 3",
+      "text": "Mô tả chi tiết tính năng 3"
+    },
+    {
+      "badge": "04 / TÊN TRỤ CỘT",
+      "icon": "fa-solid fa-...",
+      "title": "Tên tính năng 4",
+      "desc": "Mô tả chi tiết tính năng 4",
+      "text": "Mô tả chi tiết tính năng 4"
+    }
+  ]
+}`,
+    hero: `{
+  "type": "hero",
+  "title": "Tiêu đề chính Hero ấn tượng",
+  "rotatingWords": ["từ khóa 1", "từ khóa 2", "từ khóa 3"],
+  "subtitle": "Phụ đề / slogan giải thích giá trị cốt lõi",
+  "playSample": "Đoạn văn bản chào mừng đọc bằng giọng AI tự nhiên",
+  "buttons": [
+    { "href": "#features", "label": "Khám phá giải pháp", "style": "primary" },
+    { "href": "#contact", "label": "Liên hệ tư vấn", "style": "secondary" }
+  ]
+}`,
+    about: `{
+  "type": "about",
+  "eyebrow": "CÂU CHUYỆN THƯƠNG HIỆU",
+  "title": "Tiêu đề câu chuyện thương hiệu",
+  "subtitle": "Lời giới thiệu ngắn gọn truyền cảm hứng",
+  "paragraphs": [
+    "Đoạn văn 1...",
+    "Đoạn văn 2..."
+  ],
+  "slides": [
+    {
+      "eyebrow": "01 / NGUỒN GỐC",
+      "title": "Tiêu đề slide 1",
+      "description": "Mô tả slide 1...",
+      "metric": { "value": "100%", "label": "Nguyên chất" }
+    },
+    {
+      "eyebrow": "02 / NGHỆ NHÂN",
+      "title": "Tiêu đề slide 2",
+      "description": "Mô tả slide 2...",
+      "metric": { "value": "99.8%", "label": "Hài lòng" }
+    },
+    {
+      "eyebrow": "03 / GIÁ TRỊ",
+      "title": "Tiêu đề slide 3",
+      "description": "Mô tả slide 3...",
+      "metric": { "value": "500+", "label": "Doanh nghiệp" }
+    }
+  ],
+  "stats": [
+    { "value": "100%", "label": "Tiêu chuẩn vàng" },
+    { "value": "99.8%", "label": "Khách hàng hài lòng" },
+    { "value": "24/7", "label": "Đồng hành tin cậy" }
+  ],
+  "badge": { "icon": "fa-solid fa-award", "value": "Top 1", "label": "Thương hiệu tiêu biểu 2026" }
+}`,
+    demo: `{
+  "type": "demo",
+  "title": "Tiêu đề bàn điều khiển trải nghiệm",
+  "subtitle": "Mô tả trải nghiệm tương tác thời gian thực",
+  "placeholder": "Gợi ý nội dung tương tác...",
+  "defaultText": "Đoạn văn mẫu trải nghiệm theo ngành nghề...",
+  "welcomeMessage": "Chào mừng bạn đến với...",
+  "speakLabel": "Phát âm thanh trải nghiệm",
+  "stopLabel": "Dừng phát",
+  "howToUseTitle": "Trải Nghiệm Dễ Dàng Chỉ Với 3 Bước",
+  "howToUseSubtitle": "Mô tả quy trình 3 bước sử dụng hoặc đặt dịch vụ...",
+  "steps": [
+    {
+      "step": "01",
+      "phase": "BƯỚC 01",
+      "title": "Tên bước 1",
+      "subtitle": "Khởi đầu",
+      "icon": "fa-solid fa-compass",
+      "description": "Mô tả chi tiết bước 1...",
+      "tag": "Nhanh chóng",
+      "snippetType": "editor",
+      "snippetText": "Nội dung mô phỏng bước 1..."
+    },
+    {
+      "step": "02",
+      "phase": "BƯỚC 02",
+      "title": "Tên bước 2",
+      "subtitle": "Tùy biến",
+      "icon": "fa-solid fa-sliders",
+      "description": "Mô tả chi tiết bước 2...",
+      "tag": "Linh hoạt",
+      "snippetType": "editor",
+      "snippetText": "Nội dung mô phỏng bước 2..."
+    },
+    {
+      "step": "03",
+      "phase": "BƯỚC 03",
+      "title": "Tên bước 3",
+      "subtitle": "Hoàn tất",
+      "icon": "fa-solid fa-circle-check",
+      "description": "Mô tả chi tiết bước 3...",
+      "tag": "Xuất sắc",
+      "snippetType": "editor",
+      "snippetText": "Nội dung mô phỏng bước 3..."
+    }
+  ]
+}`,
+    faq: `{
+  "type": "faq",
+  "title": "Câu Hỏi Thường Gặp",
+  "subtitle": "Giải đáp thắc mắc phổ biến của khách hàng",
+  "items": [
+    {
+      "id": "faq-1",
+      "badge": "01",
+      "category": "Chuyên môn",
+      "icon": "fa-solid fa-circle-question",
+      "question": "Câu hỏi 1...",
+      "answer": "Câu trả lời chi tiết 1..."
+    },
+    {
+      "id": "faq-2",
+      "badge": "02",
+      "category": "Dịch vụ",
+      "icon": "fa-solid fa-shield-halved",
+      "question": "Câu hỏi 2...",
+      "answer": "Câu trả lời chi tiết 2..."
+    },
+    {
+      "id": "faq-3",
+      "badge": "03",
+      "category": "Chi phí",
+      "icon": "fa-solid fa-coins",
+      "question": "Câu hỏi 3...",
+      "answer": "Câu trả lời chi tiết 3..."
+    },
+    {
+      "id": "faq-4",
+      "badge": "04",
+      "category": "Hỗ trợ",
+      "icon": "fa-solid fa-headset",
+      "question": "Câu hỏi 4...",
+      "answer": "Câu trả lời chi tiết 4..."
+    }
+  ]
+}`,
+    testimonials: `{
+  "type": "testimonials",
+  "eyebrow": "ĐÁNH GIÁ CHÂN THỰC",
+  "title": "Khách Hàng Nói Gì Về Chúng Tôi",
+  "subtitle": "Phản hồi chân thực từ đối tác và khách hàng tin chọn",
+  "items": [
+    {
+      "name": "Nguyễn Văn An",
+      "role": "Giám đốc Vận hành",
+      "quote": "Dịch vụ vô cùng chuyên nghiệp, vượt xa kỳ vọng ban đầu của chúng tôi.",
+      "rating": 5
+    },
+    {
+      "name": "Trần Thị Mai",
+      "role": "Trưởng phòng Kinh doanh",
+      "quote": "Quy trình làm việc minh bạch, đội ngũ hỗ trợ tận tâm 24/7.",
+      "rating": 5
+    },
+    {
+      "name": "Lê Hoàng Long",
+      "role": "Nhà sáng lập & CEO",
+      "quote": "Chất lượng sản phẩm xuất sắc giúp chúng tôi hoàn toàn yên tâm phát triển.",
+      "rating": 5
+    }
+  ]
+}`,
+    contact: `{
+  "type": "contact",
+  "title": "Kết Nối & Nhận Tư Vấn Chuyên Sâu",
+  "channels": [
+    { "label": "Hotline", "value": "1900 6868 (24/7)" },
+    { "label": "Email", "value": "contact@brand.vn" },
+    { "label": "Địa chỉ", "value": "Tòa nhà Bitexco, Q.1, TP.HCM" }
+  ],
+  "formTitle": "Đăng ký tư vấn trực tiếp",
+  "formMessage": "Để lại thông tin để được chuyên gia liên hệ trong 15 phút...",
+  "formButton": "Gửi yêu cầu tư vấn ngay"
+}`
+  };
+
+  const schema = schemaMap[sectionKey] || `{ "type": "${sectionKey}", "title": "Tiêu đề mới" }`;
+
+  return `Bạn là Giám đốc Sáng tạo Thương hiệu & Trưởng ban Biên tập Copywriting cấp cao.
+Nhiệm vụ: Viết lại và nâng cấp nội dung cho DUY NHẤT một phần (${sectionKey}) của thương hiệu:
+- Tên thương hiệu: "${brandName}"
+- Lĩnh vực: "${brandField}"
+- Slogan: "${brandSlogan}"
+
+Nội dung hiện tại của phần này:
+${JSON.stringify(currentSection || {}, null, 2)}
+
+Yêu cầu cụ thể từ người dùng:
+"${userPrompt}"
+
+Quy tắc bắt buộc:
+1. Viết bằng tiếng Việt tự nhiên, chuyên nghiệp, hấp dẫn, đúng phong cách của ngành "${brandField}".
+2. Thực hiện chính xác yêu cầu của người dùng (ví dụ: làm cho chuyên nghiệp hơn, lôi cuốn hơn, đổi hướng trọng tâm, chi tiết hơn...).
+3. CHỈ trả về DUY NHẤT một chuỗi JSON hợp lệ theo cấu trúc Schema dưới đây. KHÔNG thêm bất kỳ văn bản, lời mở đầu hay giải thích markdown nào bên ngoài chuỗi JSON.
+4. Với phần "demo", TUYỆT ĐỐI KHÔNG thêm "layout": "console" (để trang chủ hiển thị 3 bước HowToUse).
+
+Cấu trúc Schema JSON yêu cầu:
+${schema}`;
+}
+
+/**
+ * Bộ sinh nội dung ngoại tuyến nâng cao khi không có Gemini API
+ */
+function generateRefinedSectionOffline(sectionKey, userPrompt, currentBrand, currentSection) {
+  const brandName = currentBrand?.brand?.name || "Thương hiệu";
+  const brandSlogan = currentBrand?.brand?.slogan || "";
+  const detectedTopic = currentBrand?.topic || detectIndustryTopic(currentBrand?.brand?.field || brandName);
+  const pLower = (userPrompt || "").toLowerCase();
+  const isProfessional = pLower.includes("chuyên nghiệp") || pLower.includes("doanh nghiệp") || pLower.includes("cao cấp") || pLower.includes("chuẩn");
+
+  const tpl = INDUSTRY_TEMPLATES[detectedTopic] || INDUSTRY_TEMPLATES.tech;
+
+  if (sectionKey === "features") {
+    let newItems = [];
+    if (detectedTopic === "coffee") {
+      newItems = [
+        { badge: "01 / NGUYÊN LIỆU ĐỈNH CAO", icon: "fa-solid fa-seedling", title: "Tuyển Chọn Hạt Mộc Cầu Đất 100%", desc: "Hạt Arabica và Robusta thu hoạch chín mọng ở độ cao 1.500m, giữ trọn vẹn hương vị mộc tinh khiết.", text: "Hạt Arabica và Robusta thu hoạch chín mọng ở độ cao 1.500m, giữ trọn vẹn hương vị mộc tinh khiết." },
+        { badge: "02 / RANG MỘC CHUYÊN SÂU", icon: "fa-solid fa-fire-flame-curved", title: "Kỹ Thuật Rang Mộc Kiểm Soát Nhiệt Độ", desc: "Hệ thống rang công nghệ cao lưu giữ các tầng hương hoa quả và mật ong tự nhiên mà không tẩm ướp hương liệu.", text: "Hệ thống rang công nghệ cao lưu giữ các tầng hương hoa quả và mật ong tự nhiên mà không tẩm ướp hương liệu." },
+        { badge: "03 / TAY NGHỀ BARISTA", icon: "fa-solid fa-mug-hot", title: "Nghệ Thuật Barista Pha Chế Chuẩn Ý", desc: "Đội ngũ chuyên gia pha chế được đào tạo chuyên sâu, chuẩn xác từng gram hạt và nhiệt độ nước chiết xuất.", text: "Đội ngũ chuyên gia pha chế được đào tạo chuyên sâu, chuẩn xác từng gram hạt và nhiệt độ nước chiết xuất." },
+        { badge: "04 / DỊCH VỤ TẬN TÂM", icon: "fa-solid fa-couch", title: "Không Gian Làm Việc & Thưởng Thức Đẳng Cấp", desc: "Không gian mộc mạc thư thái cùng sự phục vụ chu đáo, mang đến cảm hứng làm việc và thư giãn tuyệt đối.", text: "Không gian mộc mạc thư thái cùng sự phục vụ chu đáo, mang đến cảm hứng làm việc và thư giãn tuyệt đối." }
+      ];
+    } else {
+      newItems = [
+        { badge: "01 / NỀN TẢNG TIÊN PHONG", icon: "fa-solid fa-microchip", title: isProfessional ? "Kiến Trúc Microservices Đa Nền Tảng" : (tpl.features.items[0]?.title || "Hệ Thống Tiên Tiến"), desc: isProfessional ? "Vận hành mạnh mẽ trên nền tảng Cloud Native với độ sẵn sàng cao 99.99%, đáp ứng hàng triệu người dùng đồng thời." : (tpl.features.items[0]?.desc || "Hệ thống vận hành mượt mà."), text: isProfessional ? "Vận hành mạnh mẽ trên nền tảng Cloud Native với độ sẵn sàng cao 99.99%, đáp ứng hàng triệu người dùng đồng thời." : (tpl.features.items[0]?.desc || "Hệ thống vận hành mượt mà.") },
+        { badge: "02 / TRÍ TUỆ NHÂN TẠO", icon: "fa-solid fa-brain", title: isProfessional ? "Động Cơ Phân Tích Dữ Liệu Thông Minh" : (tpl.features.items[1]?.title || "Tối Ưu Tự Động"), desc: isProfessional ? "Tự động hóa toàn diện quy trình làm việc, tối ưu hóa hơn 70% thời gian xử lý nghiệp vụ phức tạp." : (tpl.features.items[1]?.desc || "Tối ưu hóa thời gian xử lý."), text: isProfessional ? "Tự động hóa toàn diện quy trình làm việc, tối ưu hóa hơn 70% thời gian xử lý nghiệp vụ phức tạp." : (tpl.features.items[1]?.desc || "Tối ưu hóa thời gian xử lý.") },
+        { badge: "03 / AN TOÀN BẢO MẬT", icon: "fa-solid fa-shield-halved", title: isProfessional ? "Bảo Mật Cấp Doanh Nghiệp Chuẩn ISO" : (tpl.features.items[2]?.title || "Bảo Mật Tối Đa"), desc: isProfessional ? "Mã hóa đa tầng AES-256 đầu cuối, tuân thủ nghiêm ngặt các quy chuẩn an toàn dữ liệu quốc tế." : (tpl.features.items[2]?.desc || "Mã hóa dữ liệu an toàn."), text: isProfessional ? "Mã hóa đa tầng AES-256 đầu cuối, tuân thủ nghiêm ngặt các quy chuẩn an toàn dữ liệu quốc tế." : (tpl.features.items[2]?.desc || "Mã hóa dữ liệu an toàn.") },
+        { badge: "04 / ĐỒNG HÀNH 24/7", icon: "fa-solid fa-headset", title: isProfessional ? "Dịch Vụ Hỗ Trợ Chuyên Gia Chuyên Biệt" : (tpl.features.items[3]?.title || "Hỗ Trợ Tận Tâm"), desc: isProfessional ? "Đội ngũ kỹ sư và chuyên gia tư vấn giàu kinh nghiệm luôn sẵn sàng đồng hành trong mọi giai đoạn phát triển." : (tpl.features.items[3]?.desc || "Hỗ trợ khách hàng chu đáo."), text: isProfessional ? "Đội ngũ kỹ sư và chuyên gia tư vấn giàu kinh nghiệm luôn sẵn sàng đồng hành trong mọi giai đoạn phát triển." : (tpl.features.items[3]?.desc || "Hỗ trợ khách hàng chu đáo.") }
+      ];
+    }
+
+    // Bảo tồn ảnh nếu có
+    if (currentSection && Array.isArray(currentSection.items)) {
+      newItems.forEach((it, i) => {
+        if (currentSection.items[i]?.image) it.image = currentSection.items[i].image;
+      });
+    }
+
+    return {
+      type: "features",
+      layout: currentSection?.layout || "bento",
+      title: isProfessional ? `Năng Lực & Trụ Cột Đột Phá Tại ${brandName}` : (tpl.features.title || `Tính Năng Nổi Bật Tại ${brandName}`),
+      subtitle: isProfessional ? `Hệ sinh thái giải pháp được thiết kế theo tiêu chuẩn chuyên nghiệp quốc tế, mang lại giá trị thực chất cho đối tác và khách hàng của ${brandName}.` : (typeof tpl.features.subtitle === "function" ? tpl.features.subtitle(brandName) : tpl.features.subtitle),
+      items: newItems
+    };
+  }
+
+  if (sectionKey === "about") {
+    const ab = tpl.about;
+    return {
+      type: "about",
+      layout: currentSection?.layout || "sticky-story",
+      eyebrow: "CÂU CHUYỆN THƯƠNG HIỆU",
+      title: `Hành trình kiến tạo giá trị bền vững cùng ${brandName}`,
+      subtitle: typeof ab.subtitle === "function" ? ab.subtitle(brandName) : ab.subtitle,
+      paragraphs: typeof ab.paragraphs === "function" ? ab.paragraphs(brandName) : ab.paragraphs,
+      slides: ab.slides.map((s, idx) => ({
+        ...s,
+        image: (currentSection?.slides && currentSection.slides[idx]?.image) || s.image
+      })),
+      stats: ab.stats,
+      badge: ab.badge
+    };
+  }
+
+  if (sectionKey === "hero") {
+    const h = tpl.hero;
+    return {
+      type: "hero",
+      layout: currentSection?.layout || h.layout || "split-right",
+      title: `Đột phá phong cách & Giải pháp toàn diện tại ${brandName}`,
+      rotatingWords: h.rotatingWords || ["chuyên nghiệp", "tin cậy", "tương lai"],
+      subtitle: typeof h.subtitle === "function" ? h.subtitle(brandName) : h.subtitle,
+      image: currentSection?.image || (currentBrand.photoPool && currentBrand.photoPool[0]),
+      imageAlt: `${brandName} - ${brandSlogan}`,
+      welcomeMessage: `Chào mừng bạn đến với ${brandName} - ${brandSlogan}`,
+      playSample: typeof h.playSample === "function" ? h.playSample(brandName) : `Xin chào! Bạn đang trải nghiệm giao diện White Label thế hệ mới của ${brandName}.`,
+      buttons: currentSection?.buttons || h.buttons || [{ href: "#features", label: "Khám phá ngay", style: "primary" }, { href: "#contact", label: "Liên hệ", style: "secondary" }]
+    };
+  }
+
+  if (sectionKey === "demo") {
+    const d = getIndustryDemoConfig(detectedTopic, brandName, brandSlogan);
+    return {
+      type: "demo",
+      title: d.title,
+      subtitle: d.subtitle,
+      placeholder: d.placeholder,
+      defaultText: d.defaultText,
+      welcomeMessage: d.welcomeMessage,
+      speakLabel: d.speakLabel,
+      stopLabel: "Dừng phát",
+      unsupported: "Trình duyệt của bạn chưa hỗ trợ Web Speech API.",
+      howToUseTitle: d.howToUseTitle,
+      howToUseSubtitle: d.howToUseSubtitle,
+      steps: d.steps,
+      howToUseSteps: d.steps,
+      buttonText: d.buttonText,
+      buttonHref: "#demo",
+      hintText: d.hintText
+    };
+  }
+
+  if (sectionKey === "faq") {
+    const f = tpl.faq;
+    return {
+      type: "faq",
+      layout: currentSection?.layout || "3d-flip-cards",
+      title: f.title || "Câu Hỏi Thường Gặp",
+      subtitle: typeof f.subtitle === "function" ? f.subtitle(brandName) : f.subtitle,
+      items: f.items || []
+    };
+  }
+
+  if (sectionKey === "testimonials") {
+    return {
+      type: "testimonials",
+      layout: "marquee",
+      eyebrow: "ĐÁNH GIÁ CHÂN THỰC",
+      title: `Khách Hàng Nói Gì Về ${brandName}`,
+      subtitle: "Những chia sẻ và phản hồi thực tế từ các đối tác tin chọn.",
+      items: getFallbackTestimonials(detectedTopic, brandName)
+    };
+  }
+
+  if (sectionKey === "contact") {
+    const c = tpl.contact;
+    return {
+      type: "contact",
+      title: typeof c.title === "function" ? c.title(brandName) : c.title,
+      channels: [
+        { label: "Hotline", value: "1900 6868 (24/7)" },
+        { label: "Email", value: `contact@${brandName.toLowerCase().replace(/[^a-z0-9]/g, "")}.vn` },
+        { label: "Địa chỉ", value: "Trung tâm Đổi mới Sáng tạo, Hà Nội / TP.HCM" }
+      ],
+      formTitle: c.formTitle || "Đăng ký tư vấn trực tiếp",
+      formMessage: typeof c.formMessage === "function" ? c.formMessage(brandName) : "Để lại thông tin hỗ trợ...",
+      formButton: c.formButton || "Gửi yêu cầu tư vấn"
+    };
+  }
+
+  return currentSection || { type: sectionKey };
+}
+
+/**
+ * Tinh chỉnh màu sắc Theme toàn trang bằng AI hoặc Bảng màu thông minh
+ */
+export async function refineThemeWithAi(userPrompt, currentBrand, extraData = null) {
+  // 1. Nếu có extraData truyền thẳng (ví dụ click nút chọn màu)
+  if (extraData && extraData.primary) {
+    return { name: extraData.name || extraData.primary, palette: extraData };
+  }
+
+  // 2. Thử phân tích chuỗi người dùng qua parseColorRequest
+  const parsed = parseColorRequest(userPrompt);
+  if (parsed) {
+    return parsed;
+  }
+
+  // 3. Fallback theo từ khóa mô tả phong cách
+  const pLower = (userPrompt || "").toLowerCase();
+  if (pLower.includes("tím") || pLower.includes("violet") || pLower.includes("neon")) {
+    return { name: "Tím Neon Cyber", palette: BRAND_PALETTES.purple };
+  }
+  if (pLower.includes("vàng") || pLower.includes("gold") || pLower.includes("kim")) {
+    return { name: "Vàng Hoàng Gia Gold", palette: BRAND_PALETTES.gold };
+  }
+  if (pLower.includes("ấm áp") || pLower.includes("cà phê") || pLower.includes("nâu")) {
+    return { name: "Hổ Phách & Nâu Cà Phê", palette: BRAND_PALETTES.amber };
+  }
+  if (pLower.includes("xanh lá") || pLower.includes("lục") || pLower.includes("mint") || pLower.includes("hữu cơ")) {
+    return { name: "Xanh Lục Bảo & Bạc Hà", palette: BRAND_PALETTES.emerald };
+  }
+  if (pLower.includes("xanh dương") || pLower.includes("biển") || pLower.includes("ocean") || pLower.includes("navy")) {
+    return { name: "Xanh Đại Dương & Navy", palette: BRAND_PALETTES.ocean };
+  }
+  if (pLower.includes("y tế") || pLower.includes("cyan") || pLower.includes("nha khoa")) {
+    return { name: "Xanh Y Tế & Cyan", palette: BRAND_PALETTES.medical };
+  }
+  if (pLower.includes("hồng") || pLower.includes("rose") || pLower.includes("pastel") || pLower.includes("nude")) {
+    return { name: "Hồng Luxury & Pastel", palette: BRAND_PALETTES.rose };
+  }
+  if (pLower.includes("đen") || pLower.includes("tối") || pLower.includes("dark") || pLower.includes("bạc")) {
+    return { name: "Đen Tối Giản & Bạc", palette: BRAND_PALETTES.dark };
+  }
+  if (pLower.includes("đỏ") || pLower.includes("ruby")) {
+    return { name: "Đỏ Ruby Rực Rỡ", palette: BRAND_PALETTES.ruby };
+  }
+  if (pLower.includes("cam") || pLower.includes("sunset") || pLower.includes("hoàng hôn")) {
+    return { name: "Cam Sunset", palette: BRAND_PALETTES.sunset };
+  }
+
+  return { name: "Xanh Cyber Công Nghệ", palette: BRAND_PALETTES.cyber };
+}
+
+/**
+ * Gọi AI (Gemini hoặc Intelligent Offline Engine) để viết lại duy nhất một section
+ */
+export async function callAiToRefineSection(sectionKey, userPrompt, currentBrand, apiKey = null) {
+  if (!currentBrand) return null;
+  const brandName = currentBrand.brand?.name || "Thương hiệu";
+  const brandField = currentBrand.brand?.field || currentBrand.topic || "Doanh nghiệp hiện đại";
+  const brandSlogan = currentBrand.brand?.slogan || "";
+  const sections = currentBrand.sections || [];
+  const currentSection = sectionKey === "theme" ? currentBrand.theme : sections.find((s) => s.type === sectionKey);
+
+  // Thử gọi Gemini AI nếu có key
+  const activeKey =
+    apiKey ||
+    (await loadEnvGeminiKey()) ||
+    localStorage.getItem("viv_gemini_key") ||
+    DEFAULT_GEMINI_KEY;
+
+  if (activeKey) {
+    const candidateModels = [
+      "gemini-2.5-flash",
+      "gemini-3.7-flash",
+      "gemini-3.8-flash"
+    ];
+
+    const promptText = buildSectionAiPrompt(sectionKey, userPrompt, brandName, brandField, brandSlogan, currentSection);
+
+    for (const model of candidateModels) {
+      try {
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${activeKey}`;
+        const resp = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: promptText }] }],
+            generationConfig: { responseMimeType: "application/json" }
+          })
+        });
+
+        if (resp.ok) {
+          const resJson = await resp.json();
+          let raw = resJson?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+          raw = raw.replace(/\`\`\`json/g, "").replace(/\`\`\`/g, "").trim();
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === "object") {
+            parsed.type = sectionKey;
+            return parsed;
+          }
+        }
+      } catch (err) {
+        console.warn(`Lỗi khi gọi Gemini (${model}) để viết lại ${sectionKey}:`, err);
+      }
+    }
+  }
+
+  // Fallback: Bộ sinh nội dung thông minh ngoại tuyến theo ngành nghề và prompt
+  return generateRefinedSectionOffline(sectionKey, userPrompt, currentBrand, currentSection);
+}
+
+// ============================================================================
+// HÀM RENDER KHUNG TINH CHỈNH TỪNG PHẦN GIAO DIỆN & MÀU SẮC THEME (AI REFINER UI)
+// ============================================================================
+export function renderSectionRefinePromptHtml(rType, brandThemePrimary = "#10b981", brandName = "Thương hiệu") {
+  const secNameMap = {
+    theme: "Màu sắc Theme toàn trang",
+    hero: "Trang chủ (Hero)",
+    features: "Tính năng (Features)",
+    about: "Về chúng tôi (About)",
+    demo: "Trải nghiệm & 3 Bước (Demo)",
+    faq: "Hỏi đáp (FAQ)",
+    testimonials: "Đánh giá (Testimonials)",
+    contact: "Liên hệ (Contact)",
+  };
+  const title = secNameMap[rType] || rType;
+
+  let bodyHtml = "";
+
+  if (rType === "hero") {
+    bodyHtml = `
+      <div class="brand-refine-subactions">
+        <button type="button" class="btn-subaction-chip" data-sec="hero" data-act="rewrite"><i class="fa-solid fa-pen-nib"></i> Viết lại tiêu đề & Slogan</button>
+        <button type="button" class="btn-subaction-chip" data-sec="hero" data-act="image-frame"><i class="fa-solid fa-image"></i> Khung ảnh 3D</button>
+        <button type="button" class="btn-subaction-chip" data-sec="hero" data-act="centered"><i class="fa-solid fa-align-center"></i> Căn giữa đối xứng</button>
+        <button type="button" class="btn-subaction-chip" data-sec="hero" data-act="split"><i class="fa-solid fa-table-columns"></i> Chia đôi 3D</button>
+      </div>
+      <div class="brand-refine-input-row">
+        <input type="text" class="refine-custom-input" placeholder="Nhập yêu cầu AI viết lại Trang chủ (VD: slogan ấn tượng, tiêu đề mới...)" />
+        <button type="button" class="btn-refine-apply"><i class="fa-solid fa-check"></i> Áp dụng</button>
+        <button type="button" class="btn-refine-voice" title="Nói bằng giọng nói"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+    `;
+  } else if (rType === "features") {
+    bodyHtml = `
+      <div class="brand-refine-subactions">
+        <button type="button" class="btn-subaction-chip" data-sec="features" data-act="rewrite"><i class="fa-solid fa-rocket"></i> Viết lại 4 tính năng chuyên nghiệp hơn</button>
+        <button type="button" class="btn-subaction-chip" data-sec="features" data-act="rewrite-ai"><i class="fa-solid fa-microchip"></i> Đột phá Công nghệ & AI</button>
+        <button type="button" class="btn-subaction-chip" data-sec="features" data-act="bento"><i class="fa-solid fa-table-cells-large"></i> Lưới Bento Grid</button>
+        <button type="button" class="btn-subaction-chip" data-sec="features" data-act="stack"><i class="fa-solid fa-layer-group"></i> Thẻ 3D Stack</button>
+      </div>
+      <div class="brand-refine-input-row">
+        <input type="text" class="refine-custom-input" placeholder="Nhập yêu cầu AI viết lại Tính năng (VD: viết lại chuyên nghiệp hơn, chuẩn doanh nghiệp...)" />
+        <button type="button" class="btn-refine-apply"><i class="fa-solid fa-check"></i> Áp dụng</button>
+        <button type="button" class="btn-refine-voice" title="Nói bằng giọng nói"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+    `;
+  } else if (rType === "about") {
+    bodyHtml = `
+      <div class="brand-refine-subactions">
+        <button type="button" class="btn-subaction-chip" data-sec="about" data-act="rewrite-story"><i class="fa-solid fa-book-open"></i> Viết lại câu chuyện thương hiệu chuyên nghiệp</button>
+        <button type="button" class="btn-subaction-chip" data-sec="about" data-act="story"><i class="fa-solid fa-scroll"></i> Cuộn 3D Sticky Story</button>
+        <button type="button" class="btn-subaction-chip" data-sec="about" data-act="grid"><i class="fa-solid fa-chart-simple"></i> Lưới Thống Kê & Ảnh</button>
+      </div>
+      <div class="brand-refine-input-row">
+        <input type="text" class="refine-custom-input" placeholder="Nhập yêu cầu AI viết lại Về chúng tôi (VD: câu chuyện truyền cảm hứng...)" />
+        <button type="button" class="btn-refine-apply"><i class="fa-solid fa-check"></i> Áp dụng</button>
+        <button type="button" class="btn-refine-voice" title="Nói bằng giọng nói"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+    `;
+  } else if (rType === "demo") {
+    bodyHtml = `
+      <div class="brand-refine-subactions">
+        <button type="button" class="btn-subaction-chip" data-sec="demo" data-act="rewrite-steps"><i class="fa-solid fa-list-check"></i> Viết lại 3 bước sử dụng chuyên nghiệp</button>
+        <button type="button" class="btn-subaction-chip" data-sec="demo" data-act="rewrite"><i class="fa-solid fa-microphone-lines"></i> Viết lại văn bản giọng đọc mẫu</button>
+      </div>
+      <div class="brand-refine-input-row">
+        <input type="text" class="refine-custom-input" placeholder="Nhập yêu cầu AI viết lại quy trình 3 bước hoặc văn bản trải nghiệm..." />
+        <button type="button" class="btn-refine-apply"><i class="fa-solid fa-check"></i> Áp dụng</button>
+        <button type="button" class="btn-refine-voice" title="Nói bằng giọng nói"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+    `;
+  } else if (rType === "faq") {
+    bodyHtml = `
+      <div class="brand-refine-subactions">
+        <button type="button" class="btn-subaction-chip" data-sec="faq" data-act="rewrite-faq"><i class="fa-solid fa-circle-question"></i> Viết lại 4 câu hỏi thực tế</button>
+        <button type="button" class="btn-subaction-chip" data-sec="faq" data-act="accordion"><i class="fa-solid fa-bars-staggered"></i> Accordion Danh sách</button>
+        <button type="button" class="btn-subaction-chip" data-sec="faq" data-act="3d-flip"><i class="fa-solid fa-arrows-rotate"></i> Thẻ lật 3D hai mặt</button>
+      </div>
+      <div class="brand-refine-input-row">
+        <input type="text" class="refine-custom-input" placeholder="Nhập yêu cầu AI viết lại Hỏi đáp (VD: câu hỏi thực tế sát ngành nghề...)" />
+        <button type="button" class="btn-refine-apply"><i class="fa-solid fa-check"></i> Áp dụng</button>
+        <button type="button" class="btn-refine-voice" title="Nói bằng giọng nói"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+    `;
+  } else if (rType === "testimonials") {
+    bodyHtml = `
+      <div class="brand-refine-subactions">
+        <button type="button" class="btn-subaction-chip" data-sec="testimonials" data-act="refresh"><i class="fa-solid fa-arrows-rotate"></i> Làm mới danh sách đánh giá</button>
+      </div>
+      <div class="brand-refine-input-row">
+        <input type="text" class="refine-custom-input" placeholder="Nhập nhận xét hoặc yêu cầu viết lại đánh giá khách hàng..." />
+        <button type="button" class="btn-refine-apply"><i class="fa-solid fa-check"></i> Áp dụng</button>
+        <button type="button" class="btn-refine-voice" title="Nói bằng giọng nói"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+    `;
+  } else if (rType === "contact") {
+    bodyHtml = `
+      <div class="brand-refine-input-row">
+        <input type="text" class="refine-custom-input" placeholder="Nhập hotline, email hoặc yêu cầu cập nhật liên hệ..." />
+        <button type="button" class="btn-refine-apply"><i class="fa-solid fa-check"></i> Áp dụng</button>
+        <button type="button" class="btn-refine-voice" title="Nói bằng giọng nói"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+    `;
+  } else if (rType === "theme") {
+    bodyHtml = `
+      <span class="brand-refine-prompt-label">Chọn bảng màu có sẵn hoặc đổi màu toàn trang:</span>
+      <div class="brand-refine-subactions">
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="cyber" style="border-left: 3px solid #00f0ff;">Xanh Cyber</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="data" style="border-left: 3px solid #6366f1;">Indigo Data</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="emerald" style="border-left: 3px solid #10b981;">Lục bảo Mint</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="ruby" style="border-left: 3px solid #ef4444;">Đỏ Ruby</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="sunset" style="border-left: 3px solid #f97316;">Cam Sunset</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="gold" style="border-left: 3px solid #eab308;">Vàng Gold</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="amber" style="border-left: 3px solid #f59e0b;">Hổ phách Nâu</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="ocean" style="border-left: 3px solid #3b82f6;">Xanh Biển</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="medical" style="border-left: 3px solid #06b6d4;">Xanh Y tế</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="purple" style="border-left: 3px solid #8b5cf6;">Tím Violet</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="rose" style="border-left: 3px solid #ec4899;">Hồng Luxury</button>
+        <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="dark" style="border-left: 3px solid #94a3b8;">Đen Tối giản</button>
+      </div>
+      <div class="brand-refine-color-row">
+        <label class="refine-color-picker-label">
+          <input type="color" class="refine-color-picker" value="${brandThemePrimary}" />
+          <span>Chọn màu tùy ý</span>
+        </label>
+        <input type="text" class="refine-color-hex" placeholder="Nhập mã #hex (VD: #ff3366) hoặc tên màu..." />
+        <button type="button" class="btn-refine-apply-color"><i class="fa-solid fa-palette"></i> Đổi màu ngay</button>
+      </div>
+      <div class="brand-refine-input-row" style="margin-top: 6px;">
+        <input type="text" class="refine-custom-input" placeholder="Yêu cầu AI đổi màu theme toàn trang (VD: tông màu tím sang trọng, pastel ấm áp...)" />
+        <button type="button" class="btn-refine-apply"><i class="fa-solid fa-check"></i> Đổi màu</button>
+        <button type="button" class="btn-refine-voice" title="Nói bằng giọng nói"><i class="fa-solid fa-microphone"></i></button>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="brand-refine-active-header">
+      <span><i class="fa-solid fa-sliders"></i> Đang tinh chỉnh: <strong>${title}</strong></span>
+      <span class="badge-active-sec"><i class="fa-solid fa-arrows-to-eye"></i> Đang chọn</span>
+    </div>
+    ${bodyHtml}
+  `;
+}
+
+export function renderRefineBoxHtml(brandData, activeSection = null) {
+  const brandThemePrimary = brandData?.theme?.primary || "#10b981";
+  const brandName = brandData?.brand?.name || "Thương hiệu";
+
+  return `
+    <div class="brand-refine-box" id="brand-refine-box">
+      <div class="brand-refine-title">
+        <i class="fa-solid fa-sliders"></i> Tinh chỉnh riêng từng phần (Click mục bạn muốn chỉnh):
+      </div>
+      <div class="brand-refine-chips">
+        <button type="button" class="btn-refine-chip ${activeSection === 'theme' ? 'is-active' : ''}" data-refine="theme"><i class="fa-solid fa-palette"></i> Màu sắc Theme</button>
+        <button type="button" class="btn-refine-chip ${activeSection === 'hero' ? 'is-active' : ''}" data-refine="hero"><i class="fa-solid fa-house"></i> Trang chủ (Hero)</button>
+        <button type="button" class="btn-refine-chip ${activeSection === 'features' ? 'is-active' : ''}" data-refine="features"><i class="fa-solid fa-wand-magic-sparkles"></i> Tính năng</button>
+        <button type="button" class="btn-refine-chip ${activeSection === 'about' ? 'is-active' : ''}" data-refine="about"><i class="fa-solid fa-book-open"></i> Về chúng tôi</button>
+        <button type="button" class="btn-refine-chip ${activeSection === 'demo' ? 'is-active' : ''}" data-refine="demo"><i class="fa-solid fa-play"></i> Trải nghiệm & 3 Bước</button>
+        <button type="button" class="btn-refine-chip ${activeSection === 'faq' ? 'is-active' : ''}" data-refine="faq"><i class="fa-solid fa-circle-question"></i> Hỏi đáp</button>
+        <button type="button" class="btn-refine-chip ${activeSection === 'testimonials' ? 'is-active' : ''}" data-refine="testimonials"><i class="fa-solid fa-star"></i> Đánh giá</button>
+        <button type="button" class="btn-refine-chip ${activeSection === 'contact' ? 'is-active' : ''}" data-refine="contact"><i class="fa-solid fa-envelope"></i> Liên hệ</button>
+      </div>
+      <div class="brand-refine-prompt-wrap" id="brand-refine-prompt-wrap" style="${activeSection ? 'display:flex;' : 'display:none;'}">
+        ${activeSection ? renderSectionRefinePromptHtml(activeSection, brandThemePrimary, brandName) : ''}
+      </div>
+    </div>
+  `;
+}
+
 // ============================================================================
 export function initChatbot(config = {}) {
   const root = document.getElementById("ai-chat-root");
@@ -3603,25 +5414,29 @@ export function initChatbot(config = {}) {
   }
 
   // Áp dụng trực tiếp cấu hình thương hiệu lên trang web (Live Preview)
-  function liveApplyBrand(brandData) {
+  function liveApplyBrand(brandData, targetSection = null) {
     try {
       // 1. Dừng ngay toàn bộ âm thanh và giọng đọc cũ
       audioState.stopSpeech();
 
-      // 2. Chuyển URL hash về #hero để đảm bảo hiển thị đúng Hero section
-      if (window.location.hash !== "#hero" && window.location.hash !== "" && window.location.hash !== "#home") {
-        window.location.hash = "#hero";
+      // 2. Nếu không có section chỉ định, chuyển hash về #hero
+      if (!targetSection) {
+        if (window.location.hash !== "#hero" && window.location.hash !== "" && window.location.hash !== "#home") {
+          window.location.hash = "#hero";
+        }
       }
 
       // 3. Áp dụng bảng màu và giao diện mới
       applyTheme(brandData);
       renderSite(brandData);
 
-      // 4. Cuộn mượt lên đỉnh đầu trang để xem Hero
-      if (window.__lenis) {
-        window.__lenis.scrollTo(0, { immediate: true });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+      // 4. Cuộn mượt lên đầu trang nếu không có targetSection cụ thể
+      if (!targetSection) {
+        if (window.__lenis) {
+          window.__lenis.scrollTo(0, { immediate: true });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
       }
 
       // 5. Cập nhật tên thương hiệu trên thanh White Label Switcher nếu có
@@ -3636,12 +5451,166 @@ export function initChatbot(config = {}) {
   }
 
   // Biến lưu giữ cấu hình thương hiệu hiện tại để hỗ trợ tinh chỉnh từng phần (Section Refinement)
-  let currentActiveBrandData = null;
+  let currentActiveBrandData = (config && config.brand) ? JSON.parse(JSON.stringify(config)) : null;
+  let activeRefiningSection = null;
+
+  function bindRefineBoxEvents(boxEl, onRefine) {
+    if (!boxEl) return;
+
+    const refineChips = boxEl.querySelectorAll(".btn-refine-chip");
+    const promptWrap = boxEl.querySelector("#brand-refine-prompt-wrap");
+
+    const bindPromptWrapControls = (rType) => {
+      if (!promptWrap) return;
+
+      // 1. Gắn sự kiện các nút subaction chip
+      promptWrap.querySelectorAll(".btn-subaction-chip").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const sec = btn.getAttribute("data-sec");
+          const act = btn.getAttribute("data-act");
+          onRefine(sec, act);
+        });
+      });
+
+      // 2. Gắn sự kiện ô nhập yêu cầu riêng
+      const customInp = promptWrap.querySelector(".refine-custom-input");
+      const applyBtn = promptWrap.querySelector(".btn-refine-apply");
+      const voiceBtn = promptWrap.querySelector(".btn-refine-voice");
+
+      const submitCustom = () => {
+        if (!customInp) return;
+        const text = customInp.value.trim();
+        if (text) {
+          onRefine(rType, "", text);
+        }
+      };
+
+      if (applyBtn) applyBtn.addEventListener("click", submitCustom);
+      if (customInp) {
+        customInp.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            submitCustom();
+          }
+        });
+      }
+
+      // 3. Gắn sự kiện Micro riêng cho từng section
+      const SpeechRecCls = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (voiceBtn && SpeechRecCls) {
+        voiceBtn.addEventListener("click", () => {
+          try {
+            const rec = new SpeechRecCls();
+            rec.lang = "vi-VN";
+            voiceBtn.classList.add("is-recording");
+            rec.onresult = (e) => {
+              const speechText = e.results[0][0].transcript;
+              if (customInp) customInp.value = speechText;
+              onRefine(rType, "", speechText);
+            };
+            rec.onend = () => voiceBtn.classList.remove("is-recording");
+            rec.onerror = () => voiceBtn.classList.remove("is-recording");
+            rec.start();
+          } catch (err) {
+            console.warn("Microphone refine error:", err);
+            voiceBtn.classList.remove("is-recording");
+          }
+        });
+      }
+
+      // 4. Gắn sự kiện Color Picker & Custom Hex Input cho theme
+      const colorPicker = promptWrap.querySelector(".refine-color-picker");
+      const colorHexInp = promptWrap.querySelector(".refine-color-hex");
+      const applyColorBtn = promptWrap.querySelector(".btn-refine-apply-color");
+
+      if (colorPicker && colorHexInp) {
+        colorPicker.addEventListener("input", (e) => {
+          colorHexInp.value = e.target.value;
+        });
+      }
+      if (applyColorBtn) {
+        applyColorBtn.addEventListener("click", () => {
+          const hexVal = (colorHexInp ? colorHexInp.value.trim() : "") || (colorPicker ? colorPicker.value : "");
+          if (hexVal) {
+            onRefine("theme", "", hexVal);
+          }
+        });
+      }
+    };
+
+    refineChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const rType = chip.getAttribute("data-refine");
+        activeRefiningSection = rType;
+
+        // Cập nhật trạng thái active sáng nổi bật
+        refineChips.forEach((c) => c.classList.remove("is-active"));
+        chip.classList.add("is-active");
+
+        // Cuộn mượt màn hình đến đúng section trên website và chớp sáng
+        const targetId = rType === "theme" ? "hero" : rType;
+        const targetEl = document.getElementById(targetId) || document.getElementById(`home-${targetId}`);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          targetEl.classList.add("section-highlight-pulse");
+          setTimeout(() => targetEl.classList.remove("section-highlight-pulse"), 2500);
+        }
+
+        // Cập nhật gợi ý trên ô chat chính
+        const secNameMap = {
+          theme: "Màu sắc Theme",
+          hero: "Trang chủ (Hero)",
+          features: "Tính năng (Features)",
+          about: "Về chúng tôi (About)",
+          demo: "Trải nghiệm & 3 Bước",
+          faq: "Hỏi đáp (FAQ)",
+          testimonials: "Đánh giá",
+          contact: "Liên hệ",
+        };
+        if (input) {
+          input.placeholder = `💬 Đang chọn ${secNameMap[rType] || rType}: Nhập yêu cầu viết lại...`;
+        }
+
+        // Mở khung nhập yêu cầu tinh chỉnh của section
+        if (promptWrap) {
+          promptWrap.style.display = "flex";
+          const brandThemePrimary = (currentActiveBrandData?.theme?.primary) || "#10b981";
+          const brandName = (currentActiveBrandData?.brand?.name) || "Thương hiệu";
+          promptWrap.innerHTML = renderSectionRefinePromptHtml(rType, brandThemePrimary, brandName);
+          bindPromptWrapControls(rType);
+        }
+
+        scrollToBottom();
+      });
+    });
+
+    // Nếu đã có sẵn active section thì bind controls ngay
+    const activeChip = boxEl.querySelector(".btn-refine-chip.is-active");
+    if (activeChip && promptWrap && promptWrap.style.display !== "none") {
+      const activeType = activeChip.getAttribute("data-refine");
+      bindPromptWrapControls(activeType);
+    }
+  }
+  if (!currentActiveBrandData) {
+    try {
+      const saved = localStorage.getItem("viv_custom_brand_json");
+      if (saved) currentActiveBrandData = JSON.parse(saved);
+    } catch (e) {}
+  }
 
   // ============================================================================
   // HÀM TINH CHỈNH TỪNG PHẦN THEO YÊU CẦU (LIVE SECTION CUSTOMIZER)
   // ============================================================================
-  async function handleRefineSection(sectionKey, subAction = "", customPrompt = "") {
+  
+  async function handleRefineSection(sectionKey, subAction = "", customPrompt = "", extraData = null) {
+    if (!currentActiveBrandData) {
+      try {
+        const saved = localStorage.getItem("viv_custom_brand_json");
+        if (saved) currentActiveBrandData = JSON.parse(saved);
+        else if (config && config.brand) currentActiveBrandData = JSON.parse(JSON.stringify(config));
+      } catch (e) {}
+    }
+
     if (!currentActiveBrandData) {
       const msg = "Chưa có thương hiệu nào được tạo để tinh chỉnh. Bạn hãy nói tên thương hiệu muốn tạo nhé!";
       appendMessage(msg, "bot");
@@ -3659,8 +5628,97 @@ export function initChatbot(config = {}) {
     let updatedSectionName = "";
     let speechNotice = "";
 
-    // 1. Tinh chỉnh Layout hoặc Nội dung theo sectionKey
-    if (sectionKey === "hero") {
+    const secNameMap = {
+      theme: "Bảng màu theme toàn trang",
+      hero: "Trang chủ (Hero)",
+      features: "Tính năng (Features)",
+      about: "Về chúng tôi (About)",
+      demo: "Trải nghiệm & 3 Bước (Demo)",
+      faq: "Hỏi đáp (FAQ)",
+      testimonials: "Đánh giá khách hàng (Testimonials)",
+      contact: "Liên hệ (Contact)"
+    };
+    updatedSectionName = secNameMap[sectionKey] || sectionKey;
+
+    // A. Xử lý đổi Theme / Màu sắc toàn trang
+    if (sectionKey === "theme") {
+      const themeResult = await refineThemeWithAi(customPrompt || subAction, brand, extraData);
+      const appliedPal = themeResult.palette;
+      const colorName = themeResult.name;
+
+      brand.theme.primary = appliedPal.primary;
+      brand.theme.accent = appliedPal.accent || appliedPal.primary;
+      brand.theme.background = appliedPal.background || "#05071a";
+      brand.theme.surface = appliedPal.surface || "#0c1133";
+      if (appliedPal.text) brand.theme.text = appliedPal.text;
+      if (appliedPal.textMuted) brand.theme.textMuted = appliedPal.textMuted;
+
+      speechNotice = `Đã cập nhật màu sắc theme của toàn trang sang tông màu ${colorName}.`;
+    }
+    // B. Xử lý người dùng yêu cầu AI viết lại / làm mới nội dung từng phần lớn
+    else if (isAiRewritePrompt(customPrompt) || (subAction && subAction.startsWith("rewrite"))) {
+      let promptToUse = customPrompt;
+      if (!promptToUse) {
+        if (subAction === "rewrite-ai") promptToUse = "Viết lại nội dung phần này tập trung vào công nghệ trí tuệ nhân tạo (AI), tự động hóa và giải pháp số hóa đột phá.";
+        else if (subAction === "rewrite-story") promptToUse = "Viết lại câu chuyện thương hiệu thật truyền cảm hứng, sâu sắc và chuyên nghiệp.";
+        else if (subAction === "rewrite-steps") promptToUse = "Viết lại quy trình 3 bước sử dụng thật trực quan, chuẩn xác và chuyên nghiệp.";
+        else if (subAction === "rewrite-faq") promptToUse = "Viết lại 4 câu hỏi thường gặp sát với thực tế khách hàng nhất, giải đáp chi tiết và đáng tin cậy.";
+        else promptToUse = "Viết lại và nâng cấp toàn bộ nội dung phần này sao cho chuyên nghiệp, hiện đại và chuẩn mực cao cấp hơn.";
+      }
+      if (typingIndicator) {
+        typingIndicator.classList.add("is-active");
+        if (typingText) typingText.innerText = `AI đang viết lại phần ${updatedSectionName} theo yêu cầu...`;
+        scrollToBottom(true);
+      }
+      if (isVoiceModeActive && typeof updateVoiceBubbleContent === "function") {
+        updateVoiceBubbleContent(
+          `<p class="voice-transcript-ai"><i class="fa-solid fa-spinner fa-spin"></i> AI đang viết lại phần ${updatedSectionName}...</p>`
+        );
+      }
+
+      try {
+        const rewritten = await callAiToRefineSection(sectionKey, promptToUse, brand);
+        if (rewritten) {
+          const idx = sections.findIndex((s) => s.type === sectionKey);
+          if (idx !== -1) {
+            // Bảo toàn ảnh hiện tại nếu có
+            if (sectionKey === "features" && Array.isArray(rewritten.items)) {
+              rewritten.items.forEach((it, i) => {
+                const oldIt = sections[idx]?.items?.[i];
+                if (!it.image && oldIt?.image) it.image = oldIt.image;
+              });
+            }
+            if (sectionKey === "hero") {
+              if (!rewritten.image && sections[idx]?.image) rewritten.image = sections[idx].image;
+              if (!rewritten.buttons && sections[idx]?.buttons) rewritten.buttons = sections[idx].buttons;
+              if (rewritten.subtitle) brand.brand.slogan = rewritten.subtitle;
+            }
+            if (sectionKey === "about" && Array.isArray(rewritten.slides)) {
+              rewritten.slides.forEach((sl, i) => {
+                const oldSl = sections[idx]?.slides?.[i];
+                if (!sl.image && oldSl?.image) sl.image = oldSl.image;
+              });
+            }
+            if (sectionKey === "demo") {
+              // Đảm bảo không có layout console để trang chủ render 3 bước HowToUse
+              delete rewritten.layout;
+            }
+            sections[idx] = { ...sections[idx], ...rewritten };
+          } else {
+            sections.push(rewritten);
+          }
+          speechNotice = `Tôi đã viết lại toàn bộ nội dung phần ${updatedSectionName} theo đúng yêu cầu của bạn.`;
+        }
+      } catch (err) {
+        console.error("Lỗi khi viết lại section bằng AI:", err);
+      } finally {
+        if (typingIndicator) typingIndicator.classList.remove("is-active");
+      }
+    }
+    // C. Xử lý các thao tác đổi layout đơn thuần hoặc chỉnh 1 trường nhỏ (nhanh)
+    else {
+      // 1. Tinh chỉnh Layout hoặc Nội dung theo sectionKey
+      if (sectionKey === "hero") {
       updatedSectionName = "Trang chủ (Hero)";
       const hero = sections.find((s) => s.type === "hero");
       if (hero) {
@@ -3673,24 +5731,88 @@ export function initChatbot(config = {}) {
         } else if (subAction === "studio") {
           hero.layout = "voice-studio";
           speechNotice = "Đã chuyển đổi Trang chủ sang dạng bảng điều khiển Voice Studio.";
+        } else if (subAction === "image-frame" || subAction === "frame" || subAction === "image") {
+          hero.layout = "image-frame";
+          if (!hero.image) hero.image = (brand.photoPool && brand.photoPool[0]) || "assets/images/imgomniclarity/about-accuracy.jpg";
+          hero.imageAlt = hero.imageAlt || brand.brand.name;
+          speechNotice = "Đã chuyển đổi Trang chủ sang khung ảnh 3D nghệ thuật tương tác công nghệ cao.";
         } else if (customPrompt) {
-          hero.title = customPrompt;
-          speechNotice = `Đã cập nhật tiêu đề Trang chủ thành: ${customPrompt}`;
+          const pLower = customPrompt.toLowerCase();
+          if (pLower.includes("slogan") || pLower.includes("khẩu hiệu")) {
+            const clean = customPrompt.replace(/.*(?:slogan|khẩu hiệu)\s*(?:là|thành|:)?\s*/i, "").trim();
+            if (clean) {
+              brand.brand.slogan = clean;
+              hero.subtitle = clean;
+              speechNotice = `Đã cập nhật slogan thương hiệu thành: "${clean}"`;
+            }
+          } else if (pLower.includes("nút") || pLower.includes("nút bấm") || pLower.includes("cta")) {
+            const clean = customPrompt.replace(/.*(?:nút|nút bấm|cta)\s*(?:là|thành|:)?\s*/i, "").trim();
+            if (clean) {
+              if (!Array.isArray(hero.buttons) || hero.buttons.length === 0) {
+                hero.buttons = [{ href: "#features", label: clean, style: "primary" }];
+              } else {
+                hero.buttons[0].label = clean;
+              }
+              speechNotice = `Đã đổi nút bấm chính thành: "${clean}"`;
+            }
+          } else if (pLower.includes("lời chào") || pLower.includes("giọng đọc") || pLower.includes("phát âm")) {
+            const clean = customPrompt.replace(/.*(?:lời chào|giọng đọc|phát âm)\s*(?:là|thành|:)?\s*/i, "").trim();
+            if (clean) {
+              hero.playSample = clean;
+              hero.welcomeMessage = clean;
+              speechNotice = `Đã cập nhật giọng đọc giới thiệu thành: "${clean}"`;
+            }
+          } else {
+            const clean = customPrompt.replace(/.*(?:tiêu đề|tiêu đề trang chủ|tiêu đề chính)\s*(?:là|thành|:)?\s*/i, "").trim() || customPrompt;
+            hero.title = clean;
+            speechNotice = `Đã cập nhật tiêu đề Trang chủ thành: "${clean}"`;
+          }
         }
       }
     } else if (sectionKey === "features") {
       updatedSectionName = "Tính năng (Features)";
       const feat = sections.find((s) => s.type === "features");
       if (feat) {
+        if (!Array.isArray(feat.items)) feat.items = [];
         if (subAction === "bento") {
           feat.layout = "bento";
           speechNotice = "Đã chuyển đổi Tính năng sang dạng lưới Bento Grid hiện đại.";
         } else if (subAction === "stack") {
           feat.layout = "3d-stack";
           speechNotice = "Đã chuyển đổi Tính năng sang dạng thẻ xếp tầng không gian 3D.";
-        } else if (subAction === "rewrite" || customPrompt) {
-          feat.title = customPrompt || `Hệ sinh thái Đột phá của ${brand.brand.name}`;
+        } else if (subAction === "rewrite") {
+          feat.title = `Hệ sinh thái Đột phá của ${brand.brand.name}`;
           speechNotice = "Đã làm mới nội dung các trụ cột tính năng.";
+        } else if (customPrompt) {
+          const pLower = customPrompt.toLowerCase();
+          if (pLower.includes("tính năng 1") || pLower.includes("mục 1")) {
+            const clean = customPrompt.replace(/.*(?:tính năng 1|mục 1)\s*(?:là|thành|:)?\s*/i, "").trim();
+            if (feat.items[0]) feat.items[0].title = clean;
+            speechNotice = `Đã cập nhật tính năng 1 thành: "${clean}"`;
+          } else if (pLower.includes("tính năng 2") || pLower.includes("mục 2")) {
+            const clean = customPrompt.replace(/.*(?:tính năng 2|mục 2)\s*(?:là|thành|:)?\s*/i, "").trim();
+            if (feat.items[1]) feat.items[1].title = clean;
+            speechNotice = `Đã cập nhật tính năng 2 thành: "${clean}"`;
+          } else if (pLower.includes("tính năng 3") || pLower.includes("mục 3")) {
+            const clean = customPrompt.replace(/.*(?:tính năng 3|mục 3)\s*(?:là|thành|:)?\s*/i, "").trim();
+            if (feat.items[2]) feat.items[2].title = clean;
+            speechNotice = `Đã cập nhật tính năng 3 thành: "${clean}"`;
+          } else if (pLower.includes("tính năng 4") || pLower.includes("mục 4")) {
+            const clean = customPrompt.replace(/.*(?:tính năng 4|mục 4)\s*(?:là|thành|:)?\s*/i, "").trim();
+            if (feat.items[3]) feat.items[3].title = clean;
+            speechNotice = `Đã cập nhật tính năng 4 thành: "${clean}"`;
+          } else if (pLower.includes("tiêu đề")) {
+            const clean = customPrompt.replace(/.*(?:tiêu đề|tiêu đề tính năng)\s*(?:là|thành|:)?\s*/i, "").trim();
+            feat.title = clean;
+            speechNotice = `Đã cập nhật tiêu đề Tính năng thành: "${clean}"`;
+          } else if (pLower.includes("mô tả") || pLower.includes("phụ đề")) {
+            const clean = customPrompt.replace(/.*(?:mô tả|phụ đề)\s*(?:là|thành|:)?\s*/i, "").trim();
+            feat.subtitle = clean;
+            speechNotice = `Đã cập nhật mô tả Tính năng thành: "${clean}"`;
+          } else {
+            feat.title = customPrompt;
+            speechNotice = `Đã cập nhật nội dung mục Tính năng theo yêu cầu.`;
+          }
         }
       }
     } else if (sectionKey === "about") {
@@ -3706,8 +5828,76 @@ export function initChatbot(config = {}) {
           if (ab.scrollStory) ab.scrollStory.enabled = true;
           speechNotice = "Đã chuyển đổi Về chúng tôi sang dạng Cuộn 3D Sticky Scroll Story.";
         } else if (customPrompt) {
-          ab.title = customPrompt;
-          speechNotice = `Đã cập nhật câu chuyện thương hiệu theo mong muốn của bạn.`;
+          const pLower = customPrompt.toLowerCase();
+          if (pLower.includes("tiêu đề")) {
+            const clean = customPrompt.replace(/.*(?:tiêu đề)\s*(?:là|thành|:)?\s*/i, "").trim();
+            ab.title = clean;
+            speechNotice = `Đã cập nhật tiêu đề Về chúng tôi thành: "${clean}"`;
+          } else if (pLower.includes("mô tả") || pLower.includes("phụ đề")) {
+            const clean = customPrompt.replace(/.*(?:mô tả|phụ đề)\s*(?:là|thành|:)?\s*/i, "").trim();
+            ab.subtitle = clean;
+            speechNotice = `Đã cập nhật mô tả Về chúng tôi thành: "${clean}"`;
+          } else {
+            ab.paragraphs = [customPrompt];
+            if (customPrompt.length < 60) ab.title = customPrompt;
+            speechNotice = `Đã cập nhật câu chuyện thương hiệu theo mong muốn của bạn.`;
+          }
+        }
+      }
+    } else if (sectionKey === "demo") {
+      updatedSectionName = "Trải nghiệm & 3 Bước (Demo)";
+      let dm = sections.find((s) => s.type === "demo");
+      if (!dm) {
+        dm = { type: "demo" };
+        sections.splice(2, 0, dm);
+      }
+      if (customPrompt) {
+        const pLower = customPrompt.toLowerCase();
+        if (pLower.includes("bước 1") && dm.steps && dm.steps[0]) {
+          const clean = customPrompt.replace(/.*(?:bước 1)\s*(?:là|thành|:)?\s*/i, "").trim();
+          dm.steps[0].title = clean;
+          speechNotice = `Đã cập nhật Bước 1 thành: "${clean}"`;
+        } else if (pLower.includes("bước 2") && dm.steps && dm.steps[1]) {
+          const clean = customPrompt.replace(/.*(?:bước 2)\s*(?:là|thành|:)?\s*/i, "").trim();
+          dm.steps[1].title = clean;
+          speechNotice = `Đã cập nhật Bước 2 thành: "${clean}"`;
+        } else if (pLower.includes("bước 3") && dm.steps && dm.steps[2]) {
+          const clean = customPrompt.replace(/.*(?:bước 3)\s*(?:là|thành|:)?\s*/i, "").trim();
+          dm.steps[2].title = clean;
+          speechNotice = `Đã cập nhật Bước 3 thành: "${clean}"`;
+        } else if (pLower.includes("tiêu đề 3 bước") || pLower.includes("quy trình") || pLower.includes("hướng dẫn")) {
+          const clean = customPrompt.replace(/.*(?:tiêu đề 3 bước|tiêu đề quy trình|hướng dẫn)\s*(?:là|thành|:)?\s*/i, "").trim();
+          dm.howToUseTitle = clean;
+          speechNotice = `Đã cập nhật tiêu đề 3 Bước sử dụng thành: "${clean}"`;
+        } else if (pLower.includes("văn bản mẫu") || pLower.includes("mặc định") || pLower.includes("thu âm mẫu")) {
+          const clean = customPrompt.replace(/.*(?:văn bản mẫu|mặc định|thu âm mẫu)\s*(?:là|thành|:)?\s*/i, "").trim();
+          dm.defaultText = clean;
+          dm.placeholder = clean;
+          speechNotice = `Đã cập nhật văn bản trải nghiệm thành: "${clean}"`;
+        } else {
+          dm.title = customPrompt;
+          speechNotice = `Đã cập nhật nội dung mục Trải nghiệm theo yêu cầu.`;
+        }
+      }
+    } else if (sectionKey === "contact") {
+      updatedSectionName = "Liên hệ (Contact)";
+      let ct = sections.find((s) => s.type === "contact");
+      if (ct && customPrompt) {
+        const phoneMatch = customPrompt.match(/(?:0\d{9,10}|1900\s*\d{4}|\+84\d{9,10})/);
+        const emailMatch = customPrompt.match(/[\w.-]+@[\w.-]+\.\w+/);
+
+        if (phoneMatch && Array.isArray(ct.channels)) {
+          const phoneCh = ct.channels.find((c) => c.label.toLowerCase().includes("hotline") || c.label.toLowerCase().includes("thoại") || c.label.toLowerCase().includes("điện"));
+          if (phoneCh) phoneCh.value = phoneMatch[0];
+          speechNotice = `Đã cập nhật Hotline liên hệ thành: ${phoneMatch[0]}`;
+        } else if (emailMatch && Array.isArray(ct.channels)) {
+          const emailCh = ct.channels.find((c) => c.label.toLowerCase().includes("email"));
+          if (emailCh) emailCh.value = emailMatch[0];
+          speechNotice = `Đã cập nhật Email liên hệ thành: ${emailMatch[0]}`;
+        } else {
+          const clean = customPrompt.replace(/.*(?:tiêu đề)\s*(?:là|thành|:)?\s*/i, "").trim();
+          ct.title = clean;
+          speechNotice = `Đã cập nhật thông tin Liên hệ thành: "${clean}"`;
         }
       }
     } else if (sectionKey === "testimonials") {
@@ -3722,7 +5912,6 @@ export function initChatbot(config = {}) {
           eyebrow: "ĐÁNH GIÁ CHÂN THỰC",
           items: getFallbackTestimonials(brand.topic, brand.brand.name),
         };
-        // Chèn vào trước faq hoặc contact
         const contactIdx = sections.findIndex((s) => s.type === "contact");
         if (contactIdx >= 0) {
           sections.splice(contactIdx, 0, testSection);
@@ -3744,23 +5933,51 @@ export function initChatbot(config = {}) {
         } else if (subAction === "3d-flip") {
           f.layout = "3d-flip-cards";
           speechNotice = "Đã chuyển đổi Hỏi đáp sang dạng Thẻ lật 3D hai mặt.";
+        } else if (customPrompt) {
+          f.title = customPrompt;
+          speechNotice = `Đã cập nhật phần Hỏi đáp theo yêu cầu.`;
         }
       }
     } else if (sectionKey === "theme") {
       updatedSectionName = "Bảng màu nhận diện";
-      const pal = BRAND_PALETTES[subAction] || BRAND_PALETTES.cyber;
-      brand.theme.primary = pal.primary;
-      brand.theme.accent = pal.accent;
-      brand.theme.background = pal.background;
-      brand.theme.surface = pal.surface;
-      speechNotice = `Đã chuyển đổi tông màu thương hiệu sang bộ nhận diện mới.`;
+      let appliedPal = null;
+      let colorName = "";
+
+      if (extraData && extraData.primary) {
+        appliedPal = extraData;
+        colorName = extraData.name || extraData.primary;
+      } else if (subAction && BRAND_PALETTES[subAction]) {
+        appliedPal = BRAND_PALETTES[subAction];
+        colorName = subAction;
+      } else if (customPrompt) {
+        const parsed = parseColorRequest(customPrompt);
+        if (parsed) {
+          appliedPal = parsed.palette;
+          colorName = parsed.name || parsed.palette.primary;
+        }
+      }
+
+      if (!appliedPal) {
+        appliedPal = BRAND_PALETTES.cyber;
+        colorName = "Xanh Cyber";
+      }
+
+      brand.theme.primary = appliedPal.primary;
+      brand.theme.accent = appliedPal.accent || appliedPal.primary;
+      brand.theme.background = appliedPal.background || "#05071a";
+      brand.theme.surface = appliedPal.surface || "#0c1133";
+      if (appliedPal.text) brand.theme.text = appliedPal.text;
+      if (appliedPal.textMuted) brand.theme.textMuted = appliedPal.textMuted;
+
+      speechNotice = `Đã chuyển đổi tông màu thương hiệu sang màu ${colorName} (${appliedPal.primary}).`;
+    }
     }
 
     // 2. Tái kiểm định và cập nhật cấu trúc
     currentActiveBrandData = enrichAndValidateBrandJson(brand, brand.topic);
 
     // 3. Áp dụng ngay lập tức lên trang web (Live Preview)
-    liveApplyBrand(currentActiveBrandData);
+    liveApplyBrand(currentActiveBrandData, sectionKey);
 
     // 4. Cuộn trực tiếp và làm nổi bật section vừa chỉnh
     setTimeout(() => {
@@ -3785,7 +6002,7 @@ export function initChatbot(config = {}) {
       }
     }
 
-    // 6. Gửi tin nhắn thông báo trong Chatbot
+    // 6. Gửi tin nhắn thông báo trong Chatbot và hiển thị thanh tinh chỉnh các mục
     const filename = `brand-${brand.brand.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}.json`;
     const noticeHtml = `
       <div class="brand-result-box">
@@ -3796,20 +6013,48 @@ export function initChatbot(config = {}) {
           ${esc(speechNotice || "Đã cập nhật theo yêu cầu của bạn.")}
         </p>
         <div class="brand-actions-row" style="margin-top: 6px;">
-          <button type="button" class="btn-brand-action btn-brand-download" data-filename="${filename}">
-            <i class="fa-solid fa-download"></i> Tải lại file ${filename}
+          <button type="button" class="btn-brand-action btn-brand-apply" title="Xem trước giao diện thương hiệu này trực tiếp trên trang web">
+            <i class="fa-solid fa-eye"></i> Xem trước ngay (Live Preview)
+          </button>
+          <button type="button" class="btn-brand-action btn-brand-download" data-filename="${filename}" title="Tải file JSON này về máy">
+            <i class="fa-solid fa-download"></i> Tải file ${filename}
+          </button>
+          <button type="button" class="btn-brand-action btn-brand-copy" title="Sao chép nội dung JSON">
+            <i class="fa-solid fa-copy"></i> Copy JSON
           </button>
         </div>
+        ${renderRefineBoxHtml(currentActiveBrandData, sectionKey)}
       </div>
     `;
 
     const msgEl = appendMessage(noticeHtml, "bot");
     const dlBtn = msgEl.querySelector(".btn-brand-download");
+    const applyBtn = msgEl.querySelector(".btn-brand-apply");
+    const copyBtn = msgEl.querySelector(".btn-brand-copy");
+
     if (dlBtn) {
       dlBtn.addEventListener("click", () => {
         downloadJsonFile(currentActiveBrandData, filename);
       });
     }
+    if (applyBtn) {
+      applyBtn.addEventListener("click", () => {
+        liveApplyBrand(currentActiveBrandData);
+        togglePanel(false);
+      });
+    }
+    if (copyBtn) {
+      copyBtn.addEventListener("click", () => {
+        const curJson = JSON.stringify(currentActiveBrandData, null, 2);
+        navigator.clipboard.writeText(curJson).then(() => {
+          copyBtn.innerHTML = `<i class="fa-solid fa-check"></i> Đã sao chép!`;
+          setTimeout(() => {
+            copyBtn.innerHTML = `<i class="fa-solid fa-copy"></i> Copy JSON`;
+          }, 2000);
+        });
+      });
+    }
+    bindRefineBoxEvents(msgEl.querySelector(".brand-refine-box"), handleRefineSection);
   }
 
   let isGenerating = false;
@@ -4028,20 +6273,7 @@ export function initChatbot(config = {}) {
         </div>
 
         <!-- Khung Tinh chỉnh riêng từng phần (Live Section Customizer) -->
-        <div class="brand-refine-box" id="brand-refine-box">
-          <div class="brand-refine-title">
-            <i class="fa-solid fa-sliders"></i> Tinh chỉnh riêng từng phần (Bạn có thể chat hoặc bấm nút):
-          </div>
-          <div class="brand-refine-chips">
-            <button type="button" class="btn-refine-chip" data-refine="hero"><i class="fa-solid fa-house"></i> Trang chủ</button>
-            <button type="button" class="btn-refine-chip" data-refine="features"><i class="fa-solid fa-wand-magic-sparkles"></i> Tính năng</button>
-            <button type="button" class="btn-refine-chip" data-refine="about"><i class="fa-solid fa-book-open"></i> Về chúng tôi</button>
-            <button type="button" class="btn-refine-chip" data-refine="testimonials"><i class="fa-solid fa-star"></i> Đánh giá</button>
-            <button type="button" class="btn-refine-chip" data-refine="faq"><i class="fa-solid fa-circle-question"></i> Hỏi đáp</button>
-            <button type="button" class="btn-refine-chip" data-refine="theme"><i class="fa-solid fa-palette"></i> Đổi màu</button>
-          </div>
-          <div class="brand-refine-prompt-wrap" id="brand-refine-prompt-wrap" style="display:none;"></div>
-        </div>
+        ${renderRefineBoxHtml(currentActiveBrandData || generatedData, null)}
       </div>
     `;
 
@@ -4068,6 +6300,7 @@ export function initChatbot(config = {}) {
       if (applyBtn) {
         applyBtn.addEventListener("click", () => {
           liveApplyBrand(currentActiveBrandData || generatedData);
+          togglePanel(false);
         });
       }
 
@@ -4083,83 +6316,8 @@ export function initChatbot(config = {}) {
         });
       }
 
-      // Gắn sự kiện cho các nút tinh chỉnh từng phần
-      const refineChips = msgElement.querySelectorAll(".btn-refine-chip");
-      const promptWrap = msgElement.querySelector("#brand-refine-prompt-wrap");
-
-      refineChips.forEach((chip) => {
-        chip.addEventListener("click", () => {
-          const rType = chip.getAttribute("data-refine");
-          if (!promptWrap) return;
-
-          promptWrap.style.display = "flex";
-          if (rType === "hero") {
-            promptWrap.innerHTML = `
-            <span class="brand-refine-prompt-label">Chọn kiểu bố cục cho Trang chủ (Hero):</span>
-            <div class="brand-refine-subactions">
-              <button type="button" class="btn-subaction-chip" data-sec="hero" data-act="centered">Căn giữa đối xứng (Centered)</button>
-              <button type="button" class="btn-subaction-chip" data-sec="hero" data-act="split">Chia đôi 3D (Split Right)</button>
-              <button type="button" class="btn-subaction-chip" data-sec="hero" data-act="studio">Voice Studio Console</button>
-            </div>
-          `;
-          } else if (rType === "features") {
-            promptWrap.innerHTML = `
-            <span class="brand-refine-prompt-label">Chọn kiểu bố cục cho Tính năng (Features):</span>
-            <div class="brand-refine-subactions">
-              <button type="button" class="btn-subaction-chip" data-sec="features" data-act="bento">Lưới Bento Grid</button>
-              <button type="button" class="btn-subaction-chip" data-sec="features" data-act="stack">Thẻ xếp tầng 3D Stack</button>
-              <button type="button" class="btn-subaction-chip" data-sec="features" data-act="rewrite">Làm mới 4 tính năng</button>
-            </div>
-          `;
-          } else if (rType === "about") {
-            promptWrap.innerHTML = `
-            <span class="brand-refine-prompt-label">Chọn kiểu bố cục cho Về chúng tôi (About):</span>
-            <div class="brand-refine-subactions">
-              <button type="button" class="btn-subaction-chip" data-sec="about" data-act="grid">Lưới Thống Kê & Ảnh (Grid)</button>
-              <button type="button" class="btn-subaction-chip" data-sec="about" data-act="story">Cuộn 3D Sticky Scroll Story</button>
-            </div>
-          `;
-          } else if (rType === "testimonials") {
-            promptWrap.innerHTML = `
-            <span class="brand-refine-prompt-label">Tùy biến phần Đánh giá khách hàng:</span>
-            <div class="brand-refine-subactions">
-              <button type="button" class="btn-subaction-chip" data-sec="testimonials" data-act="refresh">Làm mới các đánh giá</button>
-            </div>
-          `;
-          } else if (rType === "faq") {
-            promptWrap.innerHTML = `
-            <span class="brand-refine-prompt-label">Chọn kiểu bố cục cho Hỏi đáp (FAQ):</span>
-            <div class="brand-refine-subactions">
-              <button type="button" class="btn-subaction-chip" data-sec="faq" data-act="accordion">Accordion Danh sách</button>
-              <button type="button" class="btn-subaction-chip" data-sec="faq" data-act="3d-flip">Thẻ lật 3D hai mặt</button>
-            </div>
-          `;
-          } else if (rType === "theme") {
-            promptWrap.innerHTML = `
-            <span class="brand-refine-prompt-label">Chọn bảng màu nhận diện thương hiệu:</span>
-            <div class="brand-refine-subactions">
-              <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="amber">Hổ phách & Nâu ấm (Ẩm thực)</button>
-              <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="medical">Xanh Y tế & Cyan (Nha khoa)</button>
-              <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="luxury">Vàng Champagne (Thời trang)</button>
-              <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="cyber">Xanh Lục bảo (Cyber / Game)</button>
-              <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="data">Indigo & Cyan (Tech / SaaS)</button>
-              <button type="button" class="btn-subaction-chip" data-sec="theme" data-act="purple">Tím Violet (Giáo dục)</button>
-            </div>
-          `;
-          }
-
-          // Bắt sự kiện bấm vào nút subaction
-          promptWrap.querySelectorAll(".btn-subaction-chip").forEach((btn) => {
-            btn.addEventListener("click", () => {
-              const sec = btn.getAttribute("data-sec");
-              const act = btn.getAttribute("data-act");
-              handleRefineSection(sec, act);
-            });
-          });
-
-          scrollToBottom();
-        });
-      });
+      // Gắn sự kiện tương tác tinh chỉnh từng phần
+      bindRefineBoxEvents(msgElement.querySelector(".brand-refine-box"), handleRefineSection);
     } catch (err) {
       console.error("Lỗi khi tạo thương hiệu:", err);
       const errMsg = "Có lỗi xảy ra khi tạo thương hiệu, bạn hãy nói lại nhé.";
@@ -4204,72 +6362,11 @@ export function initChatbot(config = {}) {
       );
     }
 
-    const lowerVal = val.toLowerCase();
-
-    // Kiểm tra nếu người dùng có ý định tạo thương hiệu mới:
-    const isCreateIntent =
-      lowerVal.startsWith("tạo") ||
-      lowerVal.startsWith("làm") ||
-      lowerVal.startsWith("muốn tạo") ||
-      lowerVal.startsWith("hãy tạo") ||
-      lowerVal.startsWith("khởi tạo") ||
-      lowerVal.startsWith("xây dựng") ||
-      lowerVal.startsWith("thiết kế") ||
-      lowerVal.includes("brand mới") ||
-      lowerVal.includes("thương hiệu mới") ||
-      lowerVal.includes("tạo brand") ||
-      lowerVal.includes("tạo thương hiệu") ||
-      lowerVal.includes("tạo một") ||
-      lowerVal.includes("làm một");
-
-    // Chỉ thực hiện tinh chỉnh nhanh nếu ĐÃ có brand VÀ người dùng KHÔNG có ý định tạo brand mới
-    if (currentActiveBrandData && !isCreateIntent) {
-      if (lowerVal.includes("bento")) {
-        handleRefineSection("features", "bento");
-        return;
-      }
-      if (lowerVal.includes("stack") || lowerVal.includes("xếp tầng")) {
-        handleRefineSection("features", "stack");
-        return;
-      }
-      if (lowerVal.includes("căn giữa") || lowerVal.includes("centered")) {
-        handleRefineSection("hero", "centered");
-        return;
-      }
-      if (lowerVal.includes("chia đôi") || lowerVal.includes("split")) {
-        handleRefineSection("hero", "split");
-        return;
-      }
-      if (lowerVal.includes("studio")) {
-        handleRefineSection("hero", "studio");
-        return;
-      }
-      if (lowerVal.includes("accordion")) {
-        handleRefineSection("faq", "accordion");
-        return;
-      }
-      if (lowerVal.includes("thẻ lật") || lowerVal.includes("flip")) {
-        handleRefineSection("faq", "3d-flip");
-        return;
-      }
-      if (lowerVal.includes("thêm đánh giá") || lowerVal.includes("review") || lowerVal.includes("nhận xét")) {
-        handleRefineSection("testimonials", "refresh");
-        return;
-      }
-      if (lowerVal.includes("đổi màu") || lowerVal.includes("tông màu")) {
-        if (lowerVal.includes("xanh") || lowerVal.includes("lục")) {
-          handleRefineSection("theme", "cyber");
-        } else if (lowerVal.includes("vàng") || lowerVal.includes("amber")) {
-          handleRefineSection("theme", "amber");
-        } else if (lowerVal.includes("tím")) {
-          handleRefineSection("theme", "purple");
-        } else if (lowerVal.includes("hồng") || lowerVal.includes("rose")) {
-          handleRefineSection("theme", "luxury");
-        } else {
-          handleRefineSection("theme", "data");
-        }
-        return;
-      }
+    // Nhận diện ý định tinh chỉnh từng phần hoặc tạo mới thương hiệu thông minh
+    const intent = detectUserIntent(val, currentActiveBrandData, activeRefiningSection);
+    if (intent.action === "refine" && currentActiveBrandData) {
+      handleRefineSection(intent.sectionKey, intent.subAction || "", intent.customPrompt || val);
+      return;
     }
 
     // Ngược lại, tạo thương hiệu mới
