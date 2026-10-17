@@ -23,7 +23,6 @@ import { initVoiceOrb } from "./effects/voice-orb.js";
 import { initSmoothScroll } from "./effects/smooth-scroll.js";
 import { initCustomCursor } from "./effects/cursor.js";
 import { initScrollAnimations } from "./effects/scroll-animations.js";
-import { initAmbientBackground } from "./effects/ambient-background.js";
 import { initChatbot } from "./components/Chatbot.js";
 
 // Bảng từ điển ánh xạ từ loại Section trong file JSON sang Hàm sinh mã HTML tương ứng
@@ -116,12 +115,6 @@ export function renderSite(config) {
   const orbElement = document.getElementById("hero-voice-orb");
   if (effects.orb !== false && orbElement !== null) {
     initVoiceOrb("hero-voice-orb");
-  }
-
-  // Bật nền hạt bay bay phía sau (Ambient Canvas)
-  const bgElement = document.getElementById("ambient-canvas");
-  if (effects.ambientBackground !== false && bgElement !== null) {
-    initAmbientBackground(config);
   }
 
   // Khởi tạo Chatbox AI hỗ trợ tạo thương hiệu mới

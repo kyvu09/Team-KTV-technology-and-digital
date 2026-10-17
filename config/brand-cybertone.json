@@ -10,7 +10,6 @@
     "cursor": true,
     "preloader": true,
     "orb": true,
-    "ambientBackground": false,
     "scrollProgress": true
   },
   "nav": [
