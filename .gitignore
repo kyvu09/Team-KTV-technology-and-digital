@@ -26,5 +26,7 @@ vivoice-mau/
 !assets/audio/*.mp3
 
 
-code-mau/
-.env
+codeMauThamKhao/
+.env
+
+trienKhai.md
