@@ -1,0 +1,2018 @@
+/* ==========================================================================
+   [MỤC 05] FEATURES SECTION — TÍNH NĂNG (BENTO GRID & 3D STACK CARDS)
+   GỢI Ý: Chỉnh hiệu ứng thẻ 3D bung xòe (.feature-stack-item, .feature-stack-3d),
+   thẻ Bento kính mờ (.bento-card), viền phát sáng Spotlight (--mouse-x, --mouse-y),
+   icon tính năng (.feature-icon) và huy hiệu (.card-pill).
+   Bao gồm:
+   - 5.1. Bento Grid: Thẻ Bento kính mờ, Spotlight phát sáng con trỏ, Card có ảnh nền
+   - 5.2. 3D Stack Cards: Xếp chồng thẻ 3D theo chiều sâu Z, mở rộng khi hover/chạm
+   - 5.3. Responsive: Điều chỉnh hiển thị tương thích trên Tablet & Mobile
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   5.1. BENTO GRID (Khi cấu hình section có layout: "bento")
+   -------------------------------------------------------------------------- */
+
+/* Lưới Bento chia 3 cột hiện đại */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+
+/* Thẻ Bento phong cách kính mờ (Glassmorphism) */
+.bento-card {
+  position: relative;
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: 24px;
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 340px;
+  overflow: hidden;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hiệu ứng nổi và viền phát sáng khi hover vào thẻ Bento */
+.bento-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 25px color-mix(in srgb, var(--primary) 45%, transparent),
+    0 0 50px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 20px 50px -15px rgba(0, 0, 0, 0.5);
+  transform: translateY(-5px);
+}
+
+/* Thẻ chiếm chiều rộng 2 cột (thường là thẻ đầu và thẻ thứ 4) */
+.bento-span-2 {
+  grid-column: span 2;
+}
+
+/* Hiệu ứng hào quang tròn (Spotlight) rọi sáng theo tọa độ chuột */
+.card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+      color-mix(in srgb, var(--primary) 12%, transparent),
+      transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Khối biểu tượng và nhãn phía trên thẻ */
+.card-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Khung viền chứa biểu tượng tính năng */
+.feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+/* Viên thuốc nhãn nổi bật trên góc thẻ */
+.card-pill {
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  color: var(--accent);
+}
+
+/* Nội dung chữ của thẻ Bento */
+.card-body {
+  position: relative;
+  z-index: 2;
+}
+
+.card-body h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.card-body p {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+/* Khối xem trước tương tác (vạch sóng âm nhỏ) */
+.card-interactive-preview {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  position: relative;
+  z-index: 2;
+}
+
+.mini-waveform {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+}
+
+.mini-waveform span {
+  width: 4px;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  border-radius: 2px;
+  animation: mini-wave 1.4s infinite ease-in-out;
+}
+
+.mini-waveform span:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+.mini-waveform span:nth-child(2) { height: 22px; animation-delay: 0.3s; }
+.mini-waveform span:nth-child(3) { height: 14px; animation-delay: 0.5s; }
+.mini-waveform span:nth-child(4) { height: 20px; animation-delay: 0.2s; }
+.mini-waveform span:nth-child(5) { height: 10px; animation-delay: 0.4s; }
+.mini-waveform span:nth-child(6) { height: 18px; animation-delay: 0.6s; }
+
+@keyframes mini-wave {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+/* Biến thể thẻ Bento có hình ảnh bìa (Ảnh nền full, rê chuột hiện overlay và chữ mượt mà) */
+.bento-card.has-image {
+  min-height: 340px;
+  padding: 34px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.bento-card.has-image .card-visual-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  aspect-ratio: auto;
+  z-index: 1;
+  box-shadow: none;
+  background: transparent;
+}
+
+.bento-card.has-image .card-visual-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+
+.bento-card.has-image:hover .card-visual-img {
+  transform: scale(1.06);
+  filter: brightness(0.8);
+}
+
+.bento-card.has-image .card-visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+      rgba(7, 12, 30, 0.45) 0%,
+      rgba(7, 12, 30, 0.15) 30%,
+      rgba(7, 12, 30, 0.8) 70%,
+      rgba(7, 12, 30, 0.96) 100%);
+  opacity: 0;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.bento-card.has-image:hover .card-visual-overlay {
+  opacity: 1;
+}
+
+.bento-card.has-image .card-header-icon {
+  position: relative;
+  z-index: 3;
+  margin-bottom: 0;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card.has-image:hover .card-header-icon {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bento-card.has-image .card-header-icon .feature-icon {
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+}
+
+.bento-card.has-image .card-body {
+  position: relative;
+  z-index: 3;
+  margin-top: auto;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.bento-card.has-image:hover .card-body {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.bento-card.has-image .card-body h3 {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.bento-card.has-image .card-body p {
+  color: color-mix(in srgb, var(--text) 90%, transparent);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+
+
+/* --------------------------------------------------------------------------
+   5.2. 3D STACK CARDS FEATURES (Layout: "3d-stack")
+   Xếp chồng 3D với chiều sâu không gian Z-space, bung mở khi rê chuột hoặc chạm
+   -------------------------------------------------------------------------- */
+
+.features-section--stack {
+  position: relative;
+  overflow: visible;
+}
+
+/* Vùng chứa các thẻ xếp chồng 3D */
+.feature-stack-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 56px;
+  min-height: 460px;
+}
+
+/* Danh sách 3D với góc nhìn phối cảnh Perspective */
+.feature-stack-3d {
+  position: relative;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: min(720px, 100%);
+  transform-style: preserve-3d;
+  perspective: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: gap 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+/* Bung mở khoảng cách giữa các thẻ khi rê chuột hoặc click */
+.feature-stack-3d:hover,
+.feature-stack-3d.is-unfolded {
+  gap: 20px;
+}
+
+/* Chặn triệt để hiệu ứng giật lag khi đang tải trang (FOUC Transition Prevention) */
+body.is-loading .feature-stack-item,
+body.is-loading .feature-stack-3d {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Từng thẻ trong chồng thẻ 3D */
+.feature-stack-item {
+  position: relative;
+  list-style: none;
+  width: 100%;
+  min-height: 100px;
+  padding: 16px 22px;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border-radius: 18px;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  /* Mặc định chỉ chuyển động viền và đổ bóng, tránh giật lag khi vừa vẽ thẻ ra DOM */
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+  will-change: transform, opacity, filter;
+}
+
+/* Kích hoạt chuyển động 3D xếp tầng mượt mà sau khi trang đã sẵn sàng (.is-ready) hoặc khi tương tác */
+.feature-stack-3d.is-ready .feature-stack-item,
+.feature-stack-3d:hover .feature-stack-item,
+.feature-stack-3d.is-unfolded .feature-stack-item {
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 500ms ease,
+    filter 500ms ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  transition-delay: calc(var(--i, 0) * 50ms);
+}
+
+/* Thứ tự chiều sâu Z mặc định tạo cảm giác xếp tầng 3D */
+.feature-stack-item:nth-child(1) {
+  transform: translateZ(-75px) translateY(20px);
+  opacity: 0.6;
+  filter: blur(4px);
+}
+
+.feature-stack-item:nth-child(2) {
+  opacity: 0.8;
+  filter: blur(2px);
+}
+
+.feature-stack-item:nth-child(3) {
+  transform: translateZ(65px) translateY(-30px);
+}
+
+.feature-stack-item:nth-child(4) {
+  transform: translateZ(125px) translateY(-68px);
+  filter: blur(1px);
+}
+
+/* Trạng thái khi rê chuột vào cả danh sách: Tất cả đưa về mặt phẳng chính diện sắc nét */
+.feature-stack-3d:hover .feature-stack-item,
+.feature-stack-3d.is-unfolded .feature-stack-item {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateZ(0) translateY(0);
+}
+
+/* Trạng thái khi rê chuột trúng vào từng thẻ riêng biệt: Phóng to và nổi bật viền */
+.feature-stack-3d:hover .feature-stack-item:hover,
+.feature-stack-3d.is-unfolded .feature-stack-item:hover {
+  transform: translateZ(35px) scale(1.02);
+  border-color: color-mix(in srgb, var(--primary) 90%, white);
+  box-shadow: 0 0 35px color-mix(in srgb, var(--primary) 35%, transparent),
+    0 0 70px color-mix(in srgb, var(--accent) 20%, transparent),
+    0 22px 50px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* Khung ảnh/biểu tượng bên trái thẻ */
+.feature-stack-media {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+.feature-stack-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.feature-stack-icon-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  backdrop-filter: blur(8px);
+  border: 1px solid color-mix(in srgb, var(--primary) 45%, transparent);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Phần nội dung mô tả tính năng */
+.feature-stack-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.feature-stack-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.feature-stack-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text, #ffffff);
+  margin: 0;
+}
+
+.feature-stack-badge {
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  color: var(--accent);
+}
+
+.feature-stack-desc {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--text) 72%, transparent);
+  margin: 0;
+}
+
+/* Cụm vạch sóng âm chuyển động */
+.feature-stack-waveform {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  flex-shrink: 0;
+}
+
+.feature-stack-waveform span {
+  width: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  animation: stack-wave 1.2s ease-in-out infinite alternate;
+}
+
+.feature-stack-waveform span:nth-child(1) { height: 35%; animation-delay: 0.1s; }
+.feature-stack-waveform span:nth-child(2) { height: 80%; animation-delay: 0.3s; }
+.feature-stack-waveform span:nth-child(3) { height: 50%; animation-delay: 0.15s; }
+.feature-stack-waveform span:nth-child(4) { height: 95%; animation-delay: 0.4s; }
+.feature-stack-waveform span:nth-child(5) { height: 40%; animation-delay: 0.2s; }
+
+@keyframes stack-wave {
+  0% { transform: scaleY(0.4); }
+  100% { transform: scaleY(1); }
+}
+
+/* Mũi tên điều hướng bên phải */
+.feature-stack-arrow {
+  color: color-mix(in srgb, var(--text) 35%, transparent);
+  font-size: 0.9rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.feature-stack-item:hover .feature-stack-arrow {
+  transform: translateX(4px);
+  color: var(--primary);
+}
+
+/* Dòng gợi ý tương tác phía dưới */
+.feature-stack-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-size: 0.85rem;
+  color: color-mix(in srgb, var(--text) 55%, transparent);
+}
+
+.feature-stack-hint i {
+  color: var(--accent);
+  animation: pulse-hint 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-hint {
+  0% { transform: translateY(0); opacity: 0.6; }
+  100% { transform: translateY(-3px); opacity: 1; }
+}
+
+
+/* --------------------------------------------------------------------------
+   5.3. RESPONSIVE THEME CHO PHẦN TÍNH NĂNG (FEATURES)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-span-2 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-card.has-image .card-visual-overlay {
+    opacity: 1;
+  }
+  .bento-card.has-image .card-header-icon,
+  .bento-card.has-image .card-body {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Tối ưu hóa Features: Chuyển hoàn toàn từ 3D Stack sang Danh sách Thẻ phẳng tự nhiên trên Mobile */
+  .features-section--stack {
+    padding: clamp(50px, 8vw, 75px) 0 clamp(70px, 12vw, 100px);
+  }
+
+  .feature-stack-wrapper {
+    min-height: auto !important;
+    margin-top: 28px !important;
+    width: 100% !important;
+  }
+
+  .feature-stack-3d {
+    perspective: none !important;
+    transform-style: flat !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    width: 100% !important;
+    cursor: default !important;
+  }
+
+  /* Triệt tiêu hoàn toàn xếp tầng 3D, mờ blur và dịch chuyển Z trên điện thoại di động */
+  .feature-stack-item,
+  .feature-stack-item:nth-child(1),
+  .feature-stack-item:nth-child(2),
+  .feature-stack-item:nth-child(3),
+  .feature-stack-item:nth-child(4),
+  .feature-stack-3d:hover .feature-stack-item,
+  .feature-stack-3d.is-unfolded .feature-stack-item {
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease !important;
+    transition-delay: 0s !important;
+    will-change: auto;
+    padding: 15px 18px;
+    gap: 15px;
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--surface) 86%, transparent);
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* Phản hồi chạm mượt mà trên màn hình cảm ứng điện thoại */
+  .feature-stack-item:active {
+    transform: scale(0.985) !important;
+    border-color: color-mix(in srgb, var(--primary) 70%, transparent) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .feature-stack-media {
+    width: 62px;
+    height: 62px;
+    border-radius: 14px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+
+  .feature-stack-icon-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    bottom: 3px;
+    right: 3px;
+    font-size: 0.72rem;
+  }
+
+  .feature-stack-header {
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+
+  .feature-stack-title {
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
+
+  .feature-stack-badge {
+    font-size: 0.68rem;
+    padding: 2.5px 8px;
+  }
+
+  .feature-stack-desc {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .feature-stack-arrow {
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--text) 35%, transparent);
+  }
+
+  .feature-stack-waveform {
+    display: none !important;
+  }
+
+  .feature-stack-hint {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .feature-stack-item {
+    padding: 14px 16px;
+    gap: 13px;
+  }
+  .feature-stack-media {
+    width: 58px;
+    height: 58px;
+  }
+  .feature-stack-title {
+    font-size: 1.02rem;
+  }
+  .feature-stack-desc {
+    font-size: 0.85rem;
+  }
+}
+
+/* Tối ưu hóa khi người dùng bật chế độ giảm hiệu ứng chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .feature-stack-3d {
+    perspective: none;
+    transform-style: flat;
+    gap: 16px;
+  }
+  .feature-stack-item,
+  .feature-stack-item:nth-child(1),
+  .feature-stack-item:nth-child(2),
+  .feature-stack-item:nth-child(3),
+  .feature-stack-item:nth-child(4) {
+    transform: none;
+    opacity: 1;
+    filter: none;
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   [MỤC 05-B] FEATURES PAGE DEDICATED SECTIONS
+   1. Features Hero Section
+   2. Features Voices Section (Đa giọng đọc ba miền)
+   3. Features Speed Section (Tốc độ giọng đọc thời gian thực)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. FEATURES HERO SECTION
+   -------------------------------------------------------------------------- */
+.features-hero-section {
+  position: relative;
+  padding: 130px 0 80px 0;
+  overflow: hidden;
+}
+
+.features-hero-glow {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px;
+  height: 450px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--primary, #38bdf8) 22%, transparent) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.features-hero-container {
+  position: relative;
+  z-index: 1;
+}
+
+.features-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  background: color-mix(in srgb, var(--primary, #38bdf8) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary, #38bdf8) 35%, transparent);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--primary, #38bdf8);
+  margin-bottom: 24px;
+  box-shadow: 0 0 20px -5px color-mix(in srgb, var(--primary, #38bdf8) 30%, transparent);
+}
+
+.features-hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.3rem, 4.8vw, 3.6rem);
+  font-weight: 850;
+  line-height: 1.22;
+  margin-bottom: 22px;
+  color: #ffffff;
+}
+
+.features-hero-subtitle {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 760px;
+  margin: 0 auto 36px auto;
+}
+
+.features-hero-nav-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.features-hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.metric-glass-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px 28px;
+  background: color-mix(in srgb, var(--surface, #0f172a) 85%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-glass-card:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--primary, #38bdf8) 60%, transparent);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5), 0 0 25px -5px color-mix(in srgb, var(--primary, #38bdf8) 25%, transparent);
+}
+
+.metric-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--primary, #38bdf8) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary, #38bdf8) 35%, transparent);
+  color: var(--primary, #38bdf8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.metric-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-value {
+  font-family: var(--font-heading);
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.metric-label {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   2. FEATURES VOICES SECTION (CUSTOM VOICES 3D CAROUSEL & MP3 PLAYER)
+   -------------------------------------------------------------------------- */
+.features-voices-section {
+  padding: 110px 0 130px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tiêu đề căn giữa theo phong cách hiện đại */
+.voices-header-row {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.voices-header-left,
+.voices-header-center {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.voices-main-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text, #ffffff);
+  margin-bottom: 14px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.voices-main-desc {
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  color: var(--text-muted, rgba(255, 255, 255, 0.75));
+  margin: 0 auto 24px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Huy hiệu viên thuốc hiển thị avatar & số lượng ngôn ngữ */
+.voices-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 20px 6px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface, #1e293b) 80%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.voices-avatar-stack {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--background, #0b0f19);
+  margin-left: -9px;
+  display: inline-block;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.avatar-dot.dot-1 {
+  margin-left: 0;
+  background: linear-gradient(135deg, #4ade80, #10b981);
+}
+
+.avatar-dot.dot-2 {
+  background: linear-gradient(135deg, #facc15, #f59e0b);
+}
+
+.avatar-dot.dot-3 {
+  background: linear-gradient(135deg, #fb7185, #e11d48);
+}
+
+.avatar-dot.dot-4 {
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+}
+
+.voices-pill-badge .badge-text {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--text, #ffffff);
+}
+
+/* Sân khấu Carousel 3D (Coverflow Viewport) */
+.voices-carousel-viewport {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0 40px;
+}
+
+.voices-carousel-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1140px;
+  height: 100%;
+  perspective: 1200px;
+}
+
+/* Nút điều hướng Prev / Next tròn to */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0f172a;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 15;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.carousel-nav-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+}
+
+.carousel-nav-prev {
+  left: max(8px, calc(50% - 540px));
+}
+
+.carousel-nav-next {
+  right: max(8px, calc(50% - 540px));
+}
+
+/* Từng thẻ giọng đọc Custom Voice Card */
+.custom-voice-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  height: 495px;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.45), 0 0 1px rgba(255, 255, 255, 0.2);
+  transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+/* Vị trí các thẻ theo vòng xoay 3D Coverflow */
+.custom-voice-card.is-active {
+  transform: translate(-50%, 0) scale(1);
+  z-index: 8;
+  opacity: 1;
+  pointer-events: auto;
+  filter: none;
+}
+
+.custom-voice-card.is-prev {
+  transform: translate(calc(-50% - 370px), 20px) scale(0.85);
+  z-index: 4;
+  opacity: 0.75;
+  filter: blur(0.4px);
+  cursor: pointer;
+}
+
+.custom-voice-card.is-next {
+  transform: translate(calc(-50% + 370px), 20px) scale(0.85);
+  z-index: 4;
+  opacity: 0.75;
+  filter: blur(0.4px);
+  cursor: pointer;
+}
+
+.custom-voice-card.is-far-prev {
+  transform: translate(calc(-50% - 680px), 40px) scale(0.7);
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-voice-card.is-far-next {
+  transform: translate(calc(-50% + 680px), 40px) scale(0.7);
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Lớp nền mờ ảo nghệ thuật Mesh Gradient */
+.card-mesh-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Nội dung bên trong thẻ giọng đọc (chữ tối màu trên nền sáng như ảnh) */
+.card-inner-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding: 34px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #0f172a;
+}
+
+.card-top-header {
+  flex-shrink: 0;
+}
+
+.card-category-tag {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.72);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.card-voice-name {
+  font-family: var(--font-heading);
+  font-size: 2.15rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  line-height: 1.15;
+}
+
+.card-voice-role {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(15, 23, 42, 0.75);
+}
+
+/* Khối giữa: Sóng âm thanh & Nút phát to tròn ở giữa */
+.card-center-stage {
+  position: relative;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 18px 0;
+}
+
+.card-waveform-bars {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  pointer-events: none;
+}
+
+.card-waveform-bars .wave-bar {
+  width: 4px;
+  height: var(--bar-h, 24px);
+  border-radius: 4px;
+  background: rgba(15, 23, 42, 0.22);
+  transition: height 0.25s ease, background 0.25s ease;
+}
+
+/* Khi âm thanh đang phát: Sóng âm dao động sống động */
+.custom-voice-card.is-playing .card-waveform-bars .wave-bar {
+  background: #0f172a;
+  animation: voiceWavePulse 1.1s infinite ease-in-out alternate;
+  animation-delay: var(--bar-delay, 0s);
+}
+
+@keyframes voiceWavePulse {
+  0% { transform: scaleY(0.35); }
+  100% { transform: scaleY(1.35); }
+}
+
+/* Nút phát tròn to màu trắng ở giữa */
+.card-center-play-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0f172a;
+  border: none;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.card-center-play-btn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+}
+
+.card-center-play-btn .icon-pause {
+  display: none;
+}
+
+.custom-voice-card.is-playing .card-center-play-btn .icon-play {
+  display: none;
+}
+
+.custom-voice-card.is-playing .card-center-play-btn .icon-pause {
+  display: block;
+}
+
+/* Đoạn trích mô tả giọng đọc */
+.card-voice-desc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(15, 23, 42, 0.85);
+  margin: 0 0 16px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Thanh điều khiển âm thanh nhỏ ở đáy (Mini Player Bar) */
+.card-bottom-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(15, 23, 42, 0.14);
+}
+
+.mini-player-play-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0f172a;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.mini-player-play-btn:hover {
+  transform: scale(1.1);
+}
+
+.mini-player-play-btn .mini-icon-pause {
+  display: none;
+}
+
+.custom-voice-card.is-playing .mini-player-play-btn .mini-icon-play {
+  display: none;
+}
+
+.custom-voice-card.is-playing .mini-player-play-btn .mini-icon-pause {
+  display: block;
+}
+
+.mini-player-track-wrap {
+  flex: 1;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.mini-player-track-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(15, 23, 42, 0.18);
+  border-radius: 2px;
+}
+
+.mini-player-progress-bar {
+  position: absolute;
+  left: 0;
+  height: 4px;
+  background: #0f172a;
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+
+.mini-player-time {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(15, 23, 42, 0.75);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Phân trang chấm tròn (Dots) & Nút CTA dưới cùng */
+.voices-carousel-footer {
+  margin-top: 20px;
+}
+
+.voices-carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.carousel-dot:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.carousel-dot.is-active {
+  width: 26px;
+  border-radius: 10px;
+  background: var(--text, #ffffff);
+}
+
+/* Nút viên thuốc màu đen Create Custom Voice giống ảnh mẫu */
+.btn-create-custom-voice {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 36px;
+  border-radius: 999px;
+  background: #000000;
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.btn-create-custom-voice:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.55);
+}
+
+/* Responsive trên điện thoại và máy tính bảng */
+@media (max-width: 992px) {
+  .custom-voice-card {
+    width: 330px;
+    height: 470px;
+  }
+  .custom-voice-card.is-prev {
+    transform: translate(calc(-50% - 240px), 15px) scale(0.82);
+  }
+  .custom-voice-card.is-next {
+    transform: translate(calc(-50% + 240px), 15px) scale(0.82);
+  }
+}
+
+@media (max-width: 768px) {
+  .voices-carousel-viewport {
+    height: 510px;
+  }
+  .custom-voice-card {
+    width: 300px;
+    height: 450px;
+    padding: 24px 20px 18px;
+  }
+  .custom-voice-card.is-prev {
+    transform: translate(calc(-50% - 150px), 12px) scale(0.78);
+    opacity: 0.45;
+  }
+  .custom-voice-card.is-next {
+    transform: translate(calc(-50% + 150px), 12px) scale(0.78);
+    opacity: 0.45;
+  }
+  .carousel-nav-prev {
+    left: 4px;
+  }
+  .carousel-nav-next {
+    right: 4px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. FEATURES SPEED SECTION (TỐC ĐỘ GIỌNG ĐỌC THỜI GIAN THỰC)
+   -------------------------------------------------------------------------- */
+.features-speed-section {
+  padding: 100px 0 130px 0;
+  position: relative;
+}
+
+.speed-info-console {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  background: color-mix(in srgb, var(--surface, #0f172a) 90%, #000);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 28px;
+  padding: 48px;
+  box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+}
+
+.speed-console-glow {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: 500px;
+  height: 350px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--primary, #38bdf8) 14%, transparent) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* Khối mô phỏng thang tốc độ trực quan ở trên */
+.speed-showcase-panel {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.speed-showcase-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.speed-showcase-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--primary, #38bdf8);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.speed-display-number {
+  font-family: var(--font-heading);
+  font-size: clamp(3.6rem, 6vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1;
+  color: #ffffff;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+.speed-unit {
+  font-size: 2rem;
+  color: var(--accent, #a78bfa);
+}
+
+.speed-status-pill {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary, #38bdf8) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary, #38bdf8) 30%, transparent);
+  color: var(--primary, #38bdf8);
+}
+
+.speed-slider-wrapper {
+  margin: 28px 0 24px;
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.speed-range-slider {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  background: linear-gradient(to right, var(--primary, #38bdf8) 0%, rgba(255, 255, 255, 0.15) 33%);
+}
+
+.speed-range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid var(--primary, #38bdf8);
+  box-shadow: 0 0 16px var(--primary, #38bdf8);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.speed-range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 25px var(--primary, #38bdf8);
+}
+
+.speed-range-slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid var(--primary, #38bdf8);
+  box-shadow: 0 0 16px var(--primary, #38bdf8);
+  cursor: pointer;
+}
+
+.speed-presets-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.speed-preset-btn {
+  padding: 8px 18px;
+  text-align: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.speed-preset-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.speed-preset-btn.active {
+  background: color-mix(in srgb, var(--primary, #38bdf8) 25%, transparent);
+  border-color: var(--primary, #38bdf8);
+  color: #ffffff;
+  box-shadow: 0 0 16px color-mix(in srgb, var(--primary, #38bdf8) 35%, transparent);
+}
+
+/* Lưới thông số thông tin về tốc độ đọc */
+.speed-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 36px;
+  margin-bottom: 36px;
+  position: relative;
+  z-index: 1;
+}
+
+.speed-spec-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.speed-spec-item:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--primary, #38bdf8) 35%, transparent);
+}
+
+.speed-spec-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--primary, #38bdf8) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary, #38bdf8) 30%, transparent);
+  color: var(--primary, #38bdf8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  margin-bottom: 14px;
+}
+
+.speed-spec-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent, #a78bfa);
+  margin-bottom: 4px;
+}
+
+.speed-spec-value {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.speed-spec-desc {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.speed-cta-row {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.speed-cta-row .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  font-weight: 700;
+  font-size: 0.96rem;
+}
+
+/* ==========================================================================
+   SECTION TẠO GIỌNG ĐỌC ĐƠN GIẢN (CHỈ CẦN NHẬP DỮ LIỆU -> TẠO ÂM THANH)
+   ========================================================================== */
+.features-simple-gen-section {
+  padding: 110px 0 100px 0;
+  position: relative;
+  overflow: hidden;
+  background: 
+    radial-gradient(ellipse at 50% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(167, 139, 250, 0.06) 0%, transparent 50%),
+    var(--background, #0b0f19);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.simple-gen-badge-wrapper {
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Khối Bản đồ luồng trực quan (Visual Pipeline) */
+.simple-gen-pipeline {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 32px;
+  margin: 52px 0 60px 0;
+  position: relative;
+}
+
+.pipeline-card {
+  position: relative;
+  background: rgba(20, 27, 45, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 24px;
+  padding: 34px;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.45);
+}
+
+.pipeline-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 20px 45px -10px rgba(56, 189, 248, 0.18);
+}
+
+.pipeline-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.pipeline-step-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border-radius: 8px;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--primary, #38bdf8);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.pipeline-step-badge.step-completed {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.35);
+}
+
+.pipeline-card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pipeline-card-tag.tag-success {
+  color: #34d399;
+}
+
+.pipeline-card-title {
+  font-size: 1.4rem;
+  font-weight: 750;
+  color: #ffffff;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.pipeline-card-desc {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+  margin-bottom: 22px;
+}
+
+/* Khối mô phỏng Text Editor Input */
+.pipeline-snippet-box {
+  background: rgba(11, 15, 25, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.snippet-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.snippet-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.snippet-dot.red { background: #ef4444; }
+.snippet-dot.yellow { background: #f59e0b; }
+.snippet-dot.green { background: #10b981; }
+
+.snippet-filename {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin-left: 6px;
+}
+
+.snippet-body {
+  padding: 18px 18px 14px 18px;
+}
+
+.snippet-body code {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: italic;
+  display: block;
+}
+
+.snippet-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.snippet-footer span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Khối Trung gian Kết nối AI Core Connector */
+.pipeline-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 140px;
+}
+
+.pipeline-core-indicator {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.core-pulse-ring {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 1px dashed rgba(56, 189, 248, 0.5);
+  animation: coreRotatePulse 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes coreRotatePulse {
+  0% { transform: translate(-50%, -50%) rotate(0deg) scale(0.95); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.15); opacity: 1; }
+  100% { transform: translate(-50%, -50%) rotate(360deg) scale(0.95); opacity: 0.6; }
+}
+
+.core-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+  z-index: 2;
+}
+
+.core-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--primary, #38bdf8);
+  margin-top: 4px;
+}
+
+.core-time {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+  padding: 2px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+/* Khối Mô phỏng Audio Output */
+.pipeline-audio-mockup {
+  background: rgba(11, 15, 25, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.audio-mockup-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.audio-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.2) 0%, rgba(56, 189, 248, 0.2) 100%);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #34d399;
+}
+
+.audio-title {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.audio-specs {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Dải sóng âm Equalizer Bar Animation */
+.audio-waveform-bars {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.audio-waveform-bars .bar {
+  width: 4px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #38bdf8 0%, #34d399 100%);
+  height: var(--h, 60%);
+  animation: audioBarWave 1.4s ease-in-out infinite alternate;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes audioBarWave {
+  0% { height: 20%; opacity: 0.6; }
+  100% { height: var(--h, 85%); opacity: 1; }
+}
+
+.audio-mockup-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.audio-status-ready {
+  color: #34d399;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Lưới 3 lợi thế bên dưới */
+.simple-gen-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.simple-feat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  padding: 28px 24px;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.simple-feat-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.simple-feat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(167, 139, 250, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: #c084fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 18px;
+}
+
+.simple-feat-icon.icon-cyan {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+}
+
+.simple-feat-icon.icon-emerald {
+  background: rgba(52, 211, 153, 0.15);
+  border-color: rgba(52, 211, 153, 0.3);
+  color: #34d399;
+}
+
+.simple-feat-title {
+  font-size: 1.15rem;
+  font-weight: 750;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.simple-feat-desc {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE CHO TRANG FEATURES
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .voices-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 991px) {
+  .features-hero-metrics {
+    grid-template-columns: 1fr;
+  }
+  .speed-specs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .simple-gen-pipeline {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .pipeline-connector {
+    padding: 10px 0;
+  }
+  .simple-gen-features-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .voices-grid {
+    grid-template-columns: 1fr;
+  }
+  .speed-info-console {
+    padding: 28px 18px;
+  }
+  .speed-specs-grid {
+    grid-template-columns: 1fr;
+  }
+  .speed-presets-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .features-hero-section {
+    padding: 100px 0 60px 0;
+  }
+  .pipeline-card {
+    padding: 24px 18px;
+  }
+}
+
+
+

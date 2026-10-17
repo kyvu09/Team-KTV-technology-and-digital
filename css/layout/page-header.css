@@ -1,0 +1,277 @@
+/* ==========================================================================
+   MULTI-PAGE ARCHITECTURE & PAGE HEADER STYLES
+   ========================================================================== */
+.page-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+/* Banner Đầu Trang cho các Trang Con (Dedicated Detail Pages) */
+.page-header-banner {
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 190px 0 130px 0;
+  text-align: center;
+  overflow: hidden;
+  background-color: var(--background, #0b0f19);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  isolation: isolate;
+}
+
+/* Lớp Nền Backdrop chứa Ảnh và Lớp phủ ánh sáng */
+.page-header-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Ảnh nền Hero điện ảnh với chuyển động thở nhẹ nhàng */
+.page-header-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  opacity: 0.36;
+  filter: brightness(0.82) contrast(1.15) saturate(1.1);
+  transform: scale(1.04);
+  animation: pageHeroBgPulse 18s ease-in-out infinite alternate;
+}
+
+@keyframes pageHeroBgPulse {
+  0% {
+    transform: scale(1.03) translateY(0);
+  }
+
+  100% {
+    transform: scale(1.08) translateY(-8px);
+  }
+}
+
+/* Lớp phủ đa tầng bảo vệ 100% độ sắc nét và tương phản của tiêu đề */
+.page-header-backdrop-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(11, 15, 25, 0.88) 0%,
+      rgba(11, 15, 25, 0.58) 35%,
+      rgba(11, 15, 25, 0.72) 70%,
+      var(--background, #0b0f19) 100%),
+    radial-gradient(ellipse at 50% 50%,
+      transparent 20%,
+      rgba(11, 15, 25, 0.78) 90%);
+}
+
+/* Ánh sáng màu môi trường (Ambient Color Glow) */
+.page-header-backdrop-glow,
+.page-header-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 440px;
+  max-width: 95vw;
+  border-radius: 50%;
+  filter: blur(95px);
+  pointer-events: none;
+  opacity: 0.85;
+  z-index: 1;
+}
+
+/* Fallback glow mặc định khi không có ảnh nền */
+.page-header-glow {
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--accent, #a78bfa) 28%, transparent) 0%, transparent 70%);
+  z-index: 0;
+}
+
+/* Nội dung trung tâm của Page Header */
+.page-header-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Huy hiệu chủ đề trang */
+.page-header-badge-wrapper {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.page-header-badge-wrapper .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page-header-badge-wrapper .badge:hover {
+  transform: translateY(-2px);
+}
+
+/* Tiêu đề chính H1 */
+.page-header-title {
+  font-size: clamp(2.3rem, 5vw, 3.8rem);
+  font-weight: 850;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: 18px;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+}
+
+/* Phụ đề mô tả */
+.page-header-subtitle {
+  font-size: clamp(1.05rem, 1.85vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.68;
+  max-width: 720px;
+  margin: 0 auto;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+  text-wrap: balance;
+}
+
+/* ==========================================================================
+   BẢNG MÀU CHỦ ĐỀ RIÊNG BIỆT CHO TỪNG TRANG (THEME PALETTES)
+   ========================================================================== */
+
+/* 1. Trang Tính Năng (Features) — Cyan Neon & Electric Blue */
+.page-header-theme-features .page-header-backdrop-glow {
+  background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.4) 0%, rgba(99, 102, 241, 0.22) 50%, transparent 75%);
+}
+
+.page-header-theme-features .page-header-title {
+  background: linear-gradient(135deg, #ffffff 40%, #38bdf8 80%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-header-theme-features .badge-features {
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.38);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.22);
+}
+
+/* 2. Trang Về Chúng Tôi (About) — Deep Violet & Royal Indigo */
+.page-header-theme-about .page-header-backdrop-glow {
+  background: radial-gradient(ellipse at center, rgba(167, 139, 250, 0.42) 0%, rgba(129, 140, 248, 0.24) 50%, transparent 75%);
+}
+
+.page-header-theme-about .page-header-title {
+  background: linear-gradient(135deg, #ffffff 40%, #c084fc 80%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-header-theme-about .badge-about {
+  color: #c084fc;
+  background: rgba(192, 132, 252, 0.12);
+  border: 1px solid rgba(192, 132, 252, 0.38);
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.22);
+}
+
+/* 3. Trang Hỏi Đáp (FAQ) — Emerald Mint & Tech Cyan */
+.page-header-theme-faq .page-header-backdrop-glow {
+  background: radial-gradient(ellipse at center, rgba(45, 212, 191, 0.38) 0%, rgba(56, 189, 248, 0.22) 50%, transparent 75%);
+}
+
+.page-header-theme-faq .page-header-title {
+  background: linear-gradient(135deg, #ffffff 40%, #2dd4bf 80%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-header-theme-faq .badge-faq {
+  color: #2dd4bf;
+  background: rgba(45, 212, 191, 0.12);
+  border: 1px solid rgba(45, 212, 191, 0.38);
+  box-shadow: 0 0 20px rgba(45, 212, 191, 0.22);
+}
+
+/* 4. Trang Liên Hệ (Contact) — Warm Amber & Rose Coral */
+.page-header-theme-contact .page-header-backdrop-glow {
+  background: radial-gradient(ellipse at center, rgba(245, 158, 11, 0.36) 0%, rgba(244, 63, 94, 0.22) 50%, transparent 75%);
+}
+
+.page-header-theme-contact .page-header-title {
+  background: linear-gradient(135deg, #ffffff 40%, #fbbf24 75%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-header-theme-contact .badge-contact {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.38);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.22);
+}
+
+/* Breadcrumb Styles (nếu dùng) */
+.page-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  font-size: 0.8rem;
+  margin-bottom: 24px;
+}
+
+.breadcrumb-item {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-item:hover {
+  color: var(--primary, #38bdf8);
+}
+
+.breadcrumb-sep {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.7rem;
+}
+
+.breadcrumb-current {
+  color: var(--primary, #38bdf8);
+  font-weight: 600;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .page-header-banner {
+    min-height: 400px;
+    padding: 160px 0 100px 0;
+  }
+
+  .page-header-title {
+    font-size: 2.2rem;
+  }
+
+  .page-header-subtitle {
+    font-size: 1rem;
+  }
+}
