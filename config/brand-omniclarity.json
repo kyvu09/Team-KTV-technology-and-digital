@@ -1,5 +1,7 @@
 {
   "brand": {
+    "id": "brand-omniclarity",
+    "key": "brand-omniclarity",
     "name": "OmniClarity",
     "slogan": "Tự động hóa tổng đài CSKH, phát âm chuẩn xác số liệu tài chính & y tế."
   },
@@ -39,7 +41,9 @@
   "sections": [
     {
       "type": "hero",
-      "layout": "split-right",
+      "layout": "image-frame",
+      "image": "assets/images/imgomniclarity/about-accuracy.jpg",
+      "imageAlt": "OmniClarity Enterprise Voice AI",
       "welcomeMessage": "Chào mừng bạn đến với OmniClarity - Tự động hóa tổng đài CSKH, phát âm chuẩn xác số liệu tài chính và y tế.",
       "welcomeAudio": "assets/audio/yTe.mp3",
       "title": "Tự động hóa tổng đài CSKH với phát âm chuẩn xác cho",

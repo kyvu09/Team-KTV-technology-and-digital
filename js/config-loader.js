@@ -32,11 +32,13 @@ export async function loadConfig(rawBrandName) {
       }
       let fallbackConfig = await fallbackRes.json();
       validateConfig(fallbackConfig);
+      fallbackConfig.brandKey = "brand-vivoice";
       return fallbackConfig;
     }
 
     let config = await res.json();
     validateConfig(config);
+    config.brandKey = brandName;
     return config;
   } catch (err) {
     console.error("Lỗi khi nạp config:", err);
@@ -47,6 +49,7 @@ export async function loadConfig(rawBrandName) {
         if (fbRes.ok) {
           let fbConfig = await fbRes.json();
           validateConfig(fbConfig);
+          fbConfig.brandKey = "brand-vivoice";
           return fbConfig;
         }
       } catch (e) {}

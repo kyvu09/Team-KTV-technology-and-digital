@@ -90,11 +90,15 @@
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
 }
 
+.form-group input[readonly] {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
 .form-feedback.is-success {
   color: #10b981;
   font-weight: 600;
   font-size: 0.9rem;
   margin-top: 8px;
 }
-
 

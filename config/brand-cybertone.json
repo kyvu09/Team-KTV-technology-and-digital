@@ -1,5 +1,7 @@
 {
   "brand": {
+    "id": "brand-cybertone",
+    "key": "brand-cybertone",
     "name": "CyberTone",
     "slogan": "Tạo giọng thoại NPC thời gian thực (độ trễ siêu thấp < 40ms) cho Game & vũ trụ ảo."
   },
@@ -98,10 +100,12 @@
     },
     {
       "type": "demo",
+      "layout": "voice-studio",
       "title": "Bàn điều khiển Giọng thoại NPC Game",
       "subtitle": "Nhập lời thoại của nhân vật và trải nghiệm engine giọng nói thời gian thực với độ trễ siêu thấp.",
       "placeholder": "Nhập câu thoại của NPC (ví dụ: Này chiến binh! Ngươi có dám bước vào hang rồng cùng ta?)...",
       "defaultText": "Này lữ khách! Ngươi vừa bước vào vùng đất cấm của CyberTone. Hãy cẩn thận, bọn quái vật bóng đêm đang rình rập quanh đây!",
+      "welcomeMessage": "Chào mừng bạn đến với CyberTone - Giọng thoại NPC thời gian thực cho Game và Vũ trụ ảo.",
       "speakLabel": "Phát giọng thoại NPC",
       "stopLabel": "Dừng phát",
       "unsupported": "Trình duyệt của bạn chưa hỗ trợ Web Speech API. Vui lòng sử dụng phiên bản mới của Google Chrome hoặc Microsoft Edge."

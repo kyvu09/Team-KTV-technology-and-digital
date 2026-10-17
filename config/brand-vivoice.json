@@ -1,5 +1,7 @@
 {
   "brand": {
+    "id": "brand-vivoice",
+    "key": "brand-vivoice",
     "name": "ViVoice",
     "slogan": "Giọng nói AI cho tiếng Việt"
   },
@@ -10,6 +12,7 @@
     "orb": true,
     "scrollProgress": true
   },
+  "featuresStudio": true,
   "nav": [
     {
       "href": "#hero",
@@ -43,7 +46,11 @@
       "welcomeMessage": "Chào mừng bạn đến với ViVoice",
       "welcomeAudio": "assets/audio/welcome-vivoice.mp3",
       "title": "Biến mọi văn bản thành giọng đọc tự nhiên cho",
-      "rotatingWords": ["podcast", "video ngắn", "sách nói"],
+      "rotatingWords": [
+        "podcast",
+        "video ngắn",
+        "sách nói"
+      ],
       "subtitle": "ViVoice sử dụng mạng nơ-ron tạo sinh tái hiện ngữ điệu tiếng Việt ba miền chính xác đến từng thanh dấu, hơi thở và cảm xúc. Không cần phòng thu, không cần micro.",
       "playSample": "Chào mừng bạn đến với ViVoice. Từ thuyết minh video, podcast đến trợ lý giọng nói và tổng đài tự động, mọi nội dung đều có thể trở nên sống động bằng một giọng đọc tự nhiên.",
       "buttons": [

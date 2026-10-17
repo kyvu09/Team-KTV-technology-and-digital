@@ -1,0 +1,421 @@
+/* ==========================================================================
+   how-to-use.css — Giao diện Component Giới thiệu Quy trình Sử dụng 3 Bước
+   Phong cách thiết kế: Dark Mode, Kính mờ Glassmorphism, Neon Glow & 3D Cards
+   Tự động thích ứng màu sắc thương hiệu theo các biến CSS toàn cục
+   ========================================================================== */
+
+/* 1. Bao bọc Section How To Use */
+.home-how-to-use-section {
+  position: relative;
+  padding: 100px 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* Huy hiệu Pill đầu mục */
+.how-to-use-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary, #38bdf8) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary, #38bdf8) 35%, transparent);
+  color: var(--primary, #38bdf8);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* 2. Lưới 3 bước sử dụng trực quan */
+.how-to-use-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Thẻ Card từng bước */
+.how-to-use-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--surface, #131b2e);
+  border-radius: var(--radius, 16px);
+  padding: 32px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              border-color 0.4s ease;
+}
+
+.how-to-use-card:hover {
+  transform: translateY(-8px);
+  border-color: color-mix(in srgb, var(--primary, #38bdf8) 60%, transparent);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    0 0 30px color-mix(in srgb, var(--primary, #38bdf8) 20%, transparent);
+}
+
+/* Vầng sáng phía sau thẻ khi hover */
+.how-to-use-card-glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--primary, #38bdf8) 25%, transparent) 0%, transparent 70%);
+  filter: blur(25px);
+  pointer-events: none;
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+}
+
+.how-to-use-card:hover .how-to-use-card-glow {
+  opacity: 1;
+}
+
+/* Phần trên của thẻ: Số bước & Icon */
+.how-to-use-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.step-badge-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-number-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--primary, #38bdf8) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary, #38bdf8) 45%, transparent);
+  color: var(--primary, #38bdf8);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--primary, #38bdf8) 25%, transparent);
+}
+
+.step-phase-label {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted, #94a3b8);
+  text-transform: uppercase;
+}
+
+.step-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text, #ffffff);
+  font-size: 1.15rem;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.how-to-use-card:hover .step-icon-wrap {
+  transform: scale(1.1) rotate(5deg);
+  border-color: var(--primary, #38bdf8);
+  color: var(--primary, #38bdf8);
+}
+
+/* Nội dung tiêu đề & mô tả */
+.how-to-use-card-content {
+  margin-bottom: 24px;
+}
+
+.step-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text, #ffffff);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.step-card-desc {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-muted, #94a3b8);
+  margin: 0;
+}
+
+/* 3. Khung trực quan mô phỏng thao tác nhỏ gọn (Interactive Mockup Snippets) */
+.step-snippet-box {
+  background: rgba(11, 15, 25, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: auto;
+  pointer-events: none;
+}
+
+/* Snippet 1: Editor Text */
+.step-editor-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.step-editor-dots .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.step-editor-dots .dot--red { background: #ef4444; }
+.step-editor-dots .dot--yellow { background: #f59e0b; }
+.step-editor-dots .dot--green { background: #10b981; }
+
+.step-filename {
+  margin-left: 6px;
+  font-family: monospace;
+  font-size: 0.68rem;
+  color: var(--text-muted, #94a3b8);
+}
+
+.step-editor-text {
+  font-family: monospace;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--primary, #38bdf8) 90%, #ffffff);
+  line-height: 1.5;
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Snippet 2: Voice Pills & Slider */
+.step-snippet-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.step-chip-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted, #94a3b8);
+}
+
+.step-chip-pill.active {
+  background: color-mix(in srgb, var(--primary, #38bdf8) 22%, transparent);
+  border-color: color-mix(in srgb, var(--primary, #38bdf8) 60%, transparent);
+  color: #ffffff;
+}
+
+.step-speed-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.step-speed-txt {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted, #94a3b8);
+}
+
+.step-speed-line {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.12);
+  position: relative;
+}
+
+.step-speed-thumb {
+  position: absolute;
+  left: 45%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary, #38bdf8);
+  box-shadow: 0 0 6px var(--primary, #38bdf8);
+}
+
+/* Snippet 3: Audio Player & Waveform Bars */
+.step-player-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.step-play-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--primary, #38bdf8);
+  color: #070c18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px var(--primary, #38bdf8);
+}
+
+.step-wave-bars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+  height: 16px;
+}
+
+.step-wave-bars span {
+  display: block;
+  width: 3px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--primary, #38bdf8) 75%, transparent);
+  animation: stepWaveAnim 1.2s infinite alternate ease-in-out;
+}
+
+.step-wave-bars span:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+.step-wave-bars span:nth-child(2) { height: 14px; animation-delay: 0.3s; }
+.step-wave-bars span:nth-child(3) { height: 9px; animation-delay: 0.05s; }
+.step-wave-bars span:nth-child(4) { height: 16px; animation-delay: 0.25s; }
+.step-wave-bars span:nth-child(5) { height: 8px; animation-delay: 0.15s; }
+.step-wave-bars span:nth-child(6) { height: 13px; animation-delay: 0.35s; }
+.step-wave-bars span:nth-child(7) { height: 7px; animation-delay: 0.2s; }
+
+@keyframes stepWaveAnim {
+  0% { transform: scaleY(0.4); opacity: 0.6; }
+  100% { transform: scaleY(1.15); opacity: 1; }
+}
+
+.step-meta-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* 4. Khối CTA điều hướng sang trang Trải nghiệm */
+.how-to-use-cta-block {
+  margin-top: 56px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.how-to-use-cta-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 100px;
+  background: radial-gradient(ellipse, color-mix(in srgb, var(--primary, #38bdf8) 25%, transparent) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.how-to-use-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 36px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary, #38bdf8), var(--accent, #818cf8));
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    0 0 25px color-mix(in srgb, var(--primary, #38bdf8) 35%, transparent);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.how-to-use-action-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.5),
+    0 0 35px color-mix(in srgb, var(--primary, #38bdf8) 55%, transparent);
+}
+
+.how-to-use-action-btn i {
+  transition: transform 0.25s ease;
+}
+
+.how-to-use-action-btn:hover i {
+  transform: translateX(4px);
+}
+
+.how-to-use-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: var(--text-muted, #94a3b8);
+  position: relative;
+  z-index: 1;
+}
+
+.how-to-use-hint i {
+  color: #f59e0b;
+}
+
+/* Responsive Điều chỉnh */
+@media (max-width: 991px) {
+  .how-to-use-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .home-how-to-use-section {
+    padding: 70px 0;
+  }
+}

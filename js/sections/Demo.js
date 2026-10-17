@@ -3,6 +3,10 @@ import { audioState } from "../core/audio-state.js";
 import { WaveformVisualizer } from "../components/Waveform.js";
 import { renderSectionHeader } from "../components/common/SectionHeader.js";
 import { renderDemoConsole } from "../components/demo/DemoConsole.js";
+import {
+  renderHeroVoiceStudio,
+  initHeroVoiceStudio,
+} from "../components/hero/HeroVisual.js";
 
 // HÀM DỰNG GIAO DIỆN (HTML) CHO KHU VỰC DEMO
 export function renderDemo(s) {
@@ -14,7 +18,10 @@ export function renderDemo(s) {
     centered: true,
   });
 
-  const consoleHtml = renderDemoConsole(s);
+  const isVoiceStudio = s.layout === "voice-studio";
+  const consoleHtml = isVoiceStudio
+    ? renderHeroVoiceStudio({ ...s, idPrefix: "demo" })
+    : renderDemoConsole(s);
 
   return `
   <wl-demo class="section demo-section" id="demo">
@@ -29,6 +36,11 @@ export function renderDemo(s) {
 // HÀM XỬ LÝ SỰ KIỆN (KHI NGƯỜI DÙNG BẤM NÚT, GÕ CHỮ)
 // ============================================================================
 export function initDemoInteractions(s) {
+  if (s.layout === "voice-studio") {
+    initHeroVoiceStudio({ ...s, idPrefix: "demo", autoWelcome: false });
+    return;
+  }
+
   const box = document.getElementById("demo-widget");
   if (!box) return;
 

@@ -16,13 +16,20 @@ export function renderHero(s) {
     s.layout === "voice-studio" ||
     s.layout === "studio" ||
     s.mediaComponent === "studio";
+  const isImageFrame =
+    s.layout === "image-frame" ||
+    s.layout === "image" ||
+    s.mediaComponent === "image" ||
+    s.mediaComponent === "image-frame";
   const isSplit = s.layout !== "centered";
 
   const layoutClass = isStudio
     ? "hero-split hero-layout-studio"
-    : isSplit
-      ? "hero-split"
-      : "hero-centered";
+    : isImageFrame
+      ? "hero-split hero-layout-image-frame"
+      : isSplit
+        ? "hero-split"
+        : "hero-centered";
 
   return `
   <wl-hero class="hero ${layoutClass}" id="hero">

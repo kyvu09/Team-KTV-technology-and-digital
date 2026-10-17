@@ -13,6 +13,9 @@ import { esc } from "../../core/esc.js";
  * @returns {string} HTML markup
  */
 export function renderFeaturesSimpleGenSection(config = {}) {
+  const brandName = config?.brand?.name || "AI Voice";
+  const filePrefix = (config?.brand?.key || "ai-voice").toLowerCase().replace(/[^a-z0-9]/g, "-");
+
   return `
     <section class="section features-simple-gen-section" id="features-simple-gen" aria-label="Tạo giọng đọc đơn giản">
       <div class="container">
@@ -49,7 +52,7 @@ export function renderFeaturesSimpleGenSection(config = {}) {
               </div>
               <div class="snippet-body">
                 <code>
-                  "ViVoice AI tự động xử lý toàn bộ câu từ, phát hiện dấu câu, số liệu ngày tháng và từ viết tắt tiếng Việt một cách chuẩn xác..."
+                  "${esc(brandName)} tự động xử lý toàn bộ câu từ, phát hiện dấu câu, số liệu ngày tháng và từ viết tắt tiếng Việt một cách chuẩn xác..."
                 </code>
               </div>
               <div class="snippet-footer">
@@ -86,7 +89,7 @@ export function renderFeaturesSimpleGenSection(config = {}) {
                   <i class="fa-solid fa-waveform-lines"></i>
                 </div>
                 <div class="audio-meta">
-                  <div class="audio-title">vivoice-master-output.mp3</div>
+                  <div class="audio-title">${esc(filePrefix)}-master-output.mp3</div>
                   <div class="audio-specs">48kHz • 320kbps • Studio Quality</div>
                 </div>
               </div>
