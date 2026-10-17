@@ -7,13 +7,20 @@ import { loadConfig, normalizeBrandKey } from "./config-loader.js";
 import { applyTheme } from "./theme.js";
 import { renderSite } from "./render.js";
 import { initPreloader } from "./effects/preloader.js";
+import "./components/Card.js";
 
 // HÀM CHÍNH KHỞI CHẠY TRANG WEB
 async function startApp() {
-  // 1. Tìm xem người dùng đang muốn mở giao diện nào dựa vào tham số ?brand= trên URL
+  // 1. Tìm xem người dùng đang muốn mở giao diện nào dựa vào tham số ?brand= trên URL hoặc LocalStorage
   const params = new URLSearchParams(window.location.search);
-  const rawBrand = params.get("brand");
+  let rawBrand = params.get("brand");
+  if (!rawBrand && typeof localStorage !== "undefined") {
+    rawBrand = localStorage.getItem("vivoice_current_brand");
+  }
   const brandName = normalizeBrandKey(rawBrand);
+  if (typeof localStorage !== "undefined" && brandName) {
+    localStorage.setItem("vivoice_current_brand", brandName);
+  }
 
   try {
     // 2. Tải cấu hình từ file JSON tương ứng
@@ -111,9 +118,12 @@ if (wlToggleBtn !== null && wlSwitcher !== null) {
 
     item.addEventListener("click", function () {
       const newBrand = item.dataset.brand;
+      if (typeof localStorage !== "undefined" && newBrand) {
+        localStorage.setItem("vivoice_current_brand", newBrand);
+      }
       const newParams = new URLSearchParams(window.location.search);
       newParams.set("brand", newBrand);
-      window.location.href = window.location.pathname + "?" + newParams.toString();
+      window.location.href = window.location.pathname + "?" + newParams.toString() + window.location.hash;
     });
   });
 }
