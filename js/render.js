@@ -1,6 +1,7 @@
 // ============================================================================
 // render.js — Bộ phận lắp ráp giao diện (Render Engine)
-// Dựng toàn bộ các Section động theo dữ liệu cấu hình White-Label JSON
+// Hỗ trợ Kiến trúc Đa trang Hoàn chỉnh (Multi-Page SPA) và Trang chủ Tinh gọn
+// Tự động điều phối các trang: Trang chủ, Về chúng tôi, Tính năng, Demo, FAQ, Liên hệ
 // ============================================================================
 
 import { renderHeader } from "./sections/Header.js";
@@ -19,14 +20,39 @@ import {
 import { renderFaq, initFaqInteractions } from "./sections/Faq.js";
 import { renderContact, initContactInteractions } from "./sections/Contact.js";
 
+// Import Hệ thống Đa trang (Pages)
+import {
+  renderHomePage,
+  initHomePage,
+  renderAboutPage,
+  initAboutPage,
+  renderFeaturesPage,
+  initFeaturesPage,
+  renderDemoPage,
+  initDemoPage,
+  renderFaqPage,
+  initFaqPage,
+  renderContactPage,
+  initContactPage,
+  renderAuthPage,
+  initAuthPage,
+} from "./pages/index.js";
+
+// Import Bộ điều hướng Router
+import { initRouter, ROUTES, getCurrentRoute } from "./core/router.js";
+
+let currentSiteConfig = null;
+let isRouterReady = false;
+let renderTimeout = null;
+
 import { initVoiceOrb } from "./effects/voice-orb.js";
 import { initSmoothScroll } from "./effects/smooth-scroll.js";
 import { initCustomCursor } from "./effects/cursor.js";
 import { initScrollAnimations } from "./effects/scroll-animations.js";
 import { initChatbot } from "./components/Chatbot.js";
 
-// Bảng từ điển ánh xạ từ loại Section trong file JSON sang Hàm sinh mã HTML tương ứng
-const RENDERERS = {
+// Bảng từ điển ánh xạ từ loại Section cũ sang Hàm sinh mã HTML (giữ nguyên không xóa)
+export const RENDERERS = {
   hero: renderHero,
   demo: renderDemo,
   features: renderFeatures,
@@ -36,8 +62,8 @@ const RENDERERS = {
   contact: renderContact,
 };
 
-// Bảng từ điển ánh xạ từ loại Section sang Hàm khởi tạo sự kiện tương tác
-const INTERACTION_HANDLERS = {
+// Bảng từ điển ánh xạ từ loại Section sang Hàm tương tác (giữ nguyên không xóa)
+export const INTERACTION_HANDLERS = {
   hero: initHeroInteractions,
   demo: initDemoInteractions,
   features: initFeaturesInteractions,
@@ -47,81 +73,125 @@ const INTERACTION_HANDLERS = {
   contact: initContactInteractions,
 };
 
+// Bảng ánh xạ Trang sang Hàm Render
+const PAGE_RENDERERS = {
+  [ROUTES.HOME]: renderHomePage,
+  [ROUTES.ABOUT]: renderAboutPage,
+  [ROUTES.FEATURES]: renderFeaturesPage,
+  [ROUTES.DEMO]: renderDemoPage,
+  [ROUTES.FAQ]: renderFaqPage,
+  [ROUTES.CONTACT]: renderContactPage,
+  [ROUTES.AUTH]: renderAuthPage,
+};
+
+// Bảng ánh xạ Trang sang Hàm Khởi tạo Tương tác
+const PAGE_INTERACTIONS = {
+  [ROUTES.HOME]: initHomePage,
+  [ROUTES.ABOUT]: initAboutPage,
+  [ROUTES.FEATURES]: initFeaturesPage,
+  [ROUTES.DEMO]: initDemoPage,
+  [ROUTES.FAQ]: initFaqPage,
+  [ROUTES.CONTACT]: initContactPage,
+  [ROUTES.AUTH]: initAuthPage,
+};
+
 export function renderSite(config) {
+  currentSiteConfig = config;
+
   // 1. Tạo thanh điều hướng (Header) phía trên cùng
   renderHeader(config);
 
-  // 2. Tìm khung "app" trong file HTML để render nội dung chính
+  // 2. Tạo chân trang (Footer) phía dưới cùng
+  renderFooter(config);
+
+  // 3. Tìm khung "app" trong file HTML để render nội dung các trang
   const app = document.getElementById("app");
   if (!app) {
     console.error("Không tìm thấy phần tử #app trong HTML");
     return;
   }
 
-  // 3. Đọc từng phần (section) trong config.sections và ghép code HTML
-  let fullHTML = "";
-  const sections = config.sections || [];
-
-  for (let i = 0; i < sections.length; i++) {
-    const sectionData = sections[i];
-    const type = sectionData.type;
-
-    // Tìm hàm tạo HTML cho loại này
-    const rendererFunction = RENDERERS[type];
-
-    if (rendererFunction === undefined) {
-      console.warn(`Chưa có code HTML hỗ trợ phần: ${type}`);
-    } else {
-      fullHTML += rendererFunction(sectionData);
-    }
-  }
-
-  // Đổ toàn bộ mã HTML vào trong khung "app" trên màn hình
-  app.innerHTML = fullHTML;
-
-  // 4. Tạo chân trang (Footer) phía dưới cùng
-  renderFooter(config);
-
-  // 5. Gắn sự kiện tương tác (click, audio, hiệu ứng) cho từng section
-  for (let i = 0; i < sections.length; i++) {
-    const sectionData = sections[i];
-    const type = sectionData.type;
-
-    const handlerFunction = INTERACTION_HANDLERS[type];
-
-    if (handlerFunction !== undefined) {
-      try {
-        handlerFunction(sectionData);
-      } catch (err) {
-        console.error(`Bị lỗi khi cài đặt tương tác cho section: ${type}`, err);
-      }
-    }
-  }
-
-  // 6. Bật các hiệu ứng đồ họa bắt mắt (Animation, 3D, Custom Cursor...)
+  // 4. Bật các hiệu ứng đồ họa toàn trang một lần (Smooth Scroll, Cursor, Ambient, Chatbot)
   const effects = config.effects || {};
 
-  // Bật cuộn chuột mượt Lenis
   if (effects.smoothScroll !== false) {
     initSmoothScroll();
   }
 
-  // Bật con trỏ chuột đặc biệt
   if (effects.cursor !== false) {
     initCustomCursor();
   }
 
-  // Bật quả cầu 3D (nếu có thẻ id="hero-voice-orb")
-  const orbElement = document.getElementById("hero-voice-orb");
-  if (effects.orb !== false && orbElement !== null) {
-    initVoiceOrb("hero-voice-orb");
-  }
-
-  // Khởi tạo Chatbox AI hỗ trợ tạo thương hiệu mới
   initChatbot(config);
 
-  // Đợi 0.1 giây (100 mili-giây) rồi bật hiệu ứng các khối bay từ dưới lên khi cuộn chuột
-  setTimeout(function () {
-    initScrollAnimations(config);
-  }, 100);
+  // 5. Hàm Render nội dung theo Route (Trang)
+  const renderRouteView = (route) => {
+    if (renderTimeout) {
+      clearTimeout(renderTimeout);
+      renderTimeout = null;
+    }
+
+    // Hiệu ứng mờ dần nhẹ nhàng khi chuyển trang
+    app.style.opacity = "0";
+    app.style.transform = "translateY(8px)";
+    app.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+
+    // Cập nhật trạng thái view trên thẻ body (ẩn header/footer khi vào Auth)
+    if (route === ROUTES.AUTH) {
+      document.body.classList.add("is-auth-view");
+    } else {
+      document.body.classList.remove("is-auth-view", "lamp-on", "on");
+    }
+
+    renderTimeout = setTimeout(() => {
+      renderTimeout = null;
+      const activeCfg = currentSiteConfig || config;
+
+      // Tìm hàm render trang tương ứng, mặc định là HomePage
+      const pageRenderer = PAGE_RENDERERS[route] || renderHomePage;
+      const pageHTML = pageRenderer(activeCfg);
+
+      // Đổ nội dung HTML của trang vào #app
+      app.innerHTML = pageHTML;
+
+      // Khởi tạo các tương tác của trang
+      const pageInitializer = PAGE_INTERACTIONS[route] || initHomePage;
+      if (typeof pageInitializer === "function") {
+        try {
+          pageInitializer(activeCfg);
+        } catch (err) {
+          console.error(`Lỗi khi khởi tạo tương tác trang "${route}":`, err);
+        }
+      }
+
+      // Bật quả cầu 3D Three.js nếu trang hiện tại có phần tử #hero-voice-orb (chỉ khi không ở Auth)
+      const orbElement = document.getElementById("hero-voice-orb");
+      if (route !== ROUTES.AUTH && activeCfg?.effects?.orb !== false && orbElement !== null) {
+        initVoiceOrb("hero-voice-orb");
+      }
+
+      // Khởi tạo hoạt ảnh cuộn xuất hiện (Scroll Animations) cho các section landing page
+      if (route !== ROUTES.AUTH) {
+        setTimeout(() => {
+          initScrollAnimations(activeCfg);
+        }, 80);
+      }
+
+      // Fade in trang mới
+      app.style.opacity = "1";
+      app.style.transform = "translateY(0)";
+    }, 120);
+  };
+
+  // 6. Khởi động bộ điều hướng Router đa trang (chỉ khởi tạo 1 lần duy nhất)
+  if (!isRouterReady) {
+    isRouterReady = true;
+    initRouter((newRoute) => {
+      renderRouteView(newRoute);
+    });
+  } else {
+    // Đã có router: render lại route hiện tại với config mới
+    renderRouteView(getCurrentRoute());
+  }
 }
+
