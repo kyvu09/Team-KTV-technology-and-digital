@@ -26,7 +26,11 @@ vivoice-mau/
 !assets/audio/*.mp3
 
 
+
 codeMauThamKhao/
 .env
-
 trienKhai.md
+
+# Audio test outputs
+*.mp3
+*.wav
