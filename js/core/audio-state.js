@@ -46,6 +46,7 @@ class AudioStateManager {
     this.isPlaying = true;
 
     const utter = new SpeechSynthesisUtterance(cleanText);
+    this._currentUtterance = utter;
     utter.rate = rate;
     utter.lang = "vi-VN";
 
@@ -82,6 +83,7 @@ class AudioStateManager {
     };
 
     utter.onend = () => {
+      this._currentUtterance = null;
       this.isPlaying = false;
       this.audioFrequencyLevel = 0;
       this._stopFreqSimulation();
@@ -90,12 +92,16 @@ class AudioStateManager {
     };
 
     utter.onerror = (err) => {
+      this._currentUtterance = null;
       this.isPlaying = false;
       this.audioFrequencyLevel = 0;
       this._stopFreqSimulation();
       this.notify("error", { error: err });
       if (onEnd) onEnd();
     };
+
+    this.notify("start", { text: cleanText });
+    this._startFreqSimulation();
 
     setTimeout(() => {
       if ("speechSynthesis" in window) {
@@ -141,6 +147,7 @@ class AudioStateManager {
   }
 
   stopSpeech() {
+    this._currentUtterance = null;
     if (this._audio) {
       try {
         this._audio.pause();
@@ -162,6 +169,17 @@ class AudioStateManager {
     this._stopFreqSimulation();
     const update = () => {
       if (!this.isPlaying) return;
+
+      // Kiểm tra an toàn: nếu trình duyệt đã đọc xong SpeechSynthesis mà không gọi onend
+      if (!this._audio && "speechSynthesis" in window) {
+        if (!window.speechSynthesis.speaking && !window.speechSynthesis.pending) {
+          this.isPlaying = false;
+          this.audioFrequencyLevel = 0;
+          this._stopFreqSimulation();
+          this.notify("end");
+          return;
+        }
+      }
 
       this.audioFrequencyLevel = Math.max(
         0.2,

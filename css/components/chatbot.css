@@ -87,6 +87,173 @@
   color: var(--text);
 }
 
+.callout-mic-btn {
+  background: color-mix(in srgb, var(--primary) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 50%, transparent);
+  color: var(--primary);
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.callout-mic-btn:hover {
+  background: var(--primary);
+  color: #030712;
+  transform: translateY(-1px);
+}
+
+/* ============================================================================
+   KHUNG HỘI THOẠI GIỌNG NÓI TRỰC TIẾP VỚI ICON AI (.ai-voice-bubble)
+   ============================================================================ */
+.ai-voice-bubble {
+  position: absolute;
+  bottom: 74px;
+  left: 0;
+  width: 320px;
+  max-width: calc(100vw - 48px);
+  background: rgba(11, 20, 38, 0.95);
+  border: 1.5px solid color-mix(in srgb, var(--primary) 65%, transparent);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 20px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 25px color-mix(in srgb, var(--primary) 30%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.95);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.3s,
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+.ai-voice-bubble.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.ai-voice-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 22px;
+  width: 13px;
+  height: 13px;
+  background: rgba(11, 20, 38, 0.95);
+  border-right: 1.5px solid color-mix(in srgb, var(--primary) 65%, transparent);
+  border-bottom: 1.5px solid color-mix(in srgb, var(--primary) 65%, transparent);
+  transform: rotate(45deg);
+}
+
+.voice-bubble-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+}
+
+.voice-bubble-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.voice-status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  animation: pulseDot 1.4s infinite;
+}
+
+.ai-voice-bubble.is-processing .voice-status-dot {
+  background: #f59e0b;
+  box-shadow: 0 0 10px #f59e0b;
+}
+
+.ai-voice-bubble.is-speaking .voice-status-dot {
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.voice-status-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.voice-bubble-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.voice-tool-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.voice-tool-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.voice-tool-close:hover {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.voice-bubble-content {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: #e2e8f0;
+  min-height: 38px;
+  max-height: 120px;
+  overflow-y: auto;
+  word-break: break-word;
+}
+
+.voice-bubble-hint {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+.voice-transcript-user {
+  color: var(--primary);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.voice-transcript-ai {
+  color: #f8fafc;
+  font-weight: 500;
+}
+
 /* Nút kích hoạt nổi ở góc trái */
 .ai-chat-trigger-wrap {
   position: relative;
@@ -149,6 +316,264 @@
 .ai-chat-trigger-btn.is-active .trigger-icon-close {
   opacity: 1;
   transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+/* ============================================================================
+   HIỆU ỨNG SÓNG ÂM THANH NHẤP NHÔ CHO ICON AI KHI NÓI (VOICE WAVE ANIMATION)
+   ============================================================================ */
+
+/* 1. Các vòng sóng âm thanh lan tỏa ra ngoài (Voice Ripple Rings) */
+.voice-ripple-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.ai-chat-trigger-btn.is-speaking .voice-ripple-ring.ring-1 {
+  animation: aiVoiceRippleRing 1.8s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+}
+
+.ai-chat-trigger-btn.is-speaking .voice-ripple-ring.ring-2 {
+  animation: aiVoiceRippleRing 1.8s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 0.6s;
+}
+
+@keyframes aiVoiceRippleRing {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.9;
+    border-color: var(--primary);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--primary) 80%, transparent);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.68);
+    opacity: 0;
+    border-color: var(--accent);
+    box-shadow: 0 0 24px transparent;
+  }
+}
+
+/* Nút AI phát sáng nhấp nháy êm dịu khi đang phát giọng nói */
+.ai-chat-trigger-btn.is-speaking {
+  animation: aiBtnSpeakingPulse 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes aiBtnSpeakingPulse {
+  0% {
+    box-shadow: 0 8px 25px color-mix(in srgb, var(--primary) 60%, transparent),
+                0 0 20px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  100% {
+    box-shadow: 0 12px 35px color-mix(in srgb, var(--primary) 90%, transparent),
+                0 0 35px color-mix(in srgb, var(--accent) 75%, transparent);
+  }
+}
+
+/* 2. Sóng âm thanh nhấp nhô (Waveform bars) ở ngay tâm nút AI */
+.trigger-voice-wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 22px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.voice-bar {
+  display: block;
+  width: 3.5px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 99px;
+  transform-origin: center;
+  transform: scaleY(0.25);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8),
+              0 0 10px var(--primary);
+}
+
+/* Khi AI đang nói và cửa sổ chat ĐANG ĐÓNG: Ẩn cây đũa thần, hiện sóng âm thanh nhấp nhô */
+.ai-chat-trigger-btn.is-speaking:not(.is-active) .trigger-icon-open {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.3);
+}
+
+.ai-chat-trigger-btn.is-speaking:not(.is-active) .trigger-voice-wave {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Chuyển động sóng nhấp nhô mượt mà cho 4 vạch sóng âm thanh */
+.ai-chat-trigger-btn.is-speaking .voice-bar.bar-1 {
+  animation: voiceWaveDance1 0.75s ease-in-out infinite;
+}
+.ai-chat-trigger-btn.is-speaking .voice-bar.bar-2 {
+  animation: voiceWaveDance2 0.65s ease-in-out infinite 0.12s;
+}
+.ai-chat-trigger-btn.is-speaking .voice-bar.bar-3 {
+  animation: voiceWaveDance3 0.8s ease-in-out infinite 0.24s;
+}
+.ai-chat-trigger-btn.is-speaking .voice-bar.bar-4 {
+  animation: voiceWaveDance4 0.7s ease-in-out infinite 0.08s;
+}
+
+@keyframes voiceWaveDance1 {
+  0%, 100% { transform: scaleY(0.25); }
+  35% { transform: scaleY(0.85); }
+  70% { transform: scaleY(0.4); }
+}
+
+@keyframes voiceWaveDance2 {
+  0%, 100% { transform: scaleY(0.35); }
+  40% { transform: scaleY(1.0); }
+  75% { transform: scaleY(0.5); }
+}
+
+@keyframes voiceWaveDance3 {
+  0%, 100% { transform: scaleY(0.3); }
+  45% { transform: scaleY(0.95); }
+  80% { transform: scaleY(0.45); }
+}
+
+@keyframes voiceWaveDance4 {
+  0%, 100% { transform: scaleY(0.2); }
+  50% { transform: scaleY(0.75); }
+  85% { transform: scaleY(0.35); }
+}
+
+/* 3. Hiệu ứng sóng khi khung chat đang mở (Avatar & Badge trong Header) */
+.chat-avatar.is-speaking {
+  animation: chatAvatarSpeakingPulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes chatAvatarSpeakingPulse {
+  0% {
+    box-shadow: 0 0 0 2px var(--primary), 0 0 10px var(--primary);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 0 0 4px var(--accent), 0 0 22px var(--primary);
+    transform: scale(1.05);
+  }
+}
+
+.chat-speaking-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.badge-wave-bar {
+  display: inline-block;
+  width: 2.5px;
+  height: 10px;
+  background: var(--primary);
+  border-radius: 4px;
+  transform-origin: center;
+  animation: badgeWaveBar 0.6s ease-in-out infinite alternate;
+}
+
+.badge-wave-bar.bar-1 { animation-delay: 0s; }
+.badge-wave-bar.bar-2 { animation-delay: 0.18s; }
+.badge-wave-bar.bar-3 { animation-delay: 0.36s; }
+
+@keyframes badgeWaveBar {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
+
+/* ============================================================================
+   TRẠNG THÁI NÚT AI KHI ĐANG LẮNG NGHE GIỌNG NÓI NGƯỜI DÙNG (VOICE LISTENING)
+   ============================================================================ */
+.trigger-icon-mic {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  font-size: 1.25rem;
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ai-chat-trigger-btn.is-listening {
+  background: linear-gradient(135deg, #059669, #0284c7);
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.65),
+              0 0 45px rgba(2, 132, 199, 0.45);
+  animation: aiListeningGlow 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes aiListeningGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.55), 0 0 10px rgba(6, 182, 212, 0.4);
+  }
+  100% {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(16, 185, 129, 0.85), 0 0 30px rgba(6, 182, 212, 0.7);
+  }
+}
+
+.ai-chat-trigger-btn.is-listening .voice-ripple-ring.ring-1 {
+  border-color: #10b981;
+  animation: aiVoiceRippleRing 1.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+}
+
+.ai-chat-trigger-btn.is-listening .voice-ripple-ring.ring-2 {
+  border-color: #06b6d4;
+  animation: aiVoiceRippleRing 1.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite 0.5s;
+}
+
+.ai-chat-trigger-btn.is-listening .trigger-icon-open,
+.ai-chat-trigger-btn.is-listening .trigger-icon-close,
+.ai-chat-trigger-btn.is-listening .trigger-voice-wave {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.3);
+}
+
+.ai-chat-trigger-btn.is-listening .trigger-icon-mic {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: micBreathe 1.2s infinite alternate ease-in-out;
+}
+
+@keyframes micBreathe {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  100% { transform: translate(-50%, -50%) scale(1.22); }
+}
+
+/* Nút AI khi đang trong tiến trình xử lý yêu cầu */
+.ai-chat-trigger-btn.is-processing {
+  animation: aiBtnProcessingGlow 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes aiBtnProcessingGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+  }
+  100% {
+    transform: scale(1.06);
+    box-shadow: 0 0 35px rgba(245, 158, 11, 0.85), 0 0 25px rgba(2, 132, 199, 0.6);
+  }
 }
 
 /* Chấm xanh trạng thái trực tuyến */
