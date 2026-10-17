@@ -10,7 +10,7 @@
     "cursor": true,
     "preloader": true,
     "orb": true,
-    "ambientBackground": true,
+    "ambientBackground": false,
     "scrollProgress": true
   },
   "nav": [
@@ -143,6 +143,16 @@
             "metric": {
               "value": "70%",
               "label": "Tiết kiệm chi phí"
+            }
+          },
+          {
+            "image": "assets/images/imgomniclarity/about-security.jpg",
+            "eyebrow": "04 / BẢO MẬT & CHUẨN MỰC",
+            "title": "Bảo mật dữ liệu chuẩn y tế & tài chính",
+            "description": "Tuân thủ nghiêm ngặt chuẩn HIPAA và mã hóa giọng thoại thời gian thực, bảo vệ tuyệt đối hồ sơ dữ liệu nhạy cảm.",
+            "metric": {
+              "value": "100%",
+              "label": "Mã hóa bảo mật"
             }
           }
         ],
@@ -282,10 +292,10 @@
     }
   ],
   "theme": {
-    "primary": "#0ea5e9",
-    "accent": "#10b981",
-    "background": "#040d1a",
-    "surface": "#0a192f",
+    "primary": "#2dd4bf",
+    "accent": "#38bdf8",
+    "background": "#050c18",
+    "surface": "#0c192c",
     "text": "#f8fafc",
     "textMuted": "#94a3b8",
     "fontHeading": "Space Grotesk",
@@ -294,61 +304,26 @@
   },
   "footer": {
     "tagline": "OmniClarity — Tự động hóa tổng đài CSKH, phát âm chuẩn xác số liệu tài chính & y tế.",
-    "columns": [
+    "links": [
       {
-        "title": "Sản phẩm",
-        "links": [
-          {
-            "href": "#demo",
-            "label": "Trải nghiệm Tổng đài"
-          },
-          {
-            "href": "#features",
-            "label": "Năng lực chuẩn xác"
-          },
-          {
-            "href": "#faq",
-            "label": "Câu hỏi thường gặp"
-          }
-        ]
+        "href": "#demo",
+        "label": "Trải nghiệm Studio",
+        "icon": "fa-solid fa-wand-magic-sparkles"
       },
       {
-        "title": "Giải pháp",
-        "links": [
-          {
-            "href": "#",
-            "label": "Tổng đài Bệnh viện"
-          },
-          {
-            "href": "#",
-            "label": "Callbot Ngân hàng"
-          },
-          {
-            "href": "#",
-            "label": "Tài liệu API Callbot"
-          },
-          {
-            "href": "#",
-            "label": "Chứng chỉ HIPAA & ISO"
-          }
-        ]
+        "href": "#features",
+        "label": "Tính năng công nghệ",
+        "icon": "fa-solid fa-layer-group"
       },
       {
-        "title": "Pháp lý",
-        "links": [
-          {
-            "href": "#contact",
-            "label": "Liên hệ trực tiếp"
-          },
-          {
-            "href": "#",
-            "label": "Chính sách bảo mật y tế"
-          },
-          {
-            "href": "#",
-            "label": "Thỏa thuận dịch vụ SLA"
-          }
-        ]
+        "href": "#faq",
+        "label": "Câu hỏi thường gặp",
+        "icon": "fa-solid fa-circle-question"
+      },
+      {
+        "href": "#contact",
+        "label": "Liên hệ hỗ trợ",
+        "icon": "fa-solid fa-headset"
       }
     ],
     "copyright": "© OmniClarity. Chuẩn hóa âm thanh số liệu y tế và tài chính. White Label Specification."
