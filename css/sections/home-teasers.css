@@ -1,0 +1,580 @@
+/* ==========================================================================
+   HOMEPAGE TEASER COMPONENTS (Trang chủ Tinh gọn & Hiện đại)
+   ========================================================================== */
+
+/* 1. Feature Teaser Grid */
+.home-teaser-section {
+  padding: 90px 0;
+  position: relative;
+}
+
+.home-teaser-header {
+  margin-bottom: 50px;
+}
+
+.home-teaser-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 45px;
+}
+
+.home-teaser-card {
+  background: color-mix(in srgb, var(--surface, #0f172a) 85%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  padding: 32px 28px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-teaser-card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--primary, #38bdf8) 40%, rgba(255, 255, 255, 0.2));
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5),
+              0 0 30px -5px color-mix(in srgb, var(--primary, #38bdf8) 20%, transparent);
+}
+
+.teaser-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary, #38bdf8) 25%, transparent), color-mix(in srgb, var(--accent, #a78bfa) 20%, transparent));
+  border: 1px solid color-mix(in srgb, var(--primary, #38bdf8) 35%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--primary, #38bdf8);
+  margin-bottom: 22px;
+}
+
+.teaser-card-title {
+  font-size: 1.22rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text, #f8fafc);
+}
+
+.teaser-card-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.68);
+  margin-bottom: 22px;
+  flex: 1;
+}
+
+.teaser-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--primary, #38bdf8);
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.teaser-card-link:hover {
+  gap: 12px;
+}
+
+/* 2. Studio Teaser Section — Bố cục 2 khối song song cân đối */
+.home-studio-teaser-section {
+  padding: 70px 0 95px 0;
+  position: relative;
+}
+
+.home-studio-header {
+  margin-bottom: 45px;
+}
+
+.home-studio-two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+/* 1. Thẻ Chuyển đổi Sách Điện Tử Thành Sách Nói AI (Bên trái) */
+.home-audiobook-card {
+  background: color-mix(in srgb, var(--surface, #0f172a) 90%, #000 10%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.home-audiobook-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--primary, #38bdf8) 40%, rgba(255, 255, 255, 0.2));
+  box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.65),
+              0 0 35px -5px color-mix(in srgb, var(--primary, #38bdf8) 22%, transparent);
+}
+
+.audiobook-card-visual {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  background: #080d1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.audiobook-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.45s ease;
+}
+
+.home-audiobook-card:hover .audiobook-card-img {
+  transform: scale(1.05);
+}
+
+.audiobook-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.audiobook-card-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--text, #f8fafc);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.audiobook-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 28px;
+  flex: 1;
+}
+
+.audiobook-card-action {
+  margin-top: auto;
+}
+
+.btn-audiobook-studio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px 24px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  color: #04101e;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 25px -5px color-mix(in srgb, var(--primary, #38bdf8) 45%, transparent);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-audiobook-studio:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 35px -5px color-mix(in srgb, var(--primary, #38bdf8) 60%, transparent);
+  filter: brightness(1.08);
+  color: #04101e;
+}
+
+/* 2. Thẻ Bản phát thanh mẫu hiện tại (Bên phải) */
+.home-sample-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.home-sample-card .studio-quick-card {
+  background: color-mix(in srgb, var(--surface, #0f172a) 90%, #000 10%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: 36px 32px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+  justify-content: space-between;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.home-sample-card .studio-quick-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--primary, #38bdf8) 40%, rgba(255, 255, 255, 0.2));
+  box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.65),
+              0 0 35px -5px color-mix(in srgb, var(--primary, #38bdf8) 22%, transparent);
+}
+
+.quick-card-content-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px 0 20px;
+}
+
+.story-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.story-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 1.8vw, 1.45rem);
+  font-weight: 800;
+  color: var(--text, #f8fafc);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.story-card-title i {
+  color: var(--primary, #38bdf8);
+  font-size: 1.2rem;
+}
+
+.story-excerpt-box {
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px 26px;
+  margin-bottom: 22px;
+  position: relative;
+  box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.story-excerpt-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.92);
+  font-style: italic;
+  margin: 0;
+}
+
+.quick-card-soundwaves {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+}
+
+.wave-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: height 0.2s ease, background 0.2s ease;
+}
+
+.quick-card-soundwaves.is-active .wave-bar {
+  background: linear-gradient(180deg, var(--primary, #38bdf8), var(--accent, #a78bfa));
+  animation: wave-bar-pulse 1.2s infinite ease-in-out;
+}
+
+.quick-card-soundwaves.is-active .wave-bar:nth-child(2n) { animation-delay: 0.15s; }
+.quick-card-soundwaves.is-active .wave-bar:nth-child(3n) { animation-delay: 0.3s; }
+.quick-card-soundwaves.is-active .wave-bar:nth-child(4n) { animation-delay: 0.45s; }
+
+@keyframes wave-bar-pulse {
+  0%, 100% { height: 6px; }
+  50% { height: 28px; }
+}
+
+/* Khu vực nút phát căn giữa */
+.story-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.story-play-btn {
+  background: linear-gradient(135deg, var(--primary, #38bdf8), var(--accent, #a78bfa));
+  border: none;
+  border-radius: 14px;
+  padding: 14px 36px;
+  color: #04101e;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 210px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px -3px color-mix(in srgb, var(--primary, #38bdf8) 45%, transparent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.story-play-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 14px 30px -3px color-mix(in srgb, var(--primary, #38bdf8) 60%, transparent);
+}
+
+@media (max-width: 960px) {
+  .home-studio-two-cols {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .home-audiobook-card,
+  .home-sample-card .studio-quick-card {
+    padding: 24px 20px;
+    border-radius: 22px;
+  }
+  .audiobook-card-visual {
+    height: 180px;
+  }
+}
+
+/* 3. About Teaser Grid */
+.home-about-teaser-section {
+  padding: 80px 0;
+}
+
+.home-about-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 50px;
+}
+
+.home-about-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.home-about-stats-card {
+  background: color-mix(in srgb, var(--surface, #0f172a) 85%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 36px 30px;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.5);
+}
+
+.stats-card-heading {
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary, #38bdf8);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.teaser-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.teaser-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.teaser-stat-value {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, #ffffff, var(--primary, #38bdf8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.teaser-stat-label {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.4;
+}
+
+.stats-card-quote {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 18px;
+  font-size: 0.86rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+  display: flex;
+  gap: 10px;
+}
+
+.stats-card-quote i {
+  color: var(--accent, #a78bfa);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* 4. Home CTA Banner */
+.home-cta-banner-section {
+  padding: 60px 0 110px 0;
+}
+
+.home-cta-box {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary, #38bdf8) 15%, var(--surface, #0f172a)), color-mix(in srgb, var(--accent, #a78bfa) 15%, var(--surface, #0f172a)));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  padding: 56px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -20px color-mix(in srgb, var(--primary, #38bdf8) 30%, transparent);
+}
+
+.home-cta-title {
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  font-weight: 800;
+  margin: 16px 0;
+  color: #fff;
+}
+
+.home-cta-desc {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 620px;
+  margin: 0 auto 32px auto;
+  line-height: 1.6;
+}
+
+.home-cta-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* Responsive cho Teasers */
+@media (max-width: 991px) {
+  .home-teaser-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-studio-banner {
+    grid-template-columns: 1fr;
+    padding: 32px 24px;
+  }
+
+  .home-about-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+@media (max-width: 576px) {
+  .teaser-stats-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .home-cta-box {
+    padding: 40px 20px;
+  }
+}
+
+/* 5. Khối Tính năng trên Homepage chuyển sang FeaturesPage */
+.home-features-wrapper {
+  position: relative;
+  outline: none;
+}
+
+.home-features-wrapper:focus-visible {
+  outline: 2px solid var(--primary, #38bdf8);
+  outline-offset: 4px;
+  border-radius: 20px;
+}
+
+.home-features-wrapper .feature-stack-item,
+.home-features-wrapper .bento-card {
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+}
+
+.home-features-wrapper .feature-stack-item:hover,
+.home-features-wrapper .bento-card:hover {
+  border-color: color-mix(in srgb, var(--primary, #38bdf8) 80%, white);
+}
+
+.home-features-cta {
+  margin-top: 44px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.home-features-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  font-weight: 600;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.home-features-more-btn i {
+  transition: transform 0.25s ease;
+}
+
+.home-features-more-btn:hover i {
+  transform: translateX(4px);
+}
+
+/* 6. Khối Câu chuyện thương hiệu trên Homepage chuyển sang AboutPage khi click */
+.home-about-wrapper {
+  position: relative;
+  outline: none;
+  cursor: pointer;
+}
+
+.home-about-wrapper:focus-visible {
+  outline: 2px solid var(--primary, #38bdf8);
+  outline-offset: 4px;
+}
+

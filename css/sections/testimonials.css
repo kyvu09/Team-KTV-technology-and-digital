@@ -1,0 +1,278 @@
+/* ==========================================================================
+   [MỤC 11] TESTIMONIALS SECTION — ĐÁNH GIÁ KHÁCH HÀNG & BĂNG CHUYỀN VÔ TẬN
+   GỢI Ý: Chỉnh thẻ đánh giá (.testimonial-card), ảnh đại diện (.testimonial-avatar),
+   ngôi sao (.rating-stars), dải trượt vô tận (.marquee-track).
+   ========================================================================== */
+.testimonials-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials-slider-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1360px;
+  margin: 48px auto 0;
+  padding: 0 48px;
+}
+
+/* Hiệu ứng viền chuyển mờ gradient ở 2 cạnh giúp dải cuộn sang trọng */
+.testimonials-slider-wrapper::before,
+.testimonials-slider-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.3s;
+}
+
+.testimonials-slider-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--background), transparent);
+}
+
+.testimonials-slider-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--background), transparent);
+}
+
+/* Khung nhìn dải trượt liên tục và chậm rãi */
+.testimonials-marquee-viewport {
+  overflow: hidden;
+  width: 100%;
+  cursor: grab;
+  user-select: none;
+  padding: 16px 0 28px 0;
+}
+
+.testimonials-marquee-viewport.is-dragging {
+  cursor: grabbing;
+}
+
+/* Dải chứa các nhóm thẻ chuyển động liên tục */
+.testimonials-marquee-track {
+  display: flex;
+  gap: 28px;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Nhóm các thẻ */
+.testimonials-marquee-group {
+  display: flex;
+  gap: 28px;
+  flex-shrink: 0;
+}
+
+/* Thẻ phản hồi khách hàng kính mờ */
+.testimonial-card {
+  flex: 0 0 380px;
+  width: 380px;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: 24px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  box-shadow: 0 20px 40px -12px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.testimonial-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.testimonial-quote-icon {
+  font-size: 1.25rem;
+  color: color-mix(in srgb, var(--text) 18%, transparent);
+  transition: color 0.3s;
+}
+
+.testimonial-card:hover .testimonial-quote-icon {
+  color: color-mix(in srgb, var(--primary) 60%, transparent);
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 4px;
+  color: #fbbf24;
+  font-size: 0.9rem;
+}
+
+.testimonial-quote {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text);
+  font-style: italic;
+  flex: 1;
+}
+
+.testimonial-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #070c1e;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  overflow: hidden;
+  border: 2px solid color-mix(in srgb, var(--primary) 30%, transparent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+}
+
+.author-avatar .avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.author-name {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.author-role {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Nút viên thuốc nghe giọng nói đánh giá */
+.audio-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--background) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.audio-pill:hover,
+.audio-pill.is-playing {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+/* Nút điều hướng Carousel (Prev / Next) */
+.testimonials-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.testimonials-nav-btn.testimonials-prev {
+  left: 24px;
+}
+
+.testimonials-nav-btn.testimonials-next {
+  right: 24px;
+}
+
+.testimonials-nav-btn:hover {
+  background: var(--primary);
+  color: #070c1e;
+  border-color: var(--primary);
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--primary) 50%, transparent);
+}
+
+.testimonials-nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Thanh chấm chỉ số vị trí (Pagination Dots) */
+.testimonials-indicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: color-mix(in srgb, var(--text) 22%, transparent);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.indicator-dot:hover {
+  background: color-mix(in srgb, var(--primary) 60%, transparent);
+  transform: scale(1.2);
+}
+
+.indicator-dot.is-active {
+  width: 32px;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  box-shadow: 0 0 14px color-mix(in srgb, var(--primary) 45%, transparent);
+}
+
+

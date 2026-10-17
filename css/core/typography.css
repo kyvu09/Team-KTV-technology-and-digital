@@ -1,0 +1,127 @@
+/* ==========================================================================
+   typography.css — Font chữ, Logo thương hiệu, Tiêu đề Section & Eyebrow
+   ========================================================================== */
+
+/* Logo thương hiệu dạng chữ phủ gradient màu sắc */
+.logo-text,
+.navbar-brand a {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+/* Logo thương hiệu dạng hình ảnh */
+.logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+/* Dòng nhãn phụ (Eyebrow) phía trên tiêu đề */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* Tiêu đề mục và tiêu đề phụ chuẩn toàn trang */
+.section-header {
+  margin-bottom: 56px;
+  position: relative;
+  z-index: 2;
+}
+
+.section-header.text-center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+
+.section-sub,
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  text-wrap: balance;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-center .section-sub,
+.text-center .section-subtitle,
+.section-header.text-center .section-sub,
+.section-header.text-center .section-subtitle {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+.section-header.text-center .section-eyebrow,
+.text-center .section-eyebrow,
+.section-header.text-center .eyebrow,
+.text-center .eyebrow {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Huy hiệu công nghệ (Badge) dạng viên thuốc viền phát sáng */
+.badge,
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.badge-accent {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}

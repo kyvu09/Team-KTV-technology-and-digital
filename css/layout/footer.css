@@ -1,0 +1,197 @@
+/* ==========================================================================
+   [MỤC 09] FOOTER SECTION — CHÂN TRANG THƯƠNG HIỆU TINH GỌN & HIỆN ĐẠI
+   Thiết kế hạ thấp độ cao, loại bỏ watermark lớn và icon mạng xã hội ngoài lề,
+   tập trung vào 4 liên kết điều hướng chức năng thực tế.
+   ========================================================================== */
+
+/* Khung chân trang tổng thể: Hạ thấp độ cao, nền chuyển tiếp mờ sâu */
+#site-footer,
+wl-footer {
+  display: block;
+  position: relative;
+  background: color-mix(in srgb, var(--surface) 45%, var(--background));
+  border-top: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  padding: 42px 0 20px;
+  overflow: hidden;
+}
+
+/* Ẩn hoàn toàn watermark khổng lồ chiếm diện tích để giữ chiều cao thấp */
+.footer-huge-wordmark {
+  display: none !important;
+}
+
+/* Khung nội dung chính: Bố cục 2 khối ngang cân bằng (Logo/Tagline bên trái, 4 liên kết bên phải) */
+.footer-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 24px;
+}
+
+/* Khối thông tin thương hiệu bên trái */
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  max-width: 440px;
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.footer-logo:hover {
+  opacity: 0.9;
+}
+
+.footer-logo .logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.footer-logo .logo-text {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  background: linear-gradient(135deg, var(--text) 40%, var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Dòng khẩu hiệu / slogan ngắn gọn dưới logo */
+.footer-tagline {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin: 8px 0 0;
+  max-width: 400px;
+}
+
+/* Ẩn hoàn toàn cụm icon mạng xã hội cũ */
+.footer-socials {
+  display: none !important;
+}
+
+/* Khung điều hướng chân trang */
+.footer-nav-wrap {
+  display: flex;
+  align-items: center;
+}
+
+/* Lưới 4 liên kết chức năng dạng 2 cột gọn gàng */
+.footer-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, auto));
+  gap: 10px 14px;
+}
+
+/* Từng thẻ liên kết điều hướng dạng Pill Card sang trọng */
+.footer-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Icon chức năng bên trái mỗi link */
+.footer-nav-icon {
+  font-size: 0.95rem;
+  color: var(--primary);
+  transition: transform 0.25s ease;
+}
+
+/* Nhãn văn bản */
+.footer-nav-text {
+  color: var(--text);
+  transition: color 0.25s ease;
+}
+
+/* Hiệu ứng rê chuột vào liên kết: Nổi bật và trượt nhẹ */
+.footer-nav-link:hover {
+  background: color-mix(in srgb, var(--primary) 12%, var(--surface));
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+.footer-nav-link:hover .footer-nav-icon {
+  transform: scale(1.15);
+}
+
+.footer-nav-link:hover .footer-nav-text {
+  color: var(--primary);
+}
+
+/* Dải thanh thông tin bản quyền và nút cuộn lên đầu trang ở đáy */
+.footer-bottom-bar {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid color-mix(in srgb, var(--text) 6%, transparent);
+  padding-top: 18px;
+}
+
+/* Bố cục căn chỉnh 2 đầu của thanh bản quyền */
+.footer-bottom-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Dòng chữ bản quyền */
+.copyright {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Nút quay về đầu trang nhanh (Back to Top) */
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+/* Hiệu ứng hover nút cuộn lên đầu trang */
+.back-to-top:hover {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  transform: translateY(-2px);
+}
+
+.back-to-top i {
+  font-size: 0.8rem;
+  transition: transform 0.25s ease;
+}
+
+.back-to-top:hover i {
+  transform: translateY(-2px);
+}
