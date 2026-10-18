@@ -1,3 +1,5 @@
+
+# Vào chung kết mà không có giải, thằng nào thích thì lấy, cho luôn
 # 🎙️ ViVoice & White Label AI Voice Engine
 
 ### 🌟 Nền Tảng Tạo Sinh Giọng Nói AI Đa Thương Hiệu (Generative AI Voice Platform)
