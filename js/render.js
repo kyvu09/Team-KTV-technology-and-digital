@@ -174,7 +174,10 @@ export function renderSite(config) {
       if (route !== ROUTES.AUTH) {
         setTimeout(() => {
           initScrollAnimations(activeCfg);
-        }, 80);
+          if (window.ScrollTrigger) {
+            window.ScrollTrigger.refresh();
+          }
+        }, 120);
       }
 
       // Fade in trang mới

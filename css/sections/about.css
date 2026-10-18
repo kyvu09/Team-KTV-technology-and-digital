@@ -60,17 +60,16 @@
   position: relative;
 }
 
-/* Từng bước cuộn để kích hoạt chuyển slide */
-.about-story__step {
-  height: 82vh;
-  min-height: 540px;
-  pointer-events: none;
+/* Từng bước cuộn để kích hoạt chuyển slide (Được quản lý tự động bởi GSAP Pin Spacer) */
+.about-story__step,
+.about-story__end {
+  display: none !important;
 }
 
-/* Sân khấu chính cố định ở đỉnh màn hình khi người dùng cuộn qua (Sticky Stage) */
+/* Sân khấu chính cố định khóa màn hình khi cuộn tới (Pinned Stage) */
 .about-story__stage {
-  position: sticky;
-  top: 0;
+  position: relative;
+  width: 100%;
   height: 100svh;
   min-height: 540px;
   overflow: hidden;
@@ -104,7 +103,8 @@
   height: 100%;
   object-fit: cover;
   transform: scale(var(--image-scale-from, 1.08));
-  transition: transform 1100ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: transform 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 .about-story__slide.is-active .about-story__image {
@@ -116,21 +116,27 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(3, 7, 18, 0.76), rgba(3, 7, 18, 0.15) 75%),
-    linear-gradient(0deg, rgba(3, 7, 18, 0.78), transparent 65%);
+    linear-gradient(90deg, rgba(3, 7, 18, 0.82) 0%, rgba(3, 7, 18, 0.45) 55%, rgba(3, 7, 18, 0.15) 85%),
+    linear-gradient(0deg, rgba(3, 7, 18, 0.85) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 /* Khối nội dung văn bản nổi trên Slide */
 .about-story__content {
   position: absolute;
-  z-index: 1;
-  left: clamp(20px, 4.5vw, 64px);
-  right: 24px;
-  bottom: clamp(72px, 13vh, 150px);
-  max-width: 850px;
+  z-index: 2;
+  left: clamp(24px, 5vw, 68px);
+  right: clamp(24px, 5vw, 68px);
+  bottom: clamp(64px, 11vh, 120px);
+  max-width: min(840px, calc(100% - 48px));
+  max-height: calc(100svh - 180px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   opacity: 0;
-  transform: translateY(var(--reveal-distance, 28px));
-  transition: opacity 600ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transform: translateY(var(--reveal-distance, 32px));
+  transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1), transform 750ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
 }
 
 .about-story__slide.is-active .about-story__content {
@@ -139,22 +145,22 @@
 }
 
 .about-story__content h3 {
-  max-width: 850px;
-  margin: 16px 0;
+  max-width: 820px;
+  margin: 14px 0;
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 7vw, 6.8rem);
-  line-height: 0.96;
-  letter-spacing: -0.06em;
+  font-size: clamp(2rem, 4.4vw, 3.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
   text-wrap: balance;
   color: #ffffff;
 }
 
 .about-story__description {
-  max-width: 570px;
+  max-width: 580px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
-  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  line-height: 1.7;
 }
 
 /* Khối chỉ số đo lường nổi bật của từng slide */
@@ -162,21 +168,21 @@
   display: inline-flex;
   flex-direction: column;
   gap: 4px;
-  margin-top: 26px;
+  margin-top: 22px;
   padding-left: 16px;
-  border-left: 2px solid var(--accent, #a78bfa);
+  border-left: 3px solid var(--accent, #a78bfa);
 }
 
 .about-story__metric-value {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2.3rem);
-  font-weight: 750;
-  letter-spacing: -0.04em;
-  color: var(--text, #ffffff);
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
 }
 
 .about-story__metric-label {
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.88rem;
 }
 
@@ -184,27 +190,37 @@
 .about-story__progress {
   position: absolute;
   z-index: 3;
-  left: clamp(20px, 4.5vw, 64px);
-  right: clamp(20px, 4.5vw, 64px);
+  left: clamp(24px, 5vw, 68px);
+  right: clamp(24px, 5vw, 68px);
   bottom: 28px;
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .about-story__progress-item {
-  height: 3px;
+  height: 4px;
   flex: 1;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.28);
-  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.about-story__progress-item:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scaleY(1.4);
 }
 
 .about-story__progress-item span {
   display: block;
-  width: 0;
+  width: 0%;
   height: 100%;
   background: var(--accent, #a78bfa);
-  transition: width 250ms ease;
+  border-radius: 999px;
+  box-shadow: 0 0 10px var(--accent, #a78bfa);
+  transition: width 80ms linear;
 }
 
 .about-story__progress-item.is-active span {

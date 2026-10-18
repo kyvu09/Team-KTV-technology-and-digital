@@ -18,8 +18,8 @@ function renderSlide(slide, index = 0) {
   const image = safeAsset(slide.image);
 
   return `
-    <article class="about-story__slide${index === 0 ? " is-active" : ""}"
-      data-story-slide="${index}" aria-hidden="${index === 0 ? "false" : "true"}">
+    <article class="about-story__slide"
+      data-story-slide="${index}" aria-hidden="true">
       ${
         image
           ? `<img class="about-story__image" src="${esc(image)}" alt="${esc(slide.title || "")}" loading="${index === 0 ? "eager" : "lazy"}">`
@@ -50,7 +50,7 @@ function renderProgress(slides = []) {
   return slides
     .map(
       (_, index) => `
-    <div class="about-story__progress-item${index === 0 ? " is-active" : ""}" data-story-progress="${index}">
+    <div class="about-story__progress-item" data-story-progress="${index}" role="button" tabindex="0" aria-label="Slide ${index + 1}">
       <span></span>
     </div>`,
     )

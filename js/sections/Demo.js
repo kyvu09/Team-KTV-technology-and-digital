@@ -86,11 +86,9 @@ export function initDemoInteractions(s) {
   // LOGIC CHO CHỨC NĂNG VOICE (ÂM THANH)
   // ==========================================================================
   if (demoType === "voice") {
-    if (!("speechSynthesis" in window)) {
-      if (status) {
-        status.textContent = "Trình duyệt của bạn không hỗ trợ đọc giọng nói.";
-      }
-      return;
+    const hasSpeechSynthesis = "speechSynthesis" in window;
+    if (!hasSpeechSynthesis && status) {
+      status.textContent = "Chế độ Audio Mẫu (Hỗ trợ trình duyệt di động)";
     }
 
     new WaveformVisualizer("demo-waveform");
@@ -211,6 +209,7 @@ export function initDemoInteractions(s) {
         audioState.playSpeech(text, {
           voiceName: viVoiceName,
           rate: currentSpeedRate,
+          fallbackAudioUrl: s.sampleAudio || "assets/audio/welcome-vivoice.mp3",
           onEnd: () => setSpeakingState(false),
         });
       });

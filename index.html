@@ -52,20 +52,26 @@
 
   <!-- Nút chuyển đổi White Label (Bottom Left) -->
   <div class="white-label-switcher">
-    <button id="wl-toggle-btn" class="wl-btn" aria-label="Switch White Label Brand">
-      <i class="fa-solid fa-swatchbook"></i> <span id="wl-brand-name">Đổi Giao Diện</span>
+    <button id="wl-toggle-btn" class="wl-btn" aria-label="Đổi thương hiệu">
+      <i class="fa-solid fa-swatchbook"></i> <span id="wl-brand-name">Đổi thương hiệu</span>
     </button>
-    <div class="wl-menu" id="wl-menu">
-      <div class="wl-menu-title">Chọn giao diện White Label:</div>
-      <button class="wl-menu-item" data-brand="brand-vivoice">
-        <i class="fa-solid fa-microphone-lines"></i> ViVoice (AI Voice)
-      </button>
-      <button class="wl-menu-item" data-brand="brand-cybertone">
-        <i class="fa-solid fa-gamepad"></i> CyberTone (Game NPC)
-      </button>
-      <button class="wl-menu-item" data-brand="brand-omniclarity">
-        <i class="fa-solid fa-headset"></i> OmniClarity (CSKH &amp; Y Tế)
-      </button>
+  </div>
+
+  <!-- Modal Chọn thương hiệu (UI chuẩn theo demo-wd-26) -->
+  <div class="wl-modal-backdrop" id="wl-modal-backdrop" aria-hidden="true">
+    <div class="wl-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="wl-modal-title">
+      <div class="wl-modal-header">
+        <div class="wl-modal-header-text">
+          <h2 class="wl-modal-title" id="wl-modal-title">Chọn thương hiệu</h2>
+          <p class="wl-modal-subtitle">Cùng một mã nguồn. Chỉ đổi bộ dữ liệu JSON.</p>
+        </div>
+        <button class="wl-modal-close" id="wl-modal-close" aria-label="Đóng cửa sổ">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="wl-modal-grid" id="wl-modal-grid">
+        <!-- Render động 3 thương hiệu bởi js/main.js -->
+      </div>
     </div>
   </div>
 

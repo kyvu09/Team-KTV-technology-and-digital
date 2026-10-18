@@ -72,6 +72,31 @@ export function renderHeader(config) {
         
         <div class="header-action" id="header-action-root">
           ${actionHTML}
+          <button type="button" class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Mở menu điều hướng" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Navigation Drawer -->
+      <div class="mobile-nav-drawer" id="mobile-nav-drawer" aria-hidden="true">
+        <div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
+        <div class="mobile-nav-sheet">
+          <div class="mobile-nav-top">
+            <span class="mobile-nav-title">Menu Điều Hướng</span>
+            <button type="button" class="mobile-nav-close" id="mobile-nav-close-btn" aria-label="Đóng menu">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <nav class="mobile-nav-items">
+            ${(nav || []).map(item => {
+              const pageKey = (item.href || "").replace(/^#\/?/, "");
+              return `<a class="mobile-nav-link" href="${esc(item.href)}" data-page-link="${esc(pageKey)}">${esc(item.label)}</a>`;
+            }).join("")}
+          </nav>
+          <div class="mobile-nav-auth">
+            ${actionHTML}
+          </div>
         </div>
       </div>`;
   }
@@ -79,8 +104,54 @@ export function renderHeader(config) {
   // Khởi tạo tương tác menu điều hướng
   initHeaderNav();
 
+  // Khởi tạo tương tác menu mobile drawer
+  initMobileNav();
+
   // Khởi tạo tương tác menu người dùng
   initHeaderUserMenu();
+}
+
+/**
+ * Khởi tạo hành vi mở/đóng Mobile Navigation Drawer
+ */
+function initMobileNav() {
+  const toggleBtn = document.getElementById("nav-toggle-btn");
+  const drawer = document.getElementById("mobile-nav-drawer");
+  const closeBtn = document.getElementById("mobile-nav-close-btn");
+  const backdrop = document.getElementById("mobile-nav-backdrop");
+
+  if (!toggleBtn || !drawer) return;
+
+  const openDrawer = () => {
+    drawer.classList.add("is-open");
+    drawer.setAttribute("aria-hidden", "false");
+    toggleBtn.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeDrawer = () => {
+    drawer.classList.remove("is-open");
+    drawer.setAttribute("aria-hidden", "true");
+    toggleBtn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  };
+
+  toggleBtn.addEventListener("click", openDrawer);
+  if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+  if (backdrop) backdrop.addEventListener("click", closeDrawer);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && drawer.classList.contains("is-open")) {
+      closeDrawer();
+    }
+  });
+
+  const links = drawer.querySelectorAll(".mobile-nav-link, .mobile-nav-auth a, .mobile-nav-auth button");
+  links.forEach(link => {
+    link.addEventListener("click", () => {
+      closeDrawer();
+    });
+  });
 }
 
 /**

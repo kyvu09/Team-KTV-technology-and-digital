@@ -4,18 +4,41 @@ class AudioStateManager {
     this.currentText = "";
     this.currentWordIndex = -1;
     this.wordList = [];
-    this.listeners = new Set(); //Danh sách các thành phần trên web đang "đăng ký nhận tin tức"
+    this.listeners = new Set(); // Danh sách các thành phần trên web đang "đăng ký nhận tin tức"
     this.audioFrequencyLevel = 0; // 0..1
     this.animFrame = null;
+    this._isUnlocked = false;
+    this._initAutoplayUnlock();
   }
 
-  //Cho phép các file khác đăng ký
+  /**
+   * Mở khóa Autoplay Policy trên iOS Safari & Android qua tương tác chạm đầu tiên
+   */
+  _initAutoplayUnlock() {
+    const unlock = () => {
+      if (this._isUnlocked) return;
+      this._isUnlocked = true;
+      if ("speechSynthesis" in window) {
+        try {
+          window.speechSynthesis.resume();
+        } catch (e) {}
+      }
+      window.removeEventListener("touchstart", unlock, true);
+      window.removeEventListener("touchend", unlock, true);
+      window.removeEventListener("click", unlock, true);
+    };
+    window.addEventListener("touchstart", unlock, { passive: true, capture: true });
+    window.addEventListener("touchend", unlock, { passive: true, capture: true });
+    window.addEventListener("click", unlock, { passive: true, capture: true });
+  }
+
+  // Cho phép các file khác đăng ký
   subscribe(fn) {
     this.listeners.add(fn);
     return () => this.listeners.delete(fn);
   }
 
-  //Khi có sự kiện mới, thông báo cho tất cả các file đã đăng ký
+  // Khi có sự kiện mới, thông báo cho tất cả các file đã đăng ký
   notify(event, payload = {}) {
     for (const fn of this.listeners) {
       try {
@@ -28,11 +51,11 @@ class AudioStateManager {
 
   playSpeech(
     text,
-    { voiceName = null, rate = 1, onWord = null, onEnd = null } = {},
+    { voiceName = null, rate = 1, onWord = null, onEnd = null, fallbackAudioUrl = "assets/audio/welcome-vivoice.mp3" } = {},
   ) {
     if (!("speechSynthesis" in window)) {
-      console.warn("Web Speech API không được hỗ trợ trên trình duyệt này.");
-      return;
+      console.warn("Web Speech API không được hỗ trợ trên trình duyệt này. Chuyển sang audio fallback.");
+      return this.playAudioFile(fallbackAudioUrl, { text, onEnd });
     }
 
     this.stopSpeech();
@@ -96,8 +119,13 @@ class AudioStateManager {
       this.isPlaying = false;
       this.audioFrequencyLevel = 0;
       this._stopFreqSimulation();
-      this.notify("error", { error: err });
-      if (onEnd) onEnd();
+      console.warn("Lỗi SpeechSynthesis trên thiết bị, kích hoạt Audio Fallback:", err);
+      if (fallbackAudioUrl) {
+        this.playAudioFile(fallbackAudioUrl, { text: cleanText, onEnd });
+      } else {
+        this.notify("error", { error: err });
+        if (onEnd) onEnd();
+      }
     };
 
     this.notify("start", { text: cleanText });

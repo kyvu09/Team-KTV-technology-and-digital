@@ -147,11 +147,45 @@
 }
 
 @media (max-width: 768px) {
-  /* Ẩn menu điều hướng trên màn hình nhỏ/mobile để không bị tràn thanh Header dạng viên thuốc */
-  #site-header nav,
-  .nav-menu,
+  /* Ẩn menu ngang trên mobile, chuyển sang Hamburger Toggle */
+  #site-header .nav-menu,
   .navbar-menu {
     display: none !important;
+  }
+
+  .nav-toggle-btn {
+    display: inline-flex !important;
+  }
+
+  /* Chuẩn hóa kích thước vùng chạm (Touch Target >= 44x44px) cho toàn bộ nút & tương tác */
+  button,
+  .btn,
+  .header-user-btn,
+  .nav-toggle-btn,
+  .mobile-nav-close,
+  .mobile-nav-link,
+  .wl-btn,
+  .ai-chat-trigger-btn,
+  .testimonials-nav-btn,
+  .scroll-top-btn,
+  .clear-btn,
+  .chip-btn,
+  .speed-preset-btn,
+  .faq-accordion-header {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Tối ưu hiệu năng cuộn trên thiết bị di động (giảm tải GPU Rasterization) */
+  #site-header,
+  .feature-card,
+  .console-topbar,
+  .console-editor,
+  .testimonial-card,
+  .faq-accordion-item,
+  .wl-modal-dialog {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
   }
 
   /* Thu nhỏ khoảng cách Header trên mobile */
@@ -234,15 +268,9 @@
     height: 290px;
   }
 
-  /* Nút cuộn khám phá chuyển sang vị trí tương đối tránh đè lên quả cầu 3D */
+  /* Ẩn hoàn toàn nút chuột "Cuộn để khám phá" trên mobile để tránh lệch layout và tối ưu cho thao tác vuốt chạm */
   .hero-scroll-cue {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    transform: none;
-    margin-top: 24px;
-    display: flex;
-    justify-content: center;
+    display: none !important;
   }
 
   /* Tối ưu White Label Switcher & AI Chatbot trên 768px */
@@ -393,27 +421,9 @@
     display: none;
   }
 
-  /* Nút cuộn khám phá căn giữa gọn gàng */
+  /* Đảm bảo ẩn triệt để nút cuộn chuột trên thiết bị di động nhỏ */
   .hero-scroll-cue {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    transform: none;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .scroll-cue-text {
-    font-size: 0.72rem;
-  }
-
-  .scroll-mouse-icon {
-    width: 20px;
-    height: 32px;
-    border-radius: 10px;
+    display: none !important;
   }
 }
 
@@ -797,31 +807,35 @@
     white-space: nowrap;
   }
 
-  .wl-menu {
-    bottom: calc(100% + 8px);
-    left: 0;
-    min-width: 240px;
-    max-width: calc(100vw - 24px);
-    padding: 8px;
-    border-radius: 14px;
-    gap: 6px;
+  .wl-modal-backdrop {
+    padding: 12px;
   }
 
-  .wl-menu-title {
-    font-size: 11px;
-    padding: 2px 6px 6px;
+  .wl-modal-dialog {
+    padding: 20px 16px;
+    border-radius: 20px;
+    max-height: 88vh;
   }
 
-  .wl-menu-item {
-    padding: 8px 10px;
-    font-size: 12.5px;
-    gap: 8px;
-    border-radius: 8px;
+  .wl-modal-title {
+    font-size: 20px;
   }
 
-  .wl-menu-item i {
+  .wl-modal-subtitle {
     font-size: 13px;
-    width: 14px;
+  }
+
+  .wl-modal-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .wl-brand-card-thumb {
+    height: 145px;
+  }
+
+  .wl-brand-card-title {
+    font-size: 20px;
   }
 
   /* ========================================================================
@@ -1076,9 +1090,8 @@
     max-width: 85px;
   }
 
-  .wl-menu {
-    min-width: 220px;
-    max-width: calc(100vw - 16px);
+  .wl-modal-dialog {
+    padding: 16px 12px;
   }
 
   .ai-chat-widget {
@@ -1141,4 +1154,12 @@
     transition-duration: 1ms !important;
   }
 }
+
+/* Ẩn biểu tượng chuột cuộn trên tất cả thiết bị cảm ứng (Mobile / Tablet touch) */
+@media (hover: none) and (pointer: coarse) {
+  .hero-scroll-cue {
+    display: none !important;
+  }
+}
+
 
