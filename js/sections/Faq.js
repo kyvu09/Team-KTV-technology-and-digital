@@ -21,7 +21,6 @@ export function renderFaq(s) {
     <div class="faq-cta-row text-center reveal">
       <a href="#contact" class="btn btn-primary btn-magnetic faq-contact-btn" data-page-link="contact" id="faq-contact-btn">
         <span>Có thắc mắc khác cần giải đáp</span>
-        <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>`;
 

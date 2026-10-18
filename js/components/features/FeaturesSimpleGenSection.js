@@ -21,11 +21,6 @@ export function renderFeaturesSimpleGenSection(config = {}) {
       <div class="container">
         <!-- Tiêu đề Section căn giữa hoàn chỉnh -->
         <div class="section-header text-center reveal">
-          <div class="simple-gen-badge-wrapper">
-            <span class="badge badge-primary">
-              <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> TẠO GIỌNG NÓI TỨC THÌ
-            </span>
-          </div>
           <h2 class="section-title">Chỉ Cần Nhập Dữ Liệu, Chúng Tôi Sẽ Tạo Âm Thanh Cho Bạn</h2>
           <p class="section-subtitle">
             Không cần thiết bị phòng thu đắt đỏ hay kỹ thuật âm thanh phức tạp. Bạn chỉ việc cung cấp văn bản, trí tuệ nhân tạo sẽ tự động phân tích ngữ cảnh, ngắt nghỉ câu và kết xuất bản thu âm sống động trong vài giây.

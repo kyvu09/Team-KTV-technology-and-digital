@@ -68,25 +68,20 @@ export function renderFeaturesPage(config = {}) {
 
   return `
     <div class="page-wrapper page-features" id="page-features">
-      <!-- Section Hero: Dùng component chung PageHeader đồng bộ -->
+      <!-- Section 1: Tiêu đề trang dùng component chung PageHeader đồng bộ -->
       ${pageHeaderHtml}
 
-      <!-- Section Tính năng & Đột phá công nghệ / sản phẩm cốt lõi (Bento Grid hoặc 3D Stack từ AI/JSON) -->
-      <div class="page-features-core">
-        ${renderFeatures(featuresData, "page-features-showcase")}
-      </div>
-
-      <!-- Module tính năng âm thanh chuyên sâu (chỉ hiển thị với thương hiệu AI Voice như ViVoice) -->
+      <!-- Module các Section 3, 4, 5 tính năng âm thanh chuyên sâu -->
       ${
         hasVoiceFeatures
           ? `
-        <!-- 1. Section Đa giọng đọc (Bắc - Trung - Nam) -->
+        <!-- Section 3: Kho Đa giọng đọc (Bắc - Trung - Nam) -->
         ${renderFeaturesVoicesSection(config)}
 
-        <!-- 2. Section Tạo giọng đọc đơn giản từ văn bản -->
+        <!-- Section 4: Tạo giọng đọc đơn giản từ văn bản -->
         ${renderFeaturesSimpleGenSection(config)}
 
-        <!-- 3. Section Tốc độ giọng đọc (0.5x - 2.0x) -->
+        <!-- Section 5: Tốc độ giọng đọc (0.5x - 2.0x) -->
         ${renderFeaturesSpeedSection(config)}
       `
           : ""
@@ -99,12 +94,7 @@ export function renderFeaturesPage(config = {}) {
  * @param {Object} [config]
  */
 export function initFeaturesPage(config = {}) {
-  // 1. Tương tác Khối tính năng cốt lõi (Bento Grid / 3D Stack)
-  try {
-    initFeaturesInteractions();
-  } catch (e) {
-    console.error("Lỗi khởi tạo Features Core:", e);
-  }
+  // Tương tác các module âm thanh (Section 3, 4, 5)
 
   // 2. Tương tác các module âm thanh (nếu là thương hiệu AI Voice)
   if (isVoiceStudioBrand(config)) {
