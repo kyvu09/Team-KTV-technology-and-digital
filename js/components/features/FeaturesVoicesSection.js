@@ -170,11 +170,6 @@ export function renderFeaturesVoicesSection(config = {}) {
         <!-- Khối tiêu đề căn giữa tiếng Việt -->
         <div class="voices-header-row text-center reveal">
           <div class="voices-header-center mx-auto">
-            <div class="voices-header-badge-wrapper" style="margin-bottom: 14px;">
-              <span class="badge badge-primary">
-                <i class="fa-solid fa-earth-asia" aria-hidden="true"></i> HỆ THỐNG 20+ CHẤT GIỌNG
-              </span>
-            </div>
             <h2 class="voices-main-title">Kho Giọng Đọc Đa Dạng Vùng Miền</h2>
             <p class="voices-main-desc">
               Trải nghiệm các chất giọng tiêu biểu đại diện cho hệ sinh thái giọng đọc của ${esc(brandName)}, tái hiện trọn vẹn cảm xúc và ngữ điệu tự nhiên.
