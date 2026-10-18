@@ -43,7 +43,14 @@ wl-card {
 /* 3. Cuộn trang mượt mà & bù trừ khoảng cách đỉnh cho thanh Header cố định */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 100px; /* Tránh tình trạng tiêu đề section bị che khuất dưới Header khi click menu */
+  scroll-padding-top: 90px;
+  overflow-x: clip;
+  max-width: 100vw;
+}
+
+html, body {
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 /* Hỗ trợ cuộn mượt bằng thư viện Lenis */
@@ -65,6 +72,7 @@ body {
   background-color: var(--background);
   color: var(--text);
   min-height: 100vh;
+  min-height: 100dvh;
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
@@ -1224,14 +1232,14 @@ body.is-loading .feature-stack-3d {
 }
 
 .wl-btn {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(18, 24, 38, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text);
-  padding: 12px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  padding: 12px 22px;
   border-radius: 50px;
-  font-family: var(--font-heading);
+  font-family: var(--font-heading, "Space Grotesk", sans-serif);
   font-weight: 600;
   font-size: 14px;
   display: flex;
@@ -1239,97 +1247,262 @@ body.is-loading .feature-stack-3d {
   gap: 10px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255,255,255,0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .wl-btn i {
-  color: var(--primary);
+  color: var(--primary, #38bdf8);
   font-size: 16px;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .wl-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--primary);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px color-mix(in srgb, var(--primary) 30%, transparent);
+  background: rgba(30, 41, 59, 0.95);
+  border-color: var(--primary, #38bdf8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 15px color-mix(in srgb, var(--primary, #38bdf8) 35%, transparent);
 }
 
 .wl-btn:hover i {
-  color: var(--text);
   transform: rotate(15deg);
 }
 
-.wl-menu {
-  position: absolute;
-  bottom: calc(100% + 12px);
-  left: 0;
-  background: rgba(15, 26, 54, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 12px;
-  min-width: 260px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+/* ============================================================================
+   WHITE LABEL MODAL DIALOG (CHỌN THƯƠNG HIỆU - GIỐNG DEMO-WD-26)
+   ============================================================================ */
 
-.white-label-switcher.open .wl-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.wl-menu-title {
-  font-size: 12px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 4px 8px 8px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  margin-bottom: 4px;
-}
-
-.wl-menu-item {
-  background: transparent;
-  color: var(--text);
-  padding: 10px 12px;
-  border-radius: 8px;
+.wl-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 100000;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  transition: all 0.2s ease;
-  text-align: left;
-  border: 1px solid transparent;
-  cursor: pointer;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.wl-modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.wl-modal-dialog {
+  background: #14151a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
   width: 100%;
+  max-width: 1080px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 0, 0, 0.6);
+  transform: scale(0.96) translateY(12px);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease;
+  color: #f8fafc;
 }
 
-.wl-menu-item i {
-  color: var(--primary);
+.wl-modal-backdrop.open .wl-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+/* Scrollbar mượt mà */
+.wl-modal-dialog::-webkit-scrollbar {
+  width: 6px;
+}
+.wl-modal-dialog::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+.wl-modal-dialog::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+}
+.wl-modal-dialog::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Header của Modal */
+.wl-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.wl-modal-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
+  font-family: var(--font-heading, "Space Grotesk", sans-serif);
+}
+
+.wl-modal-subtitle {
   font-size: 14px;
+  color: #94a3b8;
+  margin: 0;
+  font-family: var(--font-body, "Be Vietnam Pro", sans-serif);
+}
+
+.wl-modal-close {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.wl-modal-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+
+/* Grid chứa các thẻ thương hiệu */
+.wl-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Thẻ thương hiệu (Brand Card) */
+.wl-brand-card {
+  background: #1c1d24;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  text-align: left;
+}
+
+.wl-brand-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.22);
+  background: #21232c;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Trạng thái thương hiệu đang xem */
+.wl-brand-card.active {
+  border: 2px solid #2563eb;
+  background: #1a1e2b;
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.3), inset 0 0 0 1px rgba(37, 99, 235, 0.2);
+}
+
+/* Thumbnail ảnh */
+.wl-brand-card-thumb {
+  position: relative;
+  width: 100%;
+  height: 165px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  background: #090d16;
+}
+
+.wl-brand-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.wl-brand-card:hover .wl-brand-card-thumb img {
+  transform: scale(1.05);
+}
+
+/* Huy hiệu 'Đang xem' */
+.wl-brand-badge-active {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  letter-spacing: 0.3px;
+  z-index: 2;
+  font-family: var(--font-body, "Be Vietnam Pro", sans-serif);
+}
+
+/* Nội dung văn bản của thẻ */
+.wl-brand-card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.wl-brand-card-category {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-family: var(--font-body, "Be Vietnam Pro", sans-serif);
+}
+
+.wl-brand-card-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.01em;
+  font-family: var(--font-heading, "Space Grotesk", sans-serif);
+}
+
+.wl-brand-card-desc {
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.45;
+  margin-bottom: 14px;
+  min-height: 38px;
+  font-family: var(--font-body, "Be Vietnam Pro", sans-serif);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Hàng chấm màu Palette */
+.wl-brand-card-palette {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.wl-palette-dot {
   width: 16px;
-  text-align: center;
-}
-
-.wl-menu-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
-  transform: translateX(4px);
-}
-
-.wl-menu-item.active {
-  background: color-mix(in srgb, var(--primary) 12%, transparent);
-  border-color: color-mix(in srgb, var(--primary) 30%, transparent);
-  color: var(--primary);
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 

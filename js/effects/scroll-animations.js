@@ -40,19 +40,36 @@ export function initScrollAnimations(config = {}) {
   const { gsap, ScrollTrigger } = window;
   gsap.registerPlugin(ScrollTrigger);
 
-  // 3. Animate Hero elements khi vừa load xong trang
-  const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
-  heroTl
-    .from(".hero .badge", { opacity: 0, y: -20, duration: 0.6, delay: 0.1 })
-    .from(".hero h1", { opacity: 0, y: 30, duration: 0.8 }, "-=0.3")
-    .from(".hero .lead", { opacity: 0, y: 20, duration: 0.7 }, "-=0.4")
-    .from(
-      ".hero-cta .btn",
-      { opacity: 0, scale: 0.9, stagger: 0.15, duration: 0.6 },
-      "-=0.4",
-    )
-    .from("#hero-voice-orb", { opacity: 0, scale: 0.8, duration: 1 }, "-=0.8")
-    .from("#hero-scroll-cue", { opacity: 0, y: 20, duration: 0.6 }, "-=0.4");
+  // 3. Animate Hero elements khi vừa load xong trang (chờ Preloader kết thúc)
+  let heroEntranceRan = false;
+  const playHeroEntrance = () => {
+    if (heroEntranceRan) return;
+    heroEntranceRan = true;
+    const heroEl = document.querySelector(".hero");
+    if (!heroEl) return;
+
+    const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    heroTl
+      .fromTo(".hero .badge", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.05 })
+      .fromTo(".hero h1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, "-=0.3")
+      .fromTo(".hero .lead", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.4")
+      .fromTo(
+        ".hero-cta .btn",
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, stagger: 0.15, duration: 0.6 },
+        "-=0.4",
+      )
+      .fromTo("#hero-voice-orb", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.9 }, "-=0.8")
+      .fromTo("#hero-scroll-cue", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, "-=0.4");
+  };
+
+  const preloaderEl = document.getElementById("site-preloader");
+  if (preloaderEl && preloaderEl.style.display !== "none" && !preloaderEl.classList.contains("fade-out")) {
+    window.addEventListener("preloader:finished", playHeroEntrance, { once: true });
+    setTimeout(playHeroEntrance, 1200);
+  } else {
+    playHeroEntrance();
+  }
 
   // 4. Mờ dần nút cuộn Hero Scroll Cue khi người dùng bắt đầu cuộn
   const scrollCue = document.getElementById("hero-scroll-cue");

@@ -27,9 +27,12 @@ export function initVoiceOrb(containerId = "hero-voice-orb") {
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
   camera.position.z = 6;
 
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  const isMobile = window.innerWidth <= 768;
+  const maxPixelRatio = isMobile ? 1.5 : 2;
+
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
   renderer.setSize(width, height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxPixelRatio));
   container.innerHTML = "";
   container.appendChild(renderer.domElement);
 
@@ -111,12 +114,14 @@ export function initVoiceOrb(containerId = "hero-voice-orb") {
 
   const onMouseMove = (e) => {
     const rect = container.getBoundingClientRect();
-    mouseX = ((e.clientX - rect.left) / width) * 2 - 1;
-    mouseY = -(((e.clientY - rect.top) / height) * 2 - 1);
+    const w = rect.width || width || 400;
+    const h = rect.height || height || 400;
+    mouseX = ((e.clientX - rect.left) / w) * 2 - 1;
+    mouseY = -(((e.clientY - rect.top) / h) * 2 - 1);
     targetRotationY = mouseX * 0.6;
     targetRotationX = -mouseY * 0.6;
   };
-  window.addEventListener("mousemove", onMouseMove);
+  window.addEventListener("mousemove", onMouseMove, { passive: true });
 
   // Biến phục vụ rung sóng âm (Wave displacement)
   let time = 0;
@@ -192,16 +197,25 @@ export function initVoiceOrb(containerId = "hero-voice-orb") {
   }
   animate();
 
-  // Resize handler
+  // Resize & Orientation Change handler chuẩn xác đa thiết bị
   const onResize = () => {
     if (!container) return;
     const newW = container.clientWidth || 400;
     const newH = container.clientHeight || 400;
+    if (newW === 0 || newH === 0) return;
+
     camera.aspect = newW / newH;
     camera.updateProjectionMatrix();
     renderer.setSize(newW, newH);
+
+    const isMob = window.innerWidth <= 768;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMob ? 1.5 : 2));
   };
-  window.addEventListener("resize", onResize);
+
+  window.addEventListener("resize", onResize, { passive: true });
+  window.addEventListener("orientationchange", () => {
+    setTimeout(onResize, 150);
+  }, { passive: true });
 
   return {
     destroy: () => {
@@ -209,7 +223,20 @@ export function initVoiceOrb(containerId = "hero-voice-orb") {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("resize", onResize);
-      renderer.dispose();
+      window.removeEventListener("orientationchange", onResize);
+
+      // Giải phóng bộ nhớ GPU triệt để (Chống rò rỉ RAM/VRAM trên điện thoại)
+      if (geometry) geometry.dispose();
+      if (material) material.dispose();
+      if (particleGeo) particleGeo.dispose();
+      if (particleMat) particleMat.dispose();
+      if (innerGeo) innerGeo.dispose();
+      if (innerMat) innerMat.dispose();
+      if (renderer) {
+        renderer.dispose();
+        if (renderer.forceContextLoss) renderer.forceContextLoss();
+      }
+      container.innerHTML = "";
     },
   };
 }
