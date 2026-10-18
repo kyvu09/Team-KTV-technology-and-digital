@@ -6,6 +6,7 @@ import { renderDemoConsole } from "../components/demo/DemoConsole.js";
 import {
   renderHeroVoiceStudio,
   initHeroVoiceStudio,
+  clearPendingWelcome,
 } from "../components/hero/HeroVisual.js";
 
 // HÀM DỰNG GIAO DIỆN (HTML) CHO KHU VỰC DEMO
@@ -180,6 +181,7 @@ export function initDemoInteractions(s) {
 
     if (speakBtn) {
       speakBtn.addEventListener("click", () => {
+        clearPendingWelcome();
         if (isSpeaking) {
           audioState.stopSpeech();
           setSpeakingState(false);
@@ -209,7 +211,7 @@ export function initDemoInteractions(s) {
         audioState.playSpeech(text, {
           voiceName: viVoiceName,
           rate: currentSpeedRate,
-          fallbackAudioUrl: s.sampleAudio || "assets/audio/welcome-vivoice.mp3",
+          fallbackAudioUrl: s.sampleAudio || s.welcomeAudio || null,
           onEnd: () => setSpeakingState(false),
         });
       });
@@ -217,6 +219,7 @@ export function initDemoInteractions(s) {
 
     if (stopBtn) {
       stopBtn.addEventListener("click", () => {
+        clearPendingWelcome();
         audioState.stopSpeech();
         setSpeakingState(false);
       });

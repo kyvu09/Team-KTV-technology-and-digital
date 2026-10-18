@@ -277,6 +277,7 @@ function initStudioInteractions(props = {}) {
   };
 
   const togglePlayAudio = () => {
+    clearPendingWelcome();
     if (audioState.isPlaying) {
       audioState.stopSpeech();
       setPlayingState(false);
@@ -293,6 +294,7 @@ function initStudioInteractions(props = {}) {
     setPlayingState(true);
 
     audioState.playSpeech(currentText, {
+      fallbackAudioUrl: welcomeAudio || null,
       onEnd: () => setPlayingState(false),
     });
   };

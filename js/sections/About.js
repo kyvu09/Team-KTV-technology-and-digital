@@ -29,7 +29,7 @@ export function initAboutScroll(root = document) {
     if (track._storyScrollTrigger) {
       try {
         track._storyScrollTrigger.kill();
-      } catch (e) {}
+      } catch (e) { }
       track._storyScrollTrigger = null;
     }
 
@@ -63,7 +63,7 @@ export function initAboutScroll(root = document) {
         });
       }
 
-      // Cập nhật thanh tiến trình làm đầy liên tục theo nhịp cuộn
+      // Cập nhật   iên tục theo nhịp cuộn
       const slot = 1 / numSlides;
       progressItems.forEach((item, idx) => {
         const span = item.querySelector("span");
@@ -99,7 +99,7 @@ export function initAboutScroll(root = document) {
         pin: stage,
         pinSpacing: true,
         anticipatePin: 1,
-        scrub: true,
+        scrub: 0.5,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           updateSlidesAndProgress(self.progress);
@@ -167,7 +167,7 @@ export function initAboutScroll(root = document) {
 // ============================================================================
 export class WlAbout extends (typeof HTMLElement !== "undefined"
   ? HTMLElement
-  : class {}) {
+  : class { }) {
   connectedCallback() {
     if (this._config) {
       this.innerHTML = renderAbout(this._config);

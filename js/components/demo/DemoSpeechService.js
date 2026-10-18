@@ -107,7 +107,7 @@ class DemoSpeechService {
       rate = 1.0,
       pitch = 1.0,
       voiceName = null,
-      fallbackAudioUrl = "assets/audio/welcome-vivoice.mp3",
+      fallbackAudioUrl = null,
       onStart = null,
       onWord = null,
       onEnd = null,
@@ -115,14 +115,19 @@ class DemoSpeechService {
     } = options;
 
     this.stop();
+    this._isManuallyStopped = false;
 
     const cleanText = (text || "").trim();
     if (!cleanText) return;
 
-    // Nếu không hỗ trợ TTS hoặc trên trình duyệt bị chặn, phát file âm thanh mẫu
+    // Nếu không hỗ trợ TTS hoặc trên trình duyệt bị chặn, phát file âm thanh mẫu nếu có
     if (!this.isSupported()) {
       console.warn("Trình duyệt không hỗ trợ Web Speech API, chuyển sang phát Audio mẫu.");
-      return this.playFallback(fallbackAudioUrl, { text: cleanText, onStart, onEnd, onError });
+      if (fallbackAudioUrl) {
+        return this.playFallback(fallbackAudioUrl, { text: cleanText, onStart, onEnd, onError });
+      }
+      if (onEnd) onEnd();
+      return;
     }
 
     try {
@@ -143,6 +148,7 @@ class DemoSpeechService {
       // Xử lý sự kiện ngắt từ
       let wordIdx = -1;
       utter.onboundary = (e) => {
+        if (this._isManuallyStopped) return;
         if (e.name === "word") {
           wordIdx++;
           if (onWord) onWord(wordIdx, e.charIndex);
@@ -150,6 +156,7 @@ class DemoSpeechService {
       };
 
       utter.onstart = () => {
+        if (this._isManuallyStopped) return;
         // Bật heartbeat resume định kỳ mỗi 8s để tránh bug dừng phát ngẫu nhiên trên Chrome/Safari
         this._startHeartbeat();
         if (onStart) onStart();
@@ -158,12 +165,23 @@ class DemoSpeechService {
       utter.onend = () => {
         this._stopHeartbeat();
         this._currentUtterance = null;
-        if (onEnd) onEnd();
+        if (!this._isManuallyStopped && onEnd) onEnd();
       };
 
       utter.onerror = (err) => {
         this._stopHeartbeat();
         this._currentUtterance = null;
+
+        const errType = err && (err.error || err.type);
+        if (
+          this._isManuallyStopped ||
+          errType === "canceled" ||
+          errType === "interrupted"
+        ) {
+          if (onEnd) onEnd();
+          return;
+        }
+
         console.warn("Lỗi SpeechSynthesis, thử phát Audio fallback:", err);
 
         // Fallback tự động khi TTS bị chặn (Autoplay restricted)
@@ -234,8 +252,15 @@ class DemoSpeechService {
    * Dừng toàn bộ âm thanh và giọng đọc ngay lập tức
    */
   stop() {
+    this._isManuallyStopped = true;
     this._stopHeartbeat();
-    this._currentUtterance = null;
+    if (this._currentUtterance) {
+      this._currentUtterance.onboundary = null;
+      this._currentUtterance.onstart = null;
+      this._currentUtterance.onend = null;
+      this._currentUtterance.onerror = null;
+      this._currentUtterance = null;
+    }
 
     if (this._fallbackAudio) {
       try {

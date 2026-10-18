@@ -2,15 +2,10 @@
 // FeaturesPage.js — Trang Tính năng Chuyên sâu (Dedicated Features Page)
 // Tự động thích ứng White-Label theo cấu hình thương hiệu:
 // 1. Page Header đồng bộ nhận diện thương hiệu
-// 2. Section Tính năng cốt lõi (Bento Grid / 3D Stack từ file JSON / AI)
-// 3. Module âm thanh chuyên sâu (chỉ hiển thị với thương hiệu AI Voice như ViVoice)
+// 2. Module âm thanh chuyên sâu (Kho giọng đọc, Tạo giọng đơn giản, Tốc độ giọng đọc)
 // ============================================================================
 
 import { renderPageHeader } from "../components/common/PageHeader.js";
-import {
-  renderFeatures,
-  initFeaturesInteractions,
-} from "../sections/Features.js";
 import {
   renderFeaturesVoicesSection,
   initFeaturesVoicesSection,
@@ -25,23 +20,7 @@ import {
 } from "../components/features/FeaturesSpeedSection.js";
 
 /**
- * Kiểm tra xem thương hiệu có phải là thương hiệu Voice / Audio chuyên biệt hay không
- * @param {Object} config
- * @returns {boolean}
- */
-function isVoiceStudioBrand(config = {}) {
-  const brandName = (config?.brand?.name || "").toLowerCase();
-  const brandKey = (config?.brandKey || config?.brand?.id || config?.brand?.key || "").toLowerCase();
-  return (
-    Boolean(config?.featuresStudio) ||
-    Boolean(config?.voices) ||
-    brandKey.includes("vivoice") ||
-    brandName.includes("vivoice")
-  );
-}
-
-/**
- * Render Trang Tính năng chuyên biệt
+ * Render Trang Tính năng chuyên biệt cho tất cả các thương hiệu
  * @param {Object} config
  * @returns {string} HTML markup
  */
@@ -64,57 +43,44 @@ export function renderFeaturesPage(config = {}) {
     breadcrumb: "Tính năng",
   });
 
-  const hasVoiceFeatures = isVoiceStudioBrand(config);
-
   return `
     <div class="page-wrapper page-features" id="page-features">
       <!-- Section 1: Tiêu đề trang dùng component chung PageHeader đồng bộ -->
       ${pageHeaderHtml}
 
-      <!-- Module các Section 3, 4, 5 tính năng âm thanh chuyên sâu -->
-      ${
-        hasVoiceFeatures
-          ? `
-        <!-- Section 3: Kho Đa giọng đọc (Bắc - Trung - Nam) -->
-        ${renderFeaturesVoicesSection(config)}
+      <!-- Section 3: Kho Đa giọng đọc (Bắc - Trung - Nam) -->
+      ${renderFeaturesVoicesSection(config)}
 
-        <!-- Section 4: Tạo giọng đọc đơn giản từ văn bản -->
-        ${renderFeaturesSimpleGenSection(config)}
+      <!-- Section 4: Tạo giọng đọc đơn giản từ văn bản -->
+      ${renderFeaturesSimpleGenSection(config)}
 
-        <!-- Section 5: Tốc độ giọng đọc (0.5x - 2.0x) -->
-        ${renderFeaturesSpeedSection(config)}
-      `
-          : ""
-      }
+      <!-- Section 5: Tốc độ giọng đọc (0.5x - 2.0x) -->
+      ${renderFeaturesSpeedSection(config)}
     </div>`.trim();
 }
 
 /**
- * Khởi tạo tương tác trang Tính năng
+ * Khởi tạo tương tác trang Tính năng cho tất cả các thương hiệu
  * @param {Object} [config]
  */
 export function initFeaturesPage(config = {}) {
-  // Tương tác các module âm thanh (Section 3, 4, 5)
+  try {
+    initFeaturesVoicesSection();
+  } catch (e) {
+    console.error("Lỗi khởi tạo Features Voices:", e);
+  }
 
-  // 2. Tương tác các module âm thanh (nếu là thương hiệu AI Voice)
-  if (isVoiceStudioBrand(config)) {
-    try {
-      initFeaturesVoicesSection();
-    } catch (e) {
-      console.error("Lỗi khởi tạo Features Voices:", e);
-    }
+  try {
+    initFeaturesSimpleGenSection();
+  } catch (e) {
+    console.error("Lỗi khởi tạo Features Simple Gen:", e);
+  }
 
-    try {
-      initFeaturesSimpleGenSection();
-    } catch (e) {
-      console.error("Lỗi khởi tạo Features Simple Gen:", e);
-    }
-
-    try {
-      initFeaturesSpeedSection();
-    } catch (e) {
-      console.error("Lỗi khởi tạo Features Speed:", e);
-    }
+  try {
+    initFeaturesSpeedSection();
+  } catch (e) {
+    console.error("Lỗi khởi tạo Features Speed:", e);
   }
 }
+
 

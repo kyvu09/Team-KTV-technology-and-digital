@@ -51,14 +51,21 @@ class AudioStateManager {
 
   playSpeech(
     text,
-    { voiceName = null, rate = 1, onWord = null, onEnd = null, fallbackAudioUrl = "assets/audio/welcome-vivoice.mp3" } = {},
+    { voiceName = null, rate = 1, onWord = null, onEnd = null, fallbackAudioUrl = null } = {},
   ) {
+    this._isManuallyStopped = false;
+
     if (!("speechSynthesis" in window)) {
-      console.warn("Web Speech API không được hỗ trợ trên trình duyệt này. Chuyển sang audio fallback.");
-      return this.playAudioFile(fallbackAudioUrl, { text, onEnd });
+      console.warn("Web Speech API không được hỗ trợ trên trình duyệt này.");
+      if (fallbackAudioUrl) {
+        return this.playAudioFile(fallbackAudioUrl, { text, onEnd });
+      }
+      if (onEnd) onEnd();
+      return;
     }
 
     this.stopSpeech();
+    this._isManuallyStopped = false;
 
     const cleanText = (text || "").trim();
     if (!cleanText) return;
@@ -86,6 +93,7 @@ class AudioStateManager {
 
     // Sự kiện ngắt từ (karaoke highlight & visualizer kick)
     utter.onboundary = (e) => {
+      if (this._isManuallyStopped) return;
       if (e.name === "word") {
         this.currentWordIndex++;
         this.audioFrequencyLevel = 0.8 + Math.random() * 0.2;
@@ -100,6 +108,7 @@ class AudioStateManager {
     };
 
     utter.onstart = () => {
+      if (this._isManuallyStopped) return;
       this.isPlaying = true;
       this._startFreqSimulation();
       this.notify("start", { text: cleanText });
@@ -110,8 +119,10 @@ class AudioStateManager {
       this.isPlaying = false;
       this.audioFrequencyLevel = 0;
       this._stopFreqSimulation();
-      this.notify("end");
-      if (onEnd) onEnd();
+      if (!this._isManuallyStopped) {
+        this.notify("end");
+        if (onEnd) onEnd();
+      }
     };
 
     utter.onerror = (err) => {
@@ -119,7 +130,20 @@ class AudioStateManager {
       this.isPlaying = false;
       this.audioFrequencyLevel = 0;
       this._stopFreqSimulation();
-      console.warn("Lỗi SpeechSynthesis trên thiết bị, kích hoạt Audio Fallback:", err);
+
+      const errType = err && (err.error || err.type);
+      // Khi người dùng bấm Dừng (cancel / interrupted) hoặc đã dừng thủ công, TUYỆT ĐỐI không phát audio fallback
+      if (
+        this._isManuallyStopped ||
+        errType === "canceled" ||
+        errType === "interrupted"
+      ) {
+        this.notify("stop");
+        if (onEnd) onEnd();
+        return;
+      }
+
+      console.warn("Lỗi SpeechSynthesis trên thiết bị:", err);
       if (fallbackAudioUrl) {
         this.playAudioFile(fallbackAudioUrl, { text: cleanText, onEnd });
       } else {
@@ -133,6 +157,7 @@ class AudioStateManager {
 
     setTimeout(() => {
       if ("speechSynthesis" in window) {
+        if (this._isManuallyStopped) return;
         if (window.speechSynthesis.paused) window.speechSynthesis.resume();
         window.speechSynthesis.speak(utter);
       }
@@ -175,7 +200,14 @@ class AudioStateManager {
   }
 
   stopSpeech() {
-    this._currentUtterance = null;
+    this._isManuallyStopped = true;
+    if (this._currentUtterance) {
+      this._currentUtterance.onboundary = null;
+      this._currentUtterance.onstart = null;
+      this._currentUtterance.onend = null;
+      this._currentUtterance.onerror = null;
+      this._currentUtterance = null;
+    }
     if (this._audio) {
       try {
         this._audio.pause();
@@ -184,7 +216,9 @@ class AudioStateManager {
       this._audio = null;
     }
     if ("speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+      } catch (e) {}
     }
     this.isPlaying = false;
     this.audioFrequencyLevel = 0;
