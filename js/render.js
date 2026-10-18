@@ -183,6 +183,13 @@ export function renderSite(config) {
       // Fade in trang mới
       app.style.opacity = "1";
       app.style.transform = "translateY(0)";
+      setTimeout(() => {
+        app.style.transform = "";
+        app.style.transition = "";
+        if (window.ScrollTrigger) {
+          window.ScrollTrigger.refresh();
+        }
+      }, 260);
     }, 120);
   };
 

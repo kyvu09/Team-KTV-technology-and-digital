@@ -69,6 +69,7 @@
 /* Sân khấu chính cố định khóa màn hình khi cuộn tới (Pinned Stage) */
 .about-story__stage {
   position: relative;
+  z-index: 10;
   width: 100%;
   height: 100svh;
   min-height: 540px;
@@ -87,12 +88,16 @@
 .about-story__slide {
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transition: opacity var(--story-duration, 650ms) ease, visibility var(--story-duration, 650ms) ease;
+  will-change: opacity, visibility;
 }
 
 .about-story__slide.is-active {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
+  z-index: 2;
 }
 
 /* Hình ảnh nền của từng Slide: Hiệu ứng phóng to nhẹ (Cinematic Zoom) */
