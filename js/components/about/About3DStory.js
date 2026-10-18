@@ -22,7 +22,7 @@ function renderSlide(slide, index = 0) {
       data-story-slide="${index}" aria-hidden="true">
       ${
         image
-          ? `<img class="about-story__image" src="${esc(image)}" alt="${esc(slide.title || "")}" loading="${index === 0 ? "eager" : "lazy"}">`
+          ? `<img class="about-story__image" src="${esc(image)}" alt="${esc(slide.title || "")}" loading="eager" decoding="async">`
           : ""
       }
       <div class="about-story__shade"></div>
@@ -74,6 +74,17 @@ export function renderAbout3DStory(section = {}, sectionId = "about") {
   const imageScaleTo = Number(animation.imageScaleTo) || 1;
   const revealDistance = Number(animation.revealDistance) || 28;
   const duration = Math.max(100, Number(animation.transitionMs) || 650);
+
+  // Nạp sẵn toàn bộ ảnh vào bộ nhớ đệm trình duyệt ngay lập tức
+  if (typeof Image !== "undefined") {
+    slides.forEach((s) => {
+      const src = safeAsset(s.image);
+      if (src) {
+        const preloadImg = new Image();
+        preloadImg.src = src;
+      }
+    });
+  }
 
   const slideMarkup = slides
     .map((slide, index) => renderSlide(slide, index))

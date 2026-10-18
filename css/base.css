@@ -74,7 +74,7 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

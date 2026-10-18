@@ -114,7 +114,7 @@ const BRANDS_METADATA = [
     category: "Công nghệ · Game NPC",
     slogan: "Laptop & Engine thời gian thực: êm như mèo, phản xạ nhanh như báo (< 40ms).",
     titleColor: "#a855f7",
-    image: "assets/images/imgcyberTone/feature-dynamic-emotions.jpg",
+    image: "assets/images/imgcyberTone/img_cybertonebook/hinh-nen-game-3.jpg",
     palette: ["#8b5cf6", "#ec4899", "#ffffff", "#180d38"]
   },
   {
@@ -123,7 +123,7 @@ const BRANDS_METADATA = [
     category: "Doanh nghiệp · Tổng đài & Y tế",
     slogan: "Tự động hóa tổng đài CSKH, phát âm chuẩn xác số liệu tài chính & y tế.",
     titleColor: "#10b981",
-    image: "assets/images/imgomniclarity/feature-numeric-accuracy.jpg",
+    image: "assets/images/imgomniclarity/img_omniclarityBook/images-13.jpg",
     palette: ["#10b981", "#06b6d4", "#ffffff", "#052e22"]
   }
 ];
@@ -164,12 +164,12 @@ function initBrandModal(currentBrandKey) {
         });
       }
     }
-  } catch (e) {}
+  } catch (e) { }
 
   // Render danh sách thương hiệu vào Modal Grid
   modalGrid.innerHTML = brandList.map(brand => {
     const isActive = brand.key === currentBrandKey;
-    const dotsHtml = (brand.palette || []).map(color => 
+    const dotsHtml = (brand.palette || []).map(color =>
       `<span class="wl-palette-dot" style="background-color: ${color};" title="${color}"></span>`
     ).join("");
 
@@ -206,28 +206,28 @@ function initBrandModal(currentBrandKey) {
   }
 
   // Bấm nút Đổi thương hiệu để mở Modal
-  wlToggleBtn.addEventListener("click", function(e) {
+  wlToggleBtn.addEventListener("click", function (e) {
     e.stopPropagation();
     openModal();
   });
 
   // Bấm nút đóng (X)
   if (modalCloseBtn) {
-    modalCloseBtn.addEventListener("click", function(e) {
+    modalCloseBtn.addEventListener("click", function (e) {
       e.stopPropagation();
       closeModal();
     });
   }
 
   // Bấm ra ngoài nền mờ để đóng Modal
-  modalBackdrop.addEventListener("click", function(e) {
+  modalBackdrop.addEventListener("click", function (e) {
     if (e.target === modalBackdrop) {
       closeModal();
     }
   });
 
   // Bấm phím Escape để đóng Modal
-  document.addEventListener("keydown", function(e) {
+  document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && modalBackdrop.classList.contains("open")) {
       closeModal();
     }
